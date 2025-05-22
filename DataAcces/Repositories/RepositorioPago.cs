@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAcces.Repositories
 {
-    internal class RepositorioPago
+    internal class RepositorioPago(DbContext context)
     {
         //hola asdasdasdas
     }
