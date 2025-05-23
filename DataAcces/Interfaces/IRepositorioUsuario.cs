@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAcces.Interfaces
 {
-    internal interface IRepositorioUsuario
+    public interface IRepositorioUsuario
     {
     }
 }
+

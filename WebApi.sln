@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{B589F30C-78D4-404F-A06D-4BA67DCDB373}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAcces", "DataAcces\DataAcces.csproj", "{05E6C23A-F070-4886-8DD2-AEBE6A7FA9A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAcces\DataAccess.csproj", "{05E6C23A-F070-4886-8DD2-AEBE6A7FA9A0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{F56A70D0-2D3F-4A9E-ACC9-859DD9C74C2A} = {F56A70D0-2D3F-4A9E-ACC9-859DD9C74C2A}
 	EndProjectSection
