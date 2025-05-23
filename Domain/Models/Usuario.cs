@@ -8,6 +8,26 @@ namespace Domain.Models
 {
     public class Usuario
     {
-        public Usuario() { }
+        public int UsuarioId { get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Nombre { get; set; } = string.Empty;
+        public string Apellido { get; set; } = string.Empty;
+
+        public Usuario(string email, string password, string nombre, string apellido)
+        {
+            Email = email;
+            Password = password;
+            Nombre = nombre;
+            Apellido = apellido;
+        }
+
+
+        public void Validar()
+        {
+        }
+
+
+
     }
 }

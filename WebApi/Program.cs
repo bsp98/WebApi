@@ -1,4 +1,8 @@
 
+using DataAcces.Interfaces;
+using DataAcces.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace WebApi
 {
     public class Program
@@ -6,6 +10,34 @@ namespace WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //inyecta el Contexto
+            builder.Services.AddDbContext<DbContext, Contexto>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("StringConection"),
+                b => b.MigrationsAssembly("WebApi"));
+            });
+
+
+
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Add services to the container.
 
