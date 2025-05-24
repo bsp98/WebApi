@@ -1,10 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DataAcces.Repositories
 {
@@ -18,6 +14,18 @@ namespace DataAcces.Repositories
         public DbSet<Servicio> Servicios { get; set; }
         public Contexto(DbContextOptions options) : base(options)
         {
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            
+            
+
+
+            base.OnModelCreating(modelBuilder);
+
 
         }
     }

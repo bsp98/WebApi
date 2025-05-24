@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAcces.Interfaces.CRUD;
+using Domain.Models;
+
 
 namespace DataAcces.Interfaces
 {
-    internal interface IRepositorioServicio
+    public interface IRepositorioServicio:IRepositoryAdd<Servicio>,IRepositoryUpdate<Servicio>,IRepositoryRemove<Servicio>
     {
+        IEnumerable<Servicio> ObtenerTodos();
     }
 }
