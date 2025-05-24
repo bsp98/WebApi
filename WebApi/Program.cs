@@ -2,12 +2,15 @@
 using DataAcces.Interfaces;
 using DataAcces.Interfaces.CRUD;
 using DataAcces.Repositories;
-using DataAccess.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Services.Interfaces;
-using Services.Services;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
+
+
+Dev
 
 namespace WebApi
 {
@@ -25,6 +28,7 @@ namespace WebApi
             });
 
 
+ RamaMaite
 
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
@@ -37,7 +41,44 @@ namespace WebApi
 
             // Add services to the container.
 
-            // Configurar la autenticaci髇 JWT
+            //inyecta los repositorios
+            builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
+
+
+            // Configurar la autenticaci贸n JWT
+            var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
+
+            var claveBytes = Encoding.UTF8.GetBytes(claveSecreta);
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
+                    ValidateIssuer = true,
+                    ValidIssuer = "https://servidor_seguridad",
+                    ValidateAudience = true,
+                    ValidAudience = "https://servidor_protegido"
+                };
+            });
+
+            // Configurar la autorizaci贸n
+            builder.Services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
+Dev
+
+            // Configurar la autenticaci贸n JWT
             var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
 
             var claveBytes = Encoding.UTF8.GetBytes(claveSecreta);
@@ -61,7 +102,7 @@ namespace WebApi
             //    };
             //});
 
-            // Configurar la autorizaci髇
+            // Configurar la autorizaci贸n
             builder.Services.AddAuthorization(options =>
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
@@ -90,6 +131,8 @@ namespace WebApi
 
             app.UseHttpsRedirection();
 
+            // autorization y authentication
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

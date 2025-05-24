@@ -7,11 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+ RamaMaite
+
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
+  <ItemGroup>
+ Dev
     <PackageReference Include="AutoMapper" Version="14.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAcces\DataAccess.csproj" />
+    <ProjectReference Include="..\DataAcces\DataAcces.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
