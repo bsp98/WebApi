@@ -1,4 +1,6 @@
 ﻿using DataAcces.Interfaces;
+using DataAccess.Interfaces;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,12 +10,21 @@ using System.Threading.Tasks;
 
 namespace DataAcces.Repositories
 {
-    public class RepositorioUsuario:IRepositorioUsuario
+    public class RepositorioUsuario:RepositorioGeneral<Usuario>,IRepositorioUsuario
     {
-        public DbContext Contexto { get; set; }
-        public RepositorioUsuario(DbContext contexto)
+        //public DbContext Contexto { get; set; }
+        //public RepositorioUsuario(DbContext contexto)
+        //{
+        //    Contexto = contexto;
+        //}
+        public RepositorioUsuario(DbContext contexto) : base(contexto) 
         {
-            Contexto = contexto;
+            // nada más hace falta
+        }//revisar
+
+        public Usuario? BuscarPorId(int id)
+        {
+            return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(m => m.Id == id);
         }
     }
 }

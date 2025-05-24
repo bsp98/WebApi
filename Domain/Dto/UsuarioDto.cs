@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Domain.Dto
 {
-    public class Usuario:IValidable
+    public class UsuarioDto:IValidable
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
@@ -15,22 +15,17 @@ namespace Domain.Models
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
 
-        public Usuario(string email, string password, string nombre, string apellido)
+        public UsuarioDto(string email, string password, string nombre, string apellido)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
         }
-        public Usuario()
-        {
-        }
+        public UsuarioDto() { }
 
         public virtual void Validar()
-        {
+        {     
         }
-
-
-
     }
 }
