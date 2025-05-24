@@ -18,7 +18,16 @@ namespace DataAcces.Repositories
             return Contexto.Set<Servicio>().AsNoTracking();
         }
 
-    
+        public Servicio? BuscarPorNombre(string nombre)
+        {
+
+            return Contexto.Set<Servicio>().FirstOrDefault(t => t.Nombre == nombre);
+        }
+        public Servicio? BuscarPorId(int id)
+        {
+            return Contexto.Set<Servicio>().FirstOrDefault(t => t.ServicioId == id);
+        }
+
     }      
 }
 

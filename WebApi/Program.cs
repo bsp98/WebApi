@@ -10,6 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 using DataAccess.Interfaces;
 using Services.Services;
 using Services.Interfaces;
+using Domain.Models;
 
 
 
@@ -32,6 +33,7 @@ namespace WebApi
 
             //inyecta los repositorios
             builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
+            builder.Services.AddScoped(typeof(IServicioServicio), typeof(ServicioServicio));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
 
@@ -75,29 +77,6 @@ namespace WebApi
             });
 
 
-            // Configurar la autenticación JWT
-            //var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
-
-            //var claveBytes = Encoding.UTF8.GetBytes(claveSecreta);
-
-            //builder.Services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //}).AddJwtBearer(options =>
-            //{
-            //    options.RequireHttpsMetadata = false;
-            //    options.SaveToken = true;
-            //    options.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
-            //        ValidateIssuer = true,
-            //        ValidIssuer = "https://servidor_seguridad",
-            //        ValidateAudience = true,
-            //        ValidAudience = "https://servidor_protegido"
-            //    };
-            //});
 
             // Configurar la autorización
             builder.Services.AddAuthorization(options =>

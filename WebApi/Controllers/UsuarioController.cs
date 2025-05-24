@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
+using Domain.Exceptions;
 using Services.Interfaces;
 
 namespace WebApi.Controllers
