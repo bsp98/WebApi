@@ -12,6 +12,7 @@ namespace DataAcces.Repositories
             Contexto = contexto;
         }
 
+      
         public IEnumerable<Servicio> ObtenerTodos()
         {
             return Contexto.Set<Servicio>().AsNoTracking();

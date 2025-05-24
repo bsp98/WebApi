@@ -7,10 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using DataAccess.Interfaces;
+using Services.Services;
+using Services.Interfaces;
 
 
 
-Dev
+
 
 namespace WebApi
 {
@@ -27,22 +30,16 @@ namespace WebApi
                 b => b.MigrationsAssembly("WebApi"));
             });
 
-
- RamaMaite
-
+            //inyecta los repositorios
+            builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
 
-            builder.Services.AddAutoMapper(typeof(ServicioUsuario));
 
-            builder.Services.AddScoped(typeof(IRepositoryAdd<>), typeof(RepositorioGeneral<>));
-            builder.Services.AddScoped(typeof(IRepositoryUpdate<>), typeof(RepositorioGeneral<>));
-            builder.Services.AddScoped(typeof(IRepositoryRemove<>), typeof(RepositorioGeneral<>));
 
             // Add services to the container.
 
-            //inyecta los repositorios
-            builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
             // Configurar la autenticación JWT
@@ -76,12 +73,12 @@ namespace WebApi
                     .RequireAuthenticatedUser()
                     .Build();
             });
-Dev
+
 
             // Configurar la autenticación JWT
-            var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
+            //var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
 
-            var claveBytes = Encoding.UTF8.GetBytes(claveSecreta);
+            //var claveBytes = Encoding.UTF8.GetBytes(claveSecreta);
 
             //builder.Services.AddAuthentication(options =>
             //{

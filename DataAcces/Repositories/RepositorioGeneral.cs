@@ -14,15 +14,7 @@ namespace DataAcces.Repositories
         protected DbContext Contexto { get; set; }
 
 
-        public RepositorioGeneral(Contexto contexto)
-        {
-            Contexto = contexto;
-        }//REVISARRR
-
-        public RepositorioGeneral(DbContext contexto)
-        {
-            Contexto=contexto;
-        }//rarp
+       
 
         public T Add(T entity)
         {

@@ -17,10 +17,7 @@ namespace DataAcces.Repositories
         //{
         //    Contexto = contexto;
         //}
-        public RepositorioUsuario(DbContext contexto) : base(contexto) 
-        {
-            // nada más hace falta
-        }//revisar
+     
 
         public Usuario? BuscarPorId(int id)
         {
