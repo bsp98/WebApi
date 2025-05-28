@@ -27,26 +27,40 @@ namespace Services.Services
 
         public UsuarioDto Add(UsuarioDto dto)
         {
-            //Usuario entidad;
-            //if (dto is ClienteDto cliente)
-            //{
-            //    entidad = _mapper.Map<Cliente>(cliente);
-            //}
-            //else if (dto is AdministradorDto empleado) { 
-            //    entidad = _mapper.Map<Administrador>(empleado);
-            //}
+
+            return dto switch
+            {
+                ClienteDto cliente => AgregarCliente(cliente),
+                AdministradorDto admin => AgregarAdministrador(admin),
+                _ => throw new ArgumentException("Tipo de usuario no reconocido.")
+            };
+          
+        }
+
+        public UsuarioDto AgregarAdministrador(AdministradorDto dto)
+        {
             dto.Validar();
+            var entidad = _mapper.Map<Administrador>(dto);
+            var guardado = _repositorioUsuario.Add(entidad);
+            return _mapper.Map<AdministradorDto>(guardado);
+        }
 
-            Usuario usuarioNuevo = _mapper.Map<Usuario>(dto);
-
-            Usuario usuario = _repositorioUsuario.Add(usuarioNuevo);
-
-            return _mapper.Map<UsuarioDto>(usuario);
+        public UsuarioDto AgregarCliente(ClienteDto dto)
+        {
+            dto.Validar();
+            var entidad = _mapper.Map<Cliente>(dto);
+            var guardado = _repositorioUsuario.Add(entidad);
+            return _mapper.Map<ClienteDto>(guardado);
         }
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+
+            Usuario usu = _repositorioUsuario.BuscarPorId(id);
+
+            if (usu == null) throw new NoExisteException("No se encontro un cliente con ese id");
+
+            _repositorioUsuario.Remove(usu);
         }
 
         public void Update(int id, UsuarioDto dto)
@@ -66,6 +80,28 @@ namespace Services.Services
             return _mapper.Map<UsuarioDto>(usuario);
         }
 
+        public List<ClienteDto> ObtenerTodos()
+        {
+            IEnumerable<Usuario> usuarios = _repositorioUsuario.ObtenerTodos();
+            IEnumerable<Cliente> clientes = usuarios.OfType<Cliente>();
 
+            return _mapper.Map<List<ClienteDto>>(clientes);
+        }
+
+        public void DesactivarCliente(int id)
+        {
+            Usuario usuario = _repositorioUsuario.BuscarPorId(id);
+            if (usuario == null) throw new NoExisteException("Usuario no existe");
+
+            if (usuario is Cliente cliente)
+            {
+                cliente.Activo = false;
+                _repositorioUsuario.Update(cliente);
+            }
+            else
+            {
+                throw new InvalidOperationException("El usuario no es un cliente");
+            }
+        }
     }
 }

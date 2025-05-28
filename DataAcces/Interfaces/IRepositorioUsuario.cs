@@ -11,6 +11,7 @@ namespace DataAccess.Interfaces
     public interface IRepositorioUsuario:IRepositoryAdd<Usuario>, IRepositoryRemove<Usuario>, IRepositoryUpdate<Usuario>
     {
         Usuario? BuscarPorId(int id);
+        IEnumerable<Usuario> ObtenerTodos();
     }
 }
 

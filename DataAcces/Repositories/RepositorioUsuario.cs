@@ -13,11 +13,15 @@ namespace DataAcces.Repositories
     public class RepositorioUsuario:RepositorioGeneral<Usuario>,IRepositorioUsuario
     {
         //public DbContext Contexto { get; set; }
-        //public RepositorioUsuario(DbContext contexto)
-        //{
-        //    Contexto = contexto;
-        //}
-     
+        public RepositorioUsuario(DbContext contexto)
+        {
+            Contexto = contexto;
+        }
+
+        public IEnumerable<Usuario> ObtenerTodos()
+        {
+            return Contexto.Set<Usuario>().AsNoTracking().Select(u => u);
+        }
 
         public Usuario? BuscarPorId(int id)
         {

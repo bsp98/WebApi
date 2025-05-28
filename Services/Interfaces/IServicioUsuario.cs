@@ -10,6 +10,7 @@ namespace Services.Interfaces
 {
     public interface IServicioUsuario:IServicioAdd<UsuarioDto>,IServicioRemove<UsuarioDto>,IServicioUpdate<UsuarioDto>
     {
-
+        List<ClienteDto> ObtenerTodos();
+        void DesactivarCliente(int id);
     }
 }

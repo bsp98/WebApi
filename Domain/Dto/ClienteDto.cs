@@ -14,16 +14,19 @@ namespace Domain.Dto
         public DateTime FechaDeNacimiento { get; set; }
         public int Celular { get; set; }
         public List<Reserva> Reservas { get; set; }
+        public bool Activo { get; set; }
 
-  public ClienteDto(string email, string password, string nombre, string apellido,DateTime fechaDeNacimiento,int celular) : base(email, password, nombre, apellido)
+        public ClienteDto(string email, string password, string nombre, string apellido,DateTime fechaDeNacimiento,int celular,bool activo) : base(email, password, nombre, apellido)
         {
             Email= email;
             Password= password;
             Nombre= nombre;
             Apellido= apellido;
+           
             FechaDeNacimiento=fechaDeNacimiento;
             Celular=celular;
             Reservas=new List<Reserva>();
+            Activo= activo;
 
         }
 

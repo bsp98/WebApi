@@ -34,6 +34,7 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
+            
 
 
 
