@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Services.Exceptions
 {
-    public class DatoIncorrectoException:Exception
+    public class EnUsoException:Exception
     {
-        public DatoIncorrectoException(string mensaje) : base(mensaje) { }
+        public EnUsoException(string mensaje) : base(mensaje) { }
     }
 }

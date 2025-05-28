@@ -1,8 +1,9 @@
 ﻿using Domain.Interfaces;
+using Domain.Enum;
 
 namespace Domain.Models
 {
-    public class Servicio:IValidable
+    public class Servicio
     {
 
         public int ServicioId { get; set; }
@@ -10,13 +11,17 @@ namespace Domain.Models
         public string Descripcion  { get; set; }
         public double Precio { get; set; }
         public bool Disponibilidad{ get; set; }
+        public CategoriaServicio Categoria { get; set; }
+        public int TiempoDeDuracionMin { get; set; }
 
-        public Servicio(string nombre, string descripcion, double precio, bool disponibilidad)
+        public Servicio(string nombre, string descripcion, double precio, bool disponibilidad, CategoriaServicio categoria, int tiempoDeDuracionMin)
         {
             Nombre = nombre;
             Descripcion = descripcion;
             Precio = precio;
             Disponibilidad = disponibilidad;
+            Categoria = categoria;
+            TiempoDeDuracionMin = tiempoDeDuracionMin;
         }
     }
 }
