@@ -22,19 +22,47 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Models.Servicio", b =>
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
-                    b.Property<int>("ServicioId")
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicioId"));
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Categoria")
                     b.Property<int?>("ClienteId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Disponibilidad")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Reservas");
+                });
+
+            modelBuilder.Entity("Domain.Models.Servicio", b =>
+                {
+                    b.Property<int>("ServicioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServicioId"));
+
+                    b.Property<int>("Categoria")
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
@@ -53,13 +81,10 @@ namespace WebApi.Migrations
 
                     b.Property<int>("TiempoDeDuracionMin")
                         .HasColumnType("int");
-                    b.HasKey("Id");
 
                     b.HasKey("ServicioId");
-                    b.HasIndex("ClienteId");
 
                     b.ToTable("Servicios");
-                    b.ToTable("Reservas");
                 });
 
             modelBuilder.Entity("Domain.Models.Usuario", b =>

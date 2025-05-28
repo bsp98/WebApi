@@ -11,7 +11,7 @@ namespace DataAcces.Repositories
         //public DbSet<Egreso> Egresos { get; set; }
         //public DbSet<Pago> Pagos { get; set; }
         //public DbSet<Publicacion> Publicaciones { get; set; }
-        //public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Reserva> Reservas { get; set; }
         public Contexto(DbContextOptions options) : base(options)
         {
 
