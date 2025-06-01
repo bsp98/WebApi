@@ -12,6 +12,11 @@ namespace DataAccess.Interfaces
     {
         Usuario? BuscarPorId(int id);
         IEnumerable<Usuario> ObtenerTodos();
+        bool ExisteEmail(string email);
+
+        public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha);
+        public IEnumerable<Usuario> BuscarPorNombre(string nombre);
+        bool TieneReservas(int id);
     }
 }
 

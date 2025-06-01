@@ -1,4 +1,5 @@
 ﻿using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Services.Interfaces.CRUD;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,7 @@ namespace Services.Interfaces
     {
         List<ClienteDto> ObtenerTodos();
         void DesactivarCliente(int id);
+        
+        List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros);
     }
 }

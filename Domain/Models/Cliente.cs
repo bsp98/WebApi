@@ -29,34 +29,6 @@ namespace Domain.Models
         }
         public Cliente() { }
 
-
-
-        public override void Validar()
-        {
-            base.Validar();
-            ValidarFechaDeNacimiento();
-            ValidarCelular();
-        }
-
-        public void ValidarCelular()
-        {
-            if (string.IsNullOrEmpty(Celular))
-                throw new ArgumentException("El número de celular no puede estar vacío.");
-
-            if (!Regex.IsMatch(Celular, @"^09\d{7}$"))
-                throw new ArgumentException("El número de celular debe comenzar con 09 y tener 9 dígitos.");
-        }    
-        
-
-        public void ValidarFechaDeNacimiento()
-        {
-            var hoy = DateTime.Today;
-            var edad = hoy.Year - FechaDeNacimiento.Year;
-
-            if (FechaDeNacimiento > hoy.AddYears(-edad)) edad--;
-
-            if (edad < 18)
-                throw new ArgumentException("El cliente debe tener al menos 18 años.");
-        }
+       
     }
 }

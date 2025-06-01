@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataAcces.Repositories
 {
@@ -26,6 +27,24 @@ namespace DataAcces.Repositories
         public Usuario? BuscarPorId(int id)
         {
             return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(m => m.Id == id);
+        }
+        public bool ExisteEmail(string email)
+        {
+            return Contexto.Set<Usuario>().Any(u => u.Email == email);
+        }
+
+        public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha)
+        {
+            return Contexto.Set<Usuario>() .OfType<Cliente>().AsNoTracking().Where(c => c.FechaDeNacimiento.Date == fecha.Date).ToList();
+        }
+
+        public IEnumerable<Usuario> BuscarPorNombre(string nombre)
+        {
+            return Contexto.Set<Usuario>() .Where(c => c.Nombre == nombre).AsNoTracking().ToList();
+        }
+        public bool TieneReservas(int id)
+        {
+            return Contexto.Set<Reserva>().Any(r => r.Id == id);
         }
     }
 }

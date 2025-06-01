@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Dto.FiltrosDto;
 
 namespace Services.Services
 {
@@ -48,6 +49,9 @@ namespace Services.Services
         public UsuarioDto AgregarCliente(ClienteDto dto)
         {
             dto.Validar();
+            if (_repositorioUsuario.ExisteEmail(dto.Email))
+                throw new ExisteException("Ya existe un usuario con ese email.");
+
             var entidad = _mapper.Map<Cliente>(dto);
             var guardado = _repositorioUsuario.Add(entidad);
             return _mapper.Map<ClienteDto>(guardado);
@@ -60,6 +64,11 @@ namespace Services.Services
 
             if (usu == null) throw new NoExisteException("No se encontro un cliente con ese id");
 
+            if (usu is Cliente cliente)
+            { 
+                if (_repositorioUsuario.TieneReservas(id))
+                    throw new TieneReservas("No se puede eliminar el cliente porque tiene reservas asociadas.");
+            }
             _repositorioUsuario.Remove(usu);
         }
 
@@ -100,8 +109,38 @@ namespace Services.Services
             }
             else
             {
-                throw new InvalidOperationException("El usuario no es un cliente");
+                throw new UsuarioNoCliente("El usuario no es un cliente");
             }
         }
+
+        public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
+        {
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre))
+            {
+                var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
+
+                return _mapper.Map<List<ClienteDto>>(clientes);
+            }
+
+            if (filtros.Fecha.HasValue)
+            {
+                var clientes = _repositorioUsuario.BuscarPorFecha(filtros.Fecha.Value).OfType<Cliente>().ToList();
+
+                return _mapper.Map<List<ClienteDto>>(clientes);
+            }
+
+            return ObtenerTodos(); 
+        }
+
+        private List<ClienteDto> BuscarPorNombre(string nombre) => MapearClientes(_repositorioUsuario.BuscarPorNombre(nombre));
+
+        private List<ClienteDto> BuscarPorFecha(DateTime fecha) => MapearClientes(_repositorioUsuario.BuscarPorFecha(fecha));
+
+        private List<ClienteDto> MapearClientes(IEnumerable<Usuario> usuarios)
+        {
+            var clientes = usuarios.OfType<Cliente>().ToList();
+            return _mapper.Map<List<ClienteDto>>(clientes);
+        }
+
     }
 }

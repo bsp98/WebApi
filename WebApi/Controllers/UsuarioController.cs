@@ -6,6 +6,7 @@ using Services.Exceptions;
 using Domain.Exceptions;
 using Services.Interfaces;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Domain.Dto.FiltrosDto;
 
 namespace WebApi.Controllers
 
@@ -66,6 +67,10 @@ namespace WebApi.Controllers
             {
                 return Conflict(tee.Message);
             }
+            catch (TieneReservas tee)
+            {
+                return Conflict(tee.Message);
+            }
 
         }
 
@@ -73,23 +78,47 @@ namespace WebApi.Controllers
         [HttpPatch("desactivar/{id}")]
         public IActionResult Desactivar(int id)
         {
-            _servicioUsuario.DesactivarCliente(id);
-            return NoContent();
+            try
+            {
+                _servicioUsuario.DesactivarCliente(id);
+
+                return Ok("desactivado con exito");
+
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch(UsuarioNoCliente e) {
+
+                return UnprocessableEntity(e.Message);
+            }
+          
         }
 
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult GetClientesPorNombre([FromQuery] string? nombre)
+        public IActionResult GetClientesPorFiltro([FromQuery] ClienteFiltrosDto filtros)
+        {
+
+
+            List<ClienteDto> clienteDto = _servicioUsuario.FiltrarClientes(filtros);
+
+                return Ok(clienteDto);
+       
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetTodos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetAll()
         {
             try
             {
 
                 List<ClienteDto> clienteDto = _servicioUsuario.ObtenerTodos();
-
-               if (!string.IsNullOrEmpty(nombre))
-                 clienteDto = clienteDto.Where(u => u.Nombre.Contains(nombre, StringComparison.OrdinalIgnoreCase)).ToList();
 
                 return Ok(clienteDto);
             }

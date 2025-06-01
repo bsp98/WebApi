@@ -4,16 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Services.Exceptions
 {
-    public class Administrador:Usuario
+    public class TieneReservas:Exception
     {
-        public Administrador()
-        {
-        }
-
-       
-
-
+        public TieneReservas(string mensaje) : base(mensaje) { }
     }
 }

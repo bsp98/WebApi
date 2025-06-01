@@ -44,21 +44,21 @@ namespace Domain.Dto
 
         private void ValidarNombre()
         {
-            if (string.IsNullOrEmpty(Nombre)) throw new Exception("El nombre no puede estar vacío");
+            if (string.IsNullOrEmpty(Nombre)) throw new DatoIncorrectoException("El nombre no puede estar vacío");
 
         }
         private void ValidarApellido()
         {
-            if (string.IsNullOrEmpty(Apellido)) throw new Exception("El apellido no puede estar vacío");
+            if (string.IsNullOrEmpty(Apellido)) throw new DatoIncorrectoException("El apellido no puede estar vacío");
 
         }
 
         private void ValidarEmail()
         {
-            if (string.IsNullOrEmpty(Email)) throw new Exception("El email no puede estar vacío");
+            if (string.IsNullOrEmpty(Email)) throw new DatoIncorrectoException("El email no puede estar vacío");
             if (!EsEmailValido(Email))
             {
-                throw new UsuarioException("El Email no cumple el formato (@gmail.com)");
+                throw new DatoIncorrectoException("El Email no cumple el formato (@gmail.com)");
             }
 
 
@@ -74,33 +74,33 @@ namespace Domain.Dto
 
         private void ValidarPassword()
         {
-            if (string.IsNullOrEmpty(Password)) throw new Exception("El password no puede estar vacío");
-            if (Password.Length<6) throw new Exception("La contrasenia tiene que tener al menos 6 caracteres");
+            if (string.IsNullOrEmpty(Password)) throw new DatoIncorrectoException("El password no puede estar vacío");
+            if (Password.Length<6) throw new DatoIncorrectoException("La contrasenia tiene que tener al menos 6 caracteres");
 
             if (!ContieneMayuscula(Password))
             {
-                throw new UsuarioException("La contrasenia tiene que contener al menos una letra mayuscula");
+                throw new DatoIncorrectoException("La contrasenia tiene que contener al menos una letra mayuscula");
             }
 
             if (!ContieneMinuscula(Password))
             {
-                throw new UsuarioException("La contrasenia tiene que contener al menos una letra minuscula");
+                throw new DatoIncorrectoException("La contrasenia tiene que contener al menos una letra minuscula");
             }
 
             if (!ContieneDigito(Password))
             {
-                throw new UsuarioException("La contrasenia tiene que contener al menos una digito");
+                throw new DatoIncorrectoException("La contrasenia tiene que contener al menos una digito");
             }
 
             if (!ContienePuntuacion(Password))
             {
-                throw new UsuarioException("La contrasenia tiene que contener al menos un signo de puntuacion ");
+                throw new DatoIncorrectoException("La contrasenia tiene que contener al menos un signo de puntuacion ");
             }
 
 
             if (Password != Password.Trim())
             {
-                throw new UsuarioException("La contrasenia no puede tener espacios ni al principio ni al final");
+                throw new DatoIncorrectoException("La contrasenia no puede tener espacios ni al principio ni al final");
             }
         }
 
