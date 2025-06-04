@@ -36,8 +36,17 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioServicio), typeof(ServicioServicio));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
-            
 
+            //Aca agregamos la configuración CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("PermitirFrontendLocalhost", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
 
             // Add services to the container.
@@ -107,6 +116,9 @@ namespace WebApi
             }
 
             app.UseHttpsRedirection();
+
+            // Aca aplicamos el middleware CORS
+            app.UseCors("PermitirFrontendLocalhost");
 
             // autorization y authentication
             app.UseAuthentication();

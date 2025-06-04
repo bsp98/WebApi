@@ -26,7 +26,7 @@ namespace WebApi.Controllers
 
         
         ///[Authorize]
-        [HttpPost("Agregar servicio")]
+        [HttpPost("Agregar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]

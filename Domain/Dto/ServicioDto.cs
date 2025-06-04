@@ -24,12 +24,12 @@ namespace Domain.Dto
         {
         }
 
-        public ServicioDto(string nombre, string descripcion, double precio, bool disponibilidad,CategoriaServicio categoria, int tiempoDeDuracionMin)
+        public ServicioDto(string nombre, string descripcion, double precio,CategoriaServicio categoria, int tiempoDeDuracionMin)
         {
             Nombre = nombre;
             Descripcion = descripcion;
             Precio = precio;
-            Disponibilidad = disponibilidad;
+            Disponibilidad = true;
             Categoria = categoria;
             TiempoDeDuracionMin = tiempoDeDuracionMin;
         }
