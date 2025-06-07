@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 
 namespace Services.AutoMapper
 {
- 
-        public class ServicioProfile : Profile
+
+    public class ServicioProfile : Profile
+    {
+        public ServicioProfile()
         {
-            public ServicioProfile()
-            {
-                CreateMap<Servicio, ServicioDto>();
-                CreateMap<ServicioDto, Servicio>()
+            CreateMap<Servicio, ServicioDto>()
+            .ForMember(dest => dest.CategoriaNombre, opt => opt.MapFrom(src => src.Categoria.ToString().Replace("ni", "ñ")));
+
+            CreateMap<ServicioDto, Servicio>()
                     .ForMember(dest => dest.ServicioId, act => act.MapFrom(src => src.ServicioId));
-            }
         }
-    
+    }
+
 }

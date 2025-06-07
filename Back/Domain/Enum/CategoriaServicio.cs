@@ -8,8 +8,10 @@ namespace Domain.Enum
 {
     public enum CategoriaServicio
     {
-        Cejas,
-        Pestanias,
-        Unias
+        Invalido = 0,
+        Cejas = 1,
+        Pestanias = 2,
+        Unias = 3,
+        Pack = 4
     }
 }

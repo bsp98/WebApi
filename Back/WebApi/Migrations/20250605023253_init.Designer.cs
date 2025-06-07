@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250529213705_init")]
+    [Migration("20250605023253_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -71,6 +71,9 @@ namespace WebApi.Migrations
                     b.Property<string>("Descripcion")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Descuento")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Disponibilidad")
                         .HasColumnType("bit");

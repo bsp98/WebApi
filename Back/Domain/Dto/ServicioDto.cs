@@ -13,10 +13,12 @@ namespace Domain.Dto
     {
         public int ServicioId { get; set; }
         public string Nombre { get; set; } = string.Empty;
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
         public double Precio { get; set; }
+        public int Descuento { get; set; }
         public bool Disponibilidad { get; set; }
         public CategoriaServicio Categoria { get; set; }
+        public string CategoriaNombre { get; set; } = string.Empty;
         public int TiempoDeDuracionMin { get; set; }
 
 
@@ -24,11 +26,12 @@ namespace Domain.Dto
         {
         }
 
-        public ServicioDto(string nombre, string descripcion, double precio,CategoriaServicio categoria, int tiempoDeDuracionMin)
+        public ServicioDto(string nombre, string descripcion, double precio,int descuento,CategoriaServicio categoria, int tiempoDeDuracionMin)
         {
             Nombre = nombre;
             Descripcion = descripcion;
             Precio = precio;
+            Descuento = descuento;
             Disponibilidad = true;
             Categoria = categoria;
             TiempoDeDuracionMin = tiempoDeDuracionMin;
@@ -51,6 +54,10 @@ namespace Domain.Dto
             else if (TiempoDeDuracionMin <= 0)
             {
                 throw new DatoIncorrectoException("La duracion del servicio debe ser mayor a 0");
+            }
+            else if (!System.Enum.IsDefined(typeof(CategoriaServicio), Categoria) || Categoria == CategoriaServicio.Invalido)
+            {
+                throw new DatoIncorrectoException("La categoría es incorrecta");
             }
         }
     }

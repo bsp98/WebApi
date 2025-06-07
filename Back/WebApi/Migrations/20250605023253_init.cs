@@ -20,6 +20,7 @@ namespace WebApi.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<double>(type: "float", nullable: false),
+                    Descuento = table.Column<int>(type: "int", nullable: false),
                     Disponibilidad = table.Column<bool>(type: "bit", nullable: false),
                     Categoria = table.Column<int>(type: "int", nullable: false),
                     TiempoDeDuracionMin = table.Column<int>(type: "int", nullable: false)

@@ -69,6 +69,9 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Descuento")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Disponibilidad")
                         .HasColumnType("bit");
 
