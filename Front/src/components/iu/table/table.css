@@ -1,0 +1,90 @@
+.container_table {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 12rem;
+}
+
+.content_table {
+    width: 100%;
+    ;
+    border-collapse: collapse;
+    margin: 25px 0;
+    background-color: white;
+    font-family: 'Inter Regular', sans-serif;
+    font-size: 1.6rem;
+    color: var(--color-texto);
+
+
+}
+
+
+.row_head {
+    background-color: var(--color-primary);
+    color: white;
+    text-align: left;
+    font-weight: bold;
+}
+
+.cell_head,
+.cell_body,
+.cell_action {
+    padding: 1.2rem 1.5rem;
+}
+
+.row_body {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content_body_table tr:nth-last-of-type(even) {
+    background-color: #f3f3f3;
+
+}
+
+.content_body_table tr:last-of-type {
+    border-bottom: 2px solid var(--color-primary);
+}
+
+
+.cell_action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Estilo de botones action*/
+.btn_action {
+    width: 75px;
+    height: 36px;
+    padding: 5px 6px;
+    margin-left: 1rem;
+    font-family: 'Inter Regular', sans-serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    text-align: center;
+    transition: all 300ms ease-out
+        /* padding pequeño para el texto */
+}
+
+.btn_primary {
+    border: 2px solid var(--color-secondary);
+    border-radius: 0.8rem;
+    background-color: var(--color-secondary);
+    color: white;
+
+}
+
+.btn_secondary {
+    border: 2px solid var(--color-secondary);
+    border-radius: 0.8rem;
+    background-color: white;
+    color: var(--color-secondary);
+}
+
+.btn_primary:hover {
+    background-color: #ff4a95;
+}
+
+.btn_secondary:hover {
+    background-color: #ff4a95;
+    color: white;
+}

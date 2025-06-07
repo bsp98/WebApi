@@ -1,0 +1,47 @@
+.container_logo {
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    left: 2px;
+    transform: translateY(-12%);
+    /* para centrarlo o moverlo visualmente */
+}
+
+.logo {
+    width: 340px;
+    height: 340px;
+}
+
+.logo-placeholder {
+    width: 340px;
+    height: 0;
+}
+
+.nav_container {
+    margin-right: 7rem;
+}
+
+.list_container {
+    display: flex;
+    list-style: none;
+}
+
+.item_container {
+    padding: 1.2rem;
+}
+
+.item {
+    display: block;
+    padding: 0.5rem;
+    text-decoration: none;
+    font-family: 'Inter Regular', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: white;
+    transition: all 300ms ease-out;
+}
+
+.item:hover {
+    background-color:rgb(116, 213, 230);
+    border-radius: 0.6rem;
+}

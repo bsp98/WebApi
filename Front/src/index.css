@@ -1,0 +1,195 @@
+
+/*Ajuste escalable base (62.5%) para usar rem como 10px*/
+html {
+  font-size: 62.5%;
+}
+
+/*
+   2. Reset y base
+*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  Importación de fuentes Inter
+ */
+@font-face {
+
+  font-family: 'Inter Bold';
+  src:
+    url('./assets/fonts/Inter-Bold.woff2') format('woff2'),
+    url('./assets/fonts/Inter-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+
+  font-family: 'Inter Medium';
+  src:
+    url('./assets/fonts/Inter-Medium.woff2') format('woff2'),
+    url('./assets/fonts/Inter-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter SemiBold';
+  src:
+    url('./assets/fonts/Inter-SemiBold.woff2') format('woff2'),
+    url('./assets/fonts/Inter-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Light';
+  src:
+    url('./assets/fonts/Inter-Light.woff2') format('woff2'),
+    url('./assets/fonts/Inter-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter Regular';
+  src:
+    url('./assets/fonts/Inter-Regular.woff2') format('woff2'),
+    url('./assets/fonts/Inter-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/*
+   3. Variables CSS para colores
+*/
+:root {
+  --color-titulo: #2C2C2C;
+  --color-texto: #404040;
+  --color-primary: #76C8D6;
+  --color-secondary: #ED80AD;
+  --color-tertiary: #FFFBEB;
+}
+
+body {
+  background-color: #FFFCF2;
+  color: var(--color-texto);
+  font-family: 'Inter Regular', sans-serif;
+  line-height: 1.5;
+}
+
+/* 
+   4. Tipografía y tamaños para desktop
+*/
+
+/* Títulos con Inter Medium */
+h1 {
+  font-family: 'Inter Medium', sans-serif;
+  font-weight: 500;
+  font-size: 5.6rem;
+  text-align: center;
+  color: var(--color-titulo);
+}
+
+h2 {
+  font-family: 'Inter Medium', sans-serif;
+  font-weight: 500;
+  font-size: 4.8rem;
+  color: var(--color-titulo);
+}
+
+h3 {
+  font-family: 'Inter Medium', sans-serif;
+  font-weight: 500;
+  font-size: 4rem;
+  color: var(--color-titulo);
+}
+
+h4 {
+  font-family: 'Inter Medium', sans-serif;
+  font-weight: 500;
+  font-size: 3.2rem;
+  color: var(--color-titulo);
+}
+
+/* Subtítulos con Inter SemiBold */
+.subtitle {
+  font-family: 'Inter SemiBold', sans-serif;
+  font-weight: 600;
+  font-size: 2.4rem;
+  color: var(--color-texto);
+}
+
+/* Variante lead con Inter Light */
+.lead {
+  font-family: 'Inter Light', sans-serif;
+  font-weight: 300;
+  font-size: 2.3rem;
+  color: var(--color-texto);
+}
+
+.title_hero {
+  font-family: 'Inter Bold', sans-serif;
+  font-weight: 700;
+  font-size: 4.8rem;
+  color: white;
+}
+
+/* Párrafos con Inter Regular */
+p {
+  font-family: 'Inter Regular', sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--color-texto);
+}
+
+/* Estilos por defecto para elementos del layout */
+
+.container {
+  max-width: 128rem;
+  margin: 0 auto;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
+  width: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 14.4rem;
+  max-height: 14.4rem;
+  background-color: var(--color-primary);
+}
+
+.footer {
+  width: 100%;
+  min-height: 18rem;
+  background-color: var(--color-primary);
+}
+
+.header-content {
+  max-width: 128rem;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.footer-content {
+  max-width: 128rem;
+  margin: 0 auto;
+/*display: flex;
+  align-items: center;
+  justify-content: space-between;*/
+  height: 100%;
+}
