@@ -76,6 +76,7 @@ namespace WebApi
                     ValidateAudience = true,
                     ValidAudience = "https://servidor_protegido"
                 };
+                
             });
 
             // Configurar la autorización
