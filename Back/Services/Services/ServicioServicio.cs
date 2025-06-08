@@ -5,6 +5,7 @@ using Services.Interfaces;
 using AutoMapper;
 using DataAcces.Repositories;
 using Services.Exceptions;
+using Domain.Enum;
 
 
 namespace Services.Services
@@ -88,12 +89,12 @@ namespace Services.Services
 
             if (servicio == null) throw new NoExisteException("No se encontro un servicio con ese id");
 
-            if (servicio.Disponibilidad)
+            if (servicio.Disponibilidad == DisponibilidadServicio.Activo)
             {
-                servicio.Disponibilidad = false;
+                servicio.Disponibilidad = DisponibilidadServicio.Inactivo;
             }else
             {
-                servicio.Disponibilidad = true;
+                servicio.Disponibilidad = DisponibilidadServicio.Activo;
             }
             
             

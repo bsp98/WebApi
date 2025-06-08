@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createServicioThunk } from '../thunks/serviciosThunks';
+import { createServicioThunk,getAllServicioThunk } from '../thunks/serviciosThunks';
 
 const initialState = {
     servicios: [],
@@ -24,6 +24,15 @@ const serviciosSlice = createSlice({
                 state.successMessage = 'Servicio creado exitosamente';
             })
             .addCase(createServicioThunk.rejected, (state, action) => {
+                state.error = action.payload;
+            });
+
+        builder
+            .addCase(getAllServicioThunk.fulfilled, (state, action) => {
+                state.error = null;
+                state.servicios = action.payload; // Se actualiza el estado con los servicios obtenidos
+            })
+            .addCase(getAllServicioThunk.rejected, (state, action) => {
                 state.error = action.payload;
             });
     },

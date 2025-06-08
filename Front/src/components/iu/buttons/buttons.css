@@ -1,33 +1,46 @@
 /*Estilos de botones submit para alta update etc.*/
-.button_Submit{
+.button_Submit {
     width: 80%;
     padding: 1.4rem 0.8rem;
     border: 2px solid var(--color-secondary);
     border-radius: 0.8rem;
-    color:white;
+    color: white;
     background-color: var(--color-secondary);
     font-family: 'Inter SemiBold';
     font-size: 1.8rem;
-    transition:all 300ms ease-out
-
+    transition: all 300ms ease-out
 }
 
-.button_modal{
+.button_modal {
 
     width: 40%;
+    margin: 0 auto;
     padding: 1rem 0.5rem;
     border: 2px solid var(--color-secondary);
     border-radius: 0.8rem;
-    color:white;
+    color: white;
     background-color: var(--color-secondary);
     font-family: 'Inter SemiBold';
     font-size: 1.8rem;
-    transition:all 300ms ease-out
-
+    transition: all 300ms ease-out
 }
 
+.button_redirect {
+    display: block;
+    width: 40%;
+    margin: 0 auto;
+    padding: 1.4rem 0.8rem;
+    border: 2px solid var(--color-secondary);
+    border-radius: 0.8rem;
+    color: white;
+    background-color: var(--color-secondary);
+    font-family: 'Inter SemiBold';
+    font-size: 1.8rem;
+    transition: all 300ms ease-out
+}
 
 .button_Submit:hover,
-.button_modal:hover{
-    background-color:#ff4a95;
+.button_modal:hover,
+.button_redirect:hover {
+    background-color: #ff4a95;
 }
