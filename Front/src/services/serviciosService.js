@@ -27,3 +27,20 @@ export async function createServicio(servicio) {
 
     return await response.json();
 }
+
+
+
+export async function getAllServicio() {
+    const response = await fetch('webapictvwapa.azurewebsites.net/api/Servicio'); {/*'http://localhost:5164/api/Servicio'*/}
+
+    if (!response.ok) {
+        let customMessage = "Ocurrió un error en el servidor";
+
+        throw {
+            status: response.status,
+            message: customMessage,
+        };
+    }
+
+    return await response.json();
+}

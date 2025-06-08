@@ -1,12 +1,11 @@
 .container_table {
     width: 80%;
     margin: 0 auto;
-    margin-bottom: 12rem;
+    margin-bottom: 3.2rem;
 }
 
 .content_table {
     width: 100%;
-    ;
     border-collapse: collapse;
     margin: 25px 0;
     background-color: white;

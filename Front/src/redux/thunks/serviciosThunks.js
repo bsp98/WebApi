@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createServicio } from '../../services/serviciosService';
+import { createServicio,getAllServicio } from '../../services/serviciosService';
 
 export const createServicioThunk = createAsyncThunk(
   'servicios/crearServicio',
@@ -10,7 +10,22 @@ export const createServicioThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-      console.log("el error entro el en catch del thunk");
+
+      return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
+
+    }
+  }
+);
+
+export const getAllServicioThunk = createAsyncThunk(
+  'servicios/getAll',
+  async (thunkAPI) => {
+    try {
+
+      const response = await getAllServicio();
+      return response;
+
+    } catch (error) {
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 

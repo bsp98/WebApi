@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createServicioThunk } from '../redux/thunks/serviciosThunks';
+import { createServicioThunk,getAllServicioThunk } from '../redux/thunks/serviciosThunks';
 import { clearSuccessMessage } from '../redux/slices/serviciosSlice';
 
 export const useServicios = () => {
@@ -11,24 +11,27 @@ export const useServicios = () => {
         e.preventDefault();
 
         const form = e.target;
-        console.log(form);
 
         const nuevoServicio = {
             nombre: form.nombre.value,
             categoria: +form.categoria.value,
             precio: +form.precio.value,
             descuento: +form.descuento.value,
-            disponibilidad: true,
+            disponibilidad:1,
             tiempoDeDuracionMin: +form.duracion.value,
             descripcion: form.descripcion.value,
         };
-        console.log(nuevoServicio);
         dispatch(createServicioThunk(nuevoServicio));
     };
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
     };
+
+
+    const obtenerTodosLosServicios = () =>{
+        dispatch(getAllServicioThunk())
+    } 
 
     return {
         servicios,
@@ -37,5 +40,6 @@ export const useServicios = () => {
         successMessage,
         crearServicio,
         limpiarMensajeExito,
+        obtenerTodosLosServicios,
     };
 };

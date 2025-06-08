@@ -11,14 +11,15 @@ namespace Domain.Dto
 {
     public class ServicioDto: IValidable
     {
-        public int ServicioId { get; set; }
+        public int Id { get; set; }
         public string Nombre { get; set; } = string.Empty;
         public string Descripcion { get; set; } = string.Empty;
         public double Precio { get; set; }
         public int Descuento { get; set; }
-        public bool Disponibilidad { get; set; }
+        public DisponibilidadServicio Disponibilidad { get; set; }
         public CategoriaServicio Categoria { get; set; }
         public string CategoriaNombre { get; set; } = string.Empty;
+        public string DisponibilidadNombre { get; set; } = string.Empty;
         public int TiempoDeDuracionMin { get; set; }
 
 
@@ -26,13 +27,13 @@ namespace Domain.Dto
         {
         }
 
-        public ServicioDto(string nombre, string descripcion, double precio,int descuento,CategoriaServicio categoria, int tiempoDeDuracionMin)
+        public ServicioDto(string nombre, string descripcion, double precio,int descuento,DisponibilidadServicio disponibilidad,CategoriaServicio categoria, int tiempoDeDuracionMin)
         {
             Nombre = nombre;
             Descripcion = descripcion;
             Precio = precio;
             Descuento = descuento;
-            Disponibilidad = true;
+            Disponibilidad = disponibilidad;
             Categoria = categoria;
             TiempoDeDuracionMin = tiempoDeDuracionMin;
         }

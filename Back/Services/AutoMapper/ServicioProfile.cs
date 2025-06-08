@@ -15,10 +15,12 @@ namespace Services.AutoMapper
         public ServicioProfile()
         {
             CreateMap<Servicio, ServicioDto>()
-            .ForMember(dest => dest.CategoriaNombre, opt => opt.MapFrom(src => src.Categoria.ToString().Replace("ni", "ñ")));
+            .ForMember(dest => dest.Id, act => act.MapFrom(src => src.ServicioId))
+            .ForMember(dest => dest.CategoriaNombre, opt => opt.MapFrom(src => src.Categoria.ToString().Replace("ni", "ñ")))
+            .ForMember(dest => dest.DisponibilidadNombre, opt => opt.MapFrom(src => src.Disponibilidad.ToString()));
 
             CreateMap<ServicioDto, Servicio>()
-                    .ForMember(dest => dest.ServicioId, act => act.MapFrom(src => src.ServicioId));
+                    .ForMember(dest => dest.ServicioId, act => act.MapFrom(src => src.Id));
         }
     }
 

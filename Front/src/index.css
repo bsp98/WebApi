@@ -172,6 +172,7 @@ p {
 .footer {
   width: 100%;
   min-height: 18rem;
+  margin-top: 12rem;
   background-color: var(--color-primary);
 }
 

@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const ButtonAction = ({text,variant}) => {
+export const ButtonAction = ({text,variant,dato,action}) => {
     return (
-        <button className={`btn_action ${variant}`}>
+        <button className={`btn_action ${variant}`} onClick={ e => action(dato)}>
             {text}
         </button>
     )

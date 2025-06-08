@@ -102,7 +102,7 @@ namespace WebApi.Controllers
 
         }
         ///[Authorize]
-        [HttpGet("Obtener todos")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult ObtenerTodos()
         {
