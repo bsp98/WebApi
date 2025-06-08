@@ -31,7 +31,7 @@ export async function createServicio(servicio) {
 
 
 export async function getAllServicio() {
-    const response = await fetch('webapictvwapa.azurewebsites.net/api/Servicio'); {/*'http://localhost:5164/api/Servicio'*/}
+    const response = await fetch('webapictvwapa.azurewebsites.net/Servicio'); {/*'http://localhost:5164/api/Servicio'*/}
 
     if (!response.ok) {
         let customMessage = "Ocurrió un error en el servidor";
