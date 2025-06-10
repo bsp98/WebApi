@@ -1,4 +1,5 @@
 ﻿using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Services.Interfaces.CRUD;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Services.Interfaces
         List<ReservaDto> ObtenerTodos();
 
         ReservaDto? BuscarPorId(int id);
+        List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
     }
 }
 

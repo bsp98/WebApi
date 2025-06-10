@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataAcces.Interfaces;
 using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Domain.Models;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -79,5 +80,42 @@ namespace Services.Services
 
             _repositorioReserva.Update(r);
         }
+
+        public List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros)
+        {
+
+            List<ReservaDto> reserva = new List<ReservaDto>();
+
+        
+            if (filtros.Nombrecliente != null)
+            {
+                reserva = BuscarPorNombreCliente(filtros.Nombrecliente);
+            }
+            else if (filtros.Nombreservicio!= null)
+            {
+                reserva = BuscarPorNombreSrvicio(filtros.Nombreservicio);
+            }
+            else if (filtros.Fecha.HasValue)
+            {
+                reserva = BuscarPorFecha((DateTime)filtros.Fecha);
+            }
+            else
+            {
+                reserva = ObtenerTodos();
+            }
+
+            return reserva;
+        }
+
+
+        private List<ReservaDto> BuscarPorNombreCliente(string cliente) => MapearReservas(_repositorioReserva.BuscarPorNombreCliente(cliente));
+
+        private List<ReservaDto> BuscarPorNombreSrvicio(string service) => MapearReservas(_repositorioReserva.BuscarPorNombreServicio(service));
+
+        private List<ReservaDto> BuscarPorFecha(DateTime fecha) => MapearReservas(_repositorioReserva.BuscarPorFecha(fecha));
+
+
+        private List<ReservaDto> MapearReservas(IEnumerable<Reserva> reserva) => _mapper.Map<List<ReservaDto>>(reserva);
+
     }
 }
