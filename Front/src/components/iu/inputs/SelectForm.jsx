@@ -8,7 +8,7 @@ export const SelectForm = ({id,labelDescription,name,options,defaultValue}) => {
             <select className="input_form" id={id} name={name} defaultValue="">
                 <option value="" disabled>{defaultValue}</option>
                 {options.map(opt =>(
-                    <option value={opt.value} key={opt.value}>{opt.nombre}</option>
+                    <option value={opt.value} key={opt.value}>{opt.name}</option>
                 ))}
             </select>
         </div>

@@ -9,9 +9,10 @@ namespace Domain.Enum
     public enum CategoriaServicio
     {
         Invalido = 0,
-        Cejas = 1,
+        Unias = 1,
         Pestanias = 2,
-        Unias = 3,
-        Pack = 4
+        Cejas = 3,
+        Pies = 4,
+        Promo = 5
     }
 }

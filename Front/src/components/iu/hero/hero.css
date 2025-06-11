@@ -1,0 +1,15 @@
+.hero_container{
+    width:100%;
+    height:500px;
+    margin-bottom: 12rem;
+    background-color:#FBA7AF;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.hero_container h1{
+    color: white;
+    margin:0;
+    padding:0;
+}

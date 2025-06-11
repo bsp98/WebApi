@@ -2,8 +2,8 @@ import React from 'react'
 import './buttons.css'
 
 
-export const ButtonSubmit = ({value}) => {
+export const ButtonSubmit = ({value, btn_variant ,width_btn = ""}) => {
   return (
-    <input className='button_Submit' type="submit" value={value} />
+    <input className={`btn_base  ${btn_variant} ${width_btn}`} type="submit" value={value} />
   )
 }
