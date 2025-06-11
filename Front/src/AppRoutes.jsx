@@ -60,8 +60,8 @@ export const AppRoutes = () => {
                     <Route path="gift-card" element={<GiftCard></GiftCard>} />
                     <Route path="contacto" element={<Contacto></Contacto>} />
                     <Route path="confirmar-reserva" element={<ConfirmarReserva></ConfirmarReserva>} />
-                    <Route path="cambiar-password" element={<CambiarPassword></CambiarPassword>} />
-                    <Route path="datos-personales" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
+                    <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
+                    <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
                     <Route path="form-reserva" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="*" element={<Error404></Error404>} />
@@ -83,10 +83,10 @@ export const AppRoutes = () => {
                     <Route path="alta-cliente" element={<AltaCliente></AltaCliente>} />
                     <Route path="alta-egreso" element={<AltaEgreso></AltaEgreso>} />
                     <Route path="alta-servicio" element={<AltaServicio></AltaServicio>} />
-                    <Route path="modificar-reserva" element={<ModificarReserva></ModificarReserva>} />
-                    <Route path="modificar-servicio" element={<ModificarServicio></ModificarServicio>} />
-                    <Route path="cambiar-password" element={<CambiarPassword></CambiarPassword>} />
-                    <Route path="datos-personales" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
+                    <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
+                    <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
+                    <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
+                    <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
                     <Route path="form-reserva" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="*" element={<Error404></Error404>} />

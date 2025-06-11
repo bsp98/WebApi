@@ -1,16 +1,19 @@
 import React from 'react'
-import './formularioServicio.css'
+import './formulario.css'
+import '../iu/buttons/buttons.css'
 import { InputForm } from '../iu/inputs/InputForm'
 import { TextAreaForm } from '../iu/inputs/TextAreaForm'
 import { SelectForm } from '../iu/inputs/SelectForm'
 import {ButtonSubmit} from '../iu/buttons/ButtonSubmit'
 import { MessageError } from '../iu/messages/MessageError'
 
-export const FormularioServicio = ({ crearServicio, formRef,error }) => {
+export const FormularioAltaServicio = ({ crearServicio, formRef,error }) => {
     const categorias = [
-        { nombre: "Cejas", value: 1 },
-        { nombre: "Pestañas", value: 2 },
-        { nombre: "Uñas", value: 3 }
+    {name:"UÑAS", value:1},
+    {name:"PESTAÑAS", value:2},
+    {name:"CEJAS", value:3},
+    {name:"PIES", value:4},
+    {name:"PROMO", value:5}
     ];
 
     return (
@@ -32,7 +35,7 @@ export const FormularioServicio = ({ crearServicio, formRef,error }) => {
 
                 {error && (<MessageError error={error}/>) }
                 
-                <ButtonSubmit value={"AGREGAR SERVICIO"}/>
+                <ButtonSubmit  value={"AGREGAR SERVICIO"} btn_variant={"btn_primary"} width_btn='btn_big'/>
 
             </form>
 

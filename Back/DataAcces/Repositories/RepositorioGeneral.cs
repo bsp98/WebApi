@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DataAcces.Repositories
 {
     
-    public class RepositorioGeneral<T>: IRepositoryAdd<T>, IRepositoryRemove<T>, IRepositoryUpdate<T> where T : class
+    public class RepositorioGeneral<T>: IRepositoryAdd<T>, IRepositoryRemove<T>, IRepositoryUpdate<T>, IRepositoryGetAll<T>, IRepositoryGetById<T> where T : class
     {
         protected DbContext Contexto { get; set; }
 
@@ -29,6 +29,17 @@ namespace DataAcces.Repositories
         {
             Contexto.Entry(entity).State = EntityState.Modified;
             Contexto.SaveChanges();
+        }
+
+
+        public T GetById(int id)
+        {
+            return Contexto.Set<T>().Find(id);
+        }
+
+        public IEnumerable<T> GetAll()
+        {
+            return Contexto.Set<T>().ToList();
         }
     }
 }

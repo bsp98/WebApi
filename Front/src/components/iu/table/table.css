@@ -2,6 +2,7 @@
     width: 80%;
     margin: 0 auto;
     margin-bottom: 3.2rem;
+    margin-top: 3.2rem;
 }
 
 .content_table {
@@ -18,7 +19,7 @@
 
 
 .row_head {
-    background-color: var(--color-primary);
+    background-color: rgb(207, 207, 207); /*rgb(173, 173, 173)*/ /*rgb(207, 207, 207)*/
     color: white;
     text-align: left;
     font-weight: bold;
@@ -40,7 +41,7 @@
 }
 
 .content_body_table tr:last-of-type {
-    border-bottom: 2px solid var(--color-primary);
+    border-bottom: 2px solid rgb(207, 207, 207);
 }
 
 

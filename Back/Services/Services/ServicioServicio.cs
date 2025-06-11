@@ -1,11 +1,12 @@
-﻿using Domain.Dto;
-using Domain.Models;
+﻿using AutoMapper;
 using DataAcces.Interfaces;
-using Services.Interfaces;
-using AutoMapper;
 using DataAcces.Repositories;
-using Services.Exceptions;
+using Domain.Dto;
 using Domain.Enum;
+using Domain.Exceptions;
+using Domain.Models;
+using Services.Exceptions;
+using Services.Interfaces;
 
 
 namespace Services.Services
@@ -51,7 +52,7 @@ namespace Services.Services
             //    throw new EnUsoException("No se puede eliminar un servicio que esta siendo utilizado");
             //}
 
-            Servicio servicio = _repositorioServicio.BuscarPorId(id);
+            Servicio servicio = _repositorioServicio.GetById(id);
 
             if (servicio == null) throw new NoExisteException("No se encontro un servicio con ese id");
 
@@ -60,32 +61,71 @@ namespace Services.Services
 
         public void Update(int id, ServicioDto dto)
         {
-            Servicio servicio = _repositorioServicio.BuscarPorId(id);
+            Servicio servicioValidNombre = _repositorioServicio.BuscarPorNombre(dto.Nombre);
+            Servicio servicio = _repositorioServicio.GetById(id);
 
             if (servicio == null) throw new NoExisteException("No se encontro un servicio con ese id");
 
+            if (servicioValidNombre != null && servicioValidNombre.Nombre != servicio.Nombre ) throw new ExisteException("Ya existe un servicio con ese nombre");
+
+
             dto.Validar();
-            //_mapper.Map(dto, servicio);
+
+            servicio.Nombre = dto.Nombre;
             servicio.Descripcion = dto.Descripcion;
+            servicio.Precio = dto.Precio;
+            servicio.Descuento = dto.Descuento;
             servicio.Disponibilidad = dto.Disponibilidad;
             servicio.Categoria = dto.Categoria;
             servicio.TiempoDeDuracionMin = dto.TiempoDeDuracionMin;
-            servicio.Nombre = dto.Nombre;
-            servicio.Precio = dto.Precio;
             
 
             _repositorioServicio.Update(servicio);
         }
 
-        public List<ServicioDto> ObtenerTodos()
+        public ServicioDto GetById(int id)
         {
-            IEnumerable<Servicio> tipos = _repositorioServicio.ObtenerTodos();
-            return _mapper.Map<List<ServicioDto>>(tipos);
+            Servicio servicio = _repositorioServicio.GetById(id);
+
+            if (servicio == null) throw new NoExisteException("No se encontro un serivico con ese id");
+
+            return _mapper.Map<ServicioDto>(servicio);
+
+        }
+
+
+        public List<ServicioDto> GetAll()
+        {
+            IEnumerable<Servicio> servicios = _repositorioServicio.GetAll();
+            return _mapper.Map<List<ServicioDto>>(servicios);
+        }
+
+
+        public List<ServicioDto> ObtenerPorCategoria(CategoriaServicio categoria)
+        {
+            IEnumerable<Servicio> servicios = new List<Servicio>();
+
+            if (!System.Enum.IsDefined(typeof(CategoriaServicio),categoria))
+            {
+                throw new DatoIncorrectoException("La categoría es incorrecta");
+            }
+
+            if (categoria == CategoriaServicio.Invalido)
+            {
+
+                servicios = _repositorioServicio.GetAll();
+            }
+            else
+            {
+                servicios = _repositorioServicio.ObtenerPorCategoria(categoria);
+            }
+
+            return _mapper.Map<List<ServicioDto>>(servicios);
         }
 
         public void DeshabilitarOHabilitar(int id)
         {
-            Servicio servicio = _repositorioServicio.BuscarPorId(id);
+            Servicio servicio = _repositorioServicio.GetById(id);
 
             if (servicio == null) throw new NoExisteException("No se encontro un servicio con ese id");
 
@@ -102,6 +142,7 @@ namespace Services.Services
 
             _repositorioServicio.Update(servicio);
         }
+
 
     }
 }

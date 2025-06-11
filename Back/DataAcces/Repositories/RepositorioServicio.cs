@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using DataAcces.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Domain.Enum;
 
 namespace DataAcces.Repositories
 {
@@ -12,20 +13,15 @@ namespace DataAcces.Repositories
             Contexto = contexto;
         }
 
-      
-        public IEnumerable<Servicio> ObtenerTodos()
+        public IEnumerable<Servicio> ObtenerPorCategoria(CategoriaServicio categoria)
         {
-            return Contexto.Set<Servicio>().AsNoTracking();
+            return Contexto.Set<Servicio>().AsNoTracking().Where(s => s.Categoria == categoria);
         }
 
         public Servicio? BuscarPorNombre(string nombre)
         {
 
             return Contexto.Set<Servicio>().FirstOrDefault(t => t.Nombre == nombre);
-        }
-        public Servicio? BuscarPorId(int id)
-        {
-            return Contexto.Set<Servicio>().FirstOrDefault(t => t.ServicioId == id);
         }
 
     }      
