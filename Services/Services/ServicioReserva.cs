@@ -73,10 +73,10 @@ namespace Services.Services
 
             dto.Validar();
            
-            r.Nombre = dto.Nombre;
-            r.Descripcion = dto.Descripcion;
-            r.Precio=dto.Precio;//Calcularprecio;
-            r.Disponibilidad=dto.Disponibilidad;//depende esto
+          r.Fecha=dto.Fecha;
+         //   r.Servicios=dto.Servicios;
+            r.PrecioTotal=dto.PrecioTotal;//Calcularprecio;
+       
 
             _repositorioReserva.Update(r);
         }

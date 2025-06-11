@@ -34,12 +34,14 @@ namespace DataAcces.Repositories
         }
         public IEnumerable<Reserva> BuscarPorNombreCliente(string nombre)
         {
-            return Contexto.Set<Reserva>().Where(c => c.ObtenerNombreCliente() == nombre).AsNoTracking().ToList();
+          //  return Contexto.Set<Reserva>().Where(c => c.ObtenerNombreCliente() == nombre).AsNoTracking().ToList();
+
+            return Contexto.Set<Reserva>().AsNoTracking().AsEnumerable().Where(c => c.ObtenerNombreCliente() == nombre).ToList();
         }
 
         public IEnumerable<Reserva> BuscarPorNombreServicio(string nombre)
         {
-            return Contexto.Set<Reserva>().Where(c => c.ObtenerNombreServicio() == nombre).AsNoTracking().ToList();
+            return Contexto.Set<Reserva>().Where(r => r.Servicios.Any(s => s.Nombre == nombre)).Include(r => r.Servicios).AsNoTracking().ToList();
         }
     }
 }

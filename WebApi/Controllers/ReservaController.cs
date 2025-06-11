@@ -102,11 +102,6 @@ namespace WebApi.Controllers
         }
 
 
-        [HttpGet("index")]
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         [AllowAnonymous]
         [HttpGet("Filtrar")]

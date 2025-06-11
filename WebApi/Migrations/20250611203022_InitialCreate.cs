@@ -12,24 +12,6 @@ namespace WebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Servicios",
-                columns: table => new
-                {
-                    ServicioId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Precio = table.Column<double>(type: "float", nullable: false),
-                    Disponibilidad = table.Column<bool>(type: "bit", nullable: false),
-                    Categoria = table.Column<int>(type: "int", nullable: false),
-                    TiempoDeDuracionMin = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Servicios", x => x.ServicioId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
@@ -55,11 +37,10 @@ namespace WebApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Precio = table.Column<double>(type: "float", nullable: false),
-                    Disponibilidad = table.Column<bool>(type: "bit", nullable: false),
-                    ClienteId = table.Column<int>(type: "int", nullable: true)
+                    PrecioTotal = table.Column<double>(type: "float", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    Cancelada = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,6 +49,31 @@ namespace WebApi.Migrations
                         name: "FK_Reservas_Usuarios_ClienteId",
                         column: x => x.ClienteId,
                         principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Servicios",
+                columns: table => new
+                {
+                    ServicioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<double>(type: "float", nullable: false),
+                    Disponibilidad = table.Column<bool>(type: "bit", nullable: false),
+                    Categoria = table.Column<int>(type: "int", nullable: false),
+                    TiempoDeDuracionMin = table.Column<int>(type: "int", nullable: false),
+                    ReservaId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Servicios", x => x.ServicioId);
+                    table.ForeignKey(
+                        name: "FK_Servicios_Reservas_ReservaId",
+                        column: x => x.ReservaId,
+                        principalTable: "Reservas",
                         principalColumn: "Id");
                 });
 
@@ -75,16 +81,21 @@ namespace WebApi.Migrations
                 name: "IX_Reservas_ClienteId",
                 table: "Reservas",
                 column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Servicios_ReservaId",
+                table: "Servicios",
+                column: "ReservaId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Reservas");
+                name: "Servicios");
 
             migrationBuilder.DropTable(
-                name: "Servicios");
+                name: "Reservas");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250531175802_InitialCreate")]
+    [Migration("20250611203022_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,21 +33,16 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Disponibilidad")
+                    b.Property<bool>("Cancelada")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Precio")
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("PrecioTotal")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -82,10 +77,15 @@ namespace WebApi.Migrations
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
+                    b.Property<int?>("ReservaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TiempoDeDuracionMin")
                         .HasColumnType("int");
 
                     b.HasKey("ServicioId");
+
+                    b.HasIndex("ReservaId");
 
                     b.ToTable("Servicios");
                 });
@@ -147,9 +147,25 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
-                    b.HasOne("Domain.Models.Cliente", null)
+                    b.HasOne("Domain.Models.Cliente", "Cliente")
                         .WithMany("Reservas")
-                        .HasForeignKey("ClienteId");
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+                });
+
+            modelBuilder.Entity("Domain.Models.Servicio", b =>
+                {
+                    b.HasOne("Domain.Models.Reserva", null)
+                        .WithMany("Servicios")
+                        .HasForeignKey("ReservaId");
+                });
+
+            modelBuilder.Entity("Domain.Models.Reserva", b =>
+                {
+                    b.Navigation("Servicios");
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>
