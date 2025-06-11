@@ -1,46 +1,43 @@
-/*Estilos de botones submit para alta update etc.*/
-.button_Submit {
+
+.btn_base {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1.4rem 0.8rem;
+    font-family: 'Inter SemiBold';
+    font-size: 1.8rem;
+    transition: all 300ms ease-out
+}
+
+.btn_small {
+    width: 40%;
+}
+
+.btn_big {
     width: 80%;
-    padding: 1.4rem 0.8rem;
-    border: 2px solid var(--color-secondary);
-    border-radius: 0.8rem;
-    color: white;
-    background-color: var(--color-secondary);
-    font-family: 'Inter SemiBold';
-    font-size: 1.8rem;
-    transition: all 300ms ease-out
 }
 
-.button_modal {
-
-    width: 40%;
-    margin: 0 auto;
-    padding: 1rem 0.5rem;
+.btn_primary {
     border: 2px solid var(--color-secondary);
     border-radius: 0.8rem;
-    color: white;
     background-color: var(--color-secondary);
-    font-family: 'Inter SemiBold';
-    font-size: 1.8rem;
-    transition: all 300ms ease-out
+    color: white;
+
 }
 
-.button_redirect {
-    display: block;
-    width: 40%;
-    margin: 0 auto;
-    padding: 1.4rem 0.8rem;
+.btn_secondary {
     border: 2px solid var(--color-secondary);
     border-radius: 0.8rem;
-    color: white;
-    background-color: var(--color-secondary);
-    font-family: 'Inter SemiBold';
-    font-size: 1.8rem;
-    transition: all 300ms ease-out
+    background-color: white;
+    color: var(--color-secondary);
 }
 
-.button_Submit:hover,
-.button_modal:hover,
-.button_redirect:hover {
+.btn_primary:hover {
     background-color: #ff4a95;
+}
+
+.btn_secondary:hover {
+    background-color: #ff4a95;
+    color: white;
 }

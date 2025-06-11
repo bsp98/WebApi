@@ -7,6 +7,7 @@ using Domain.Exceptions;
 using Services.Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Domain.Models;
+using Domain.Enum;
 
 namespace WebApi.Controllers
 {
@@ -53,16 +54,14 @@ namespace WebApi.Controllers
         }
 
         //[Authorize]
-        [HttpPut("{id} Modificar servicio")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult Put(int id, [FromBody] ServicioDto servicioDto)
         {
             try
-            {
-                //Se asignan los valores de descripcion para la validacion
-               
+            { 
                 _servicioServicio.Update(id, servicioDto);
 
                 return Ok("Modificado con exito");
@@ -75,11 +74,16 @@ namespace WebApi.Controllers
             {
                 return NotFound(nee.Message);
             }
+            catch (ExisteException ee)
+            {
+
+                return Conflict(ee.Message);
+            }
 
         }
 
         //[Authorize]
-        [HttpDelete("{id} Eliminar servicio")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -101,13 +105,51 @@ namespace WebApi.Controllers
             }
 
         }
+
+
+        //[Authorize]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                ServicioDto servicio = _servicioServicio.GetById(id);
+                return Ok(servicio);
+            }
+            catch (NoExisteException nee)
+            {
+                return NotFound(nee.Message);
+            }
+
+        }
+
+
         ///[Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult ObtenerTodos()
+        public IActionResult GetAll()
         {
-            List<ServicioDto> tiposDto = _servicioServicio.ObtenerTodos();
-            return Ok(tiposDto);
+            List<ServicioDto> serviciosDto = _servicioServicio.GetAll();
+            return Ok(serviciosDto);
+        }
+
+        [HttpGet("categoria/{categoria}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public IActionResult ObtenerPorCategoria(CategoriaServicio categoria)
+        {
+            try
+            {
+                List<ServicioDto> serviciosDto = _servicioServicio.ObtenerPorCategoria(categoria);
+                return Ok(serviciosDto);
+            }
+            catch (DatoIncorrectoException die)
+            {
+                return UnprocessableEntity(die.Message);
+            }
+
         }
 
         //[Authorize]

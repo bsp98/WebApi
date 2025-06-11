@@ -2,7 +2,7 @@ import React from 'react'
 import '../page.css'
 import { useServicios } from '../../hooks/useServicios';
 import { useRef, useEffect } from 'react';
-import { FormularioServicio } from '../../components/servicio/FormularioServicio';
+import { FormularioAltaServicio } from '../../components/servicio/FormularioAltaServicio';
 import { Modal } from '../../components/iu/messages/Modal';
 import {Title} from '../../components/iu/texts/Title'
 
@@ -22,7 +22,7 @@ export const AltaServicio = () => {
 
       <Title text={"Agregar servicio"}/>
 
-      <FormularioServicio crearServicio={crearServicio} formRef={formRef} error={error} />
+      <FormularioAltaServicio crearServicio={crearServicio} formRef={formRef} error={error} />
 
       {successMessage && (
         <Modal mensaje={successMessage} alCerrar={limpiarMensajeExito} />
