@@ -1,5 +1,6 @@
 ﻿using Domain.Exceptions;
 using Domain.Interfaces;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +12,41 @@ namespace Domain.Dto
     public class ReservaDto:IValidable
     {
         public int Id { get; set; }
-        public string Nombre { get; set; } = string.Empty;
-        public string Descripcion { get; set; } = string.Empty;
-        public double Precio { get; set; }
-        public bool Disponibilidad { get; set; }
+        public double PrecioTotal { get; set; }
+        public DateTime Fecha { get; set; }
+        public ClienteDto Cliente { get; set; }
+        public List<ServicioDto> Servicios { get; set; }
 
-        public ReservaDto(string nombre, string descripcion, double precio)
+        //public EstadoDePAGO EstadoPago;
+        public Boolean Cancelada { get; set; }
+
+        public ReservaDto( double precioTotal, DateTime fecha, ClienteDto cliente, List<ServicioDto> servicios)
         {
-            Nombre = nombre;
-            Descripcion = descripcion;
-            Precio = precio;
-            Disponibilidad = true;
+
+            PrecioTotal=precioTotal;
+            Fecha=fecha;
+            Cliente=cliente;
+            Servicios=servicios;
+            Cancelada=false;
         }
+
+        public ReservaDto() { }
 
         public void Validar() 
         {
-            ValidarNombre();
-            ValidarDescripcion();
+          
             ValidarPrecio();
+            ValidarFecha();
         
+        }
+
+        private void ValidarFecha()
+        {
+            if (Fecha == null)
+                throw new DatoIncorrectoException("La fecha no puede ser nula.");
+
+            if (Fecha <= DateTime.Now)
+                throw new DatoIncorrectoException("La fecha de nacimiento debe ser una fecha en el futuro.");
         }
 
         private void ValidarPrecio()
@@ -37,21 +54,6 @@ namespace Domain.Dto
             throw new NotImplementedException();
         }
 
-        private void ValidarDescripcion()
-        {
-            if (string.IsNullOrEmpty(Descripcion))
-                throw new DatoIncorrectoException("La descripcion no puede estar vacío.");
-        }
-
-        private void ValidarNombre()
-        {
-            if (string.IsNullOrEmpty(Nombre))
-                throw new DatoIncorrectoException("El nombre no puede estar vacío."); ;
-        }
-
-        public void CambiarDisponibilidad() {
-            Disponibilidad=false;
-        }
 
         public double CalcularPrecio() { //????
             return 4;

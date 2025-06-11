@@ -1,10 +1,12 @@
 ﻿using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Domain.Exceptions;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
+using Services.Services;
 
 namespace WebApi.Controllers
 {
@@ -74,11 +76,44 @@ namespace WebApi.Controllers
 
         }
 
-
-        [HttpGet("index")]
-        public IActionResult Index()
+        [AllowAnonymous]
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult Put(int id, [FromBody] ReservaDto reservaDto)
         {
-            return View();
+            try
+            {
+               
+                _servicioReserva.Update(id, reservaDto);
+
+                return Ok("Modificado con exito");
+            }
+            catch (DatoIncorrectoException die)
+            {
+                return UnprocessableEntity(die.Message);
+            }
+            catch (NoExisteException ene)
+            {
+                return NotFound(ene.Message);
+            }
+
+        }
+
+
+
+        [AllowAnonymous]
+        [HttpGet("Filtrar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetReservasPorFiltro([FromQuery] ReservaFiltroDto filtros)
+        {
+
+
+            List<ReservaDto> reservasDto = _servicioReserva.FiltrarReservas(filtros);
+
+            return Ok(reservasDto);
+
         }
     }
 }

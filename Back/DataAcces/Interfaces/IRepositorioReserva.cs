@@ -12,6 +12,9 @@ namespace DataAcces.Interfaces
     {
         IEnumerable<Reserva> ObtenerTodos();
         Reserva? BuscarPorId(int id);
+        public IEnumerable<Reserva> BuscarPorFecha(DateTime fecha);
+        public IEnumerable<Reserva> BuscarPorNombreCliente(string nombre);
+        public IEnumerable<Reserva> BuscarPorNombreServicio(string nombre);
     }
 }
  

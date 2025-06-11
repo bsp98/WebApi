@@ -47,6 +47,9 @@ namespace WebApi
                           .AllowAnyMethod();
                 });
             });
+            builder.Services.AddScoped(typeof(IRepositorioReserva), typeof(RepositorioReserva));
+            builder.Services.AddScoped(typeof(IServicioReserva), typeof(ServicioReserva));
+
 
 
             // Add services to the container.
