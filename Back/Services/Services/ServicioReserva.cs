@@ -26,10 +26,10 @@ namespace Services.Services
 
         public ReservaDto Add(ReservaDto dto)
         {
-            if (_repositorioReserva.BuscarPorId(dto.Id) != null)
+            if (_repositorioReserva.GetById(dto.Id) != null)
             {
                 throw new ExisteException("Ya existe una reserva con ese id");
-            }//????
+            }
 
             dto.Validar();
 
@@ -39,9 +39,9 @@ namespace Services.Services
             return _mapper.Map<ReservaDto>(r);
         }
 
-        public ReservaDto? BuscarPorId(int id)
+        public ReservaDto? GetById(int id)
         {
-            Reserva r = _repositorioReserva.BuscarPorId(id);
+            Reserva r = _repositorioReserva.GetById(id);
 
             if (r == null)
             {
@@ -50,15 +50,15 @@ namespace Services.Services
             return _mapper.Map<ReservaDto>(r);
         }
 
-        public List<ReservaDto> ObtenerTodos()
+        public List<ReservaDto> GetAll()
         {
-            IEnumerable<Reserva> r = _repositorioReserva.ObtenerTodos();
+            IEnumerable<Reserva> r = _repositorioReserva.GetAll();
             return _mapper.Map<List<ReservaDto>>(r);
         }
 
         public void Remove(int id)
         {
-            Reserva r = _repositorioReserva.BuscarPorId(id);
+            Reserva r = _repositorioReserva.GetById(id);
 
             if (r == null) throw new NoExisteException("No se encontro una reserva con ese id");
 
@@ -67,16 +67,15 @@ namespace Services.Services
 
         public void Update(int id, ReservaDto dto)
         {
-            Reserva r = _repositorioReserva.BuscarPorId(id);
+            Reserva r = _repositorioReserva.GetById(id);
 
             if (r == null) throw new NoExisteException("No se encontro una reserva con ese id");
 
             dto.Validar();
            
           r.Fecha=dto.Fecha;
-         //   r.Servicios=dto.Servicios;
-            r.PrecioTotal=dto.PrecioTotal;//Calcularprecio;
-       
+          //r.Servicioo=dto;
+           
 
             _repositorioReserva.Update(r);
         }
@@ -101,7 +100,7 @@ namespace Services.Services
             }
             else
             {
-                reserva = ObtenerTodos();
+                reserva = GetAll();
             }
 
             return reserva;
@@ -117,5 +116,6 @@ namespace Services.Services
 
         private List<ReservaDto> MapearReservas(IEnumerable<Reserva> reserva) => _mapper.Map<List<ReservaDto>>(reserva);
 
+     
     }
 }

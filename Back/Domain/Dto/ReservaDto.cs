@@ -14,19 +14,22 @@ namespace Domain.Dto
         public int Id { get; set; }
         public double PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
-        public ClienteDto Cliente { get; set; }
-        public List<ServicioDto> Servicios { get; set; }
+        public ClienteDto ? Cliente { get; set; }
+        public int ClienteId { get; set; }
+        public int ServicioId { get; set; }
+        public ServicioDto ? Servicioo { get; set; }
+       
 
-        //public EstadoDePAGO EstadoPago;
+        //public EstadoDePago EstadoPago;
         public Boolean Cancelada { get; set; }
 
-        public ReservaDto( double precioTotal, DateTime fecha, ClienteDto cliente, List<ServicioDto> servicios)
+        public ReservaDto( double precioTotal, DateTime fecha)
         {
 
             PrecioTotal=precioTotal;
             Fecha=fecha;
-            Cliente=cliente;
-            Servicios=servicios;
+         //   Cliente=cliente;
+          //  Servicioo=servicio;
             Cancelada=false;
         }
 
@@ -34,10 +37,14 @@ namespace Domain.Dto
 
         public void Validar() 
         {
-          
-            ValidarPrecio();
             ValidarFecha();
-        
+            ValidarServicio();
+        }
+
+        private void ValidarServicio()
+        {
+            if (ServicioId == null)
+                throw new DatoIncorrectoException("El servicio no puede ser nula.");
         }
 
         private void ValidarFecha()
@@ -46,19 +53,12 @@ namespace Domain.Dto
                 throw new DatoIncorrectoException("La fecha no puede ser nula.");
 
             if (Fecha <= DateTime.Now)
-                throw new DatoIncorrectoException("La fecha de nacimiento debe ser una fecha en el futuro.");
+                throw new DatoIncorrectoException("La fecha debe ser una fecha en el futuro");
         }
 
-        private void ValidarPrecio()
-        {
-            throw new NotImplementedException();
-        }
+   
 
 
-        public double CalcularPrecio() { //????
-            return 4;
-
-                                       
-       }
+      
     }
 }

@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
-            List<ReservaDto> r = _servicioReserva.ObtenerTodos();
+            List<ReservaDto> r = _servicioReserva.GetAll();
             return Ok(r);
         }
 
@@ -64,7 +64,7 @@ namespace WebApi.Controllers
 
                 return Ok(r);
 
-            }
+            } 
             catch (ExisteException eee)
             {
                 return Conflict(eee.Message);

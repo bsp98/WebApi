@@ -64,7 +64,7 @@ namespace Services.Services
 
             if (usu == null) throw new NoExisteException("No se encontro un cliente con ese id");
 
-            if (usu is Cliente cliente)
+            if (usu is Cliente )
             { 
                 if (_repositorioUsuario.TieneReservas(id))
                     throw new TieneReservas("No se puede eliminar el cliente porque tiene reservas asociadas.");

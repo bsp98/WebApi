@@ -18,15 +18,6 @@ namespace DataAcces.Repositories
         }
 
        
-        public IEnumerable<Reserva> ObtenerTodos()
-        {
-            return Contexto.Set<Reserva>().AsNoTracking().Select(c => c);
-        }
-
-        public Reserva? BuscarPorId(int id)
-        {
-            return Contexto.Set<Reserva>().FirstOrDefault(t => t.Id == id);
-        }
 
         public IEnumerable<Reserva> BuscarPorFecha(DateTime fecha)
         {
@@ -34,14 +25,14 @@ namespace DataAcces.Repositories
         }
         public IEnumerable<Reserva> BuscarPorNombreCliente(string nombre)
         {
-          //  return Contexto.Set<Reserva>().Where(c => c.ObtenerNombreCliente() == nombre).AsNoTracking().ToList();
-
-            return Contexto.Set<Reserva>().AsNoTracking().AsEnumerable().Where(c => c.ObtenerNombreCliente() == nombre).ToList();
+          
+                return Contexto.Set<Reserva>().Include(r => r.Cliente).AsNoTracking().AsEnumerable().Where(r => r.ObtenerNombreCliente() == nombre).ToList();
+            
         }
 
         public IEnumerable<Reserva> BuscarPorNombreServicio(string nombre)
         {
-            return Contexto.Set<Reserva>().Where(r => r.Servicios.Any(s => s.Nombre == nombre)).Include(r => r.Servicios).AsNoTracking().ToList();
+            return Contexto.Set<Reserva>().Include(r => r.Servicioo).AsNoTracking().AsEnumerable().Where(c => c.ObtenerNombreServicio() == nombre).ToList();
         }
     }
 }

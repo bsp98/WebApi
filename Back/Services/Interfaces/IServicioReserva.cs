@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Services.Interfaces
 {
-    public interface IServicioReserva : IServicioAdd<ReservaDto>, IServicioRemove<ReservaDto>, IServicioUpdate<ReservaDto>
+    public interface IServicioReserva : IServicioAdd<ReservaDto>, IServicioRemove<ReservaDto>, IServicioUpdate<ReservaDto>, IServicioGetAll<ReservaDto>, IServicioGetById<ReservaDto>
     {
-        List<ReservaDto> ObtenerTodos();
+       
 
-        ReservaDto? BuscarPorId(int id);
+        
         List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
     }
 }
