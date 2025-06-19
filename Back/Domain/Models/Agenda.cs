@@ -22,10 +22,10 @@ namespace Domain.Models
 
             if (Fecha.DayOfWeek == DayOfWeek.Saturday)
             {//cambiar el horario de los sabados
-              return  GenerarBloques(new TimeSpan(09, 0, 0), new TimeSpan(18, 0, 0), 10);
+              return  GenerarBloques(new TimeSpan(09, 0, 0), new TimeSpan(16, 0, 0), 10);
             }
             else {
-              return  GenerarBloques(new TimeSpan(08, 0, 0), new TimeSpan(16, 0, 0), 10);
+              return  GenerarBloques(new TimeSpan(08, 0, 0), new TimeSpan(18, 0, 0), 10);
 
             }
         }
