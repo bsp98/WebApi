@@ -12,6 +12,8 @@ namespace DataAcces.Repositories
         //public DbSet<Pago> Pagos { get; set; }
         //public DbSet<Publicacion> Publicaciones { get; set; }
         public DbSet<Reserva> Reservas { get; set; }
+        public DbSet<Agenda> Agenda { get; set; }
+        public DbSet<BloqueHorario> BloqueHorario { get; set; }
         public Contexto(DbContextOptions options) : base(options)
         {
 
@@ -21,10 +23,7 @@ namespace DataAcces.Repositories
         {
 
 
-            modelBuilder.Entity<Usuario>()
-    .HasDiscriminator<string>("TipoUsuario")
-    .HasValue<Usuario>("Usuario")
-    .HasValue<Cliente>("Cliente");
+            modelBuilder.Entity<Usuario>().HasDiscriminator<string>("TipoUsuario").HasValue<Usuario>("Usuario").HasValue<Cliente>("Cliente");
 
 
             base.OnModelCreating(modelBuilder);

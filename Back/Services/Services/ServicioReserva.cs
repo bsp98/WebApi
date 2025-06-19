@@ -24,17 +24,41 @@ namespace Services.Services
             _mapper = mapper;
         }
 
+        //public ReservaDto Add(ReservaDto dto)
+        //{
+        //    if (_repositorioReserva.GetById(dto.Id) != null)
+        //    {
+        //        throw new ExisteException("Ya existe una reserva con ese id");
+        //    }
+
+        //    dto.Validar();
+
+        //    Reserva nuevor = _mapper.Map<Reserva>(dto);
+        //    Reserva r = _repositorioReserva.Add(nuevor);
+
+        //    return _mapper.Map<ReservaDto>(r);
+        //}
+
         public ReservaDto Add(ReservaDto dto)
         {
             if (_repositorioReserva.GetById(dto.Id) != null)
-            {
                 throw new ExisteException("Ya existe una reserva con ese id");
-            }
 
             dto.Validar();
 
-            Reserva nuevor = _mapper.Map<Reserva>(dto);
-            Reserva r = _repositorioReserva.Add(nuevor);
+            // Validar conflictos de horario
+            IEnumerable<Reserva> reservasDelDia = _repositorioReserva.BuscarPorFecha(dto.Fecha.Date);
+
+            foreach (Reserva reserva in reservasDelDia)
+            {
+                bool seSuperpone = dto.HoraInicio < reserva.HoraFin && dto.HoraFin > reserva.HoraInicio;
+                if (seSuperpone)
+                    throw new ExisteException("El horario solicitado ya está reservado.");
+
+            }
+
+            Reserva nuevaReserva = _mapper.Map<Reserva>(dto);
+            Reserva r = _repositorioReserva.Add(nuevaReserva);
 
             return _mapper.Map<ReservaDto>(r);
         }
@@ -104,6 +128,21 @@ namespace Services.Services
             }
 
             return reserva;
+        }
+
+        public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
+        {
+            IEnumerable<Reserva> reservas = _repositorioReserva.BuscarPorFecha(fecha);
+
+            Agenda agenda = new Agenda(fecha);
+            agenda.MarcarReservados(reservas);
+
+            List<BloqueHorario> bloquesDisponibles = agenda.ObtenerBloquesInicioDisponibles(duracionMinutos);
+            return bloquesDisponibles.Select(b => new BloqueHorarioDto
+            {
+                HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
+                HoraFin = b.HoraFin.ToString(@"hh\:mm")
+            }).ToList();
         }
 
 

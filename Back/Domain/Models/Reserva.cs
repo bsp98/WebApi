@@ -15,7 +15,9 @@ namespace Domain.Models
         public Servicio Servicioo { get; set; }
         public int ServicioId { get; set; }
         public int ClienteId { get; set; }
-        
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
+
         //public EstadoDePAGO EstadoPago;
         public Boolean Cancelada { get; set; }
 
@@ -27,6 +29,8 @@ namespace Domain.Models
             Cliente=cliente;
             Servicioo= servicio;
             Cancelada=false;
+            HoraInicio = Fecha.TimeOfDay; 
+            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicioo.TiempoDeDuracionMin)); 
         }
 
         private double CalcularPrecio()

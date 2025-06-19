@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250616221605_CTVWAPA")]
+    [Migration("20250619170723_CTVWAPA")]
     partial class CTVWAPA
     {
         /// <inheritdoc />
@@ -24,6 +24,49 @@ namespace WebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Domain.Models.Agenda", b =>
+                {
+                    b.Property<int>("AgendaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AgendaId"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("AgendaId");
+
+                    b.ToTable("Agenda");
+                });
+
+            modelBuilder.Entity("Domain.Models.BloqueHorario", b =>
+                {
+                    b.Property<int>("BloqueHorarioId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BloqueHorarioId"));
+
+                    b.Property<int?>("AgendaId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EstaDisponible")
+                        .HasColumnType("bit");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.HasKey("BloqueHorarioId");
+
+                    b.HasIndex("AgendaId");
+
+                    b.ToTable("BloqueHorario");
+                });
 
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
@@ -41,6 +84,12 @@ namespace WebApi.Migrations
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
 
                     b.Property<double>("PrecioTotal")
                         .HasColumnType("float");
@@ -148,6 +197,13 @@ namespace WebApi.Migrations
                     b.HasDiscriminator().HasValue("Cliente");
                 });
 
+            modelBuilder.Entity("Domain.Models.BloqueHorario", b =>
+                {
+                    b.HasOne("Domain.Models.Agenda", null)
+                        .WithMany("Bloques")
+                        .HasForeignKey("AgendaId");
+                });
+
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
                     b.HasOne("Domain.Models.Cliente", "Cliente")
@@ -165,6 +221,11 @@ namespace WebApi.Migrations
                     b.Navigation("Cliente");
 
                     b.Navigation("Servicioo");
+                });
+
+            modelBuilder.Entity("Domain.Models.Agenda", b =>
+                {
+                    b.Navigation("Bloques");
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>

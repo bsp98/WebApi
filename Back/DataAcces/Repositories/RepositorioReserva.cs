@@ -17,12 +17,11 @@ namespace DataAcces.Repositories
             Contexto = contexto;
         }
 
-       
-
         public IEnumerable<Reserva> BuscarPorFecha(DateTime fecha)
         {
             return Contexto.Set<Reserva>().Where(c => c.Fecha.Date == fecha.Date).ToList();
         }
+
         public IEnumerable<Reserva> BuscarPorNombreCliente(string nombre)
         {
           

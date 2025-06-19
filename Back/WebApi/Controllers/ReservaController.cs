@@ -115,5 +115,17 @@ namespace WebApi.Controllers
             return Ok(reservasDto);
 
         }
+
+
+        [HttpGet("bloques-disponibles")]
+        public IActionResult GetBloquesDisponibles([FromQuery] DateTime fecha, [FromQuery] int duracionMinutos)
+        {
+            if (duracionMinutos <= 0)
+                return BadRequest("La duración debe ser mayor a 0.");
+
+            List<BloqueHorarioDto> bloques = _servicioReserva.ObtenerBloquesInicioDisponibles(fecha, duracionMinutos);
+
+            return Ok(bloques); // Devuelve lista de BloqueHorarioDTO
+        }
     }
 }

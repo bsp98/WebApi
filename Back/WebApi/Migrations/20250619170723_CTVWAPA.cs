@@ -12,6 +12,19 @@ namespace WebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Agenda",
+                columns: table => new
+                {
+                    AgendaId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agenda", x => x.AgendaId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Servicios",
                 columns: table => new
                 {
@@ -51,6 +64,27 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BloqueHorario",
+                columns: table => new
+                {
+                    BloqueHorarioId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HoraInicio = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HoraFin = table.Column<TimeSpan>(type: "time", nullable: false),
+                    EstaDisponible = table.Column<bool>(type: "bit", nullable: false),
+                    AgendaId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BloqueHorario", x => x.BloqueHorarioId);
+                    table.ForeignKey(
+                        name: "FK_BloqueHorario_Agenda_AgendaId",
+                        column: x => x.AgendaId,
+                        principalTable: "Agenda",
+                        principalColumn: "AgendaId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservas",
                 columns: table => new
                 {
@@ -60,6 +94,8 @@ namespace WebApi.Migrations
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ServicioId = table.Column<int>(type: "int", nullable: false),
                     ClienteId = table.Column<int>(type: "int", nullable: false),
+                    HoraInicio = table.Column<TimeSpan>(type: "time", nullable: false),
+                    HoraFin = table.Column<TimeSpan>(type: "time", nullable: false),
                     Cancelada = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -80,6 +116,11 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_BloqueHorario_AgendaId",
+                table: "BloqueHorario",
+                column: "AgendaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservas_ClienteId",
                 table: "Reservas",
                 column: "ClienteId");
@@ -94,7 +135,13 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "BloqueHorario");
+
+            migrationBuilder.DropTable(
                 name: "Reservas");
+
+            migrationBuilder.DropTable(
+                name: "Agenda");
 
             migrationBuilder.DropTable(
                 name: "Servicios");
