@@ -118,14 +118,23 @@ namespace WebApi.Controllers
 
 
         [HttpGet("bloques-disponibles")]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetBloquesDisponibles([FromQuery] DateTime fecha, [FromQuery] int duracionMinutos)
         {
-            if (duracionMinutos <= 0)
-                return BadRequest("La duración debe ser mayor a 0.");
+            try
+            {
+                List<BloqueHorarioDto> bloques = _servicioReserva.ObtenerBloquesInicioDisponibles(fecha, duracionMinutos);
 
-            List<BloqueHorarioDto> bloques = _servicioReserva.ObtenerBloquesInicioDisponibles(fecha, duracionMinutos);
-
-            return Ok(bloques); // Devuelve lista de BloqueHorarioDTO
+                return Ok(bloques); // Devuelve lista de BloqueHorarioDTO
+            }
+            catch (NoExisteException ene)
+            {
+                return NotFound(ene.Message);
+            }
+            catch (DatoIncorrectoException ene) { 
+                return UnprocessableEntity(ene.Message);
+            }
         }
     }
 }

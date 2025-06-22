@@ -17,10 +17,12 @@ namespace Domain.Models
             Fecha = fecha.Date;
             Bloques = GenerarBloquesPorDia();
         }
+        public Agenda()
+        {
+        }
+         public static List<BloqueHorario> GenerarBloquesPorDia() {
 
-        private List<BloqueHorario> GenerarBloquesPorDia() {
-
-            if (Fecha.DayOfWeek == DayOfWeek.Saturday)
+            if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {//cambiar el horario de los sabados
               return  GenerarBloques(new TimeSpan(09, 0, 0), new TimeSpan(16, 0, 0), 10);
             }
@@ -30,7 +32,7 @@ namespace Domain.Models
             }
         }
 
-        private List<BloqueHorario> GenerarBloques(TimeSpan desde, TimeSpan hasta, int duracionMinutos)
+        private static List<BloqueHorario> GenerarBloques(TimeSpan desde, TimeSpan hasta, int duracionMinutos)
         {
             List<BloqueHorario> bloques = new List<BloqueHorario>();
             TimeSpan actual = desde;
@@ -82,6 +84,18 @@ namespace Domain.Models
             }
 
             return bloquesDisponibles;
+        }
+
+        public BloqueHorario ObtenerBloqueHorario(TimeSpan horaInicio, TimeSpan horaFin)
+        {
+           
+            for (int i = 0; i<Bloques.Count; i++) {
+                BloqueHorario bloque = Bloques[i];
+                if (bloque.HoraInicio == horaInicio && bloque.HoraFin == horaFin) { return bloque;  }
+              
+
+            }
+            return null;
         }
     }
 }

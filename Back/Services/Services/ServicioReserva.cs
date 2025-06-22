@@ -2,6 +2,7 @@
 using DataAcces.Interfaces;
 using Domain.Dto;
 using Domain.Dto.FiltrosDto;
+using Domain.Exceptions;
 using Domain.Models;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -16,31 +17,23 @@ namespace Services.Services
     public class ServicioReserva : IServicioReserva
     {
         private readonly IRepositorioReserva _repositorioReserva;
+        private readonly IRepositorioAgenda _repositorioAgenda;
         private readonly IMapper _mapper;
 
-        public ServicioReserva(IRepositorioReserva repositorioReserva, IMapper mapper)
+        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda,IMapper mapper)
         {
             _repositorioReserva = repositorioReserva;
+            _repositorioAgenda = repositorioAgenda;
             _mapper = mapper;
         }
 
-        //public ReservaDto Add(ReservaDto dto)
-        //{
-        //    if (_repositorioReserva.GetById(dto.Id) != null)
-        //    {
-        //        throw new ExisteException("Ya existe una reserva con ese id");
-        //    }
 
-        //    dto.Validar();
 
-        //    Reserva nuevor = _mapper.Map<Reserva>(dto);
-        //    Reserva r = _repositorioReserva.Add(nuevor);
 
-        //    return _mapper.Map<ReservaDto>(r);
-        //}
 
         public ReservaDto Add(ReservaDto dto)
         {
+            bool agendaCreada = false;
             if (_repositorioReserva.GetById(dto.Id) != null)
                 throw new ExisteException("Ya existe una reserva con ese id");
 
@@ -48,20 +41,39 @@ namespace Services.Services
 
             // Validar conflictos de horario
             IEnumerable<Reserva> reservasDelDia = _repositorioReserva.BuscarPorFecha(dto.Fecha.Date);
-
-            foreach (Reserva reserva in reservasDelDia)
+            if (reservasDelDia.Any())
             {
-                bool seSuperpone = dto.HoraInicio < reserva.HoraFin && dto.HoraFin > reserva.HoraInicio;
-                if (seSuperpone)
-                    throw new ExisteException("El horario solicitado ya está reservado.");
 
+                foreach (Reserva reserva in reservasDelDia)
+                {
+                    bool seSuperpone = dto.HoraInicio < reserva.HoraFin && dto.HoraFin > reserva.HoraInicio;
+                    if (seSuperpone)
+                        throw new ExisteException("El horario solicitado ya está reservado.");
+                }
+                Agenda agenda = _repositorioAgenda.BuscarPorFecha(dto.Fecha);
+            }
+            else 
+            {
+                agendaCreada = true;
+               
             }
 
             Reserva nuevaReserva = _mapper.Map<Reserva>(dto);
             Reserva r = _repositorioReserva.Add(nuevaReserva);
 
+            if (agendaCreada)
+            {
+                Agenda agenda = new Agenda(); 
+                _repositorioAgenda.Add(agenda);
+            }
+               //BloqueHorario bloque = agenda.ObtenerBloqueHorario(dto.HoraInicio, dto.HoraFin);
+                //bloque.EstaDisponible = false;
+            
             return _mapper.Map<ReservaDto>(r);
+
+          
         }
+
 
         public ReservaDto? GetById(int id)
         {
@@ -98,8 +110,7 @@ namespace Services.Services
             dto.Validar();
            
           r.Fecha=dto.Fecha;
-          //r.Servicioo=dto;
-           
+            r.Cancelada=dto.Cancelada;
 
             _repositorioReserva.Update(r);
         }
@@ -132,12 +143,17 @@ namespace Services.Services
 
         public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
         {
+            // fijrse si hay agenda creada si - la busca y muestra los dias sino la busco los bloques con el metodo static
+            if (fecha.DayOfWeek == DayOfWeek.Sunday)throw new NoExisteException("El domingo no se trabjaaaaaaaaaaaaaaaaaaaaaa");
+            
+            if (duracionMinutos <= 0) throw new DatoIncorrectoException("La duración debe ser mayor a 0.");
+
             IEnumerable<Reserva> reservas = _repositorioReserva.BuscarPorFecha(fecha);
 
             Agenda agenda = new Agenda(fecha);
-            agenda.MarcarReservados(reservas);
+           agenda.MarcarReservados(reservas);
 
-            List<BloqueHorario> bloquesDisponibles = agenda.ObtenerBloquesInicioDisponibles(duracionMinutos);
+            List<BloqueHorario> bloquesDisponibles = agenda.GenerarBloquesPorDia();
             return bloquesDisponibles.Select(b => new BloqueHorarioDto
             {
                 HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
