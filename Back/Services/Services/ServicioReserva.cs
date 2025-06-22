@@ -148,12 +148,21 @@ namespace Services.Services
             
             if (duracionMinutos <= 0) throw new DatoIncorrectoException("La duración debe ser mayor a 0.");
 
-            IEnumerable<Reserva> reservas = _repositorioReserva.BuscarPorFecha(fecha);
+           // Agenda agenda = new Agenda(fecha);
+           //agenda.MarcarReservados(reservas);
+            Agenda agenda = _repositorioAgenda.BuscarPorFecha(fecha);
+            List<BloqueHorario> bloquesDisponibles = null;
+            if (agenda != null)
+            {
+             bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos,agenda.Bloques);
+            }
+            else
+            {
 
-            Agenda agenda = new Agenda(fecha);
-           agenda.MarcarReservados(reservas);
+            List<BloqueHorario> bloquesDelDia = Agenda.GenerarBloquesPorDia();
+            bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos,bloquesDelDia);
+            }
 
-            List<BloqueHorario> bloquesDisponibles = agenda.GenerarBloquesPorDia();
             return bloquesDisponibles.Select(b => new BloqueHorarioDto
             {
                 HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),

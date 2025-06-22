@@ -68,18 +68,18 @@ namespace Domain.Models
             return Bloques.Where(b => b.EstaDisponible).ToList();
         }
 
-        public List<BloqueHorario> ObtenerBloquesInicioDisponibles(int duracionMinutos)
+        public static List<BloqueHorario> ObtenerBloquesInicioDisponibles(int duracionMinutos, List<BloqueHorario> bloques)
         {
             int bloquesNecesarios = duracionMinutos / 10;
             var bloquesDisponibles = new List<BloqueHorario>();
 
-            for (int i = 0; i <= Bloques.Count - bloquesNecesarios; i++)
+            for (int i = 0; i <= bloques.Count - bloquesNecesarios; i++)
             {
-                var bloquesParaServicio = Bloques.Skip(i).Take(bloquesNecesarios).ToList();
+                var bloquesParaServicio = bloques.Skip(i).Take(bloquesNecesarios).ToList();
 
                 if (bloquesParaServicio.All(b => b.EstaDisponible))
                 {
-                    bloquesDisponibles.Add(Bloques[i]);
+                    bloquesDisponibles.Add(bloques[i]);
                 }
             }
 
