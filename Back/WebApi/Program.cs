@@ -36,6 +36,8 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioServicio), typeof(ServicioServicio));
             builder.Services.AddScoped(typeof(IRepositorioUsuario), typeof(RepositorioUsuario));
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
+            builder.Services.AddScoped(typeof(IRepositorioAgenda), typeof(RepositorioAgenda));
+            builder.Services.AddScoped(typeof(IRepositorioBloqueHorario), typeof(RepositorioBloqueHorario));
 
             //Aca agregamos la configuración CORS
             builder.Services.AddCors(options =>
@@ -49,6 +51,9 @@ namespace WebApi
             });
             builder.Services.AddScoped(typeof(IRepositorioReserva), typeof(RepositorioReserva));
             builder.Services.AddScoped(typeof(IServicioReserva), typeof(ServicioReserva));
+
+            builder.Services.AddScoped(typeof(IRepositorioDiaNoLaborable), typeof(RepositorioDiaNoLaborable));
+            builder.Services.AddScoped(typeof(IServicioDiaNoLaborable), typeof(ServicioDiaNoLaborable));
 
 
 

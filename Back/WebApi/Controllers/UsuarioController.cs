@@ -28,6 +28,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         [HttpPost("cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult PostCliente([FromBody] ClienteDto dto)
         {

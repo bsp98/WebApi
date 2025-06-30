@@ -15,7 +15,7 @@ namespace Domain.Dto
 
         public DateTime FechaDeNacimiento { get; set; }
         public string Celular { get; set; }
-        public List<Reserva> Reservas { get; set; }
+        //public List<Reserva> Reservas { get; set; }
         public bool Activo { get; set; }
 
         public ClienteDto(string email, string password, string nombre, string apellido,DateTime fechaDeNacimiento,string celular,bool activo) : base(email, password, nombre, apellido)
@@ -27,7 +27,6 @@ namespace Domain.Dto
            
             FechaDeNacimiento=fechaDeNacimiento;
             Celular=celular;
-            Reservas=new List<Reserva>();
             Activo= activo;
 
         }

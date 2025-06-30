@@ -11,5 +11,6 @@ namespace Domain.Dto.FiltrosDto
         public string? Nombrecliente { get; set; }
         public DateTime? Fecha { get; set; }
         public string? Nombreservicio { get; set; }
+        public int? ClienteId { get; set; }
     }
 }

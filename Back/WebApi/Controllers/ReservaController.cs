@@ -27,7 +27,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
-            List<ReservaDto> r = _servicioReserva.ObtenerTodos();
+            List<ReservaDto> r = _servicioReserva.GetAll();
             return Ok(r);
         }
 
@@ -51,6 +51,28 @@ namespace WebApi.Controllers
        
         }
 
+        [HttpPatch("cancelar/{id}")]
+        public IActionResult Cancelar(int id)
+        {
+            try
+            {
+                _servicioReserva.CancelarReserva(id);
+
+                return Ok("Cancelado con exito");
+
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (UsuarioNoCliente e)
+            {
+
+                return UnprocessableEntity(e.Message);
+            }
+
+        }
+
         [AllowAnonymous]
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -64,7 +86,7 @@ namespace WebApi.Controllers
 
                 return Ok(r);
 
-            }
+            } 
             catch (ExisteException eee)
             {
                 return Conflict(eee.Message);
@@ -115,5 +137,34 @@ namespace WebApi.Controllers
             return Ok(reservasDto);
 
         }
+
+
+        [HttpGet("bloques-disponibles")]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public IActionResult GetBloquesDisponibles([FromQuery] DateTime fecha, [FromQuery] int duracionMinutos)
+        {
+            try
+            {
+                List<BloqueHorarioDto> bloques = _servicioReserva.ObtenerBloquesInicioDisponibles(fecha, duracionMinutos);
+
+                return Ok(bloques); // Devuelve lista de BloqueHorarioDTO
+            }
+            catch (NoExisteException ene)
+            {
+                return NotFound(ene.Message);
+            }
+            catch (DatoIncorrectoException ene) { 
+                return UnprocessableEntity(ene.Message);
+            }
+            catch(ExisteException ene) { 
+                return Conflict(ene.Message);
+            }
+        }
+
+
+       
+
     }
 }
