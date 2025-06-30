@@ -65,6 +65,22 @@ namespace WebApi.Migrations
                     b.ToTable("BloqueHorario");
                 });
 
+            modelBuilder.Entity("Domain.Models.DiaNoLaborable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DiaNoLaborables");
+                });
+
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
                     b.Property<int>("Id")

@@ -28,13 +28,13 @@ namespace Domain.Dto
         //public EstadoDePago EstadoPago;
         public Boolean Cancelada { get; set; }
 
-        public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin)
+        public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin/*, ClienteDto cliente, ServicioDto servicio*/)
         {
 
             PrecioTotal=precioTotal;
             Fecha=fecha;
-           // Cliente=cliente;
-           // Servicioo=servicio;
+            //Cliente=cliente;
+            //Servicioo=servicio;
             Cancelada=false;
             HoraInicio = horaInicio;
             HoraFin = horaFin;

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250619170723_CTVWAPA")]
+    [Migration("20250629161032_CTVWAPA")]
     partial class CTVWAPA
     {
         /// <inheritdoc />
@@ -66,6 +66,22 @@ namespace WebApi.Migrations
                     b.HasIndex("AgendaId");
 
                     b.ToTable("BloqueHorario");
+                });
+
+            modelBuilder.Entity("Domain.Models.DiaNoLaborable", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DiaNoLaborables");
                 });
 
             modelBuilder.Entity("Domain.Models.Reserva", b =>

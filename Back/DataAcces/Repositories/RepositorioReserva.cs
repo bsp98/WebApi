@@ -33,5 +33,10 @@ namespace DataAcces.Repositories
         {
             return Contexto.Set<Reserva>().Include(r => r.Servicioo).AsNoTracking().AsEnumerable().Where(c => c.ObtenerNombreServicio() == nombre).ToList();
         }
+
+        public IEnumerable<Reserva> BuscarPorClienteId(int clienteId)
+        {
+            return Contexto.Set<Reserva>().Include(r => r.Cliente).AsNoTracking().AsEnumerable().Where(c => c.ClienteId == clienteId).ToList();
+        }
     }
 }

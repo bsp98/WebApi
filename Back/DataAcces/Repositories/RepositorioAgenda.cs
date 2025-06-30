@@ -17,7 +17,7 @@ namespace DataAcces.Repositories
         }
         public Agenda BuscarPorFecha(DateTime fecha)
         {
-            return Contexto.Set<Agenda>().FirstOrDefault(c => c.Fecha.Date == fecha.Date);
+            return Contexto.Set<Agenda>().Include(a => a.Bloques) .FirstOrDefault(c => c.Fecha.Date == fecha.Date);
         }
     }
 }

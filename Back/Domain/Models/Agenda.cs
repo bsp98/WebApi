@@ -10,7 +10,7 @@ namespace Domain.Models
     {
         public int AgendaId { get; set; }
         public DateTime Fecha { get; set; }
-        public List<BloqueHorario> Bloques { get; private set; }
+        public List<BloqueHorario> Bloques { get; set; }
 
         public Agenda(DateTime fecha)
         {
@@ -52,20 +52,43 @@ namespace Domain.Models
             return bloques;
         }
 
-        public void MarcarReservados(IEnumerable<Reserva> reservas)
+        public List<BloqueHorario> MarcarBloquesReservados(Reserva reserva)
         {
+            List<BloqueHorario> bloques = new List<BloqueHorario>();
             foreach (var bloque in Bloques)
             {
-                if (reservas.Any(r => r.HoraInicio < bloque.HoraFin && r.HoraFin > bloque.HoraInicio))
+                bool bloq = reserva.HoraInicio < bloque.HoraFin && reserva.HoraFin > bloque.HoraInicio;
+                if (bloq)
                 {
-                    bloque.EstaDisponible = false;
+                    bloques.Add(bloque);
                 }
             }
+            return bloques;
+        }
+
+        public void DesmarcarBloquesReservados(Reserva reserva)
+        {
+            
+            foreach (var bloque in Bloques)
+            {
+                bool bloq = reserva.HoraInicio < bloque.HoraFin && reserva.HoraFin > bloque.HoraInicio;
+                if (bloq)
+                {
+                   bloque.EstaDisponible=true;
+                }
+            }
+            
         }
 
         public List<BloqueHorario> ObtenerDisponibles()
         {
             return Bloques.Where(b => b.EstaDisponible).ToList();
+        }
+
+
+        public bool EstaDisponible(TimeSpan inicio, TimeSpan fin)
+        {
+            return Bloques.Where(b=>b.HoraInicio < fin && b.HoraFin > inicio).All(b => b.EstaDisponible);
         }
 
         public static List<BloqueHorario> ObtenerBloquesInicioDisponibles(int duracionMinutos, List<BloqueHorario> bloques)
@@ -97,5 +120,21 @@ namespace Domain.Models
             }
             return null;
         }
+        public List<BloqueHorario> ObtenerBloquesHorario(TimeSpan horaInicio, TimeSpan horaFin)
+        {
+            List<BloqueHorario> bloques = new List<BloqueHorario>();
+            for (int i = 0; i < Bloques.Count; i++)
+            {
+                BloqueHorario bloque = Bloques[i];
+                if (bloque.HoraFin > horaInicio && bloque.HoraInicio < horaFin) { bloques.Add(bloque); }
+            
+
+            }
+            return bloques;
+        }
+
+
+       
+
     }
 }

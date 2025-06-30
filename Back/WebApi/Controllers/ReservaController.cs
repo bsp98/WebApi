@@ -51,6 +51,28 @@ namespace WebApi.Controllers
        
         }
 
+        [HttpPatch("cancelar/{id}")]
+        public IActionResult Cancelar(int id)
+        {
+            try
+            {
+                _servicioReserva.CancelarReserva(id);
+
+                return Ok("Cancelado con exito");
+
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (UsuarioNoCliente e)
+            {
+
+                return UnprocessableEntity(e.Message);
+            }
+
+        }
+
         [AllowAnonymous]
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -120,6 +142,7 @@ namespace WebApi.Controllers
         [HttpGet("bloques-disponibles")]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public IActionResult GetBloquesDisponibles([FromQuery] DateTime fecha, [FromQuery] int duracionMinutos)
         {
             try
@@ -135,6 +158,13 @@ namespace WebApi.Controllers
             catch (DatoIncorrectoException ene) { 
                 return UnprocessableEntity(ene.Message);
             }
+            catch(ExisteException ene) { 
+                return Conflict(ene.Message);
+            }
         }
+
+
+       
+
     }
 }

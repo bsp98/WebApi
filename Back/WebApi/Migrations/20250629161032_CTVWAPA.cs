@@ -25,6 +25,19 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DiaNoLaborables",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiaNoLaborables", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Servicios",
                 columns: table => new
                 {
@@ -136,6 +149,9 @@ namespace WebApi.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BloqueHorario");
+
+            migrationBuilder.DropTable(
+                name: "DiaNoLaborables");
 
             migrationBuilder.DropTable(
                 name: "Reservas");

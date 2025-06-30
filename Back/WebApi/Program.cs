@@ -52,6 +52,9 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioReserva), typeof(RepositorioReserva));
             builder.Services.AddScoped(typeof(IServicioReserva), typeof(ServicioReserva));
 
+            builder.Services.AddScoped(typeof(IRepositorioDiaNoLaborable), typeof(RepositorioDiaNoLaborable));
+            builder.Services.AddScoped(typeof(IServicioDiaNoLaborable), typeof(ServicioDiaNoLaborable));
+
 
 
             // Add services to the container.

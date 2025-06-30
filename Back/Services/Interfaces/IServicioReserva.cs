@@ -14,6 +14,8 @@ namespace Services.Interfaces
 
         List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos);
         List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
+        void CancelarReserva(int id);
+       
     }
 }
 
