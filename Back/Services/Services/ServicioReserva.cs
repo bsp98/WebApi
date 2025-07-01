@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DataAcces.Interfaces;
+using DataAcces.Repositories;
 using DataAccess.Interfaces;
 using Domain.Dto;
 using Domain.Dto.FiltrosDto;
@@ -21,14 +22,16 @@ namespace Services.Services
         private readonly IRepositorioAgenda _repositorioAgenda;
         private readonly IRepositorioBloqueHorario _repositorioBloqueHorario;
         private readonly IRepositorioDiaNoLaborable _repositorioDiaNoLaborable;
+        private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IMapper _mapper;
 
-        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda,IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable,IMapper mapper)
+        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda,IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario,IMapper mapper)
         {
             _repositorioReserva = repositorioReserva;
             _repositorioAgenda = repositorioAgenda;
             _repositorioBloqueHorario=repositorioBloqueHorario;
             _repositorioDiaNoLaborable=repositorioDiaNoLaborable;
+            _repositorioUsuario=repositorioUsuario;
             _mapper = mapper;
         }
 
@@ -58,13 +61,27 @@ namespace Services.Services
               
             Reserva nuevaReserva = _mapper.Map<Reserva>(dto);
             Reserva r = _repositorioReserva.Add(nuevaReserva);
+            
             List<BloqueHorario> bloquesReservados = agenda.MarcarBloquesReservados(r);
             foreach (BloqueHorario bloque in bloquesReservados)
             {
                 bloque.EstaDisponible = false;
                 _repositorioBloqueHorario.Update(bloque);
             }
-           
+
+            Usuario usu = _repositorioUsuario.BuscarPorId(dto.ClienteId);
+
+            if (usu is Cliente cliente)
+            {
+                if (cliente.Reservas == null)
+                {
+                    cliente.Reservas = new List<Reserva>();
+                }
+                cliente.Reservas.Add(r);
+                _repositorioUsuario.Update(cliente);
+            }
+
+
             return _mapper.Map<ReservaDto>(r);
         }
 
@@ -103,6 +120,17 @@ namespace Services.Services
                 _repositorioBloqueHorario.Update(b);
             }
             _repositorioReserva.Remove(r);
+
+            Usuario usu = _repositorioUsuario.BuscarPorId(r.ClienteId);
+
+            if (usu is Cliente cliente)
+            {
+                if (cliente.Reservas != null)
+                {
+                    cliente.Reservas.Remove(r);
+                    _repositorioUsuario.Update(cliente);
+                }
+            }
         }
 
         public void Update(int id, ReservaDto dto)
@@ -118,6 +146,59 @@ namespace Services.Services
 
             _repositorioReserva.Update(r);
         }
+
+
+        public void ActualizarFechaYHora(int id, DateTime nuevaFecha, TimeSpan nuevaHoraInicio)
+        {
+            Reserva reserva = _repositorioReserva.GetById(id);
+            if (reserva == null)
+                throw new NoExisteException("La reserva no existe");
+
+            if (nuevaHoraInicio < TimeSpan.Zero || nuevaHoraInicio >= TimeSpan.FromHours(24))
+                throw new DatoIncorrectoException("Hora de inicio no válida");
+
+            TimeSpan duracion = TimeSpan.FromMinutes(reserva.Servicioo.TiempoDeDuracionMin);
+            TimeSpan nuevaHoraFin = nuevaHoraInicio + duracion;
+
+            if (nuevaHoraFin > TimeSpan.FromHours(24))
+                throw new DatoIncorrectoException("La nueva hora de fin supera el día");
+
+
+            Agenda agendaVieja = _repositorioAgenda.BuscarPorFecha(reserva.Fecha);
+            List<BloqueHorario> bloquesViejos = agendaVieja.ObtenerBloquesHorario(reserva.HoraInicio, reserva.HoraFin);
+            foreach (BloqueHorario b in bloquesViejos)
+            {
+                b.EstaDisponible = true;
+                _repositorioBloqueHorario.Update(b);
+            }
+
+          
+            Agenda agendaNueva = _repositorioAgenda.BuscarPorFecha(nuevaFecha.Date);
+            if (agendaNueva == null)
+            {
+                agendaNueva = new Agenda(nuevaFecha.Date);
+                _repositorioAgenda.Add(agendaNueva);
+            }
+
+            if (!agendaNueva.EstaDisponible(nuevaHoraInicio, nuevaHoraFin))
+                throw new ExisteException("Los nuevos bloques horarios ya están reservados");
+
+      
+            List<BloqueHorario> nuevosBloques = agendaNueva.ObtenerBloquesHorario(nuevaHoraInicio, nuevaHoraFin);
+            foreach (BloqueHorario b in nuevosBloques)
+            {
+                b.EstaDisponible = false;
+                _repositorioBloqueHorario.Update(b);
+            }
+
+            reserva.Fecha = nuevaFecha.Date;
+            reserva.HoraInicio = nuevaHoraInicio;
+            reserva.HoraFin = nuevaHoraFin;
+
+            _repositorioReserva.Update(reserva);
+        }
+
+
 
         public List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros)
         {
@@ -280,6 +361,17 @@ namespace Services.Services
             {
                 b.EstaDisponible=true;
                 _repositorioBloqueHorario.Update(b);
+            }
+
+            Usuario usu = _repositorioUsuario.BuscarPorId(reserva.ClienteId);
+
+            if (usu is Cliente cliente)
+            {
+                if (cliente.Reservas != null)
+                {  
+                     cliente.Reservas.Remove(reserva);
+                     _repositorioUsuario.Update(cliente);
+                }
             }
 
         }
