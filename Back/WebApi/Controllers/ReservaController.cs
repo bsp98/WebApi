@@ -129,11 +129,11 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult PatchFechaHora(int id, [FromBody] ReservaFechaHoraDto dto)
+        public IActionResult Reagendar(int id, [FromBody] ReservaFechaHoraDto dto)
         {
             try
             {
-                _servicioReserva.ActualizarFechaYHora(id, dto.Fecha, dto.HoraInicio);
+                _servicioReserva.Reagendar(id, dto.Fecha, dto.HoraInicio);
                 return Ok("Fecha y hora modificadas con éxito");
             }
             catch (DatoIncorrectoException die)

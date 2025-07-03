@@ -148,7 +148,7 @@ namespace Services.Services
         }
 
 
-        public void ActualizarFechaYHora(int id, DateTime nuevaFecha, TimeSpan nuevaHoraInicio)
+        public void Reagendar(int id, DateTime nuevaFecha, TimeSpan nuevaHoraInicio)
         {
             Reserva reserva = _repositorioReserva.GetById(id);
             if (reserva == null)
