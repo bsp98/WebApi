@@ -15,18 +15,19 @@ namespace Domain.Dto
         public int Id { get; set; }
         public double PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
-    
-        [JsonIgnore]
-        public ClienteDto? Cliente { get; set; }
+
+        public ClienteDto? Cliente { get; set; } 
         public int ClienteId { get; set; }
+
+        public ServicioDto? Servicio { get; set; }  
         public int ServicioId { get; set; }
-        [JsonIgnore]
-        public ServicioDto? Servicioo { get; set; }    
+
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
 
-        //public EstadoDePago EstadoPago;
-        public Boolean Cancelada { get; set; }
+        public bool Cancelada { get; set; }
+
+
 
         public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin/*, ClienteDto cliente, ServicioDto servicio*/)
         {

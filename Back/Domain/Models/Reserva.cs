@@ -12,7 +12,7 @@ namespace Domain.Models
         public double PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
         public Cliente Cliente { get; set; }
-        public Servicio Servicioo { get; set; }
+        public Servicio Servicio { get; set; }
         public int ServicioId { get; set; }
         public int ClienteId { get; set; }
         public TimeSpan HoraInicio { get; set; }
@@ -23,19 +23,19 @@ namespace Domain.Models
 
         public Reserva( DateTime fecha, Cliente cliente, Servicio servicio)
         {
-    
-            PrecioTotal=CalcularPrecio();
+
             Fecha=fecha;
             Cliente=cliente;
-            Servicioo= servicio;
+            Servicio= servicio;
+            PrecioTotal = CalcularPrecio();
             Cancelada=false;
             HoraInicio = Fecha.TimeOfDay; 
-            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicioo.TiempoDeDuracionMin)); 
+            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicio.TiempoDeDuracionMin)); 
         }
 
         private double CalcularPrecio()
         {
-            return Servicioo.ObtenerPrecio();
+            return Servicio.ObtenerPrecio();
         }
 
         public Reserva() { }
@@ -57,7 +57,7 @@ namespace Domain.Models
         }
 
         public string ObtenerNombreServicio() {
-            return Servicioo.Nombre;
+            return Servicio.Nombre;
         }
     }
 }

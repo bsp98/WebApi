@@ -23,15 +23,17 @@ namespace Services.Services
         private readonly IRepositorioBloqueHorario _repositorioBloqueHorario;
         private readonly IRepositorioDiaNoLaborable _repositorioDiaNoLaborable;
         private readonly IRepositorioUsuario _repositorioUsuario;
+        private readonly IRepositorioServicio _repositorioServicio;
         private readonly IMapper _mapper;
 
-        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda,IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario,IMapper mapper)
+        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda,IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario,IRepositorioServicio repositorioServicio,IMapper mapper)
         {
             _repositorioReserva = repositorioReserva;
             _repositorioAgenda = repositorioAgenda;
             _repositorioBloqueHorario=repositorioBloqueHorario;
             _repositorioDiaNoLaborable=repositorioDiaNoLaborable;
             _repositorioUsuario=repositorioUsuario;
+            _repositorioServicio = repositorioServicio;
             _mapper = mapper;
         }
 
@@ -58,9 +60,34 @@ namespace Services.Services
                agenda = new Agenda(dto.Fecha); 
              _repositorioAgenda.Add(agenda);
             }
-              
-            Reserva nuevaReserva = _mapper.Map<Reserva>(dto);
-            Reserva r = _repositorioReserva.Add(nuevaReserva);
+
+            Usuario usu = _repositorioUsuario.BuscarPorId(dto.ClienteId);
+            Servicio servicio = _repositorioServicio.GetById(dto.ServicioId);
+
+            if (usu == null) throw new Exception("Cliente no encontrado");
+            if (usu is not Cliente cliente)
+                throw new Exception("El usuario no es un cliente");
+            if (servicio == null) throw new Exception("Servicio no encontrado");
+
+            //Reserva nuevaReserva = _mapper.Map<Reserva>(dto);
+            //Reserva reserva = new Reserva(dto.Fecha,(Cliente)usu,servicio)
+            //{
+            //    HoraInicio = dto.HoraInicio,
+            //    HoraFin = dto.HoraFin,
+            //    Cancelada = dto.Cancelada,
+            //    PrecioTotal = servicio.Precio
+            //};
+            Reserva reserva = new Reserva
+            {
+                Fecha = dto.Fecha,
+                ClienteId = dto.ClienteId,
+                ServicioId = dto.ServicioId,
+                HoraInicio = dto.HoraInicio,
+                HoraFin = dto.HoraFin,
+                Cancelada = dto.Cancelada,
+                PrecioTotal = servicio.Precio
+            };
+            Reserva r = _repositorioReserva.Add(reserva);
             
             List<BloqueHorario> bloquesReservados = agenda.MarcarBloquesReservados(r);
             foreach (BloqueHorario bloque in bloquesReservados)
@@ -69,20 +96,18 @@ namespace Services.Services
                 _repositorioBloqueHorario.Update(bloque);
             }
 
-            Usuario usu = _repositorioUsuario.BuscarPorId(dto.ClienteId);
 
-            if (usu is Cliente cliente)
-            {
+           
                 if (cliente.Reservas == null)
                 {
                     cliente.Reservas = new List<Reserva>();
                 }
                 cliente.Reservas.Add(r);
                 _repositorioUsuario.Update(cliente);
-            }
+            
 
-
-            return _mapper.Map<ReservaDto>(r);
+            var reservaCompleta = _repositorioReserva.GetById(reserva.Id);
+            return _mapper.Map<ReservaDto>(reservaCompleta);
         }
 
 
@@ -157,7 +182,7 @@ namespace Services.Services
             if (nuevaHoraInicio < TimeSpan.Zero || nuevaHoraInicio >= TimeSpan.FromHours(24))
                 throw new DatoIncorrectoException("Hora de inicio no válida");
 
-            TimeSpan duracion = TimeSpan.FromMinutes(reserva.Servicioo.TiempoDeDuracionMin);
+            TimeSpan duracion = TimeSpan.FromMinutes(reserva.Servicio.TiempoDeDuracionMin);
             TimeSpan nuevaHoraFin = nuevaHoraInicio + duracion;
 
             if (nuevaHoraFin > TimeSpan.FromHours(24))
@@ -261,8 +286,6 @@ namespace Services.Services
                 HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
                 HoraFin = b.HoraFin.ToString(@"hh\:mm")
             }).ToList();
-
-          
         }*/
 
         public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
