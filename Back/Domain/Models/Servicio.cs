@@ -25,5 +25,10 @@ namespace Domain.Models
             Categoria = categoria;
             TiempoDeDuracionMin = tiempoDeDuracionMin;
         }
+
+        public double ObtenerPrecio()
+        {
+            return this.Precio - (this.Precio * this.Descuento / 100);
+        }
     }
 }

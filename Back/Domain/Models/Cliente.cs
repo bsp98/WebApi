@@ -20,10 +20,8 @@ namespace Domain.Models
             Password= password;
             Nombre= nombre;
             Apellido= apellido;
-            
             FechaDeNacimiento=fechaDeNacimiento;
             Celular=celular;
-            Reservas=new List<Reserva>();
             Activo=activo;
 
         }

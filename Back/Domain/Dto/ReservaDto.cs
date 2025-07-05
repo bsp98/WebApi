@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Domain.Dto
@@ -14,30 +15,46 @@ namespace Domain.Dto
         public int Id { get; set; }
         public double PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
-        public ClienteDto Cliente { get; set; }
-        public List<ServicioDto> Servicios { get; set; }
 
-        //public EstadoDePAGO EstadoPago;
-        public Boolean Cancelada { get; set; }
+        public ClienteDto? Cliente { get; set; } 
+        public int ClienteId { get; set; }
 
-        public ReservaDto( double precioTotal, DateTime fecha, ClienteDto cliente, List<ServicioDto> servicios)
+        public ServicioDto? Servicio { get; set; }  
+        public int ServicioId { get; set; }
+
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
+
+        public bool Cancelada { get; set; }
+
+
+
+        public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin/*, ClienteDto cliente, ServicioDto servicio*/)
         {
 
             PrecioTotal=precioTotal;
             Fecha=fecha;
-            Cliente=cliente;
-            Servicios=servicios;
+            //Cliente=cliente;
+            //Servicioo=servicio;
             Cancelada=false;
+            HoraInicio = horaInicio;
+            HoraFin = horaFin;
         }
+
+     
 
         public ReservaDto() { }
 
         public void Validar() 
         {
-          
-            ValidarPrecio();
             ValidarFecha();
-        
+            ValidarServicio();
+        }
+
+        private void ValidarServicio()
+        {
+            if (ServicioId == null)
+                throw new DatoIncorrectoException("El servicio no puede ser nula.");
         }
 
         private void ValidarFecha()
@@ -46,19 +63,12 @@ namespace Domain.Dto
                 throw new DatoIncorrectoException("La fecha no puede ser nula.");
 
             if (Fecha <= DateTime.Now)
-                throw new DatoIncorrectoException("La fecha de nacimiento debe ser una fecha en el futuro.");
+                throw new DatoIncorrectoException("La fecha debe ser una fecha en el futuro");
         }
 
-        private void ValidarPrecio()
-        {
-            throw new NotImplementedException();
-        }
+   
 
 
-        public double CalcularPrecio() { //????
-            return 4;
-
-                                       
-       }
+      
     }
 }

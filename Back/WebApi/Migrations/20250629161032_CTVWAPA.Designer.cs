@@ -4,6 +4,7 @@ using DataAcces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20250629161032_CTVWAPA")]
+    partial class CTVWAPA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,15 +150,10 @@ namespace WebApi.Migrations
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ReservaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TiempoDeDuracionMin")
                         .HasColumnType("int");
 
                     b.HasKey("ServicioId");
-
-                    b.HasIndex("ReservaId");
 
                     b.ToTable("Servicios");
                 });
@@ -237,7 +235,6 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Cliente");
-                });
 
                     b.Navigation("Servicioo");
                 });

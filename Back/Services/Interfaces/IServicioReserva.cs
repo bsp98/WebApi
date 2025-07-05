@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 
 namespace Services.Interfaces
 {
-    public interface IServicioReserva : IServicioAdd<ReservaDto>, IServicioRemove<ReservaDto>, IServicioUpdate<ReservaDto>
+    public interface IServicioReserva : IServicioAdd<ReservaDto>, IServicioRemove<ReservaDto>, IServicioUpdate<ReservaDto>, IServicioGetAll<ReservaDto>, IServicioGetById<ReservaDto>
     {
-        List<ReservaDto> ObtenerTodos();
 
-        ReservaDto? BuscarPorId(int id);
+        List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos);
         List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
+        void CancelarReserva(int id);
+        void Reagendar(int id, DateTime fecha, TimeSpan horaInicio);
+
+
     }
 }
 

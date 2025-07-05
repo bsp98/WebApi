@@ -28,7 +28,6 @@ namespace Domain.Dto
 
             FechaDeNacimiento =fechaDeNacimiento;
             Celular=celular;
-            Reservas=new List<Reserva>();
             Activo= activo;
 
         }
