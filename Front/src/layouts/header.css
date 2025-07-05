@@ -1,3 +1,21 @@
+.header {
+    width: 100%;
+    height: 14.4rem;
+    max-height: 14.4rem;
+    background-color: var(--color-primary);
+}
+
+.header-content {
+    max-width: 128rem;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+
 .container_logo {
     position: absolute;
     overflow: hidden;
@@ -28,6 +46,7 @@
 
 .item_container {
     padding: 1.2rem;
+    position: relative;
 }
 
 .item {
@@ -42,6 +61,51 @@
 }
 
 .item:hover {
-    background-color:rgb(116, 213, 230);
+    background-color: rgb(116, 213, 230);
     border-radius: 0.6rem;
+}
+
+/*estilos subMenu*/
+
+.container_subMenu {
+    min-width: 16rem;
+    width: max-content;
+    display: none;
+    background-color: var(--color-primary);
+    position: absolute;
+    top: 100%;
+    left: 5%;
+}
+
+.item_subMenu {
+    width: 100%;
+    padding: 1rem;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Inter Regular', sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.92);
+    transition: all 300ms ease-out;
+    cursor: pointer;
+}
+
+.item_subMenu a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.92);
+
+}
+
+.item_subMenu button {
+  all: unset;
+}
+
+
+.item_subMenu:hover {
+    background-color: #4bbed2;
+}
+
+.item_container:hover .container_subMenu {
+    display: flex;
+    flex-direction: column;
 }

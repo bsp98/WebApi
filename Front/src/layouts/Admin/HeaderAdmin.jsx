@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom';
 import '../header.css'
 import './headerAdmin.css'
 
-export const HeaderAdmin = () => {
+export const HeaderAdmin = ({ idUsuario, cerrarSesion,abrirModal}) => {
   return (
     <header className='header'>
 
       <div className='header-content'>
 
-      <div className="logo-placeholder"></div> {/* ocupa espacio, del logo */}
+        <div className="logo-placeholder"></div> {/* ocupa espacio, del logo */}
 
         <div className='container_logo'>
           <img className='logo' src={logo} alt="Logo de la empresa"></img>
@@ -49,8 +49,28 @@ export const HeaderAdmin = () => {
 
             <li className='item_container'>
               <NavLink className='item' to="">LOGO</NavLink>
-            </li>
 
+              <ul className='container_subMenu'>
+
+                <li className='item_subMenu'>
+                  <NavLink className='link_submenu' to={`/admin/datos-personales/${idUsuario}`}>Datos personales</NavLink>
+                </li>
+
+                <li className='item_subMenu'>
+                  <NavLink className='link_submenu' to={`/admin/cambiar-password/${idUsuario}`}>Cambiar contraseña</NavLink>
+                </li>
+
+                <li className='item_subMenu'>
+                  <button className='link_subMenu' onClick={abrirModal}>Configuración de pago</button>
+                </li>
+
+                <li className='item_subMenu'>
+                  <button className='link_subMenu' onClick={cerrarSesion}>Cerrar sesión</button>
+                </li>
+
+              </ul>
+
+            </li>
 
           </ul>
 

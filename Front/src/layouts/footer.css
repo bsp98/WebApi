@@ -1,0 +1,91 @@
+.footer {
+    width: 100%;
+    min-height: 18rem;
+    margin-top: 12rem;
+    background-color: var(--color-primary);
+}
+
+.footer-content {
+    max-width: 128rem;
+    margin: 0 auto;
+    padding: 2rem 2.8rem;
+    height: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/*Estilos de seccion footer informacion*/
+
+.info_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+}
+
+.gruop_info {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.gruop_policy {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+
+.text_footer {
+    font-family: 'Inter Regular', sans-serif;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.text_policy {
+    font-size: 1.6rem;
+}
+
+.icon_info {
+    font-size: 3.2rem;
+    color: white
+}
+
+/*Estilos de seccion foooter redes sociales*/
+
+.social_container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem
+}
+
+.social_icon {
+    font-size: 6rem;
+    color: white
+}
+
+map_container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Estilos de seccion foooter mapa*/
+.map {
+    width: 100%;
+    min-width: 500px;
+    height: 240px;
+    border-radius: 10px;
+    border: 0;
+}

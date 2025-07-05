@@ -1,0 +1,32 @@
+container_servicio_icon{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+.imagen_mascara{
+    width:186px;
+    height: 186px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.imagen_mascara img{
+  width: 187px;
+  height: 200px;
+}
+.text_icon{
+    margin-top: 8px;
+    text-align: center;
+}
+
+
+.img_servicio_icon{
+  transition: all 300ms ease-in-out;
+}
+
+.img_servicio_icon:hover{
+  transform: scale(1.1);
+}

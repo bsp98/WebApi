@@ -9,6 +9,7 @@ namespace Domain.Dto.FiltrosDto
     public class ClienteFiltrosDto
     {
         public string? Nombre { get; set; }
+        public string? Apellido { get; set; }
         public DateTime? Fecha { get; set; }
     }
 }

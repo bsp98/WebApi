@@ -111,7 +111,7 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("GetTodos")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
@@ -128,6 +128,26 @@ namespace WebApi.Controllers
             }
         }
 
+
+        [HttpGet("Paginado")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetClientesPaginados([FromQuery]int page = 1, [FromQuery]int pageSize = 10)
+        {
+            try
+            {
+                var (clientes, total) = _servicioUsuario.ObtenerClientesPaginados(page, pageSize);
+
+                return Ok(new
+                {
+                    data = clientes,
+                    totalItems = total
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
 
     }
 

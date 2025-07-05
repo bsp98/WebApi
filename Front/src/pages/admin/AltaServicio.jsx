@@ -2,7 +2,7 @@ import React from 'react'
 import '../page.css'
 import { useServicios } from '../../hooks/useServicios';
 import { useRef, useEffect } from 'react';
-import { FormularioAltaServicio } from '../../components/servicio/FormularioAltaServicio';
+import { FormularioAltaServicio } from '../../components/servicio/formularios/FormularioAltaServicio';
 import { Modal } from '../../components/iu/messages/Modal';
 import {Title} from '../../components/iu/texts/Title'
 

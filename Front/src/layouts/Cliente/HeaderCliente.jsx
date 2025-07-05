@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../header.css'
 
 
-export const HeaderCliente = () => {
+export const HeaderCliente = ({ idUsuario, cerrarSesion }) => {
   return (
     <header className='header'>
 
@@ -41,6 +41,23 @@ export const HeaderCliente = () => {
 
             <li className='item_container'>
               <NavLink className='item' to="">LOGO USUARIO</NavLink>
+
+              <ul className='container_subMenu'>
+
+                <li className='item_subMenu'>
+                  <NavLink className='link_submenu' to={`/cliente/datos-personales/${idUsuario}`}>Datos personales</NavLink>
+                </li>
+
+                <li className='item_subMenu'>
+                  <NavLink className='link_submenu' to={`/cliente/cambiar-password/${idUsuario}`}>Cambiar contraseña</NavLink>
+                </li>
+
+                <li className='item_subMenu'>
+                  <button className='link_subMenu' onClick={cerrarSesion}>Cerrar sesión</button>
+                </li>
+
+              </ul>
+
             </li>
 
           </ul>

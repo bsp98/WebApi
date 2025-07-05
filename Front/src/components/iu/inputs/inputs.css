@@ -8,11 +8,12 @@
 }
 
 .form_group label {
-    width: 160px;
+    width: 100%;
     font-family: 'Inter Regular';
     font-size: 1.4rem;
     font-weight: 500;
-    color: var(--color-titulo)
+    color: var(--color-titulo);
+    text-align: left;
 }
 
 .input_form {
@@ -102,3 +103,60 @@ input:checked+.slider {
 input:checked+.slider:before {
     transform: translateX(26px);
 }
+
+/*estilos input fecha*/
+
+/* Contenedor general del calendario desplegable */
+.flatpickr-calendar {
+  font-size: 0.85rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Barra superior que contiene mes, año y flechas de navegación */
+.flatpickr-months {
+  background-color: var(--color-primary);
+  color: white; 
+  border-top-left-radius: 6px;            
+  border-top-right-radius: 6px;
+}
+
+
+
+/* Texto que muestra el mes actual y el input del año (editable) */
+.flatpickr-current-month,
+.flatpickr-current-month input.cur-year {
+  color: white; 
+  background: transparent; 
+  border: none;           
+}
+
+/* Fila con abreviaturas de los días de la semana (Lun, Mar, Mié...) */
+.flatpickr-weekdays {
+  background-color: var(--color-primary);
+  color: white;                           
+}
+
+/* Día que está seleccionado */
+.flatpickr-day.selected {
+  background-color: var(--color-secondary) !important;
+  border-radius: 50%;          
+  color: white;        
+  border: none;                 
+}
+
+/* Día que tiene el cursor encima (hover) */
+.flatpickr-day:hover {
+  background-color: rgba(237, 128, 173, 0.2);
+  border-radius: 50%;  
+}
+
+/* Flechas de navegación mes anterior y siguiente */
+.flatpickr-prev-month,
+.flatpickr-next-month {
+  color: white;
+}
+/*
+.flatpickr-current-month{
+    color: white !important;
+}*/

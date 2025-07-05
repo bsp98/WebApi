@@ -9,17 +9,27 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MessageError } from '../../components/iu/messages/MessageError'
 import { ContainerCards } from '../../components/iu/cards/ContainerCards'
+import { useParams } from 'react-router-dom'
 
 export const Servicios = () => {
-  const { error, servicios, loading,obtenerTodosLosServicios, serviciosPorCategoria} = useServicios();
+  const { error, servicios, loading, serviciosPorCategoria } = useServicios();
   const navigate = useNavigate();
+  const { categoria } = useParams();
+  const rol = "admin"
 
   useEffect(() => {
-    obtenerTodosLosServicios();
+    const categoriaServicio = categoria ? +categoria : 0;
+    serviciosPorCategoria(categoriaServicio);
   }, []);
 
   const realizarReserva = (servicio) => {
-    navigate(`/cliente/fecha-hora/${servicio.id}`)
+    if (rol === "cliente") {
+      navigate(`/cliente/fecha-hora/crear/${servicio.id}`)
+    }
+    else{
+      navigate(`/admin/fecha-hora/crear/${servicio.id}`)
+    }
+
   }
 
   const optionsFilter = [
@@ -35,9 +45,9 @@ export const Servicios = () => {
     <div className='container_page'>
       <Hero textHero={"SERVICIOS"} />
 
-      <Filter optionFilter={optionsFilter} onFilter={serviciosPorCategoria}/>
+      <Filter optionFilter={optionsFilter} onFilter={serviciosPorCategoria} />
 
-      <ContainerCards data={servicios} action_btn={realizarReserva}/>
+      <ContainerCards data={servicios} action_btn={realizarReserva} />
 
       {loading && <Spinner />}
 

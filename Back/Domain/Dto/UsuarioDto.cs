@@ -17,16 +17,18 @@ namespace Domain.Dto
         public string Password { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
-       
+
+        public string OrigenCreacion { get; set; }
+
         public TipoUsuario Tipo { get; set; }
 
-        public UsuarioDto(string email, string password, string nombre, string apellido)
+        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
-   
+            OrigenCreacion = origenCreacion;
         }
         public UsuarioDto() { }
 
@@ -35,8 +37,10 @@ namespace Domain.Dto
             
             ValidarApellido();
             ValidarNombre();
-            ValidarEmail();
-            ValidarPassword();
+
+            if(OrigenCreacion != "admin" || Email != "") ValidarEmail();
+
+            if(OrigenCreacion != "admin") ValidarPassword();
         }
 
        

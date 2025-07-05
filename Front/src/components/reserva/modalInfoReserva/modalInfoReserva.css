@@ -1,0 +1,66 @@
+/*Estilos modal info reserva*/
+.fondo_modal_reserva {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenido_modal_reserva {
+    width: 50%;
+    max-width: 630px;
+    height: 50%;
+    max-height: 600px;
+    padding: 4rem;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--color-texto);
+}
+
+.container_info_modal_reserva{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.infoReserva_modal{
+    width: 100%;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap:0.4rem;
+}
+
+.group_info_modal_reserva{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.titel_modal_reserva{
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.icon_modal_reserva{
+    font-size: 2rem;
+}

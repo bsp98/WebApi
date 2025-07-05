@@ -29,11 +29,11 @@ export const GestionServicios = () => {
   }
 
   const columns = [
-    { header: 'Nombre', field: 'nombre' },
-    { header: 'Categoría', field: 'categoriaNombre' },
-    { header: 'Estado', field: 'disponibilidadNombre' },
-    { header: 'Duración', field: 'tiempoDeDuracionMin' },
-    { header: 'Precio', field: 'precio' }
+    { header: 'Nombre', render: (dato) => dato.nombre },
+    { header: 'Categoría', render: (dato) => dato.categoriaNombre },
+    { header: 'Estado', render: (dato) => dato.disponibilidadNombre },
+    { header: 'Duración', render: (dato) => dato.tiempoDeDuracionMin },
+    { header: 'Precio', render: (dato) => dato.precio }
   ];
 
   const optionsFilter = [
@@ -53,7 +53,7 @@ export const GestionServicios = () => {
 
       <Filter optionFilter={optionsFilter} onFilter={serviciosPorCategoria}/>
 
-      <Table columns={columns} datos={servicios} textBtn1={"Modificar"} textBtn2={"Eliminar"} actionBtn1={modificarServicio} actionBtn2={eliminarServicio} />
+      <Table columns={columns} datos={servicios} textBtn1={"Modificar"} textBtn2={"Eliminar"} actionBtn1={modificarServicio} actionBtn2={eliminarServicio}  table_width={"table_medium"} class_margin={"table_margin_default"} />
 
       {loading && <Spinner />}
 

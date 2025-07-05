@@ -3,7 +3,7 @@ import '../page.css'
 import { useServicios } from '../../hooks/useServicios';
 import { useParams } from 'react-router-dom'
 import { useRef, useEffect } from 'react';
-import { FormularioModificarServicio } from '../../components/servicio/FormularioModificarServicio';
+import { FormularioModificarServicio } from '../../components/servicio/formularios/FormularioModificarServicio';
 import { Modal } from '../../components/iu/messages/Modal';
 import { Title } from '../../components/iu/texts/Title'
 
