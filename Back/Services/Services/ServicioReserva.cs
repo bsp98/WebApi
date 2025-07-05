@@ -61,7 +61,7 @@ namespace Services.Services
              _repositorioAgenda.Add(agenda);
             }
 
-            Usuario usu = _repositorioUsuario.BuscarPorId(dto.ClienteId);
+            Usuario usu = _repositorioUsuario.GetById(dto.ClienteId);
             Servicio servicio = _repositorioServicio.GetById(dto.ServicioId);
 
             if (usu == null) throw new Exception("Cliente no encontrado");
@@ -146,7 +146,7 @@ namespace Services.Services
             }
             _repositorioReserva.Remove(r);
 
-            Usuario usu = _repositorioUsuario.BuscarPorId(r.ClienteId);
+            Usuario usu = _repositorioUsuario.GetById(r.ClienteId);
 
             if (usu is Cliente cliente)
             {
@@ -386,7 +386,7 @@ namespace Services.Services
                 _repositorioBloqueHorario.Update(b);
             }
 
-            Usuario usu = _repositorioUsuario.BuscarPorId(reserva.ClienteId);
+            Usuario usu = _repositorioUsuario.GetById(reserva.ClienteId);
 
             if (usu is Cliente cliente)
             {
