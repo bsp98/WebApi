@@ -13,11 +13,15 @@ namespace Domain.Dto
     public class ReservaDto:IValidable
     {
         public int Id { get; set; }
-        public double PrecioTotal { get; set; }
+        public double? PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
 
         public ClienteDto? Cliente { get; set; } 
         public int ClienteId { get; set; }
+
+        public string? NombreCliente { get; set; }
+        public string? EmailCliente { get; set; }
+        public string? TelefonoCliente { get; set; }
 
         public ServicioDto? Servicio { get; set; }  
         public int ServicioId { get; set; }
@@ -67,8 +71,7 @@ namespace Domain.Dto
         }
 
    
-
-
+       
       
     }
 }
