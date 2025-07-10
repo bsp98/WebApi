@@ -25,7 +25,7 @@ namespace DataAcces.Repositories
         public IEnumerable<Reserva> BuscarPorNombreCliente(string nombre)
         {
           
-                return Contexto.Set<Reserva>().Include(r => r.Cliente).AsNoTracking().AsEnumerable().Where(r => r.ObtenerNombreCliente() == nombre).ToList();
+                return Contexto.Set<Reserva>().Include(r => r.Cliente).AsNoTracking().AsEnumerable().Where(r => r.Cliente?.Nombre  == nombre || r.NombreCliente == nombre).ToList();
             
         }
 
