@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace Domain.Models
     {
         public DateTime FechaDeNacimiento { get; set; }
         public  string Celular { get; set; }
+        [JsonIgnore]
         public List<Reserva> Reservas { get; set; } = new List<Reserva>();
         public bool Activo { get; set; }
 

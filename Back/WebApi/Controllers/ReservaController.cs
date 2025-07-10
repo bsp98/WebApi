@@ -78,7 +78,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        public IActionResult Post([FromBody] ReservaDto reservaDto)
+        public IActionResult Post([FromBody] CrearReservaDto reservaDto)
         {
             try
             {
@@ -90,6 +90,10 @@ namespace WebApi.Controllers
             catch (ExisteException eee)
             {
                 return Conflict(eee.Message);
+            }
+            catch (NoExisteException nee)
+            {
+                return Conflict(nee.Message);
             }
             catch (DatoIncorrectoException die)
             {

@@ -52,7 +52,7 @@ namespace Domain.Models
             return bloques;
         }
 
-        public List<BloqueHorario> MarcarBloquesReservados(Reserva reserva)
+        public List<BloqueHorario> ObtenerBloquesAReservar(Reserva reserva)
         {
             List<BloqueHorario> bloques = new List<BloqueHorario>();
             foreach (var bloque in Bloques)

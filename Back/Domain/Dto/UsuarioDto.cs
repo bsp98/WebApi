@@ -34,7 +34,6 @@ namespace Domain.Dto
 
         public virtual void Validar()
         {
-            
             ValidarApellido();
             ValidarNombre();
 
