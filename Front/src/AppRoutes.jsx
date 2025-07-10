@@ -11,10 +11,10 @@ import { Error404 } from './pages/shared/Error404'
 import { InicioCliente } from './pages/cliente//inicioCliente/InicioCliente'
 import { ConfirmarReserva } from './pages/cliente/ConfirmarReserva'
 import { InicioAdmin } from './pages/admin/inicioAdmin/InicioAdmin'
-import { GestionReservas } from './pages/admin/GestionReservas'
-import { GestionClientes } from './pages/admin/GestionClientes'
+import { GestionReservas } from './pages/admin/gestionReservas/GestionReservas'
+import { GestionClientes } from './pages/admin/gestionClientes/GestionClientes'
 import { GestionEgresos } from './pages/admin/GestionEgresos'
-import { GestionServicios } from './pages/admin/GestionServicios'
+import { GestionServicios } from './pages/admin/gestionServicios/GestionServicios'
 import { Estadisticas } from './pages/admin/Estadisticas'
 import { AltaCliente } from './pages/admin/AltaCliente'
 import { AltaEgreso } from './pages/admin/AltaEgreso'
@@ -45,6 +45,7 @@ export const AppRoutes = () => {
                     <Route path="galeria" element={<Galeria></Galeria>} />
                     <Route path="gift-card" element={<GiftCard></GiftCard>} />
                     <Route path="contacto" element={<Contacto></Contacto>} />
+                    <Route path="confirmar-reserva" element={<ConfirmarReserva></ConfirmarReserva>} />
                     <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="politica-de-privacidad" element={<PoliticaPrivacidad></PoliticaPrivacidad>} />

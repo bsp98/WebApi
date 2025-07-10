@@ -44,15 +44,26 @@
 
 
 /*Estilos del Switch*/
-.container_switch {
-    width: 80%;
+.container_switch_servicio {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
     margin-bottom: 4rem;
 }
 
-.container_switch span {
+.container_switch_reserva {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 0.4rem;
+  margin-bottom: 4rem;
+  align-items: center;
+  justify-content: right;
+}
+
+
+.label_switch {
     font-family: 'Inter Regular';
     font-size: 1.2rem;
     font-weight: 500;

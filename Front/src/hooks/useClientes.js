@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createClienteThunk, deleteClienteThunk, getAllClienteThunk, getByFilterThunk, getClientesPaginadosThunk } from '../redux/thunks/clientesThunks';
+import { createClienteThunk, deleteClienteThunk, getAllClienteThunk, getByIdClienteThunk, getByFilterThunk, getClientesPaginadosThunk } from '../redux/thunks/clientesThunks';
 import { clearSuccessMessage, setError } from '../redux/slices/clientesSlice';
 import moment from 'moment';
 
 export const useClientes = () => {
     const dispatch = useDispatch();
-    const { clientes, total, currentPage, error, loading, successMessage } = useSelector((state) => state.clientes);
+    const { clientes, clienteSeleccionado, total, currentPage, error, loading, successMessage } = useSelector((state) => state.clientes);
 
 
     const agregarCliente = (e) => {
@@ -41,6 +41,10 @@ export const useClientes = () => {
         dispatch(getAllClienteThunk())
     };
 
+    const obtenerClientePorId = (id) => {
+        dispatch(getByIdClienteThunk(id));
+    };
+
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
     };
@@ -69,6 +73,7 @@ export const useClientes = () => {
 
     return {
         clientes,
+        clienteSeleccionado,
         total,
         currentPage,
         loading,
@@ -77,6 +82,7 @@ export const useClientes = () => {
         agregarCliente,
         eliminarCliente,
         obtenerTodosLosClientes,
+        obtenerClientePorId,
         limpiarMensajeExito,
         filtrarClientes,
         onbtenerClientesPaginados

@@ -4,13 +4,10 @@ import { InputForm } from '../../iu/inputs/InputForm'
 import { MessageError } from '../../iu/messages/MessageError'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 
-export const FormularioAltaReserva = ({ guardarDatosCliente, formRef, clientes = [], error }) => {
-    const rol = "cliente";
-    let cliente = null;
-    cliente = clientes.length > 0 ? clientes[0] : null;
+export const FormularioAltaReserva = ({ guardarDatosCliente, formRef, cliente = null, error }) => {
 
     return (
-        <div className='container_form'>
+        <div className='container_form_alta_reserva'>
 
             <form ref={formRef} onSubmit={guardarDatosCliente}>
 
@@ -20,13 +17,13 @@ export const FormularioAltaReserva = ({ guardarDatosCliente, formRef, clientes =
 
                 <InputForm tipo={"text"} id={"apellido"} labelDescription={"Apellido:"} name={"apellido"} placeholder={"Ingrese su apellido"} esRequerido={true} isDisabled={cliente ? true : false} value={cliente ? cliente.apellido : ""} />
 
-                <InputForm tipo={"text"} id={"email"} labelDescription={"Email:"} name={"email"} placeholder={"Ingrese su email"} esRequerido={rol === "cliente" || rol === "publico"} isDisabled={cliente ? true : false} value={cliente ? cliente.email : ""} />
+                <InputForm tipo={"text"} id={"email"} labelDescription={"Email:"} name={"email"} placeholder={"Ingrese su email"} esRequerido={true} isDisabled={cliente ? true : false} value={cliente ? cliente.email : ""} />
 
                 <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} placeholder={"Ingrese su celular"} esRequerido={true} isDisabled={cliente ? true : false} value={cliente ? cliente.celular : ""} />
 
                 {error && (<MessageError error={error} />)}
 
-                <ButtonSubmit value={"AGENDAR"} btn_variant={"btn_primary"} width_btn='btn_big' />
+                <ButtonSubmit value={"AGENDAR"} btn_variant={"btn_primary"} width_btn='btn_medium' />
 
             </form>
         </div>

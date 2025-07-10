@@ -35,7 +35,7 @@ export const FormularioAltaServicio = ({ crearServicio, formRef,error }) => {
 
                 {error && (<MessageError error={error}/>) }
                 
-                <ButtonSubmit  value={"AGREGAR SERVICIO"} btn_variant={"btn_primary"} width_btn='btn_big'/>
+                <ButtonSubmit  value={"AGREGAR SERVICIO"} btn_variant={"btn_primary"} width_btn='btn_medium'/>
 
             </form>
 

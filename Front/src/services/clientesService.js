@@ -74,8 +74,35 @@ export async function getAllCliente() {
   return await response.json();
 }
 
+export async function getByIdCliente(id) {
+  //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
+
+  const response = await fetch(`http://localhost:5164/api/Usuario/${id}`);
+
+  if (!response.ok) {
+    let customMessage = "Servidor fuera de servicio";
+
+    switch (response.status) {
+      case 404:
+        customMessage = await response.text();
+        break;
+
+      case 400:
+        customMessage = await response.text();
+        break;
+    }
+
+    throw {
+      status: response.status,
+      message: customMessage,
+    };
+  }
+
+  return await response.json();
+}
+
 export async function getByFilter(filtros) {
-    const params = new URLSearchParams();
+  const params = new URLSearchParams();
 
   // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
   if (filtros.nombre) {
@@ -98,8 +125,8 @@ export async function getByFilter(filtros) {
 
 
     console.log("Entro al if de getByFilter")
-  const errorText = await response.text();
-  console.error("Error de la API:", errorText);
+    const errorText = await response.text();
+    console.error("Error de la API:", errorText);
     throw {
       status: response.status,
       message: customMessage,
@@ -109,19 +136,19 @@ export async function getByFilter(filtros) {
   return await response.json();
 }
 
-export async function getClientesPaginados(page,pageSize) {
+export async function getClientesPaginados(page, pageSize) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
   const params = new URLSearchParams();
 
   //Se agrega el numero de pagina solo si tiene un valor valido
-  if(page){
-    params.append("page",page);
+  if (page) {
+    params.append("page", page);
   }
 
   //Se agrega el tamaño de elementos de la pagina solo si tiene un valor valido
-  if(pageSize){
-    params.append("pageSize",pageSize);
+  if (pageSize) {
+    params.append("pageSize", pageSize);
   }
 
   const response = await fetch(`http://localhost:5164/api/Usuario/Paginado?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
@@ -142,5 +169,5 @@ export async function getClientesPaginados(page,pageSize) {
   console.log("La peticion fue realizada con exito")
   console.log(datos)
 
-  return  datos;
+  return datos;
 }

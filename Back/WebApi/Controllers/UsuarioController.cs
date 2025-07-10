@@ -129,6 +129,29 @@ namespace WebApi.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+
+                UsuarioDto usuarioDto = _servicioUsuario.GetById(id);
+                return Ok(usuarioDto);
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (Exception e) { 
+                return BadRequest(e.Message);
+            }
+
+        }
+
 
         [HttpGet("Paginado")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -3,7 +3,7 @@ import './filter.css'
 import { InputForm } from '../inputs/InputForm'
 import { InputDateFinal } from '../inputs/InputDateFinal'
 import { ButtonSubmit } from '../buttons/ButtonSubmit'
-export const FilterBusqueda = ({ actionOnSubmit, tipoInput1, tipoInput2, label1, label2, placeHolder1, placeHolder2, name1, name2 }) => {
+export const FilterBusqueda = ({ actionOnSubmit, tipoInput1, tipoInput2, label1, label2, placeHolder1, placeHolder2, name1, name2}) => {
     return (
         <div className='container_filter_busqueda'>
 

@@ -43,6 +43,7 @@ const initialState = {
     currentPage: 1,
     loading: false,
     error: null,
+    horarioOcupadoError: null,
     successMessage: null,
     modalReservaAbierto: false,
 };
@@ -74,8 +75,11 @@ const reservasSlice = createSlice({
             state.modalReservaAbierto = false;
             state.reservaSeleccionada = null;
         },
-        setReservaEnEdicion(state,action) {
+        setReservaEnEdicion(state, action) {
             state.reservaEnEdicion = action.payload;
+        },
+        clearHorarioOcupadoError(state){
+            state.horarioOcupadoError = null;
         }
     },
     extraReducers: (builder) => {
@@ -87,7 +91,14 @@ const reservasSlice = createSlice({
                 state.successMessage = 'Reserva creada exitosamente';
             })
             .addCase(createReservaThunk.rejected, (state, action) => {
-                state.error = action.payload;
+                const { status, message } = action.payload;
+                if (status === 422) {
+                    state.error = null;
+                    state.horarioOcupadoError = message;
+                }
+                else {
+                    state.error = message;
+                }
             });
 
         //Cases de eliminar reserva
@@ -232,5 +243,5 @@ const reservasSlice = createSlice({
     },
 });
 
-export const { clearSuccessMessage, clearErrorMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva,setReservaEnEdicion} = reservasSlice.actions;
+export const { clearSuccessMessage, clearErrorMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, setReservaEnEdicion,clearHorarioOcupadoError } = reservasSlice.actions;
 export default reservasSlice.reducer;

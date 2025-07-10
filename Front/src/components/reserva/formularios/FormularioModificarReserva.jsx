@@ -32,7 +32,7 @@ export const FormularioModificarReserva = ({ modificarEstadoDePago, reagendarRes
                 <SelectForm id={"estadoDePago"} labelDescription={"Configuración del estado de pago:"} name={"estadoDePago"} options={tiposDeEstado} defaultValue={"Estados de pago"} />
 
                 <div className='form_buttons_group'>
-                    <ButtonSubmit value={"Modificar estado de pago"} btn_variant={"btn_primary"} width_btn='btn_big' />
+                    <ButtonSubmit value={"Modificar estado de pago"} btn_variant={"btn_primary"} width_btn='btn_medium' />
 
                     {error && (<MessageError error={error} />)}
 
@@ -41,7 +41,7 @@ export const FormularioModificarReserva = ({ modificarEstadoDePago, reagendarRes
                         <ButtonRedirect btn_variant={"btn_secondary"} width_btn='btn_small' textBtn={"Cancelar reserva"} actionRedirect={cancelarReserva} />
                     </div>
 
-                    <ButtonRedirect btn_variant={"btn_secondary"} width_btn='btn_big' textBtn={"Cerrar"} actionRedirect={alCerrar} />
+                    <ButtonRedirect btn_variant={"btn_secondary"} width_btn='btn_medium' textBtn={"Cerrar"} actionRedirect={alCerrar} />
 
                 </div>
 

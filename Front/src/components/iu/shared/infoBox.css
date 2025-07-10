@@ -1,0 +1,7 @@
+.container_infoBox{
+    width: 100%;
+    padding: 3rem;
+    background-color: var(--color-tertiary);
+    border: 1px solid #404040;
+    border-radius: 2rem;
+}

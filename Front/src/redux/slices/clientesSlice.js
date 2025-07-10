@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createClienteThunk, deleteClienteThunk, getAllClienteThunk, getByFilterThunk, getClientesPaginadosThunk } from '../thunks/clientesThunks';
+import { createClienteThunk, deleteClienteThunk, getAllClienteThunk,getByIdClienteThunk, getByFilterThunk, getClientesPaginadosThunk } from '../thunks/clientesThunks';
 
 const initialState = {
     clientes: [],
+    clienteSeleccionado: null,
     total: 0,
-    currentPage:1,
+    currentPage: 1,
     loading: false,
     error: null,
     successMessage: null,
@@ -59,6 +60,16 @@ const clientesSlice = createSlice({
             })
             .addCase(getAllClienteThunk.rejected, (state, action) => {
                 state.loading = false;
+                state.error = action.payload;
+            });
+
+        //Cases de obtener cliente por id
+        builder
+            .addCase(getByIdClienteThunk.fulfilled, (state, action) => {
+                state.error = null;
+                state.clienteSeleccionado = action.payload; // guardo el servicio obtenido
+            })
+            .addCase(getByIdClienteThunk.rejected, (state, action) => {
                 state.error = action.payload;
             });
 

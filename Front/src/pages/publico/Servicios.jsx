@@ -15,7 +15,7 @@ export const Servicios = () => {
   const { error, servicios, loading, serviciosPorCategoria } = useServicios();
   const navigate = useNavigate();
   const { categoria } = useParams();
-  const rol = "admin"
+  const rol = "publico"
 
   useEffect(() => {
     const categoriaServicio = categoria ? +categoria : 0;
@@ -23,11 +23,15 @@ export const Servicios = () => {
   }, []);
 
   const realizarReserva = (servicio) => {
+
     if (rol === "cliente") {
       navigate(`/cliente/fecha-hora/crear/${servicio.id}`)
     }
-    else{
+    if (rol === "admin") {
       navigate(`/admin/fecha-hora/crear/${servicio.id}`)
+    }
+    if (rol === "publico") {
+      navigate(`/fecha-hora/crear/${servicio.id}`)
     }
 
   }

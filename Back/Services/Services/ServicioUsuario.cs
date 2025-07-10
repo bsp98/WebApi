@@ -78,18 +78,6 @@ namespace Services.Services
             throw new NotImplementedException();
         }
 
-        public UsuarioDto? BuscarPorId(int id)
-        {
-            Usuario usuario = _repositorioUsuario.GetById(id);
-
-            if (usuario == null)
-            {
-                throw new NoExisteException("No se encontro un usuario con ese Id");
-            }
-
-            return _mapper.Map<UsuarioDto>(usuario);
-        }
-
         public List<ClienteDto> ObtenerTodos()
         {
             IEnumerable<Usuario> usuarios = _repositorioUsuario.GetAll();
@@ -137,7 +125,7 @@ namespace Services.Services
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
 
-            return ObtenerTodos(); 
+            return new List<ClienteDto>(); 
         }
 
         public (List<ClienteDto> clientes, int total) ObtenerClientesPaginados(int page, int pageSize)
@@ -157,7 +145,21 @@ namespace Services.Services
 
         public UsuarioDto GetById(int id)
         {
-            throw new NotImplementedException();
+           Usuario usuario = _repositorioUsuario.GetById(id);
+
+            if (usuario == null) {
+                throw new NoExisteException("No existe un usuario con ese id");
+            }
+
+            if (usuario is Cliente cliente) {
+                return _mapper.Map<ClienteDto>(cliente);
+            }
+
+            if (usuario is Administrador admin) {
+                return _mapper.Map<AdministradorDto>(admin);
+            }
+
+            throw new Exception("Tipo de usuario no reconocido");
         }
     }
 }

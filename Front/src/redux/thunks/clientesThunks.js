@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createCliente,deleteCliente,getAllCliente,getByFilter,getClientesPaginados} from '../../services/clientesService';
+import { createCliente,deleteCliente,getAllCliente,getByIdCliente,getByFilter,getClientesPaginados} from '../../services/clientesService';
 
 export const createClienteThunk = createAsyncThunk(
   'clientes/crearCliente',
@@ -42,6 +42,23 @@ export const getAllClienteThunk = createAsyncThunk(
     try {
 
       const response = await getAllCliente();
+      return response;
+
+    } catch (error) {
+
+      return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
+
+    }
+  }
+);
+
+export const getByIdClienteThunk = createAsyncThunk(
+  'clientes/getById',
+  async (id,thunkAPI) => {
+    try {
+
+      const response = await getByIdCliente(id);
+
       return response;
 
     } catch (error) {

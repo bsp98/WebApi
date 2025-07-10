@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createReserva,deleteReserva,reagendarReserva,getAllReserva,getByIdReserva,getReservasByIdCliente,getByFilter,getReservasPaginadas,getAvailableTimes,getReservasByDate,ModifyPaymentStatus} from '../../services/reservasService';
+import { createReserva, deleteReserva, reagendarReserva, getAllReserva, getByIdReserva, getReservasByIdCliente, getByFilter, getReservasPaginadas, getAvailableTimes, getReservasByDate, ModifyPaymentStatus } from '../../services/reservasService';
 
 export const createReservaThunk = createAsyncThunk(
   'reservas/crearReserva',
@@ -11,7 +11,10 @@ export const createReservaThunk = createAsyncThunk(
 
     } catch (error) {
 
-      return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
+      return thunkAPI.rejectWithValue({
+        status: error.status,
+        message: error.message,
+      });//pasa el error al slice
 
     }
   }
@@ -26,8 +29,8 @@ export const deleteReservaThunk = createAsyncThunk(
 
       const response = await deleteReserva(idReserva);
 
-      if(rol==="cliente"){
-      await thunkAPI.dispatch(getReservasByIdClienteThunk(1));
+      if (rol === "cliente") {
+        await thunkAPI.dispatch(getReservasByIdClienteThunk(1));
       }
 
       return response;
@@ -59,7 +62,7 @@ export const reagendarReservaThunk = createAsyncThunk(
 
 export const getAllReservaThunk = createAsyncThunk(
   'reservas/getAll',
-  async (_,thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
 
       const response = await getAllReserva();
@@ -75,7 +78,7 @@ export const getAllReservaThunk = createAsyncThunk(
 
 export const getByIdReservaThunk = createAsyncThunk(
   'reservas/getById',
-  async (id,thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
 
       const response = await getByIdReserva(id);
@@ -92,7 +95,7 @@ export const getByIdReservaThunk = createAsyncThunk(
 
 export const getReservasByIdClienteThunk = createAsyncThunk(
   'reservas/getReservasByIdCliente',
-  async (id,thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
 
       const response = await getReservasByIdCliente(id);
@@ -110,7 +113,7 @@ export const getReservasByIdClienteThunk = createAsyncThunk(
 
 export const getByFilterThunk = createAsyncThunk(
   'reservas/getByFilter',
-  async (filtros,thunkAPI) => {
+  async (filtros, thunkAPI) => {
     try {
 
       const response = await getByFilter(filtros);
@@ -124,12 +127,12 @@ export const getByFilterThunk = createAsyncThunk(
   });
 
 
-  export const getReservasPaginadasThunk = createAsyncThunk(
+export const getReservasPaginadasThunk = createAsyncThunk(
   'reservas/getReservasPaginadas',
-  async ({ page, pageSize },thunkAPI) => {
+  async ({ page, pageSize }, thunkAPI) => {
     try {
 
-      const response = await getReservasPaginadas(page,pageSize);
+      const response = await getReservasPaginadas(page, pageSize);
       return response;
 
     } catch (error) {
@@ -143,10 +146,10 @@ export const getByFilterThunk = createAsyncThunk(
 
 export const getAvailableTimesThunk = createAsyncThunk(
   'reservas/getAvailableTimes',
-  async ({ fecha, duracion },thunkAPI) => {
+  async ({ fecha, duracion }, thunkAPI) => {
     try {
 
-      const response = await getAvailableTimes(fecha,duracion);
+      const response = await getAvailableTimes(fecha, duracion);
       return response;
 
     } catch (error) {
@@ -159,7 +162,7 @@ export const getAvailableTimesThunk = createAsyncThunk(
 
 export const getReservasByDateThunk = createAsyncThunk(
   'reservas/getReservasByDate',
-  async (fecha,thunkAPI) => {
+  async (fecha, thunkAPI) => {
     try {
 
       const response = await getReservasByDate(fecha);
@@ -177,7 +180,7 @@ export const getReservasByDateThunk = createAsyncThunk(
 
 export const ModifyPaymentStatusThunk = createAsyncThunk(
   'reservas/ModifyPaymentStatus',
-  async (PaymentStatus,thunkAPI) => {
+  async (PaymentStatus, thunkAPI) => {
     try {
 
       const response = await ModifyPaymentStatus(PaymentStatus);

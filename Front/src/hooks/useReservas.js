@@ -1,28 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk,getByIdReservaThunk,ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
-import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva,clearErrorMessage,setReservaEnEdicion} from '../redux/slices/reservasSlice';
+import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk, getByIdReservaThunk, ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
+import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError } from '../redux/slices/reservasSlice';
 import moment from 'moment';
 
 export const useReservas = () => {
-    const rol = 'cliente';
+    const rol = 'admin';
     const dispatch = useDispatch();
-    const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto } = useSelector((state) => state.reservas);
+    const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto, horarioOcupadoError } = useSelector((state) => state.reservas);
     const navigate = useNavigate();
 
-    const crearReserva = (e) => {
-        e.preventDefault();
+    const crearReserva = (datosCliente, idServicio) => {
 
-        const form = e.target;
+        if (!datosCliente) {
+            return;
+        }
 
         const nuevaReserva = {
-            nombre: form.nombre.value,
-            descripcion: form.descripcion.value,
-            precio: +form.precio.value,
-            descuento: +form.descuento.value,
-            disponibilidad: 1,
-            categoria: +form.categoria.value,
-            tiempoDeDuracionMin: +form.duracion.value,
+            fecha: fechaSeleccionada,
+            clienteId: datosCliente.id ? parseInt(datosCliente.id) : null,
+            servicioId: idServicio,
+            horaInicio: horarioSeleccionado,
+            nombreClienteNoRegistrado: (!datosCliente.id && datosCliente.nombre) ? datosCliente.nombre : null,
+            apellidoClienteNoRegistrado: (!datosCliente.id && datosCliente.apellido) ? datosCliente.apellido : null,
+            celularClienteNoRegistrado: (!datosCliente.id && datosCliente.celular) ? datosCliente.celular : null,
+            emailClienteNoRegistrado: (!datosCliente.id && datosCliente.email) ? datosCliente.email : null,
         };
         dispatch(createReservaThunk(nuevaReserva));
     };
@@ -87,11 +89,11 @@ export const useReservas = () => {
 
     }
 
-    const reservarHorario = (modoReserva, horario) => {
+    const reservarHorario = (modoReserva, horario, idServicio) => {
         dispatch(setHorario(horario));
 
         if (modoReserva === "crear") {
-            redirectPantallaFormularioReserva();
+            redirectPantallaFormularioReserva(idServicio);
         }
 
         if (modoReserva === "modificar") {
@@ -101,13 +103,19 @@ export const useReservas = () => {
     }
 
 
-    const redirectPantallaFormularioReserva = () => {
+    const redirectPantallaFormularioReserva = (idServicio) => {
         if (rol === "cliente") {
-            navigate('/cliente/form-reserva');
+            navigate(`/cliente/form-reserva/${idServicio}`);
         }
-        else {
-            navigate('/admin/form-reserva');
+
+        if (rol === "admin") {
+            navigate(`/admin/form-reserva/${idServicio}`);
         }
+
+        if (rol === "publico") {
+            navigate(`/form-reserva/${idServicio}`);
+        }
+
     }
 
 
@@ -119,7 +127,7 @@ export const useReservas = () => {
         dispatch(clearSuccessMessage());
     };
 
-    const limpiarMensajeError = () =>{
+    const limpiarMensajeError = () => {
         dispatch(clearErrorMessage());
     }
 
@@ -131,8 +139,12 @@ export const useReservas = () => {
         dispatch(cerrarModalReserva());
     }
 
-    const setReservaParaCancelar = (reserva) =>{
+    const setReservaParaCancelar = (reserva) => {
         dispatch(setReservaEnEdicion(reserva));
+    }
+
+    const limpiarHorarioOcupadoError = () => {
+        dispatch(clearHorarioOcupadoError());
     }
 
 
@@ -166,5 +178,7 @@ export const useReservas = () => {
         abrirModalInfoReserva,
         cerrarModalInfoReserva,
         setReservaParaCancelar,
+        limpiarHorarioOcupadoError,
+        horarioOcupadoError,
     };
 };

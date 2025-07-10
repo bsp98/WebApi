@@ -113,7 +113,7 @@ export const SeleccionarFechaHora = () => {
         <CalendarioReserva onFechaSeleccionada={visualizarHorarios} /></div>
 
       <div className="area-horarios">
-        <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} loading={loading} />
+        <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} idServicio={id} loading={loading} />
       </div>
 
       {error && (<MessageError error={error} />)}

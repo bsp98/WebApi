@@ -1,16 +1,17 @@
 import React from 'react'
-import '../page.css'
+import '../../page.css'
+import './gestionReservas.css'
 import moment from 'moment';
 import { useEffect } from 'react'
-import { Title } from '../../components/iu/texts/Title'
-import { FilterBusqueda } from '../../components/iu/filter/FilterBusqueda'
+import { Title } from '../../../components/iu/texts/Title'
+import { FilterBusqueda } from '../../../components/iu/filter/FilterBusqueda'
 import { useNavigate } from 'react-router-dom'
-import { useReservas } from '../../hooks/useReservas'
-import { MessageError } from '../../components/iu/messages/MessageError'
-import { Spinner } from '../../components/iu/spinner/Spinner'
-import { ModalInfoReserva } from '../../components/reserva/modalInfoReserva/ModalInfoReserva';
-import { Table } from '../../components/iu/table/Table'
-import { ButtonRedirect } from '../../components/iu/buttons/ButtonRedirect';
+import { useReservas } from '../../../hooks/useReservas'
+import { MessageError } from '../../../components/iu/messages/MessageError'
+import { Spinner } from '../../../components/iu/spinner/Spinner'
+import { ModalInfoReserva } from '../../../components/reserva/modalInfoReserva/ModalInfoReserva';
+import { Table } from '../../../components/iu/table/Table'
+import { ButtonRedirect } from '../../../components/iu/buttons/ButtonRedirect';
 
 export const GestionReservas = () => {
   const { reservas, loading, error, obtenerReservasPorFecha, reservaSeleccionada, modalReservaAbierto, filtrarReservas, abrirModalInfoReserva, cerrarModalInfoReserva } = useReservas();
@@ -50,8 +51,10 @@ export const GestionReservas = () => {
     <div className='container_page'>
 
       <Title text={"Historial de reservas"} />
+      <div className='container_filter_reservas'>
+        <FilterBusqueda actionOnSubmit={filtrarReservas} tipoInput1={"text"} label1={"Nombre cliente:"} label2={"Fecha de reserva:"} placeHolder1={"Ingrese el nombre del cliente"} name1={"nombre"} name2={"fecha"} />
+      </div>
 
-      <FilterBusqueda actionOnSubmit={filtrarReservas} tipoInput1={"text"} label1={"Nombre cliente:"} label2={"Fecha de reserva:"} placeHolder1={"Ingrese el nombre del cliente"} name1={"nombre"} name2={"fecha"} />
 
       <Table columns={columns} datos={reservas} textBtn1={"Ver más"} textBtn2={"Modificar"} actionBtn1={abrirModalInfoReserva} actionBtn2={redirectModificarReserva} table_width={"table_medium"} class_margin={"table_margin_none"} />
 

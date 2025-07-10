@@ -1,25 +1,25 @@
 import React from 'react'
-import '../page.css'
-import '../../components/iu/buttons/buttons.css'
-import { Title } from '../../components/iu/texts/Title'
-import { Table } from '../../components/iu/table/Table'
-import { ButtonRedirect } from '../../components/iu/buttons/ButtonRedirect'
+import '../../page.css'
+import './gestionClientes.css'
+import { Title } from '../../../components/iu/texts/Title'
+import { Table } from '../../../components/iu/table/Table'
+import { ButtonRedirect } from '../../../components/iu/buttons/ButtonRedirect'
 import { useNavigate } from 'react-router-dom'
-import { useClientes } from '../../hooks/useClientes';
+import { useClientes } from '../../../hooks/useClientes';
 import { useEffect } from 'react'
-import { MessageError } from '../../components/iu/messages/MessageError'
-import { Spinner } from '../../components/iu/spinner/Spinner'
-import { Modal } from '../../components/iu/messages/Modal'
-import { FilterBusqueda } from '../../components/iu/filter/FilterBusqueda'
-import { Paginacion } from '../../components/iu/paginacion/Paginacion'
+import { MessageError } from '../../../components/iu/messages/MessageError'
+import { Spinner } from '../../../components/iu/spinner/Spinner'
+import { Modal } from '../../../components/iu/messages/Modal'
+import { FilterBusqueda } from '../../../components/iu/filter/FilterBusqueda'
+import { Paginacion } from '../../../components/iu/paginacion/Paginacion'
 import moment from 'moment'
 
 export const GestionClientes = () => {
-  const { error, clientes,total,currentPage, loading, eliminarCliente, successMessage, limpiarMensajeExito, filtrarClientes, onbtenerClientesPaginados } = useClientes();
+  const { error, clientes, total, currentPage, loading, eliminarCliente, successMessage, limpiarMensajeExito, filtrarClientes, onbtenerClientesPaginados } = useClientes();
   const navigate = useNavigate();
 
 
-const verInformacionCliente = () =>{};
+  const verInformacionCliente = () => { };
 
   useEffect(() => {
     onbtenerClientesPaginados(1);
@@ -45,9 +45,11 @@ const verInformacionCliente = () =>{};
 
       <Title text={"Panel de clientes"} />
 
-      <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} label1={"Nombre cliente:"} label2={"Fecha de nacimiento:"} placeHolder1={"Ingrese el nombre del cliente"} name1={"nombre"} name2={"fecha"}/>
+      <div className='container_filter_clientes'>
+        <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} label1={"Nombre cliente:"} label2={"Fecha de nacimiento:"} placeHolder1={"Ingrese el nombre del cliente"} name1={"nombre"} name2={"fecha"} />
+      </div>
 
-      <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerClientesPaginados}/>
+      <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerClientesPaginados} />
 
       <Table columns={columns} datos={clientes} textBtn1={"Ver mas"} textBtn2={"Eliminar"} actionBtn1={verInformacionCliente} actionBtn2={eliminarCliente} table_width={"table_medium"} class_margin={"table_margin_default"} />
 

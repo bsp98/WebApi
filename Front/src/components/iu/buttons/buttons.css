@@ -15,8 +15,12 @@
     width: 40%;
 }
 
-.btn_big {
+.btn_medium {
     width: 80%;
+}
+
+.btn_big {
+    width: 100%;
 }
 
 .btn_primary {

@@ -38,7 +38,9 @@ export const FormularioModificarServicio = ({ modificarServicio, formRef, error,
 
                 <TextAreaForm id={"descripcion"} labelDescription={"Descripción:"} name={"descripcion"} placeholder={"Describa el servicio"} esRequerido={true} value={servicio.descripcion} />
 
-                <Switch label={"Estado"} name={"disponibilidad"} activo={servicio.disponibilidad} />
+                <div className='container_switch_servicio'>
+                    <Switch label={"Estado"} name={"disponibilidad"} switch_style={"container_switch_servicio"} activo={servicio.disponibilidad} />
+                </div>
 
                 {error && (<MessageError error={error} />)}
 

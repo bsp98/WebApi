@@ -81,7 +81,7 @@ const getReservasToMorrow = async () => {
   return (
     <div className='container_page'>
 
-      <Title text={"Bienvendia"} />
+      <Title text={"Bienvenida"} />
 
       <div className="table_reservations_today ">
         <p>Reservas del dia de hoy</p>
