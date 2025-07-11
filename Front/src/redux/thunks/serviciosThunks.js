@@ -74,8 +74,7 @@ export const getByIdServicioThunk = createAsyncThunk(
     try {
 
       const response = await getByIdServicio(id);
-      console.log("La peticion entro en el thunk");
-      console.log(response)
+
       return response;
 
     } catch (error) {

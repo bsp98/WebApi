@@ -1,6 +1,7 @@
 import React from 'react'
+import './title.css';
 
-export const Title = ({text}) => {
+export const Title = ({text, modifyStyle=''}) => {
   return (
-    <h1>{text}</h1>
+    <h1 className={`title_h1 ${modifyStyle}`}>{text}</h1>
 )}

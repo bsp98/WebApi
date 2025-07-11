@@ -192,6 +192,49 @@ namespace WebApi.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+
+                UsuarioDto usuarioDto = _servicioUsuario.GetById(id);
+                return Ok(usuarioDto);
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+            catch (Exception e) { 
+                return BadRequest(e.Message);
+            }
+
+        }
+
+
+        [HttpGet("Paginado")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetClientesPaginados([FromQuery]int page = 1, [FromQuery]int pageSize = 10)
+        {
+            try
+            {
+                var (clientes, total) = _servicioUsuario.ObtenerClientesPaginados(page, pageSize);
+
+                return Ok(new
+                {
+                    data = clientes,
+                    totalItems = total
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
 
     }
 

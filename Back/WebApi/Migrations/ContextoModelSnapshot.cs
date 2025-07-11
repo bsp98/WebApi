@@ -92,8 +92,11 @@ namespace WebApi.Migrations
                     b.Property<bool>("Cancelada")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
                         .HasColumnType("int");
+
+                    b.Property<string>("EmailCliente")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -104,11 +107,17 @@ namespace WebApi.Migrations
                     b.Property<TimeSpan>("HoraInicio")
                         .HasColumnType("time");
 
+                    b.Property<string>("NombreCliente")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("PrecioTotal")
                         .HasColumnType("float");
 
                     b.Property<int>("ServicioId")
                         .HasColumnType("int");
+
+                    b.Property<string>("TelefonoCliente")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -221,11 +230,9 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("Domain.Models.Cliente", "Cliente")
                         .WithMany("Reservas")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClienteId");
 
-                    b.HasOne("Domain.Models.Servicio", "Servicioo")
+                    b.HasOne("Domain.Models.Servicio", "Servicio")
                         .WithMany()
                         .HasForeignKey("ServicioId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -233,7 +240,7 @@ namespace WebApi.Migrations
 
                     b.Navigation("Cliente");
 
-                    b.Navigation("Servicioo");
+                    b.Navigation("Servicio");
                 });
 
             modelBuilder.Entity("Domain.Models.Agenda", b =>

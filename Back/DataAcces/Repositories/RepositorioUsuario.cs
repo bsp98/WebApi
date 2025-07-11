@@ -19,15 +19,6 @@ namespace DataAcces.Repositories
             Contexto = contexto;
         }
 
-        public IEnumerable<Usuario> ObtenerTodos()
-        {
-            return Contexto.Set<Usuario>().AsNoTracking().Select(u => u);
-        }
-
-        public Usuario? BuscarPorId(int id)
-        {
-            return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(m => m.Id == id);
-        }
         public bool ExisteEmail(string email)
         {
             return Contexto.Set<Usuario>().Any(u => u.Email == email);
@@ -42,6 +33,13 @@ namespace DataAcces.Repositories
         {
             return Contexto.Set<Usuario>() .Where(c => c.Nombre == nombre).AsNoTracking().ToList();
         }
+
+
+        public IEnumerable<Usuario> BuscarPorNombreApellido(string nombre,string apellido)
+        {
+            return Contexto.Set<Usuario>().Where(c => c.Nombre == nombre && c.Apellido == apellido).AsNoTracking().ToList();
+        }
+
         public bool TieneReservas(int id)
         {
             return Contexto.Set<Reserva>().Any(r => r.Id == id);
@@ -50,6 +48,16 @@ namespace DataAcces.Repositories
         public Usuario? Login(string email, string password)
         {
             return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(u => u.Email == email && u.Password == password);
+        }
+
+        public IEnumerable<Cliente> ObtenerClientesPaginados(int page, int pageSize)
+        {
+            return Contexto.Set<Usuario>().OfType<Cliente>().AsNoTracking().OrderBy(c => c.Nombre).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int ContarClientes()
+        {
+            return Contexto.Set<Usuario>().OfType<Cliente>().Count();
         }
     }
 }

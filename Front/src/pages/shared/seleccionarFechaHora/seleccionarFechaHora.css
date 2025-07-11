@@ -1,0 +1,38 @@
+.grid-principal {
+    margin-top: 170px;
+    display: grid;
+    grid-template-areas:
+        ".          info"
+        "calendario horarios"
+        /*".      boton"*/
+        "tabla      tabla";
+    grid-template-columns: 1fr 1fr;
+    column-gap: 3rem;
+    row-gap: 4rem;
+}
+
+.area-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    grid-area: info;
+    min-height: 210px;
+}
+
+.area-calendario {
+    grid-area: calendario;
+    min-height: 350px;
+}
+
+.area-horarios {
+    grid-area: horarios;
+    min-height: 350px;
+}
+
+.area-tabla {
+    grid-area: tabla;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+

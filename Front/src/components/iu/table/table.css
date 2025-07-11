@@ -1,14 +1,20 @@
 .container_table {
-    width: 80%;
     margin: 0 auto;
     margin-bottom: 3.2rem;
-    margin-top: 3.2rem;
+    /*margin-top: 3.2rem;*/
+}
+
+.table_big{
+    width: 100%;
+}
+
+.table_medium{
+    width: 80%;
 }
 
 .content_table {
     width: 100%;
     border-collapse: collapse;
-    margin: 25px 0;
     background-color: white;
     font-family: 'Inter Regular', sans-serif;
     font-size: 1.6rem;
@@ -16,6 +22,16 @@
 
 
 }
+
+.table_margin_default {
+    margin: 25px 0;
+}
+
+.table_margin_none {
+  margin: 0;
+}
+
+
 
 
 .row_head {
@@ -55,14 +71,14 @@
 .btn_action {
     width: 75px;
     height: 36px;
-    padding: 5px 6px;
+    padding: 5px 2px;
     margin-left: 1rem;
     font-family: 'Inter Regular', sans-serif;
     font-weight: 400;
     font-size: 1.3rem;
     text-align: center;
-    transition: all 300ms ease-out
-        /* padding pequeño para el texto */
+    transition: all 300ms ease-out;
+    cursor: pointer;
 }
 
 .btn_primary {
@@ -70,6 +86,7 @@
     border-radius: 0.8rem;
     background-color: var(--color-secondary);
     color: white;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.2);
 
 }
 
@@ -78,6 +95,7 @@
     border-radius: 0.8rem;
     background-color: white;
     color: var(--color-secondary);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
 }
 
 .btn_primary:hover {

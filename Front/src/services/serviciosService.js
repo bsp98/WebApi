@@ -69,8 +69,7 @@ export async function updateServicio(servicioModificado) {
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
-console.log("entro al if del fetch update servicio");
-console.log(response);
+
     switch (response.status) {
       case 404:
         customMessage = await response.text();
@@ -144,13 +143,11 @@ export async function getByCategory(categoria) {
     let customMessage = "Servidor fuera de servicio";
 
     switch (response.status) {
-      case 409:
+      case 422:
         customMessage = await response.text();
         break;
     }
-    console.log("Entro al if de getByCategoria")
-    console.log(response)
-    console.log(response.message)
+
     throw {
       status: response.status,
       message: customMessage,

@@ -1,15 +1,74 @@
-.hero_container{
-    width:100%;
-    height:500px;
-    margin-bottom: 12rem;
-    background-color:#FBA7AF;
+.hero_container {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 8rem;
+    background-color: #FBA7AF;
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
 }
 
-.hero_container h1{
+.container_info_inicio {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.1rem
+}
+
+.container_content {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.container_button {
+    width: 90%;
+    display: flex;
+    justify-content: right;
+    animation: desdeArriba 1s ease-in-out 1.2s both
+}
+
+.title_hero {
     color: white;
-    margin:0;
-    padding:0;
+    margin: 0;
+    animation: desdeLaIzquierda 1s ease-out 0s both;
+}
+
+.description_hero {
+    font-family: 'Inter Light', sans-serif;
+    font-weight: 300;
+    font-size: 2.4rem;
+    color: white;
+    animation: desdeLaIzquierda 1s ease-in-out 0.5s both;
+}
+
+
+/*Animaciones*/
+
+@keyframes desdeLaIzquierda {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes desdeArriba {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

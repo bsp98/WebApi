@@ -1,0 +1,14 @@
+.table_reservations_today {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; 
+    margin-bottom: 3rem;
+}
+
+.table_reservations_tomorrow {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+

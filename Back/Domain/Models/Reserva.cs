@@ -11,31 +11,50 @@ namespace Domain.Models
         public int Id { get; set; }
         public double PrecioTotal { get; set; }
         public DateTime Fecha { get; set; }
-        public Cliente Cliente { get; set; }
-        public Servicio Servicioo { get; set; }
+
+        public Cliente? Cliente { get; set; }
+        public int? ClienteId { get; set; }
+        public string? NombreCliente { get; set; }
+        public string? EmailCliente { get; set; }
+        public string? TelefonoCliente { get; set; }
+
+
+        public Servicio Servicio { get; set; }
         public int ServicioId { get; set; }
-        public int ClienteId { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
-
-        //public EstadoDePAGO EstadoPago;
         public Boolean Cancelada { get; set; }
 
-        public Reserva( DateTime fecha, Cliente cliente, Servicio servicio)
+        //Constructor cuando te llega un ClienteId
+        public Reserva( DateTime fecha, TimeSpan horaInicio, Cliente cliente, Servicio servicio)
         {
-    
-            PrecioTotal=CalcularPrecio();
+
             Fecha=fecha;
             Cliente=cliente;
-            Servicioo= servicio;
+            ClienteId = cliente.Id;
+            Servicio= servicio;
+            PrecioTotal = CalcularPrecio();
             Cancelada=false;
-            HoraInicio = Fecha.TimeOfDay; 
-            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicioo.TiempoDeDuracionMin)); 
+            HoraInicio = horaInicio; 
+            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicio.TiempoDeDuracionMin)); 
         }
 
+        //Constructor sin cllienteID
+        public Reserva(DateTime fecha, TimeSpan horaInicio, string nombreCliente, string emailCliente, string telefonoCliente, Servicio servicio)
+        {
+            Fecha = fecha;
+            NombreCliente = nombreCliente;
+            EmailCliente = emailCliente;
+            TelefonoCliente = telefonoCliente;
+            Servicio = servicio;
+            PrecioTotal = CalcularPrecio();
+            Cancelada = false;
+            HoraInicio = horaInicio;
+            HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicio.TiempoDeDuracionMin));
+        }
         private double CalcularPrecio()
         {
-            return Servicioo.ObtenerPrecio();
+            return Servicio.ObtenerPrecio();
         }
 
         public Reserva() { }
@@ -57,7 +76,7 @@ namespace Domain.Models
         }
 
         public string ObtenerNombreServicio() {
-            return Servicioo.Nombre;
+            return Servicio.Nombre;
         }
     }
 }

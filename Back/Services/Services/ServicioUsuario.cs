@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Dto.FiltrosDto;
+using Services.Interfaces.CRUD;
 
 namespace Services.Services
 {
@@ -60,7 +61,7 @@ namespace Services.Services
         public void Remove(int id)
         {
 
-            Usuario usu = _repositorioUsuario.BuscarPorId(id);
+            Usuario usu = _repositorioUsuario.GetById(id);
 
             if (usu == null) throw new NoExisteException("No se encontro un cliente con ese id");
 
@@ -77,21 +78,9 @@ namespace Services.Services
             throw new NotImplementedException();
         }
 
-        public UsuarioDto? BuscarPorId(int id)
-        {
-            Usuario usuario = _repositorioUsuario.BuscarPorId(id);
-
-            if (usuario == null)
-            {
-                throw new NoExisteException("No se encontro un usuario con ese Id");
-            }
-
-            return _mapper.Map<UsuarioDto>(usuario);
-        }
-
         public List<ClienteDto> ObtenerTodos()
         {
-            IEnumerable<Usuario> usuarios = _repositorioUsuario.ObtenerTodos();
+            IEnumerable<Usuario> usuarios = _repositorioUsuario.GetAll();
             IEnumerable<Cliente> clientes = usuarios.OfType<Cliente>();
 
             return _mapper.Map<List<ClienteDto>>(clientes);
@@ -99,7 +88,7 @@ namespace Services.Services
 
         public void DesactivarCliente(int id)
         {
-            Usuario usuario = _repositorioUsuario.BuscarPorId(id);
+            Usuario usuario = _repositorioUsuario.GetById(id);
             if (usuario == null) throw new NoExisteException("Usuario no existe");
 
             if (usuario is Cliente cliente)
@@ -115,7 +104,7 @@ namespace Services.Services
 
         public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
         {
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre))
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Apellido))
             {
                 var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
 
@@ -129,12 +118,23 @@ namespace Services.Services
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
 
-            return ObtenerTodos(); 
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && !string.IsNullOrWhiteSpace(filtros.Apellido))
+            {
+                var clientes = _repositorioUsuario.BuscarPorNombreApellido(filtros.Nombre, filtros.Apellido).OfType<Cliente>().ToList();
+
+                return _mapper.Map<List<ClienteDto>>(clientes);
+            }
+
+            return new List<ClienteDto>(); 
         }
 
-        private List<ClienteDto> BuscarPorNombre(string nombre) => MapearClientes(_repositorioUsuario.BuscarPorNombre(nombre));
+        public (List<ClienteDto> clientes, int total) ObtenerClientesPaginados(int page, int pageSize)
+        {
+            var clientes = _repositorioUsuario.ObtenerClientesPaginados(page, pageSize);
+            var total = _repositorioUsuario.ContarClientes();
 
-        private List<ClienteDto> BuscarPorFecha(DateTime fecha) => MapearClientes(_repositorioUsuario.BuscarPorFecha(fecha));
+            return (_mapper.Map<List<ClienteDto>>(clientes), total);
+        }
 
         private List<ClienteDto> MapearClientes(IEnumerable<Usuario> usuarios)
         {
@@ -159,5 +159,24 @@ namespace Services.Services
                 throw new NoExisteException("Tipo de usuario desconocido");
         }
 
+
+        public UsuarioDto GetById(int id)
+        {
+           Usuario usuario = _repositorioUsuario.GetById(id);
+
+            if (usuario == null) {
+                throw new NoExisteException("No existe un usuario con ese id");
+            }
+
+            if (usuario is Cliente cliente) {
+                return _mapper.Map<ClienteDto>(cliente);
+            }
+
+            if (usuario is Administrador admin) {
+                return _mapper.Map<AdministradorDto>(admin);
+            }
+
+            throw new Exception("Tipo de usuario no reconocido");
+        }
     }
 }

@@ -1,0 +1,58 @@
+.container_itemCaracteristica {
+    width: 100%;
+    /*padding: 2rem 1rem;*/
+    display: flex;
+    flex-direction: column;
+    gap: 2.3rem;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
+.icon_item {
+    font-size: 10rem;
+    color: var(--color-secondary)
+}
+
+
+/*Animaciones*/
+
+.desde_izquierda_rapido {
+    animation: desdeLaIzquierda 1s ease-in-out 0.2s both;
+}
+
+.desde_izquierda_lento {
+    animation: desdeLaIzquierda 1s ease-in-out 0.4s both;
+}
+
+
+.desde_arriba {
+    animation: desdeArriba 1s ease-in-out 1.2s both
+}
+
+
+@keyframes desdeLaIzquierda {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
+@keyframes desdeArriba {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

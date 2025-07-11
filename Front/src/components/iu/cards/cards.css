@@ -1,45 +1,82 @@
 .container_cards {
     width: 100%;
     height: auto;
+    margin: 0 atuo;
     margin-top: 4.8rem;
     display: flex;
     flex-wrap: wrap;
-    gap:2rem;
+    gap: 2rem;
 }
 
 .card {
     width: 39.6rem;
-    height: 35rem;
+    height: 33rem;
     border: 1px solid #ccc;
     border-radius: 2rem;
-    padding: 5rem;
+    padding: 2rem 4rem;
     background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items:flex-start;
-    gap:1rem;
+    align-items: flex-start;
+    gap: 1rem;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.titel_card_group{
+.info_card_group {
     width: 100%;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:0.2rem;
+    gap: 0.5rem;
+    min-height: 9rem;
 }
 
-.description_card_group{
+.titel_card_group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.description_card_group {
     width: 100%;
     margin-bottom: 2rem;
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:0.2rem;
+    gap: 0.4rem;
 }
 
-.text_card{
-      font-family: 'Inter Medium';
-      font-weight: 500;
-      font-size: 1.6rem;
-      color:var(--color-texto);
+.container_time{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap:0.8rem;
+}
+
+.icon_time{
+    font-size: 16px;
+}
+
+.card_precio {
+    display: block;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--color-texto);
+}
+
+.text_card {
+    font-family: 'Inter Medium';
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: var(--color-texto);
+}
+
+.btn_card_container {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    /* o center si querés centrar el botón */
 }

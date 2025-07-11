@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createServicioThunk, deleteServicioThunk, updateServicioThunk, getAllServicioThunk, getByIdServicioThunk, getByCategoryThunk } from '../thunks/serviciosThunks';
+import { createServicioThunk, deleteServicioThunk, updateServicioThunk, getAllServicioThunk, getByIdServicioThunk, getByCategoryThunk} from '../thunks/serviciosThunks';
 
 const initialState = {
     servicios: [],

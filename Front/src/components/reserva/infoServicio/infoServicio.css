@@ -1,0 +1,36 @@
+.container_info_servicio_reserva {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 2rem;
+}
+
+.container_info_servicio {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1rem;
+}
+
+.title_info_servicio {
+    font-family: 'Inter Bold';
+    font-weight: 700;
+    font-size: 1.8rem;
+
+}
+
+.icon_info_servicio {
+    font-size: 2rem;
+    color: var(--color-texto);
+}
+
+.text_info_servicio {
+    font-family: 'Inter SemiBold';
+    font-weight: 600;
+    font-size: 1.8rem;
+}
