@@ -11,6 +11,7 @@ using DataAccess.Interfaces;
 using Services.Services;
 using Services.Interfaces;
 using Domain.Models;
+using Microsoft.OpenApi.Models;
 
 
 
@@ -62,6 +63,7 @@ namespace WebApi
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
+
             // Configurar la autenticación JWT
             var claveSecreta = builder.Configuration.GetValue<string>("ClaveSecreta:Clave");
 
@@ -105,6 +107,41 @@ namespace WebApi
                     .Build();
             });
 
+
+            //conf de autorizacion
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new() { Title = "Mi API", Version = "v1" });
+
+                // Configuración para JWT Bearer
+                c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+                    Description = "Ingrese el token JWT como: Bearer {su_token}"
+                });
+
+                c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+            });
+
+
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -137,6 +174,9 @@ namespace WebApi
             app.MapControllers();
 
             app.Run();
+
+           
+
         }
     }
 }

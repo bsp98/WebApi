@@ -17,6 +17,8 @@ namespace DataAccess.Interfaces
         public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha);
         public IEnumerable<Usuario> BuscarPorNombre(string nombre);
         bool TieneReservas(int id);
+
+        public Usuario? Login(string email, string password);
     }
 }
 

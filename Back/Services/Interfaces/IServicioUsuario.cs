@@ -15,5 +15,6 @@ namespace Services.Interfaces
         void DesactivarCliente(int id);
         
         List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros);
+        public UsuarioDto? Login(string email, string password);
     }
 }

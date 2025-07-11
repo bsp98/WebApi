@@ -46,5 +46,10 @@ namespace DataAcces.Repositories
         {
             return Contexto.Set<Reserva>().Any(r => r.Id == id);
         }
+
+        public Usuario? Login(string email, string password)
+        {
+            return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(u => u.Email == email && u.Password == password);
+        }
     }
 }
