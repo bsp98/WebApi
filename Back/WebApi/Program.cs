@@ -56,7 +56,7 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioDiaNoLaborable), typeof(RepositorioDiaNoLaborable));
             builder.Services.AddScoped(typeof(IServicioDiaNoLaborable), typeof(ServicioDiaNoLaborable));
 
-
+            builder.Services.AddScoped(typeof(IServicioEmail), typeof(ServicioEmail));
 
             // Add services to the container.
 
@@ -141,6 +141,8 @@ namespace WebApi
             });
 
 
+            //email
+            builder.Services.AddScoped<IServicioEmail, ServicioEmail>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -24,9 +24,10 @@ namespace Services.Services
         private readonly IRepositorioDiaNoLaborable _repositorioDiaNoLaborable;
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IRepositorioServicio _repositorioServicio;
+        private readonly IServicioEmail _servicioEmail;
         private readonly IMapper _mapper;
 
-        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda, IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario, IRepositorioServicio repositorioServicio, IMapper mapper)
+        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda, IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario, IRepositorioServicio repositorioServicio, IServicioEmail servicioEmail, IMapper mapper)
         {
             _repositorioReserva = repositorioReserva;
             _repositorioAgenda = repositorioAgenda;
@@ -34,6 +35,7 @@ namespace Services.Services
             _repositorioDiaNoLaborable = repositorioDiaNoLaborable;
             _repositorioUsuario = repositorioUsuario;
             _repositorioServicio = repositorioServicio;
+            _servicioEmail=servicioEmail;
             _mapper = mapper;
         }
 
@@ -369,7 +371,7 @@ namespace Services.Services
             return resultado;
         }
 
-        public void CancelarReserva(int id)
+       public async Task CancelarReserva(int id)
         {
             Reserva reserva = _repositorioReserva.GetById(id);
             if (reserva == null) throw new NoExisteException("Reserva no existe");
@@ -396,6 +398,12 @@ namespace Services.Services
                     _repositorioUsuario.Update(cliente);
                 }
             }
+
+
+             string asunto = "Cancelación de Reserva";
+             string mensaje = $"La persona {usu.Nombre} {usu.Apellido} ha cancelado su reserva";
+             string emailAdmin = "maigiordano28@gmail.com";
+             await _servicioEmail.EnviarEmailAsync(emailAdmin, asunto, mensaje);
 
         }
 
