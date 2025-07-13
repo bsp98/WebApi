@@ -45,6 +45,11 @@ namespace DataAcces.Repositories
             return Contexto.Set<Reserva>().Any(r => r.Id == id);
         }
 
+        public Usuario? Login(string email, string password)
+        {
+            return Contexto.Set<Usuario>().AsNoTracking().FirstOrDefault(u => u.Email == email && u.Password == password);
+        }
+
         public IEnumerable<Cliente> ObtenerClientesPaginados(int page, int pageSize)
         {
             return Contexto.Set<Usuario>().OfType<Cliente>().AsNoTracking().OrderBy(c => c.Nombre).Skip((page - 1) * pageSize).Take(pageSize).ToList();

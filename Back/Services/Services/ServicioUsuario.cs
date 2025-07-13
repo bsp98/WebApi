@@ -142,6 +142,23 @@ namespace Services.Services
             return _mapper.Map<List<ClienteDto>>(clientes);
         }
 
+        public UsuarioDto? Login(string email, string password)
+        {
+            Usuario? usuario = _repositorioUsuario.Login(email, password);
+
+            if (usuario == null)
+            {
+                throw new NoExisteException("Las Credenciales no son validas");
+            }
+
+            if (usuario is Administrador admin)
+                return _mapper.Map<AdministradorDto>(admin);
+            else if (usuario is Cliente cliente)
+                return _mapper.Map<ClienteDto>(cliente);
+            else
+                throw new NoExisteException("Tipo de usuario desconocido");
+        }
+
 
         public UsuarioDto GetById(int id)
         {

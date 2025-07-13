@@ -7,6 +7,10 @@ using Domain.Exceptions;
 using Services.Interfaces;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Domain.Dto.FiltrosDto;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace WebApi.Controllers
 
@@ -23,9 +27,9 @@ namespace WebApi.Controllers
             _servicioUsuario = servicioUsuario;
             _configuration = configuration;
         }
-        
 
-        [AllowAnonymous]
+
+        // [Authorize]
         [HttpPost("cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -48,6 +52,63 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("Login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                UsuarioDto usuario = _servicioUsuario.Login(loginDto.Email, loginDto.Password);
+                //Creo el token jwt
+                var token = new Token
+                {
+                    AccesoToken = GenerarTokenJwt(usuario.Nombre),
+                    NombreUsuario = ""
+                };
+
+                return Ok(token);
+            }
+            catch (NoExisteException eee)
+            {
+                //Codigo Status 401 no autorizado
+                return Unauthorized(eee.Message);
+            }
+        }
+
+        private string GenerarTokenJwt(string nombreUsuario)
+        {
+
+            var claveSecreta = _configuration["ClaveSecreta:Clave"];
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name,nombreUsuario)
+            };
+
+            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
+
+            var token = new JwtSecurityToken(
+                issuer: "https://servidor_seguridad",
+                audience: "https://servidor_protegido",
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256)
+            );
+
+            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return tokenString;
+        }
+
+
+
+
+
+
+
+
+
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -76,6 +137,8 @@ namespace WebApi.Controllers
         }
 
 
+
+        [Authorize]
         [HttpPatch("desactivar/{id}")]
         public IActionResult Desactivar(int id)
         {
@@ -98,7 +161,7 @@ namespace WebApi.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPorFiltro([FromQuery] ClienteFiltrosDto filtros)
@@ -111,8 +174,8 @@ namespace WebApi.Controllers
        
         }
 
-        [AllowAnonymous]
-        [HttpGet]
+        [Authorize]
+        [HttpGet("GetTodos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {

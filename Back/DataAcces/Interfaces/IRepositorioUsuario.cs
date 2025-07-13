@@ -19,6 +19,8 @@ namespace DataAccess.Interfaces
         bool TieneReservas(int id);
         IEnumerable<Cliente> ObtenerClientesPaginados(int page, int pageSize);
         int ContarClientes(); // para saber cuántas páginas hay en total
+
+        public Usuario? Login(string email, string password);
     }
 }
 
