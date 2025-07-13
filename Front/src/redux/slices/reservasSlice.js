@@ -197,6 +197,7 @@ const reservasSlice = createSlice({
             .addCase(getReservasPaginadasThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+                console.log("se seteo el error en rejected",state.error)
             });
 
         //Cases de obtener horarios optimos
@@ -213,6 +214,8 @@ const reservasSlice = createSlice({
             })
             .addCase(getAvailableTimesThunk.rejected, (state, action) => {
                 state.loading = false;
+                state.horarios = [];
+                console.log("el error entro en el rejected Available", action.payload);
                 state.error = action.payload;
             });
 
@@ -228,6 +231,7 @@ const reservasSlice = createSlice({
                 state.reservas = action.payload; // guardo las reservas
             })
             .addCase(getReservasByDateThunk.rejected, (state, action) => {
+                state.loading = null;
                 state.error = action.payload;
             });
 

@@ -12,6 +12,7 @@ import { Table } from '../../../components/iu/table/Table';
 import { ModalInfoReserva } from '../../../components/reserva/modalInfoReserva/ModalInfoReserva';
 import { Spinner } from '../../../components/iu/spinner/Spinner';
 import { Modal } from '../../../components/iu/messages/Modal';
+import { MessageError } from '../../../components/iu/messages/MessageError'
 
 export const SeleccionarFechaHora = () => {
   const {
@@ -33,6 +34,7 @@ export const SeleccionarFechaHora = () => {
 
     if (accion === "crear") {
       duracion = servicioSeleccionado.tiempoDeDuracionMin;
+      console.log("el tiempo de duracion seleccionado es:", duracion)
     }
 
     if (accion === "modificar") {
@@ -109,14 +111,21 @@ export const SeleccionarFechaHora = () => {
         <InfoServicio servicio={accion === "crear" ? servicioSeleccionado : reservaEnEdicion.servicio} />
       </div>
 
+
       <div className="area-calendario">
-        <CalendarioReserva onFechaSeleccionada={visualizarHorarios} /></div>
+
+        <div className='mesaje_error'>
+          {error && (<MessageError error={error} />)}
+        </div>
+
+        <CalendarioReserva onFechaSeleccionada={visualizarHorarios} />
+
+      </div>
 
       <div className="area-horarios">
         <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} idServicio={id} loading={loading} />
       </div>
 
-      {error && (<MessageError error={error} />)}
 
       {rol === "admin" &&
         <div className="area-tabla">
@@ -129,7 +138,7 @@ export const SeleccionarFechaHora = () => {
 
       {successMessage && <Modal mensaje={successMessage} alCerrar={redirectInicioUsuario} />}
 
-      {error && <Modal mensaje={error} alCerrar={cerrarModalError} />}
+      {/*{error && <Modal mensaje={error} alCerrar={cerrarModalError} />}*/}
 
     </div>
   )

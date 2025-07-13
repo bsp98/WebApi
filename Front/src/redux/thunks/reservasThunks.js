@@ -153,7 +153,7 @@ export const getAvailableTimesThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-
+        console.log("el error entro del el thunk getAvailable", error.message);
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
     }
