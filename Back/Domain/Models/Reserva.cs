@@ -16,7 +16,7 @@ namespace Domain.Models
         public int? ClienteId { get; set; }
         public string? NombreCliente { get; set; }
         public string? EmailCliente { get; set; }
-        public string? TelefonoCliente { get; set; }
+        public string? CelularCliente { get; set; }
 
 
         public Servicio Servicio { get; set; }
@@ -40,12 +40,12 @@ namespace Domain.Models
         }
 
         //Constructor sin cllienteID
-        public Reserva(DateTime fecha, TimeSpan horaInicio, string nombreCliente, string emailCliente, string telefonoCliente, Servicio servicio)
+        public Reserva(DateTime fecha, TimeSpan horaInicio, string nombreCliente, string emailCliente, string celularCliente, Servicio servicio)
         {
             Fecha = fecha;
             NombreCliente = nombreCliente;
             EmailCliente = emailCliente;
-            TelefonoCliente = telefonoCliente;
+            CelularCliente = celularCliente;
             Servicio = servicio;
             PrecioTotal = CalcularPrecio();
             Cancelada = false;

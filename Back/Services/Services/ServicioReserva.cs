@@ -256,37 +256,7 @@ namespace Services.Services
             return reserva;
         }
 
-        /*public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
-        {
-            if (_repositorioDiaNoLaborable.Existe(fecha))
-            {
-                throw new ExisteException("No se puede reservar en esta fecha");
-            }
-
-            // fijrse si hay agenda creada si - la busca y muestra los dias sino la busco los bloques con el metodo static
-            if (fecha.DayOfWeek == DayOfWeek.Sunday)throw new NoExisteException("El domingo no se trabjaaaaaaaaaaaaaaaaaaaaaa");
-            
-            if (duracionMinutos <= 0) throw new DatoIncorrectoException("La duración debe ser mayor a 0.");
-            
-            Agenda agenda = _repositorioAgenda.BuscarPorFecha(fecha);
-            List<BloqueHorario> bloquesTotales;
-            List<BloqueHorario> bloquesDisponibles = null;
-            if (agenda != null)
-            {
-             bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos,agenda.Bloques);
-            }
-            else
-            {
-            List<BloqueHorario> bloquesDelDia = Agenda.GenerarBloquesPorDia();
-            bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos,bloquesDelDia);
-            }
-
-            return bloquesDisponibles.Select(b => new BloqueHorarioDto
-            {
-                HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
-                HoraFin = b.HoraFin.ToString(@"hh\:mm")
-            }).ToList();
-        }*/
+       
 
         public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
         {
@@ -314,9 +284,9 @@ namespace Services.Services
                 bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
             }
 
-            List<BloqueHorario> disponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
+            //List<BloqueHorario> disponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
 
-            List<BloqueHorario> filtrados = FiltrarBloquesSinBaches(disponibles, bloquesTotales, duracionMinutos);
+            List<BloqueHorario> filtrados = FiltrarBloquesSinBaches(bloquesTotales, duracionMinutos);
 
             return filtrados.Select(b => new BloqueHorarioDto
             {
@@ -324,49 +294,92 @@ namespace Services.Services
                 HoraFin = b.HoraInicio.Add(TimeSpan.FromMinutes(duracionMinutos)).ToString(@"hh\:mm")
             }).ToList();
         }
-        private List<BloqueHorario> FiltrarBloquesSinBaches(List<BloqueHorario> disponibles, List<BloqueHorario> todos, int duracionMinutos)
+
+
+        
+        private List<BloqueHorario> FiltrarBloquesSinBaches(List<BloqueHorario> todos, int duracionMinutos)
         {
             int bloquesNecesarios = duracionMinutos / 10;
-            var resultado = new List<BloqueHorario>();
+            var resultadoManana = new List<BloqueHorario>();
+            var resultadoTarde = new List<BloqueHorario>();
 
-            foreach (var inicio in disponibles)
+            TimeSpan horaLimiteManana = new TimeSpan(13, 0, 0);
+
+            var bloquesManana = todos.Where(b => b.HoraInicio < horaLimiteManana).ToList();
+            var bloquesTarde = todos.Where(b => b.HoraInicio >= horaLimiteManana).ToList();
+
+            var reservasManana = bloquesManana.Where(b => !b.EstaDisponible).OrderBy(b => b.HoraInicio).ToList();
+            var reservasTarde = bloquesTarde.Where(b => !b.EstaDisponible).OrderBy(b => b.HoraInicio).ToList();
+
+            bool diaLibre = !reservasManana.Any() && !reservasTarde.Any();
+
+            if (diaLibre)
             {
-                int index = todos.IndexOf(inicio);
-                if (index < 0 || index + bloquesNecesarios > todos.Count)
-                    continue;
+                resultadoManana.AddRange(FiltrarSinBaches(bloquesManana, bloquesNecesarios));
+                resultadoTarde.AddRange(FiltrarSinBaches(bloquesTarde, bloquesNecesarios));
+            }
+            else
+            {
+                if (!reservasManana.Any())
+                    resultadoManana.AddRange(FiltrarSinBaches(bloquesManana, bloquesNecesarios));
+                else
+                {
+                    foreach (var reserva in reservasManana)
+                        resultadoManana.AddRange(BloquesAdyacentes(bloquesManana, reserva, bloquesNecesarios));
+                }
 
-                var rango = todos.Skip(index).Take(bloquesNecesarios).ToList();
-
-                // Verificar que todos los bloques estén disponibles
-                if (!rango.All(b => b.EstaDisponible))
-                    continue;
-
-                // Verificar que no quede bache antes
-                int libresAntes = 0;
-                for (int i = index - 1; i >= 0 && todos[i].EstaDisponible; i--)
-                    libresAntes++;
-
-                if (libresAntes > 0 && libresAntes < bloquesNecesarios)
-                    continue; // dejaría un bache antes
-
-                // Verificar que no quede bache después
-                int libresDespues = 0;
-                for (int i = index + bloquesNecesarios; i < todos.Count && todos[i].EstaDisponible; i++)
-                    libresDespues++;
-
-                if (libresDespues > 0 && libresDespues < bloquesNecesarios)
-                    continue; // dejaría un bache después
-
-                // Agregar el bloque de inicio como válido
-                resultado.Add(inicio);
-
-                // Saltear los siguientes bloques que ya están cubiertos por este
-                // para evitar solapamientos (ej: evitar 09:00 y 09:10 si ambos cubren 60 min)
-                // Esto hace que las opciones salten de 60 en 60
-                index += bloquesNecesarios - 1;
+                if (!reservasTarde.Any())
+                    resultadoTarde.AddRange(FiltrarSinBaches(bloquesTarde, bloquesNecesarios));
+                else
+                {
+                    foreach (var reserva in reservasTarde)
+                        resultadoTarde.AddRange(BloquesAdyacentes(bloquesTarde, reserva, bloquesNecesarios));
+                }
             }
 
+            return resultadoManana.Concat(resultadoTarde).Distinct().ToList();
+        }
+
+        // Reutilizá tus helpers:
+        private List<BloqueHorario> FiltrarSinBaches(List<BloqueHorario> bloques, int bloquesNecesarios)
+        {
+            var resultado = new List<BloqueHorario>();
+            for (int i = 0; i <= bloques.Count - bloquesNecesarios; i++)
+            {
+                var subrango = bloques.Skip(i).Take(bloquesNecesarios).ToList();
+                if (subrango.All(b => b.EstaDisponible))
+                {
+                    resultado.Add(subrango.First());
+                    i += bloquesNecesarios - 1;
+                }
+            }
             return resultado;
+        }
+
+        private List<BloqueHorario> BloquesAdyacentes(List<BloqueHorario> bloques, BloqueHorario reserva, int bloquesNecesarios)
+        {
+            var lista = new List<BloqueHorario>();
+            int idx = bloques.IndexOf(reserva);
+
+            // Anterior
+            int anteriorIdx = idx - bloquesNecesarios;
+            if (anteriorIdx >= 0)
+            {
+                var anterior = bloques.Skip(anteriorIdx).Take(bloquesNecesarios).ToList();
+                if (anterior.All(b => b.EstaDisponible))
+                    lista.Add(anterior.First());
+            }
+
+            // Siguiente
+            int siguienteIdx = idx + 1;
+            if (siguienteIdx + bloquesNecesarios - 1 < bloques.Count)
+            {
+                var siguiente = bloques.Skip(siguienteIdx).Take(bloquesNecesarios).ToList();
+                if (siguiente.All(b => b.EstaDisponible))
+                    lista.Add(siguiente.First());
+            }
+
+            return lista;
         }
 
         public void CancelarReserva(int id)
