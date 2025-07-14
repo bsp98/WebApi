@@ -29,7 +29,7 @@ export async function createCliente(cliente) {
   return await response.json();
 }
 
-
+//FALTA VALIDAR EN EL THUNK QUE SE REFRESQUE LOS CLIENTE DEPSUES DE ELIMINAR
 export async function deleteCliente(id) {
   const response = await fetch(`http://localhost:5164/api/Usuario/${id}`, {
     method: 'DELETE',
@@ -109,8 +109,8 @@ export async function getByFilter(filtros) {
     params.append("nombre", filtros.nombre);
   }
 
-  if (filtros.apellido) {
-    params.append("apellido", filtros.apellido);
+  if (filtros.celular) {
+    params.append("celular", filtros.celular);
   }
 
   // Agregamos 'fecha' solo si tiene valor válido

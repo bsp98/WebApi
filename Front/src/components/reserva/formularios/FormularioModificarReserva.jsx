@@ -19,9 +19,9 @@ export const FormularioModificarReserva = ({ modificarEstadoDePago, reagendarRes
 
             <form ref={formRef} onSubmit={modificarEstadoDePago}>
 
-                <InputForm tipo={"text"} id={"id"} name={"id"} isHidden={true} value={reserva.id} />
+               { reserva.id && <InputForm tipo={"text"} id={"id"} name={"id"} isHidden={true} value={reserva.id} />} 
 
-                <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} isDisabled={true} value={reserva.cliente.celular} />
+                <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} isDisabled={true} value={reserva.clienteId ? reserva.cliente.celular : reserva.celularCliente} />
 
                 <InputForm tipo={"text"} id={"fecha"} labelDescription={"Fecha:"} name={"fecha"} isDisabled={true} value={moment(reserva.fecha).format('DD/MM/YYYY')} />
 

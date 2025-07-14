@@ -1,7 +1,7 @@
 import '../../page.css';
 import './seleccionarFechaHora.css';
 import moment from 'moment';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { InfoServicio } from '../../../components/reserva/infoServicio/InfoServicio';
 import { CalendarioReserva } from '../../../components/reserva/calendarioReserva/CalendarioReserva';
@@ -16,11 +16,15 @@ import { MessageError } from '../../../components/iu/messages/MessageError'
 
 export const SeleccionarFechaHora = () => {
   const {
-    horarios, reservas, loading, successMessage, error, reservaSeleccionada, reservaEnEdicion,
+    horarios, reservas, loading, successMessage, reservaSeleccionada, reservaEnEdicion,
     fechaSeleccionada, modalReservaAbierto, obtenerHorariosDisponibles, obtenerReservasPorFecha,
     obtenerReservaPorId, reservarHorario, abrirModalInfoReserva, cerrarModalInfoReserva, limpiarMensajeExito, limpiarMensajeError } = useReservas();
 
   const { obtenerServicioPorId, servicioSeleccionado } = useServicios();
+  const [loadingTableReservas, setLoadingTableReservas] = useState(false);
+  const [errorTableReservas, setErrorTableReservas] = useState(null);
+  const [loadingHorarios, setLoadingHorarios] = useState(false);
+  const [errorHorarios, setErrorHorarios] = useState(null);
 
   const { accion, id } = useParams();
   const navigate = useNavigate();
@@ -28,23 +32,42 @@ export const SeleccionarFechaHora = () => {
 
 
   //metodo que ejecuta el onchange del calendario ()
-  const visualizarHorarios = (fecha) => {
+  const visualizarHorarios = async (fecha) => {
 
     let duracion = 0;
 
     if (accion === "crear") {
       duracion = servicioSeleccionado.tiempoDeDuracionMin;
-      console.log("el tiempo de duracion seleccionado es:", duracion)
     }
 
     if (accion === "modificar") {
       duracion = reservaEnEdicion.servicio.tiempoDeDuracionMin;
     }
 
-    obtenerHorariosDisponibles(fecha, duracion);
+    if (duracion != 0) {
+      setLoadingHorarios(true);
+      try {
+        await obtenerHorariosDisponibles(fecha, duracion).unwrap();
+        setErrorHorarios(null); // Limpio error si sale bien
+      } catch (error) {
+        console.log("este es el error", error)
+        setErrorHorarios(error);
+      } finally {
+        setLoadingHorarios(false);
+      }
+    }
 
     if (rol === "admin") {
-      obtenerReservasPorFecha(fecha);
+      setLoadingTableReservas(true);
+      try {
+        await obtenerReservasPorFecha(fecha).unwrap();
+        setErrorTableReservas(null); // Limpio error si sale bien
+      } catch (error) {
+        console.log("este es el error", error)
+        setErrorTableReservas(error);
+      } finally {
+        setLoadingTableReservas(false);
+      }
     }
 
   }
@@ -94,9 +117,9 @@ export const SeleccionarFechaHora = () => {
   }
 
   const columns = [
-    { header: 'Cliente', render: (dato) => `${dato.cliente.nombre} ${dato.cliente.apellido}` },
-    { header: 'Celular', render: (dato) => dato.cliente.celular },
-    { header: 'Hora', render: (dato) => dato.horaInicio },
+    { header: 'Cliente', render: (dato) => dato.clienteId ? `${dato.cliente.nombre} ${dato.cliente.apellido}`: `${dato.nombreCliente} ${dato.apellidoCliente}`},
+    { header: 'Celular', render: (dato) => dato.clienteId ? `${dato.cliente.celular}`: `${dato.celularCliente}` },
+    { header: 'Hora', render: (dato) => dato.horaInicio?.slice(0, 5)},
     { header: 'Fecha', render: (dato) => moment(dato.fecha).format('DD/MM/YYYY') },
     { header: 'Estado de pago', render: (dato) => dato.nombreEstadoDePago }
   ];
@@ -115,7 +138,7 @@ export const SeleccionarFechaHora = () => {
       <div className="area-calendario">
 
         <div className='mesaje_error'>
-          {error && (<MessageError error={error} />)}
+          {errorHorarios && (<MessageError error={errorHorarios} />)}
         </div>
 
         <CalendarioReserva onFechaSeleccionada={visualizarHorarios} />
@@ -123,7 +146,7 @@ export const SeleccionarFechaHora = () => {
       </div>
 
       <div className="area-horarios">
-        <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} idServicio={id} loading={loading} />
+        <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} idServicio={id} loading={loadingHorarios} />
       </div>
 
 
@@ -131,14 +154,14 @@ export const SeleccionarFechaHora = () => {
         <div className="area-tabla">
           <p>Reservas de la fecha seleccionada</p>
           <Table columns={columns} datos={reservas} textBtn1={"Ver más"} actionBtn1={abrirModalInfoReserva} table_width={"table_big"} class_margin={"table_margin_none"} />
+          {errorTableReservas && (<MessageError error={errorTableReservas} />)}
+          {loadingTableReservas && <Spinner />}
         </div>
       }
 
       {modalReservaAbierto && <ModalInfoReserva reserva={reservaSeleccionada} alCerrar={cerrarModalInfoReserva} />}
 
       {successMessage && <Modal mensaje={successMessage} alCerrar={redirectInicioUsuario} />}
-
-      {/*{error && <Modal mensaje={error} alCerrar={cerrarModalError} />}*/}
 
     </div>
   )

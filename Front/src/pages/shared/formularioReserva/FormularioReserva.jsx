@@ -114,7 +114,7 @@ export const FormularioReserva = () => {
 
       <div className="formulario_reserva__filtros">
         {rol === "admin" && <Switch label={"Cliente registrado"} name={"clienteRegistrado"} switch_style={"container_switch_reserva"} onChange={activarBusquedaClienta} />}
-        {rol === "admin" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Apellido cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el apellido del cliente"} name1={"nombre"} name2={"apellido"} />}
+        {rol === "admin" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Celular cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el celular del cliente"} name1={"nombre"} name2={"celular"} />}
       </div>
 
       <div className="formulario_reserva__contenido">

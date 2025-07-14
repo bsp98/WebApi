@@ -104,7 +104,7 @@ namespace Services.Services
 
         public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
         {
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Apellido))
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
             {
                 var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
 
@@ -118,9 +118,9 @@ namespace Services.Services
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
 
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && !string.IsNullOrWhiteSpace(filtros.Apellido))
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && !string.IsNullOrWhiteSpace(filtros.Celular))
             {
-                var clientes = _repositorioUsuario.BuscarPorNombreApellido(filtros.Nombre, filtros.Apellido).OfType<Cliente>().ToList();
+                var clientes = _repositorioUsuario.BuscarPorNombreCelular(filtros.Nombre, filtros.Celular).OfType<Cliente>().ToList();
 
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }

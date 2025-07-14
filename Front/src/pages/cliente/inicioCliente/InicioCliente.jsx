@@ -15,7 +15,7 @@ export const InicioCliente = () => {
   const { reservas, error, successMessage, loading, eliminarReserva, limpiarMensajeExito, setReservaParaCancelar, obtenerReservasPorIdCliente } = useReservas();
   const [menssageConfirmation, setMessageConfirmation] = useState(null);
   const navigate = useNavigate();
-  const idClienteAut = 1;
+  const idClienteAut = 3;
 
   useEffect(() => {
     obtenerReservasPorIdCliente(idClienteAut)

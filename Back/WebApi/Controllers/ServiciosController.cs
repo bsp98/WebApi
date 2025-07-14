@@ -26,7 +26,7 @@ namespace WebApi.Controllers
 
 
         
-        [Authorize]
+        //[Authorize]
         [HttpPost("Agregar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,7 +107,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -126,7 +126,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -152,7 +152,7 @@ namespace WebApi.Controllers
 
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("{id} Deshabilitar/Habilitar servicio")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]

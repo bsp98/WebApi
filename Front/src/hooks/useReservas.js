@@ -75,7 +75,7 @@ export const useReservas = () => {
     const obtenerHorariosDisponibles = (fecha, duracion) => {
         const fechaFormateada = moment(fecha).format("YYYY-MM-DD");
         dispatch(setFecha(fechaFormateada));
-        dispatch(getAvailableTimesThunk({ fecha: fechaFormateada, duracion: duracion }));
+       return dispatch(getAvailableTimesThunk({ fecha: fechaFormateada, duracion: duracion }));
     }
 
     const obtenerReservasPorFecha = (fecha) => {

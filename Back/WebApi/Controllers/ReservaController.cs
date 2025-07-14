@@ -31,6 +31,25 @@ namespace WebApi.Controllers
             return Ok(r);
         }
 
+
+        //[Authorize]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                ReservaDto reserva = _servicioReserva.GetById(id);
+                return Ok(reserva);
+            }
+            catch (NoExisteException nee)
+            {
+                return NotFound(nee.Message);
+            }
+
+        }
+
         [AllowAnonymous]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

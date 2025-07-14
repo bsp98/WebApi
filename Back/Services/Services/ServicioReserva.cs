@@ -90,7 +90,7 @@ namespace Services.Services
             else
             {
                 //Creo la reserva con el constructor sin clienteId
-                reserva = new Reserva(dto.Fecha,dto.HoraInicio, dto.NombreCliente, dto.EmailCliente, dto.TelefonoCliente, servicio);
+                reserva = new Reserva(dto.Fecha,dto.HoraInicio, dto.NombreCliente,dto.ApellidoCliente, dto.EmailCliente, dto.CelularCliente, servicio);
                 
                 //Hago el add en el repo de reserva 
                 r = _repositorioReserva.Add(reserva);
@@ -248,10 +248,6 @@ namespace Services.Services
                 reserva = BuscarPorClienteId((int)filtros.ClienteId);
 
             }
-            else
-            {
-                reserva = GetAll();
-            }
 
             return reserva;
         }
@@ -398,6 +394,9 @@ namespace Services.Services
             }
 
         }
+
+
+
 
 
 

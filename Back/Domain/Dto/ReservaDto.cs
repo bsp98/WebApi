@@ -20,8 +20,10 @@ namespace Domain.Dto
         public int ClienteId { get; set; }
 
         public string? NombreCliente { get; set; }
+
+        public string? ApellidoCliente { get; set; }
         public string? EmailCliente { get; set; }
-        public string? TelefonoCliente { get; set; }
+        public string? CelularCliente { get; set; }
 
         public ServicioDto? Servicio { get; set; }  
         public int ServicioId { get; set; }

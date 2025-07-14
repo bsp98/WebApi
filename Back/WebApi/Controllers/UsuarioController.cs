@@ -108,7 +108,7 @@ namespace WebApi.Controllers
 
 
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -138,7 +138,7 @@ namespace WebApi.Controllers
 
 
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("desactivar/{id}")]
         public IActionResult Desactivar(int id)
         {
@@ -161,7 +161,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPorFiltro([FromQuery] ClienteFiltrosDto filtros)
@@ -174,7 +174,7 @@ namespace WebApi.Controllers
        
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("GetTodos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()

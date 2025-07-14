@@ -55,7 +55,7 @@ export const useClientes = () => {
 
         const filtros = {
             nombre: form.nombre?.value || null,
-            apellido: form.apellido?.value || null,
+            celular: form.apellido?.value || null,
             fecha: form.fecha?.value
                 ? moment(form.fecha.value, "DD/MM/YYYY").format("YYYY-MM-DD")
                 : null,

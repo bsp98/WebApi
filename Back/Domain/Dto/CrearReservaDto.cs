@@ -16,8 +16,9 @@ namespace Domain.Dto
         public DateTime Fecha { get; set; }
         public int? ClienteId { get; set; }
         public string? NombreCliente { get; set; }
+        public string? ApellidoCliente { get; set; }
         public string? EmailCliente { get; set; }
-        public string? TelefonoCliente { get; set; }
+        public string? CelularCliente { get; set; }
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
 
@@ -42,7 +43,7 @@ namespace Domain.Dto
         private void ValidarServicio()
         {
             if (ServicioId == null)
-                throw new DatoIncorrectoException("El servicio no puede ser nulo.");
+                throw new DatoIncorrectoException("Se debe seleccionar un servicio.");
         }
 
         private void ValidarFecha()
@@ -61,9 +62,11 @@ namespace Domain.Dto
             {
                 if (string.IsNullOrWhiteSpace(NombreCliente))
                     throw new DatoIncorrectoException("Debe ingresar su nombre.");
+                if (string.IsNullOrWhiteSpace(ApellidoCliente))
+                    throw new DatoIncorrectoException("Debe ingresar su apellido.");
                 if (string.IsNullOrWhiteSpace(EmailCliente))
                     throw new DatoIncorrectoException("Debe ingresar su correo electrónico.");
-                if (string.IsNullOrWhiteSpace(TelefonoCliente))
+                if (string.IsNullOrWhiteSpace(CelularCliente))
                     throw new DatoIncorrectoException("Debe ingresar su teléfono.");
             }
         }
@@ -72,7 +75,7 @@ namespace Domain.Dto
             if (ClienteId == null)
             {
 
-                if (!Regex.IsMatch(TelefonoCliente, @"^09\d{7}$"))
+                if (!Regex.IsMatch(CelularCliente, @"^09\d{7}$"))
                     throw new DatoIncorrectoException("El número de celular debe comenzar con 09 y tener 9 dígitos.");
             }
 

@@ -228,6 +228,7 @@ const reservasSlice = createSlice({
             .addCase(getReservasByDateThunk.fulfilled, (state, action) => {
                 state.loading = false;
                 state.error = null;
+                console.log("datos de peticion reservas por fecha",action.payload);
                 state.reservas = action.payload; // guardo las reservas
             })
             .addCase(getReservasByDateThunk.rejected, (state, action) => {

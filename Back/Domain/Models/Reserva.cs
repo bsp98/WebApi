@@ -15,8 +15,9 @@ namespace Domain.Models
         public Cliente? Cliente { get; set; }
         public int? ClienteId { get; set; }
         public string? NombreCliente { get; set; }
+        public string? ApellidoCliente { get; set; }
         public string? EmailCliente { get; set; }
-        public string? TelefonoCliente { get; set; }
+        public string? CelularCliente { get; set; }
 
 
         public Servicio Servicio { get; set; }
@@ -40,12 +41,13 @@ namespace Domain.Models
         }
 
         //Constructor sin cllienteID
-        public Reserva(DateTime fecha, TimeSpan horaInicio, string nombreCliente, string emailCliente, string telefonoCliente, Servicio servicio)
+        public Reserva(DateTime fecha, TimeSpan horaInicio,string nombreCliente, string apellidoCliente, string emailCliente, string celularCliente, Servicio servicio)
         {
             Fecha = fecha;
             NombreCliente = nombreCliente;
+            ApellidoCliente = apellidoCliente;
             EmailCliente = emailCliente;
-            TelefonoCliente = telefonoCliente;
+            CelularCliente = celularCliente;
             Servicio = servicio;
             PrecioTotal = CalcularPrecio();
             Cancelada = false;
@@ -60,8 +62,8 @@ namespace Domain.Models
         public Reserva() { }
 
 
-        public string ObtenerNombreCliente() {
-            return Cliente.Nombre;
+        public string? ObtenerNombreCliente() {
+            return Cliente?.Nombre;
         }
 
 
