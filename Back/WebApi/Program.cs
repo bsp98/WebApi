@@ -99,15 +99,6 @@ namespace WebApi
 
 
 
-            // Configurar la autorización
-            builder.Services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .Build();
-            });
-
-
             //conf de autorizacion
             builder.Services.AddSwaggerGen(c =>
             {
