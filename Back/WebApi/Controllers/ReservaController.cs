@@ -61,7 +61,7 @@ namespace WebApi.Controllers
             {
                 _servicioReserva.Remove(id);
 
-                return Ok("Eliminado con exito");
+                return Ok("Reserva cancelada con exito");
             }
             catch (NoExisteException ene)
             {
@@ -95,6 +95,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult Post([FromBody] CrearReservaDto reservaDto)
@@ -110,9 +111,13 @@ namespace WebApi.Controllers
             {
                 return Conflict(eee.Message);
             }
+            catch (FechaInvalidaException fie)
+            {
+                return Conflict(fie.Message);
+            }
             catch (NoExisteException nee)
             {
-                return Conflict(nee.Message);
+                return NotFound(nee.Message);
             }
             catch (DatoIncorrectoException die)
             {

@@ -15,7 +15,7 @@ export const Servicios = () => {
   const { error, servicios, loading, serviciosPorCategoria } = useServicios();
   const navigate = useNavigate();
   const { categoria } = useParams();
-  const rol = "publico"
+  const rol = "admin"
 
   useEffect(() => {
     const categoriaServicio = categoria ? +categoria : 0;

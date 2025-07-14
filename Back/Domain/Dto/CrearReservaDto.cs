@@ -49,10 +49,10 @@ namespace Domain.Dto
         private void ValidarFecha()
         {
             if (Fecha == null)
-                throw new DatoIncorrectoException("La fecha no puede ser nula.");
+                throw new FechaInvalidaException("La fecha no puede ser nula.");
 
             if (Fecha <= DateTime.Now)
-                throw new DatoIncorrectoException("La fecha debe ser una fecha posterior a la actual");
+                throw new FechaInvalidaException("La fecha debe ser una fecha posterior a la actual");
         }
 
 

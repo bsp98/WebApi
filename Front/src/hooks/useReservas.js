@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk, getByIdReservaThunk, ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
 import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError } from '../redux/slices/reservasSlice';
 import moment from 'moment';
+import { guardarReservaEnStorage, obtenerReservaDeStorage,limpiarReservaEnStorage } from '../utils/storage/reservaStorage';
 
 export const useReservas = () => {
     const rol = 'admin';
@@ -10,23 +11,35 @@ export const useReservas = () => {
     const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto, horarioOcupadoError } = useSelector((state) => state.reservas);
     const navigate = useNavigate();
 
-    const crearReserva = (datosCliente, idServicio) => {
+    const crearReserva = async (datosCliente, idServicio) => {
+
+        let reservaStorage = null;
 
         if (!datosCliente) {
             return;
         }
+        //Si se actualizo la pagina y se perdieron los estados de hora y fecha los obtengo del storage
+        if (!horarioSeleccionado || !fechaSeleccionada) {
+            reservaStorage = obtenerReservaDeStorage() || {};
+        }
 
         const nuevaReserva = {
-            fecha: fechaSeleccionada,
+            fecha: fechaSeleccionada || reservaStorage.fecha,
             clienteId: datosCliente.id ? parseInt(datosCliente.id) : null,
             servicioId: idServicio,
-            horaInicio: horarioSeleccionado,
-            nombreClienteNoRegistrado: (!datosCliente.id && datosCliente.nombre) ? datosCliente.nombre : null,
-            apellidoClienteNoRegistrado: (!datosCliente.id && datosCliente.apellido) ? datosCliente.apellido : null,
-            celularClienteNoRegistrado: (!datosCliente.id && datosCliente.celular) ? datosCliente.celular : null,
-            emailClienteNoRegistrado: (!datosCliente.id && datosCliente.email) ? datosCliente.email : null,
+            horaInicio: horarioSeleccionado || reservaStorage.hora,
+            nombreCliente: (!datosCliente.id && datosCliente.nombre) ? datosCliente.nombre : null,
+            apellidoCliente: (!datosCliente.id && datosCliente.apellido) ? datosCliente.apellido : null,
+            emailCliente: (!datosCliente.id && datosCliente.email) ? datosCliente.email : null,
+            celularCliente: (!datosCliente.id && datosCliente.celular) ? datosCliente.celular : null,
         };
-        dispatch(createReservaThunk(nuevaReserva));
+
+       const resultado = await dispatch(createReservaThunk(nuevaReserva));
+
+        //limpio el storage una ves la reserva se halla creado con exito.
+        if (createReservaThunk.fulfilled.match(resultado)) {
+            limpiarReservaEnStorage();
+        }
     };
 
     const eliminarReserva = () => {
@@ -75,7 +88,13 @@ export const useReservas = () => {
     const obtenerHorariosDisponibles = (fecha, duracion) => {
         const fechaFormateada = moment(fecha).format("YYYY-MM-DD");
         dispatch(setFecha(fechaFormateada));
-       return dispatch(getAvailableTimesThunk({ fecha: fechaFormateada, duracion: duracion }));
+
+        // Guardo fecha en storage
+        guardarReservaEnStorage({
+            fecha: fechaFormateada,
+        });
+
+        return dispatch(getAvailableTimesThunk({ fecha: fechaFormateada, duracion: duracion }));
     }
 
     const obtenerReservasPorFecha = (fecha) => {
@@ -91,6 +110,12 @@ export const useReservas = () => {
 
     const reservarHorario = (modoReserva, horario, idServicio) => {
         dispatch(setHorario(horario));
+
+        // Guardo horario en storage
+        guardarReservaEnStorage({
+            hora: horario,
+        });
+
 
         if (modoReserva === "crear") {
             redirectPantallaFormularioReserva(idServicio);

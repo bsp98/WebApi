@@ -92,7 +92,7 @@ const reservasSlice = createSlice({
             })
             .addCase(createReservaThunk.rejected, (state, action) => {
                 const { status, message } = action.payload;
-                if (status === 422) {
+                if (status === 409) {
                     state.error = null;
                     state.horarioOcupadoError = message;
                 }

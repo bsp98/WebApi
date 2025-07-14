@@ -21,11 +21,13 @@ export const FormularioModificarReserva = ({ modificarEstadoDePago, reagendarRes
 
                { reserva.id && <InputForm tipo={"text"} id={"id"} name={"id"} isHidden={true} value={reserva.id} />} 
 
+               <InputForm tipo={"text"} id={"clienta"} labelDescription={"Clienta:"} name={"clienta"} isDisabled={true} value={reserva.clienteId ? `${reserva.cliente.nombre} ${reserva.cliente.apellido}` : `${reserva.nombreCliente} ${reserva.apellidoCliente}`} />
+
                 <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} isDisabled={true} value={reserva.clienteId ? reserva.cliente.celular : reserva.celularCliente} />
 
                 <InputForm tipo={"text"} id={"fecha"} labelDescription={"Fecha:"} name={"fecha"} isDisabled={true} value={moment(reserva.fecha).format('DD/MM/YYYY')} />
 
-                <InputForm tipo={"text"} id={"hora"} labelDescription={"Hora:"} name={"hora"} isDisabled={true} value={reserva.horaInicio} />
+                <InputForm tipo={"text"} id={"hora"} labelDescription={"Hora:"} name={"hora"} isDisabled={true} value={reserva.horaInicio.slice(0, 5)} />
 
                 <InputForm tipo={"text"} id={"estadoDePagoActual"} labelDescription={"Estado de pago actual:"} name={"estadoDePagoActual"} isDisabled={true} value={reserva.nombreEstadoDePago} />
 

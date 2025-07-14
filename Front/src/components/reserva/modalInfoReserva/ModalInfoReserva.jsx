@@ -61,7 +61,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
 
                 </div>
 
-                <ButtonModal btn_variant={"btn_primary"} width_btn={"btn_small"} alCerrar={alCerrar} />
+                <ButtonModal textButton={"Cerrar"} btn_variant={"btn_primary"} width_btn={"btn_small"} alCerrar={alCerrar} />
             </div>
         </div>
     )

@@ -146,16 +146,22 @@ namespace Services.Services
             }
             _repositorioReserva.Remove(r);
 
-            Usuario usu = _repositorioUsuario.GetById(r.ClienteId.Value);
 
-            if (usu is Cliente cliente)
-            {
-                if (cliente.Reservas != null)
+            if (r.ClienteId != null) {
+
+                Usuario usu = _repositorioUsuario.GetById(r.ClienteId.Value);
+
+                if (usu is Cliente cliente)
                 {
-                    cliente.Reservas.Remove(r);
-                    _repositorioUsuario.Update(cliente);
+                    if (cliente.Reservas != null)
+                    {
+                        cliente.Reservas.Remove(r);
+                        _repositorioUsuario.Update(cliente);
+                    }
                 }
+
             }
+
         }
 
         public void Update(int id, ReservaDto dto)
