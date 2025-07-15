@@ -153,10 +153,11 @@ namespace WebApi.Controllers
         
 
         [AllowAnonymous]
-        [HttpPatch("{id}/fechahora")]
+        [HttpPatch("fechahora/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public IActionResult Reagendar(int id, [FromBody] ReservaFechaHoraDto dto)
         {
             try
@@ -171,6 +172,10 @@ namespace WebApi.Controllers
             catch (NoExisteException ene)
             {
                 return NotFound(ene.Message);
+            }
+            catch (ExisteException ee)
+            {
+                return Conflict(ee.Message);
             }
         }
 
