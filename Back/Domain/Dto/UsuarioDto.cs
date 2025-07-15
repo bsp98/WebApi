@@ -22,13 +22,14 @@ namespace Domain.Dto
 
         public TipoUsuario Tipo { get; set; }
 
-        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion)
+        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion, TipoUsuario tipo)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
             OrigenCreacion = origenCreacion;
+            Tipo= tipo;
         }
         public UsuarioDto() { }
 

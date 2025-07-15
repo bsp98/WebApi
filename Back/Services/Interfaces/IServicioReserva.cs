@@ -1,5 +1,6 @@
 ﻿using Domain.Dto;
 using Domain.Dto.FiltrosDto;
+using Domain.Enum;
 using Services.Interfaces.CRUD;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace Services.Interfaces
         List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
         void CancelarReserva(int id);
         void Reagendar(int id, DateTime fecha, TimeSpan horaInicio);
+
+        void ModificarEstadoDePago(int id, EstadoDePagoDto dto);
 
 
     }

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Models
+namespace Domain.Enum
 {
-    public enum TipoUsuario
+    public enum TiposDeEstado
     {
-        Cliente=0,
-        Administrador=1
+        Pendiente = 0,
+        Parcial = 1,
+        Total = 2,
+        
     }
 }

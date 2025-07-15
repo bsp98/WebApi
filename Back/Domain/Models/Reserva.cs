@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +20,13 @@ namespace Domain.Models
         public string? EmailCliente { get; set; }
         public string? CelularCliente { get; set; }
 
-
+        public TiposDeEstado EstadoDePago { get; set; }
         public Servicio Servicio { get; set; }
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
         public Boolean Cancelada { get; set; }
+
 
         //Constructor cuando te llega un ClienteId
         public Reserva( DateTime fecha, TimeSpan horaInicio, Cliente cliente, Servicio servicio)
@@ -34,6 +36,7 @@ namespace Domain.Models
             Cliente=cliente;
             ClienteId = cliente.Id;
             Servicio= servicio;
+            EstadoDePago= 0;
             PrecioTotal = CalcularPrecio();
             Cancelada=false;
             HoraInicio = horaInicio; 
@@ -53,6 +56,7 @@ namespace Domain.Models
             Cancelada = false;
             HoraInicio = horaInicio;
             HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicio.TiempoDeDuracionMin));
+            EstadoDePago = 0;
         }
         private double CalcularPrecio()
         {

@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Enum;
+using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Models;
 using System;
@@ -21,6 +22,9 @@ namespace Domain.Dto
         public string? CelularCliente { get; set; }
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
+        //public TiposDeEstado EstadoDePago { get; set; }
+        //public string NombreEstadoDePago { get; set; }
+
 
 
 
@@ -51,8 +55,7 @@ namespace Domain.Dto
             if (Fecha == null)
                 throw new FechaInvalidaException("La fecha no puede ser nula.");
 
-            if (Fecha <= DateTime.Now)
-                throw new FechaInvalidaException("La fecha debe ser una fecha posterior a la actual");
+
         }
 
 
@@ -100,5 +103,7 @@ namespace Domain.Dto
 
             return Regex.IsMatch(_email, patron);
         }
+
+
     }
 }

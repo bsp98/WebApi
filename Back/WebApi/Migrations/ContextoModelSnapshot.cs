@@ -104,6 +104,9 @@ namespace WebApi.Migrations
                     b.Property<string>("EmailCliente")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("EstadoDePago")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 

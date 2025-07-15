@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250713182052_INIT")]
-    partial class INIT
+    [Migration("20250714234606_CTVWAPA")]
+    partial class CTVWAPA
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,9 @@ namespace WebApi.Migrations
 
                     b.Property<string>("EmailCliente")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EstadoDePago")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");

@@ -1,4 +1,5 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Enum;
+using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Models;
 using System;
@@ -24,7 +25,8 @@ namespace Domain.Dto
         public string? ApellidoCliente { get; set; }
         public string? EmailCliente { get; set; }
         public string? CelularCliente { get; set; }
-
+        public TiposDeEstado EstadoDePago { get; set; }
+        public string NombreEstadoDePago { get; set; }
         public ServicioDto? Servicio { get; set; }  
         public int ServicioId { get; set; }
 
@@ -35,13 +37,14 @@ namespace Domain.Dto
 
 
 
-        public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin/*, ClienteDto cliente, ServicioDto servicio*/)
+        public ReservaDto( double precioTotal, DateTime fecha,TimeSpan horaInicio, TimeSpan horaFin,TiposDeEstado estadoDePago/*, ClienteDto cliente, ServicioDto servicio*/)
         {
 
             PrecioTotal=precioTotal;
             Fecha=fecha;
             //Cliente=cliente;
             //Servicioo=servicio;
+            EstadoDePago=estadoDePago;
             Cancelada=false;
             HoraInicio = horaInicio;
             HoraFin = horaFin;

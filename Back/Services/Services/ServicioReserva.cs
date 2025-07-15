@@ -4,6 +4,7 @@ using DataAcces.Repositories;
 using DataAccess.Interfaces;
 using Domain.Dto;
 using Domain.Dto.FiltrosDto;
+using Domain.Enum;
 using Domain.Exceptions;
 using Domain.Models;
 using Services.Exceptions;
@@ -46,6 +47,11 @@ namespace Services.Services
             //Valido el DTO
             dto.Validar();
 
+            Usuario usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
+            if (usu != null && usu is Cliente)
+            {
+                if (dto.Fecha <= DateTime.Now) throw new DatoIncorrectoException("La fecha debe ser una fecha posterior a la actual");
+            }
             //Busco el servicio.
             Servicio servicio = _repositorioServicio.GetById(dto.ServicioId);
             if (servicio == null) throw new NoExisteException("Servicio no encontrado");
@@ -69,11 +75,12 @@ namespace Services.Services
             //Si el Id del cliente viene con datos lo busco.
             if (dto.ClienteId.HasValue)
             {
-                Usuario usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
+                
                 if (usu == null) throw new NoExisteException("Cliente no encontrado");
                 if (usu is not Cliente cliente)
                     throw new Exception("El usuario no es un cliente");
                 //Creo la reserva con el constructor con clienteId
+                
 
                 reserva = new Reserva(dto.Fecha,dto.HoraInicio, cliente, servicio);
               
@@ -187,6 +194,10 @@ namespace Services.Services
 
             if (nuevaHoraInicio < TimeSpan.Zero || nuevaHoraInicio >= TimeSpan.FromHours(24))
                 throw new DatoIncorrectoException("Hora de inicio no válida");
+
+            DateTime fechaHoraReservaActual = reserva.Fecha.Date + reserva.HoraInicio;
+            if (fechaHoraReservaActual <= DateTime.Now.AddHours(12))
+                throw new DatoIncorrectoException("No se puede reagendar una reserva con menos de 12 horas de anticipación");
 
             TimeSpan duracion = TimeSpan.FromMinutes(reserva.Servicio.TiempoDeDuracionMin);
             TimeSpan nuevaHoraFin = nuevaHoraInicio + duracion;
@@ -416,6 +427,14 @@ namespace Services.Services
 
 
 
+        public void ModificarEstadoDePago(int id, EstadoDePagoDto dto)
+        {
+            Reserva r = _repositorioReserva.GetById(id);
+            if (r == null) throw new NoExisteException("La reserva no existe");
+
+            r.EstadoDePago = dto.EstadoDePago;
+            _repositorioReserva.Update(r);
+        }
 
 
 

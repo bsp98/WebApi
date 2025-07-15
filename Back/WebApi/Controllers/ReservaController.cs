@@ -1,5 +1,6 @@
 ﻿using Domain.Dto;
 using Domain.Dto.FiltrosDto;
+using Domain.Enum;
 using Domain.Exceptions;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -173,6 +174,26 @@ namespace WebApi.Controllers
                 return NotFound(ene.Message);
             }
         }
+
+
+
+        [AllowAnonymous]
+        [HttpPatch("{id}/EstadoDePago")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult ModificarEstadoDePago(int id, [FromBody] EstadoDePagoDto dto)
+        {
+            try
+            {
+                //_servicioReserva.ModificarEstadoDePago(id, dto.EstadoDePago);
+                return Ok("Estado de pago modificadas con éxito");
+            }
+            catch (NoExisteException ene)
+            {
+                return NotFound(ene.Message);
+            }
+        }
+
 
 
         [AllowAnonymous]
