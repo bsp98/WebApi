@@ -62,7 +62,7 @@ export async function deleteReserva(id) {
 
 export async function reagendarReserva({ idReserva, fecha, horaInicio }) {
 
-  const response = await fetch(`http://localhost:5164/api/Reservas/${idReserva}`, {
+  const response = await fetch(`http://localhost:5164/api/Reserva/fechahora/${idReserva}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
