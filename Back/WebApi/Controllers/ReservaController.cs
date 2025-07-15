@@ -185,7 +185,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                //_servicioReserva.ModificarEstadoDePago(id, dto.EstadoDePago);
+                _servicioReserva.ModificarEstadoDePago(id, dto.EstadoDePago);
                 return Ok("Estado de pago modificadas con éxito");
             }
             catch (NoExisteException ene)

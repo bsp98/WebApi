@@ -19,7 +19,7 @@ namespace Services.Interfaces
         void CancelarReserva(int id);
         void Reagendar(int id, DateTime fecha, TimeSpan horaInicio);
 
-        void ModificarEstadoDePago(int id, EstadoDePagoDto dto);
+        void ModificarEstadoDePago(int id,TiposDeEstado estado);
 
 
     }

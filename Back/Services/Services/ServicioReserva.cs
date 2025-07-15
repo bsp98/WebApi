@@ -427,12 +427,11 @@ namespace Services.Services
 
 
 
-        public void ModificarEstadoDePago(int id, EstadoDePagoDto dto)
+        public void ModificarEstadoDePago(int id, TiposDeEstado estado)
         {
             Reserva r = _repositorioReserva.GetById(id);
             if (r == null) throw new NoExisteException("La reserva no existe");
-
-            r.EstadoDePago = dto.EstadoDePago;
+            r.EstadoDePago = estado;
             _repositorioReserva.Update(r);
         }
 
