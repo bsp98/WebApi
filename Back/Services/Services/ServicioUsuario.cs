@@ -118,9 +118,9 @@ namespace Services.Services
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
 
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && !string.IsNullOrWhiteSpace(filtros.Celular))
+            if ( !string.IsNullOrWhiteSpace(filtros.Celular))
             {
-                var clientes = _repositorioUsuario.BuscarPorNombreCelular(filtros.Nombre, filtros.Celular).OfType<Cliente>().ToList();
+                var clientes = _repositorioUsuario.BuscarCelular( filtros.Celular).OfType<Cliente>().ToList();
 
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }

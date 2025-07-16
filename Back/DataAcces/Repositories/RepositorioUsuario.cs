@@ -35,9 +35,9 @@ namespace DataAcces.Repositories
         }
 
 
-        public IEnumerable<Usuario> BuscarPorNombreCelular(string nombre,string celular)
+        public IEnumerable<Usuario> BuscarCelular(string celular)
         {
-            return Contexto.Set<Usuario>().OfType<Cliente>().Where(c => c.Nombre == nombre && c.Celular == celular).AsNoTracking().ToList();
+            return Contexto.Set<Usuario>().OfType<Cliente>().Where(c=>c.Celular == celular).AsNoTracking().ToList();
         }
 
         public bool TieneReservas(int id)

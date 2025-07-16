@@ -66,7 +66,7 @@ namespace WebApi.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoUsuario = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    TipoUsuario = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
                     FechaDeNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Activo = table.Column<bool>(type: "bit", nullable: true)

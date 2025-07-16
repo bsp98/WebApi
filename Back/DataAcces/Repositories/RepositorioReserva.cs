@@ -39,9 +39,11 @@ namespace DataAcces.Repositories
 
         public IEnumerable<Reserva> BuscarPorClienteId(int clienteId)
         {
-            return Contexto.Set<Reserva>().Include(r => r.Cliente).Include(r => r.Servicio).AsNoTracking().Where(r => r.ClienteId == clienteId).ToList();
-            // return Contexto.Set<Reserva>().Include(r => r.Cliente).AsNoTracking().AsEnumerable().Where(c => c.ClienteId == clienteId).ToList();
+            DateTime hoy = DateTime.Today;
+
+            return Contexto.Set<Reserva>().Include(r => r.Cliente).Include(r => r.Servicio).AsNoTracking().Where(r => r.ClienteId == clienteId && r.Fecha >= hoy).ToList();
         }
+    
 
         public Reserva GetById(int id)
         {

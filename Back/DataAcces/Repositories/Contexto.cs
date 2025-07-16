@@ -24,7 +24,7 @@ namespace DataAcces.Repositories
         {
 
 
-            modelBuilder.Entity<Usuario>().HasDiscriminator<string>("TipoUsuario").HasValue<Usuario>("Usuario").HasValue<Cliente>("Cliente");
+            modelBuilder.Entity<Usuario>().HasDiscriminator<string>("TipoUsuario").HasValue<Cliente>("Cliente").HasValue<Administrador>("Administrador");
 
 
             base.OnModelCreating(modelBuilder);

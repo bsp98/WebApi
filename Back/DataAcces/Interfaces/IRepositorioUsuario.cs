@@ -15,7 +15,7 @@ namespace DataAccess.Interfaces
         bool ExisteEmail(string email);
         public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha);
         public IEnumerable<Usuario> BuscarPorNombre(string nombre);
-        public IEnumerable<Usuario> BuscarPorNombreCelular(string nombre, string celular);
+        public IEnumerable<Usuario> BuscarCelular( string celular);
         bool TieneReservas(int id);
         IEnumerable<Cliente> ObtenerClientesPaginados(int page, int pageSize);
         int ContarClientes(); // para saber cuántas páginas hay en total

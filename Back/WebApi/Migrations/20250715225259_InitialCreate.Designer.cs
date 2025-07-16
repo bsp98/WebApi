@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250715003348_InitialCreate")]
+    [Migration("20250715225259_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -199,8 +199,8 @@ namespace WebApi.Migrations
 
                     b.Property<string>("TipoUsuario")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.HasKey("Id");
 
@@ -209,6 +209,13 @@ namespace WebApi.Migrations
                     b.HasDiscriminator<string>("TipoUsuario").HasValue("Usuario");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Models.Administrador", b =>
+                {
+                    b.HasBaseType("Domain.Models.Usuario");
+
+                    b.HasDiscriminator().HasValue("Administrador");
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>

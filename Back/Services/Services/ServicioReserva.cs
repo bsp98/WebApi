@@ -299,6 +299,8 @@ namespace Services.Services
 
             //List<BloqueHorario> disponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
 
+            
+
             List<BloqueHorario> filtrados = FiltrarBloquesSinBaches(bloquesTotales, duracionMinutos);
 
             return filtrados.Select(b => new BloqueHorarioDto

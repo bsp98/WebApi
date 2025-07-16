@@ -236,6 +236,19 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost("Logout")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult Logout()
+        {
+           //  token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+            
+           // _servicioUsuario.SacarTToken(token);
+
+            return Ok("Sesión cerrada correctamente.");
+        }
+
     }
 
 
