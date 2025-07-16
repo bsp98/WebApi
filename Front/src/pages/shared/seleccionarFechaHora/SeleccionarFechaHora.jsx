@@ -25,10 +25,11 @@ export const SeleccionarFechaHora = () => {
   const [errorTableReservas, setErrorTableReservas] = useState(null);
   const [loadingHorarios, setLoadingHorarios] = useState(false);
   const [errorHorarios, setErrorHorarios] = useState(null);
+  const [errorReagendar, setErrorReagendar] = useState(null);
 
   const { accion, id } = useParams();
   const navigate = useNavigate();
-  const rol = "admin";
+  const rol = "cliente";
 
 
   //metodo que ejecuta el onchange del calendario ()
@@ -50,7 +51,6 @@ export const SeleccionarFechaHora = () => {
         await obtenerHorariosDisponibles(fecha, duracion).unwrap();
         setErrorHorarios(null); // Limpio error si sale bien
       } catch (error) {
-        console.log("este es el error", error)
         setErrorHorarios(error);
       } finally {
         setLoadingHorarios(false);
@@ -63,7 +63,6 @@ export const SeleccionarFechaHora = () => {
         await obtenerReservasPorFecha(fecha).unwrap();
         setErrorTableReservas(null); // Limpio error si sale bien
       } catch (error) {
-        console.log("este es el error", error)
         setErrorTableReservas(error);
       } finally {
         setLoadingTableReservas(false);
@@ -109,6 +108,22 @@ export const SeleccionarFechaHora = () => {
 
   }
 
+  const onSeleccionarHorario = async (modoReserva, horario, idServicio) => {
+
+    if (accion === "modificar") {
+      try {
+        await reservarHorario(modoReserva, horario, idServicio); // ya hace unwrap
+        setErrorReagendar(null);
+      } catch (error) {
+        setErrorReagendar(error);
+      }
+    }
+
+    if (accion === "crear") {
+      reservarHorario(modoReserva, horario, idServicio);
+    }
+  };
+
   //cierra el modal y actualiza los horarios
   const cerrarModalError = () => {
     limpiarMensajeError();
@@ -117,9 +132,9 @@ export const SeleccionarFechaHora = () => {
   }
 
   const columns = [
-    { header: 'Cliente', render: (dato) => dato.clienteId ? `${dato.cliente.nombre} ${dato.cliente.apellido}`: `${dato.nombreCliente} ${dato.apellidoCliente}`},
-    { header: 'Celular', render: (dato) => dato.clienteId ? `${dato.cliente.celular}`: `${dato.celularCliente}` },
-    { header: 'Hora', render: (dato) => dato.horaInicio?.slice(0, 5)},
+    { header: 'Cliente', render: (dato) => dato.clienteId ? `${dato.cliente.nombre} ${dato.cliente.apellido}` : `${dato.nombreCliente} ${dato.apellidoCliente}` },
+    { header: 'Celular', render: (dato) => dato.clienteId ? `${dato.cliente.celular}` : `${dato.celularCliente}` },
+    { header: 'Hora', render: (dato) => dato.horaInicio?.slice(0, 5) },
     { header: 'Fecha', render: (dato) => moment(dato.fecha).format('DD/MM/YYYY') },
     { header: 'Estado de pago', render: (dato) => dato.nombreEstadoDePago }
   ];
@@ -141,12 +156,16 @@ export const SeleccionarFechaHora = () => {
           {errorHorarios && (<MessageError error={errorHorarios} />)}
         </div>
 
+        <div className='mesaje_error'>
+          {errorReagendar && (<MessageError error={errorReagendar} />)}
+        </div>
+
         <CalendarioReserva onFechaSeleccionada={visualizarHorarios} />
 
       </div>
 
       <div className="area-horarios">
-        <HorariosDisponibles horarios={horarios} seleccionarHorario={reservarHorario} modoReserva={accion} idServicio={id} loading={loadingHorarios} />
+        <HorariosDisponibles horarios={horarios} seleccionarHorario={onSeleccionarHorario} modoReserva={accion} idServicio={id} loading={loadingHorarios} />
       </div>
 
 

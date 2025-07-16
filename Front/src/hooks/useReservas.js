@@ -46,7 +46,7 @@ export const useReservas = () => {
         dispatch(deleteReservaThunk(reservaEnEdicion.id));
     };
 
-    const modificarReserva = () => {
+    const modificarReserva = async (horario) => {
 
         if (!reservaEnEdicion) return;
 
@@ -54,11 +54,11 @@ export const useReservas = () => {
         {
             idReserva: reservaEnEdicion.id,
             fecha: fechaSeleccionada,
-            horaInicio: horarioSeleccionado,
+            horaInicio: horario,
         }
 
-
-        dispatch(reagendarReservaThunk(nuevaFechaYHora));
+console.log("nueva fecha hora que se envia de la reserva:",nuevaFechaYHora)
+        return await dispatch(reagendarReservaThunk(nuevaFechaYHora)).unwrap();
     };
 
     const obtenerTodasLasReservas = () => {
@@ -108,7 +108,7 @@ export const useReservas = () => {
 
     }
 
-    const reservarHorario = (modoReserva, horario, idServicio) => {
+    const reservarHorario = async (modoReserva, horario, idServicio) => {
         dispatch(setHorario(horario));
 
         // Guardo horario en storage
@@ -122,7 +122,7 @@ export const useReservas = () => {
         }
 
         if (modoReserva === "modificar") {
-            modificarReserva();
+            return await modificarReserva(horario); 
         }
 
     }
