@@ -84,7 +84,8 @@ namespace WebApi
                     ValidateIssuer = true,
                     ValidIssuer = "https://servidor_seguridad",
                     ValidateAudience = true,
-                    ValidAudience = "https://servidor_protegido"
+                    ValidAudience = "https://servidor_protegido",
+                    ClockSkew = TimeSpan.Zero
                 };
                 
             });

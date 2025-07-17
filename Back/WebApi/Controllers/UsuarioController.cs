@@ -20,20 +20,21 @@ namespace WebApi.Controllers
     public class UsuarioController : Controller
     {
         private readonly IServicioUsuario _servicioUsuario;
-        private readonly IConfiguration _configuration;
+        
 
-        public UsuarioController(IServicioUsuario servicioUsuario, IConfiguration configuration)
+        public UsuarioController(IServicioUsuario servicioUsuario)
         {
             _servicioUsuario = servicioUsuario;
-            _configuration = configuration;
+            
         }
 
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult PostCliente([FromBody] ClienteDto dto)
         {
             try
@@ -49,6 +50,9 @@ namespace WebApi.Controllers
             {
                 return UnprocessableEntity(e.Message);
             }
+            catch (NoExisteException eee) {
+                return Unauthorized(eee.Message);
+            }
         }
 
         [AllowAnonymous]
@@ -59,12 +63,17 @@ namespace WebApi.Controllers
         {
             try
             {
+
+
                 UsuarioDto usuario = _servicioUsuario.Login(loginDto.Email, loginDto.Password);
                 //Creo el token jwt
-                var token = new Token
+                string rol = usuario.Tipo.ToString();
+                var token = new TokenDto
                 {
-                    AccesoToken = GenerarTokenJwt(usuario.Nombre),
-                    NombreUsuario = ""
+                    AccesoToken = _servicioUsuario.GenerarTokenJwt(usuario.Email, usuario.Nombre, rol),
+                    NombreUsuario = usuario.Nombre,
+                    EmailUsuario = usuario.Email,
+                    RolUsuario = rol
                 };
 
                 return Ok(token);
@@ -76,29 +85,7 @@ namespace WebApi.Controllers
             }
         }
 
-        private string GenerarTokenJwt(string nombreUsuario)
-        {
-
-            var claveSecreta = _configuration["ClaveSecreta:Clave"];
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,nombreUsuario)
-            };
-
-            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
-
-            var token = new JwtSecurityToken(
-                issuer: "https://servidor_seguridad",
-                audience: "https://servidor_protegido",
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
-                signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256)
-            );
-
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return tokenString;
-        }
+        
 
 
 
@@ -174,7 +161,8 @@ namespace WebApi.Controllers
        
         }
 
-        //[Authorize]
+        [Authorize(Roles="Administrador")]
+        //[AllowAnonymous]
         [HttpGet("GetTodos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -192,7 +180,8 @@ namespace WebApi.Controllers
             }
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Cliente")]
+        //[AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -241,11 +230,6 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Logout()
         {
-           //  token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-
-            
-           // _servicioUsuario.SacarTToken(token);
-
             return Ok("Sesión cerrada correctamente.");
         }
 

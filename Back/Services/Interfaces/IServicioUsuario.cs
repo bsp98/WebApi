@@ -19,5 +19,7 @@ namespace Services.Interfaces
         public UsuarioDto? Login(string email, string password);
 
         public (List<ClienteDto> clientes, int total) ObtenerClientesPaginados(int page, int pageSize);
+
+        public string GenerarTokenJwt(string emailUsuario,string nombreUsuario,string rol);
     }
 }

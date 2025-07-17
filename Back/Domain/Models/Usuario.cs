@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Usuario
+    public abstract class Usuario
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
-       
+
+
 
         public Usuario(string email, string password, string nombre, string apellido)
         {
@@ -24,6 +25,7 @@ namespace Domain.Models
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
+           
            
 
         }

@@ -11,6 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Dto.FiltrosDto;
 using Services.Interfaces.CRUD;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace Services.Services
 {
@@ -18,43 +22,48 @@ namespace Services.Services
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-
-        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper)
+        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration)
         {
             _repositorioUsuario = repositorioUsuario;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
 
         public UsuarioDto Add(UsuarioDto dto)
         {
 
-            return dto switch
+            if (dto is ClienteDto clienteDto)
             {
-                ClienteDto cliente => AgregarCliente(cliente),
-                AdministradorDto admin => AgregarAdministrador(admin),
-                _ => throw new ArgumentException("Tipo de usuario no reconocido.")
-            };
-          
+                return AgregarCliente(clienteDto);
+            }
+
+            if (dto is AdministradorDto adminDto)
+            {
+                return AgregarAdministrador(adminDto);
+            }
+
+            throw new NoExisteException("Tipo de usuario no reconocido.");
+
         }
 
         public UsuarioDto AgregarAdministrador(AdministradorDto dto)
         {
             dto.Validar();
-            var entidad = _mapper.Map<Administrador>(dto);
-            var guardado = _repositorioUsuario.Add(entidad);
+            Administrador admin = _mapper.Map<Administrador>(dto);
+            Usuario guardado = _repositorioUsuario.Add(admin);
             return _mapper.Map<AdministradorDto>(guardado);
         }
 
         public UsuarioDto AgregarCliente(ClienteDto dto)
         {
             dto.Validar();
-            if (_repositorioUsuario.ExisteEmail(dto.Email))
-                throw new ExisteException("Ya existe un usuario con ese email.");
+            if (_repositorioUsuario.ExisteEmail(dto.Email)) throw new ExisteException("Ya existe un usuario con ese email.");
 
-            var entidad = _mapper.Map<Cliente>(dto);
-            var guardado = _repositorioUsuario.Add(entidad);
+            Cliente cli = _mapper.Map<Cliente>(dto);
+            Usuario guardado = _repositorioUsuario.Add(cli);
             return _mapper.Map<ClienteDto>(guardado);
         }
 
@@ -159,6 +168,33 @@ namespace Services.Services
                 throw new NoExisteException("Tipo de usuario desconocido");
         }
 
+
+        public string GenerarTokenJwt(string emailUsuario,string nombreUsuario,string rol)
+        {
+
+            var claveSecreta = _configuration["ClaveSecreta:Clave"];
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Email,emailUsuario),
+                new Claim(ClaimTypes.Name,nombreUsuario),
+                new Claim(ClaimTypes.Role, rol)
+
+            };
+
+            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
+
+            var token = new JwtSecurityToken(
+                issuer: "https://servidor_seguridad",
+                audience: "https://servidor_protegido",
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256)
+            );
+
+            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return tokenString;
+        }
 
         public UsuarioDto GetById(int id)
         {
