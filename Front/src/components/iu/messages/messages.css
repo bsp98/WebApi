@@ -52,3 +52,10 @@
     color: #d74343;
 
 }
+
+.modal_botones{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

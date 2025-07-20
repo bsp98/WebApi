@@ -20,20 +20,21 @@ namespace WebApi.Controllers
     public class UsuarioController : Controller
     {
         private readonly IServicioUsuario _servicioUsuario;
-        private readonly IConfiguration _configuration;
+        
 
-        public UsuarioController(IServicioUsuario servicioUsuario, IConfiguration configuration)
+        public UsuarioController(IServicioUsuario servicioUsuario)
         {
             _servicioUsuario = servicioUsuario;
-            _configuration = configuration;
+            
         }
 
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult PostCliente([FromBody] ClienteDto dto)
         {
             try
@@ -49,66 +50,13 @@ namespace WebApi.Controllers
             {
                 return UnprocessableEntity(e.Message);
             }
-        }
-
-        [AllowAnonymous]
-        [HttpPost("Login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult Login([FromBody] LoginDto loginDto)
-        {
-            try
-            {
-                UsuarioDto usuario = _servicioUsuario.Login(loginDto.Email, loginDto.Password);
-                //Creo el token jwt
-                var token = new Token
-                {
-                    AccesoToken = GenerarTokenJwt(usuario.Nombre),
-                    NombreUsuario = ""
-                };
-
-                return Ok(token);
-            }
-            catch (NoExisteException eee)
-            {
-                //Codigo Status 401 no autorizado
+            catch (NoExisteException eee) {
                 return Unauthorized(eee.Message);
             }
         }
 
-        private string GenerarTokenJwt(string nombreUsuario)
-        {
 
-            var claveSecreta = _configuration["ClaveSecreta:Clave"];
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.Name,nombreUsuario)
-            };
-
-            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(claveSecreta));
-
-            var token = new JwtSecurityToken(
-                issuer: "https://servidor_seguridad",
-                audience: "https://servidor_protegido",
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
-                signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256)
-            );
-
-            string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return tokenString;
-        }
-
-
-
-
-
-
-
-
-
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -138,7 +86,7 @@ namespace WebApi.Controllers
 
 
 
-        [Authorize]
+        //[Authorize]
         [HttpPatch("desactivar/{id}")]
         public IActionResult Desactivar(int id)
         {
@@ -161,7 +109,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPorFiltro([FromQuery] ClienteFiltrosDto filtros)
@@ -174,7 +122,8 @@ namespace WebApi.Controllers
        
         }
 
-        [Authorize]
+        [Authorize(Roles="Administrador")]
+        //[AllowAnonymous]
         [HttpGet("GetTodos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -191,8 +140,9 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
-
-        [AllowAnonymous]
+        
+        [Authorize(Roles = "Cliente")]
+        //[AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -235,6 +185,8 @@ namespace WebApi.Controllers
                 return StatusCode(500, "Error interno del servidor");
             }
         }
+
+       
 
     }
 

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Dto
 {
-    public class Token
+    public class GoogleLoginDto
     {
-        public string AccesoToken { get; set; }
-        public string NombreUsuario { get; set; }
-
+        public string IdToken { get; set; }
     }
 }

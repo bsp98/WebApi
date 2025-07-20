@@ -15,11 +15,17 @@ export const InicioCliente = () => {
   const { reservas, error, successMessage, loading, eliminarReserva, limpiarMensajeExito, setReservaParaCancelar, obtenerReservasPorIdCliente } = useReservas();
   const [menssageConfirmation, setMessageConfirmation] = useState(null);
   const navigate = useNavigate();
-  const idClienteAut = 1;
+  const idClienteAut = 3;
 
   useEffect(() => {
     obtenerReservasPorIdCliente(idClienteAut)
   }, [idClienteAut]);
+
+  useEffect(() => {
+  if (successMessage) {
+    obtenerReservasPorIdCliente(idClienteAut);
+  }
+}, [successMessage]);
 
   const redirectSeleccionarFechaHora = (reserva) => {
     navigate(`/cliente/fecha-hora/modificar/${reserva.id}`);
@@ -39,11 +45,15 @@ export const InicioCliente = () => {
     setMessageConfirmation(null);
   }
 
+  const cerrarModalConfirmacion = () =>{
+        setMessageConfirmation(null);
+  }
+
   const columns = [
     { header: 'Servicio', render: (dato) => `${dato.servicio.nombre}` },
     { header: 'Duracion', render: (dato) => dato.servicio.tiempoDeDuracionMin },
     { header: 'Fecha', render: (dato) => moment(dato.fecha).format('DD/MM/YYYY') },
-    { header: 'Hora', render: (dato) => dato.horaInicio },
+    { header: 'Hora', render: (dato) => dato.horaInicio.slice(0,5) },
     { header: 'Estado de pago', render: (dato) => dato.nombreEstadoDePago },
     { header: 'Precio', render: (dato) => dato.servicio.precioTotal }
   ];
@@ -73,7 +83,7 @@ export const InicioCliente = () => {
 
 
 
-      {menssageConfirmation && <Modal mensaje={menssageConfirmation} alCerrar={cancelarReserva} />}
+      {menssageConfirmation && <Modal mensaje={menssageConfirmation} alCerrar={cerrarModalConfirmacion} onConfirmar={cancelarReserva} textoConfirmar={"Confirmar"} />}
 
       {successMessage && <Modal mensaje={successMessage} alCerrar={limpiarMensajeExito} />}
 

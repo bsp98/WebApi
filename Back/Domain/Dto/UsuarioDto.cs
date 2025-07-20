@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -20,15 +21,17 @@ namespace Domain.Dto
 
         public string OrigenCreacion { get; set; }
 
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TipoUsuario Tipo { get; set; }
 
-        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion)
+        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion, TipoUsuario tipo)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
             OrigenCreacion = origenCreacion;
+            Tipo= tipo;
         }
         public UsuarioDto() { }
 

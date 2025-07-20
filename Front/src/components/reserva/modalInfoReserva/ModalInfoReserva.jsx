@@ -19,7 +19,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
 
                         <div className='group_info_modal_reserva'>
                             <i className='icon_modal_reserva fa-solid fa-user'></i>
-                            <p className='info_modal_reserva'>{`${reserva.cliente.nombre} ${reserva.cliente.apellido}`}</p>
+                            <p className='info_modal_reserva'>{reserva.clienteId ?`${reserva.cliente.nombre} ${reserva.cliente.apellido}`:`${reserva.nombreCliente} ${reserva.apellidoCliente}`}</p>
                         </div>
 
                         <div className='group_info_modal_reserva'>
@@ -29,7 +29,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
 
                         <div className='group_info_modal_reserva'>
                             <i className='icon_modal_reserva fa-solid fa-clock'></i>
-                            <p className='info_modal_reserva'>{`${reserva.horaInicio}`}</p>
+                            <p className='info_modal_reserva'>{`${reserva.horaInicio?.slice(0, 5)}`}</p>
                         </div>
 
                         <div className='group_info_modal_reserva'>
@@ -61,7 +61,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
 
                 </div>
 
-                <ButtonModal btn_variant={"btn_primary"} width_btn={"btn_small"} alCerrar={alCerrar} />
+                <ButtonModal textButton={"Cerrar"} btn_variant={"btn_primary"} width_btn={"btn_small"} alCerrar={alCerrar} />
             </div>
         </div>
     )

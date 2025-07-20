@@ -20,7 +20,7 @@ export const createReservaThunk = createAsyncThunk(
   }
 );
 
-const rol = "cliente"
+const rol = "admin"
 //esto se hace con el slice de Aut  ///HAY QUE AGREGAR LOGICA DE SEGUN EL USUARIO Y LA PANTALLA A REDIRECCIONAR ES EL METODO QUE SE LLAMA
 export const deleteReservaThunk = createAsyncThunk(
   'reservas/deleteReserva',
@@ -153,7 +153,7 @@ export const getAvailableTimesThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-
+        console.log("el error entro del el thunk getAvailable", error.message);
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
     }

@@ -12,8 +12,13 @@ namespace Domain.Models
         {
         }
 
-       
+        public Administrador(string email, string password, string nombre, string apellido) : base(email, password, nombre, apellido)
+        {
+            Email = email;
+            Password = password;
+            Nombre = nombre;
+            Apellido = apellido;
 
-
+        }
     }
 }

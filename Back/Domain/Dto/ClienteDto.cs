@@ -20,7 +20,7 @@ namespace Domain.Dto
         public List<Reserva>? Reservas { get; set; }
         public bool Activo { get; set; }
 
-        public ClienteDto(string email, string password, string nombre, string apellido, string origenCreacion, DateTime fechaDeNacimiento,string celular,bool activo) : base(email, password, nombre, apellido,origenCreacion)
+        public ClienteDto(string email, string password, string nombre, string apellido, string origenCreacion,TipoUsuario tipo, DateTime fechaDeNacimiento,string celular,bool activo) : base(email, password, nombre, apellido,origenCreacion, tipo)
         {
             Email= email;
             Password= password;
@@ -30,6 +30,7 @@ namespace Domain.Dto
             FechaDeNacimiento =fechaDeNacimiento;
             Celular=celular;
             Activo= activo;
+            Tipo= tipo;
 
         }
 

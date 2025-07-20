@@ -21,7 +21,12 @@ const clientesSlice = createSlice({
 
         setError: (state, action) => {
             state.error = action.payload;
+        },
+
+        setClientes: (state, action) => {
+            state.clientes = action.payload;
         }
+
 
     },
     extraReducers: (builder) => {
@@ -110,5 +115,5 @@ const clientesSlice = createSlice({
     },
 });
 
-export const { clearSuccessMessage, setError } = clientesSlice.actions;
+export const { clearSuccessMessage, setError, setClientes } = clientesSlice.actions;
 export default clientesSlice.reducer;

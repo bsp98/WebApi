@@ -25,6 +25,7 @@ namespace Domain.Models
             FechaDeNacimiento=fechaDeNacimiento;
             Celular=celular;
             Activo=activo;
+      
 
         }
         public Cliente() { }

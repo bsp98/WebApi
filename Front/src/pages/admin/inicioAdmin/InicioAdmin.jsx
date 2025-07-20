@@ -71,9 +71,9 @@ const getReservasToMorrow = async () => {
 
 
   const columns = [
-    { header: 'Cliente', render: (dato) => `${dato.cliente.nombre} ${dato.cliente.apellido}` },
-    { header: 'Celular', render: (dato) => dato.cliente.celular },
-    { header: 'Hora', render: (dato) => dato.horaInicio },
+    { header: 'Cliente', render: (dato) => dato.clienteId ? `${dato.cliente.nombre} ${dato.cliente.apellido}`: `${dato.nombreCliente} ${dato.apellidoCliente}`},
+    { header: 'Celular', render: (dato) => dato.clienteId ? `${dato.cliente.celular}`: `${dato.celularCliente}` },
+    { header: 'Hora', render: (dato) => dato.horaInicio?.slice(0, 5) },
     { header: 'Fecha', render: (dato) => moment(dato.fecha).format('DD/MM/YYYY') },
     { header: 'Estado de pago', render: (dato) => dato.nombreEstadoDePago }
   ];

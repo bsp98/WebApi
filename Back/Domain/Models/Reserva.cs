@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,17 @@ namespace Domain.Models
         public Cliente? Cliente { get; set; }
         public int? ClienteId { get; set; }
         public string? NombreCliente { get; set; }
+        public string? ApellidoCliente { get; set; }
         public string? EmailCliente { get; set; }
-        public string? TelefonoCliente { get; set; }
+        public string? CelularCliente { get; set; }
 
-
+        public TiposDeEstado EstadoDePago { get; set; }
         public Servicio Servicio { get; set; }
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
         public Boolean Cancelada { get; set; }
+
 
         //Constructor cuando te llega un ClienteId
         public Reserva( DateTime fecha, TimeSpan horaInicio, Cliente cliente, Servicio servicio)
@@ -33,6 +36,7 @@ namespace Domain.Models
             Cliente=cliente;
             ClienteId = cliente.Id;
             Servicio= servicio;
+            EstadoDePago= 0;
             PrecioTotal = CalcularPrecio();
             Cancelada=false;
             HoraInicio = horaInicio; 
@@ -40,17 +44,19 @@ namespace Domain.Models
         }
 
         //Constructor sin cllienteID
-        public Reserva(DateTime fecha, TimeSpan horaInicio, string nombreCliente, string emailCliente, string telefonoCliente, Servicio servicio)
+        public Reserva(DateTime fecha, TimeSpan horaInicio,string nombreCliente, string apellidoCliente, string emailCliente, string celularCliente, Servicio servicio)
         {
             Fecha = fecha;
             NombreCliente = nombreCliente;
+            ApellidoCliente = apellidoCliente;
             EmailCliente = emailCliente;
-            TelefonoCliente = telefonoCliente;
+            CelularCliente = celularCliente;
             Servicio = servicio;
             PrecioTotal = CalcularPrecio();
             Cancelada = false;
             HoraInicio = horaInicio;
             HoraFin = HoraInicio.Add(TimeSpan.FromMinutes(Servicio.TiempoDeDuracionMin));
+            EstadoDePago = 0;
         }
         private double CalcularPrecio()
         {
@@ -60,8 +66,8 @@ namespace Domain.Models
         public Reserva() { }
 
 
-        public string ObtenerNombreCliente() {
-            return Cliente.Nombre;
+        public string? ObtenerNombreCliente() {
+            return Cliente?.Nombre;
         }
 
 

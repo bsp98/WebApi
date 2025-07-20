@@ -15,12 +15,15 @@ namespace DataAccess.Interfaces
         bool ExisteEmail(string email);
         public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha);
         public IEnumerable<Usuario> BuscarPorNombre(string nombre);
-        public IEnumerable<Usuario> BuscarPorNombreApellido(string nombre, string apellido);
+        public IEnumerable<Usuario> BuscarCelular( string celular);
         bool TieneReservas(int id);
         IEnumerable<Cliente> ObtenerClientesPaginados(int page, int pageSize);
         int ContarClientes(); // para saber cuántas páginas hay en total
 
         public Usuario? Login(string email, string password);
+        public Usuario ObtenerPorEmail(string email);
+       // public Task<Usuario> ObtenerPorEmailAsync(string email);
+
     }
 }
 

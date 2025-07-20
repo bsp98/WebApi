@@ -11,6 +11,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Dto.FiltrosDto;
 using Services.Interfaces.CRUD;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace Services.Services
 {
@@ -18,43 +22,48 @@ namespace Services.Services
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
-
-        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper)
+        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration)
         {
             _repositorioUsuario = repositorioUsuario;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
 
         public UsuarioDto Add(UsuarioDto dto)
         {
 
-            return dto switch
+            if (dto is ClienteDto clienteDto)
             {
-                ClienteDto cliente => AgregarCliente(cliente),
-                AdministradorDto admin => AgregarAdministrador(admin),
-                _ => throw new ArgumentException("Tipo de usuario no reconocido.")
-            };
-          
+                return AgregarCliente(clienteDto);
+            }
+
+            if (dto is AdministradorDto adminDto)
+            {
+                return AgregarAdministrador(adminDto);
+            }
+
+            throw new NoExisteException("Tipo de usuario no reconocido.");
+
         }
 
         public UsuarioDto AgregarAdministrador(AdministradorDto dto)
         {
             dto.Validar();
-            var entidad = _mapper.Map<Administrador>(dto);
-            var guardado = _repositorioUsuario.Add(entidad);
+            Administrador admin = _mapper.Map<Administrador>(dto);
+            Usuario guardado = _repositorioUsuario.Add(admin);
             return _mapper.Map<AdministradorDto>(guardado);
         }
 
         public UsuarioDto AgregarCliente(ClienteDto dto)
         {
             dto.Validar();
-            if (_repositorioUsuario.ExisteEmail(dto.Email))
-                throw new ExisteException("Ya existe un usuario con ese email.");
+            if (_repositorioUsuario.ExisteEmail(dto.Email)) throw new ExisteException("Ya existe un usuario con ese email.");
 
-            var entidad = _mapper.Map<Cliente>(dto);
-            var guardado = _repositorioUsuario.Add(entidad);
+            Cliente cli = _mapper.Map<Cliente>(dto);
+            Usuario guardado = _repositorioUsuario.Add(cli);
             return _mapper.Map<ClienteDto>(guardado);
         }
 
@@ -104,7 +113,7 @@ namespace Services.Services
 
         public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
         {
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Apellido))
+            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
             {
                 var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
 
@@ -118,9 +127,9 @@ namespace Services.Services
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
 
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && !string.IsNullOrWhiteSpace(filtros.Apellido))
+            if ( !string.IsNullOrWhiteSpace(filtros.Celular))
             {
-                var clientes = _repositorioUsuario.BuscarPorNombreApellido(filtros.Nombre, filtros.Apellido).OfType<Cliente>().ToList();
+                var clientes = _repositorioUsuario.BuscarCelular( filtros.Celular).OfType<Cliente>().ToList();
 
                 return _mapper.Map<List<ClienteDto>>(clientes);
             }
@@ -142,23 +151,23 @@ namespace Services.Services
             return _mapper.Map<List<ClienteDto>>(clientes);
         }
 
-        public UsuarioDto? Login(string email, string password)
-        {
-            Usuario? usuario = _repositorioUsuario.Login(email, password);
 
-            if (usuario == null)
+       public UsuarioDto ObtenerPorEmail(string email)
+        {
+            Usuario usuario = _repositorioUsuario.ObtenerPorEmail(email);
+
+            if (usuario is Cliente cliente)
             {
-                throw new NoExisteException("Las Credenciales no son validas");
+                return _mapper.Map<ClienteDto>(cliente);
             }
 
             if (usuario is Administrador admin)
+            {
                 return _mapper.Map<AdministradorDto>(admin);
-            else if (usuario is Cliente cliente)
-                return _mapper.Map<ClienteDto>(cliente);
-            else
-                throw new NoExisteException("Tipo de usuario desconocido");
-        }
+            }
 
+            return null;
+        }
 
         public UsuarioDto GetById(int id)
         {

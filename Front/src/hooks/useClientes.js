@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { createClienteThunk, deleteClienteThunk, getAllClienteThunk, getByIdClienteThunk, getByFilterThunk, getClientesPaginadosThunk } from '../redux/thunks/clientesThunks';
-import { clearSuccessMessage, setError } from '../redux/slices/clientesSlice';
+import { clearSuccessMessage, setError, setClientes } from '../redux/slices/clientesSlice';
 import moment from 'moment';
 
 export const useClientes = () => {
@@ -55,7 +55,7 @@ export const useClientes = () => {
 
         const filtros = {
             nombre: form.nombre?.value || null,
-            apellido: form.apellido?.value || null,
+            celular: form.apellido?.value || null,
             fecha: form.fecha?.value
                 ? moment(form.fecha.value, "DD/MM/YYYY").format("YYYY-MM-DD")
                 : null,
@@ -66,6 +66,10 @@ export const useClientes = () => {
 
     const onbtenerClientesPaginados = (nuevaPagina = 1) => {
         dispatch(getClientesPaginadosThunk({ page: nuevaPagina, pageSize: 10 }));
+    }
+
+    const limpiarClientes = () =>{
+        dispatch(setClientes([]));
     }
 
 
@@ -85,6 +89,7 @@ export const useClientes = () => {
         obtenerClientePorId,
         limpiarMensajeExito,
         filtrarClientes,
-        onbtenerClientesPaginados
+        onbtenerClientesPaginados,
+        limpiarClientes,
     };
 }

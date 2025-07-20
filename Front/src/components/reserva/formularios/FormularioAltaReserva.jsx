@@ -4,12 +4,12 @@ import { InputForm } from '../../iu/inputs/InputForm'
 import { MessageError } from '../../iu/messages/MessageError'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 
-export const FormularioAltaReserva = ({ guardarDatosCliente, formRef, cliente = null, error }) => {
+export const FormularioAltaReserva = ({ onSubmit, formRef, cliente = null, error }) => {
 
     return (
         <div className='container_form_alta_reserva'>
 
-            <form ref={formRef} onSubmit={guardarDatosCliente}>
+            <form ref={formRef} onSubmit={onSubmit}>
 
                 <InputForm tipo={"text"} id={"id"} name={"id"} isHidden={true} value={cliente ? cliente.id : ""} />
 

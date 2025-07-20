@@ -1,5 +1,6 @@
 ﻿using Domain.Dto;
 using Domain.Dto.FiltrosDto;
+using Domain.Enum;
 using Domain.Exceptions;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -31,6 +32,25 @@ namespace WebApi.Controllers
             return Ok(r);
         }
 
+
+        //[Authorize]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                ReservaDto reserva = _servicioReserva.GetById(id);
+                return Ok(reserva);
+            }
+            catch (NoExisteException nee)
+            {
+                return NotFound(nee.Message);
+            }
+
+        }
+
         [AllowAnonymous]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -42,7 +62,7 @@ namespace WebApi.Controllers
             {
                 _servicioReserva.Remove(id);
 
-                return Ok("Eliminado con exito");
+                return Ok("Reserva cancelada con exito");
             }
             catch (NoExisteException ene)
             {
@@ -73,6 +93,7 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult Post([FromBody] CrearReservaDto reservaDto)
@@ -88,9 +109,13 @@ namespace WebApi.Controllers
             {
                 return Conflict(eee.Message);
             }
+            catch (FechaInvalidaException fie)
+            {
+                return Conflict(fie.Message);
+            }
             catch (NoExisteException nee)
             {
-                return Conflict(nee.Message);
+                return NotFound(nee.Message);
             }
             catch (DatoIncorrectoException die)
             {
@@ -126,10 +151,11 @@ namespace WebApi.Controllers
         
 
         [AllowAnonymous]
-        [HttpPatch("{id}/fechahora")]
+        [HttpPatch("fechahora/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public IActionResult Reagendar(int id, [FromBody] ReservaFechaHoraDto dto)
         {
             try
@@ -145,7 +171,31 @@ namespace WebApi.Controllers
             {
                 return NotFound(ene.Message);
             }
+            catch (ExisteException ee)
+            {
+                return Conflict(ee.Message);
+            }
         }
+
+
+
+        [AllowAnonymous]
+        [HttpPatch("{id}/EstadoDePago")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult ModificarEstadoDePago(int id, [FromBody] EstadoDePagoDto dto)
+        {
+            try
+            {
+                _servicioReserva.ModificarEstadoDePago(id, dto.EstadoDePago);
+                return Ok("Estado de pago modificadas con éxito");
+            }
+            catch (NoExisteException ene)
+            {
+                return NotFound(ene.Message);
+            }
+        }
+
 
 
         [AllowAnonymous]

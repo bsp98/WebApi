@@ -20,16 +20,27 @@ namespace Domain.Models
         public Agenda()
         {
         }
-         public static List<BloqueHorario> GenerarBloquesPorDia() {
+        public static List<BloqueHorario> GenerarBloquesPorDia()
+        {
+            List<BloqueHorario> bloquesManana = null;
+            List<BloqueHorario> bloquesTarde = null;
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {//cambiar el horario de los sabados
-              return  GenerarBloques(new TimeSpan(09, 0, 0), new TimeSpan(16, 0, 0), 10);
+                bloquesManana =  GenerarBloques(new TimeSpan(09, 0, 0), new TimeSpan(13, 0, 0), 10);
+                bloquesTarde = GenerarBloques(new TimeSpan(14, 0, 0), new TimeSpan(16, 0, 0), 10);
             }
-            else {
-              return  GenerarBloques(new TimeSpan(08, 0, 0), new TimeSpan(18, 0, 0), 10);
+            else
+            {
+                bloquesManana = GenerarBloques(new TimeSpan(08, 0, 0), new TimeSpan(13, 0, 0), 10);
+                bloquesTarde = GenerarBloques(new TimeSpan(14, 0, 0), new TimeSpan(18, 0, 0), 10);
+                
 
             }
+
+            bloquesManana.AddRange(bloquesTarde);
+            List<BloqueHorario> bloquesTotales = bloquesManana;
+            return bloquesTotales;
         }
 
         private static List<BloqueHorario> GenerarBloques(TimeSpan desde, TimeSpan hasta, int duracionMinutos)
@@ -51,7 +62,7 @@ namespace Domain.Models
 
             return bloques;
         }
-
+        //Me devuelve una lista de bloques a reservar
         public List<BloqueHorario> ObtenerBloquesAReservar(Reserva reserva)
         {
             List<BloqueHorario> bloques = new List<BloqueHorario>();
@@ -66,20 +77,22 @@ namespace Domain.Models
             return bloques;
         }
 
+        //Marca como disponible los bloques de la reserva
         public void DesmarcarBloquesReservados(Reserva reserva)
         {
-            
+
             foreach (var bloque in Bloques)
             {
                 bool bloq = reserva.HoraInicio < bloque.HoraFin && reserva.HoraFin > bloque.HoraInicio;
                 if (bloq)
                 {
-                   bloque.EstaDisponible=true;
+                    bloque.EstaDisponible = true;
                 }
             }
-            
+
         }
 
+        //Devuelve una lista de los bloques disponibles
         public List<BloqueHorario> ObtenerDisponibles()
         {
             return Bloques.Where(b => b.EstaDisponible).ToList();
@@ -88,7 +101,7 @@ namespace Domain.Models
 
         public bool EstaDisponible(TimeSpan inicio, TimeSpan fin)
         {
-            return Bloques.Where(b=>b.HoraInicio < fin && b.HoraFin > inicio).All(b => b.EstaDisponible);
+            return Bloques.Where(b => b.HoraInicio < fin && b.HoraFin > inicio).All(b => b.EstaDisponible);
         }
 
         public static List<BloqueHorario> ObtenerBloquesInicioDisponibles(int duracionMinutos, List<BloqueHorario> bloques)
@@ -111,11 +124,12 @@ namespace Domain.Models
 
         public BloqueHorario ObtenerBloqueHorario(TimeSpan horaInicio, TimeSpan horaFin)
         {
-           
-            for (int i = 0; i<Bloques.Count; i++) {
+
+            for (int i = 0; i < Bloques.Count; i++)
+            {
                 BloqueHorario bloque = Bloques[i];
-                if (bloque.HoraInicio == horaInicio && bloque.HoraFin == horaFin) { return bloque;  }
-              
+                if (bloque.HoraInicio == horaInicio && bloque.HoraFin == horaFin) { return bloque; }
+
 
             }
             return null;
@@ -127,14 +141,14 @@ namespace Domain.Models
             {
                 BloqueHorario bloque = Bloques[i];
                 if (bloque.HoraFin > horaInicio && bloque.HoraInicio < horaFin) { bloques.Add(bloque); }
-            
+
 
             }
             return bloques;
         }
 
 
-       
+
 
     }
 }

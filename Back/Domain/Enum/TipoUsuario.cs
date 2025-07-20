@@ -8,7 +8,7 @@ namespace Domain.Models
 {
     public enum TipoUsuario
     {
-        Cliente,
-        Administrador
+        Cliente=0,
+        Administrador=1
     }
 }

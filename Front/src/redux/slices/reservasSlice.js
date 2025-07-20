@@ -92,7 +92,7 @@ const reservasSlice = createSlice({
             })
             .addCase(createReservaThunk.rejected, (state, action) => {
                 const { status, message } = action.payload;
-                if (status === 422) {
+                if (status === 409) {
                     state.error = null;
                     state.horarioOcupadoError = message;
                 }
@@ -111,7 +111,7 @@ const reservasSlice = createSlice({
                 state.error = action.payload;
             });
 
-        //Cases de modificar reserva
+        //Cases de modificar fecha y horario reserva
         builder
             .addCase(reagendarReservaThunk.fulfilled, (state, action) => {
                 state.error = null;
@@ -213,6 +213,7 @@ const reservasSlice = createSlice({
             })
             .addCase(getAvailableTimesThunk.rejected, (state, action) => {
                 state.loading = false;
+                state.horarios = [];
                 state.error = action.payload;
             });
 
@@ -228,6 +229,7 @@ const reservasSlice = createSlice({
                 state.reservas = action.payload; // guardo las reservas
             })
             .addCase(getReservasByDateThunk.rejected, (state, action) => {
+                state.loading = null;
                 state.error = action.payload;
             });
 

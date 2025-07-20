@@ -19,18 +19,26 @@ export const FormularioReserva = () => {
   const formRef = useRef(null);
   // const { formaDePago } = useConfiguracionDePago();
   const { obtenerServicioPorId, servicioSeleccionado } = useServicios();
-  const { error, horarioOcupadoError, crearReserva, successMessage, limpiarHorarioOcupadoError } = useReservas();
-  const { clientes, clienteSeleccionado, filtrarClientes, obtenerClientePorId } = useClientes();
+  const { error, horarioOcupadoError, crearReserva, successMessage, limpiarHorarioOcupadoError,limpiarMensajeExito } = useReservas();
+  const { clientes, clienteSeleccionado, filtrarClientes, obtenerClientePorId,limpiarClientes } = useClientes();
   const navigate = useNavigate();
   const rol = "admin";
   const usuarioId = 3;
   const estado = "pago";
   const cliente = rol === "admin" ? (clientes[0] || null) : clienteSeleccionado;
-  /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
+
+  //limpia los datos del cliente Cuando el componente se desmonta
+  useEffect(() => {
+  return () => {
+    limpiarClientes(); 
+  };
+}, []);
+
   useEffect(() => {
     obtenerServicioPorId(id);
   }, [id]);
 
+   /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
   useEffect(() => {
     if (rol === "cliente" && usuarioId) {
       obtenerClientePorId(usuarioId)
@@ -96,6 +104,9 @@ export const FormularioReserva = () => {
   }
 
   const handleReservaCreadaConExito = () => {
+
+    limpiarMensajeExito();
+
     if (rol === "admin") {
       navigate(`/admin/inicio`);
     }
@@ -114,14 +125,14 @@ export const FormularioReserva = () => {
 
       <div className="formulario_reserva__filtros">
         {rol === "admin" && <Switch label={"Cliente registrado"} name={"clienteRegistrado"} switch_style={"container_switch_reserva"} onChange={activarBusquedaClienta} />}
-        {rol === "admin" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Apellido cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el apellido del cliente"} name1={"nombre"} name2={"apellido"} />}
+        {rol === "admin" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Celular cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el celular del cliente"} name1={"nombre"} name2={"celular"} />}
       </div>
 
       <div className="formulario_reserva__contenido">
 
         <div className="formulario_reserva__formulario">
           <p>Información de contacto </p>
-          <FormularioAltaReserva crearReserva={obtenerDatosDelCliente} formRef={formRef} cliente={cliente} error={error} />
+          <FormularioAltaReserva onSubmit={obtenerDatosDelCliente} formRef={formRef} cliente={cliente} error={error} />
         </div>
 
         <div className="formulario_reserva__info">
