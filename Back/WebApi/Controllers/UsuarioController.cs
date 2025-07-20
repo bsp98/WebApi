@@ -55,45 +55,6 @@ namespace WebApi.Controllers
             }
         }
 
-        [AllowAnonymous]
-        [HttpPost("Login")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public IActionResult Login([FromBody] LoginDto loginDto)
-        {
-            try
-            {
-
-
-                UsuarioDto usuario = _servicioUsuario.Login(loginDto.Email, loginDto.Password);
-                //Creo el token jwt
-                string rol = usuario.Tipo.ToString();
-                var token = new TokenDto
-                {
-                    AccesoToken = _servicioUsuario.GenerarTokenJwt(usuario.Email, usuario.Nombre, rol),
-                    NombreUsuario = usuario.Nombre,
-                    EmailUsuario = usuario.Email,
-                    RolUsuario = rol
-                };
-
-                return Ok(token);
-            }
-            catch (NoExisteException eee)
-            {
-                //Codigo Status 401 no autorizado
-                return Unauthorized(eee.Message);
-            }
-        }
-
-        
-
-
-
-
-
-
-
-
 
         //[Authorize]
         [HttpDelete("{id}")]
@@ -179,7 +140,7 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
-
+        
         [Authorize(Roles = "Cliente")]
         //[AllowAnonymous]
         [HttpGet("{id}")]
@@ -225,13 +186,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [Authorize]
-        [HttpPost("Logout")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult Logout()
-        {
-            return Ok("Sesión cerrada correctamente.");
-        }
+       
 
     }
 

@@ -21,6 +21,9 @@ namespace DataAccess.Interfaces
         int ContarClientes(); // para saber cuántas páginas hay en total
 
         public Usuario? Login(string email, string password);
+        public Usuario ObtenerPorEmail(string email);
+       // public Task<Usuario> ObtenerPorEmailAsync(string email);
+
     }
 }
 

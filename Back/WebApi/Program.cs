@@ -39,6 +39,8 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioUsuario), typeof(ServicioUsuario));
             builder.Services.AddScoped(typeof(IRepositorioAgenda), typeof(RepositorioAgenda));
             builder.Services.AddScoped(typeof(IRepositorioBloqueHorario), typeof(RepositorioBloqueHorario));
+            builder.Services.AddScoped(typeof(IServicioAutenticacion), typeof(ServicioAutenticacion));
+
 
             //Aca agregamos la configuración CORS
             builder.Services.AddCors(options =>
@@ -47,7 +49,8 @@ namespace WebApi
                 {
                     policy.WithOrigins("http://localhost:5173")
                           .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          .AllowAnyMethod()
+                          .AllowCredentials();
                 });
             });
             builder.Services.AddScoped(typeof(IRepositorioReserva), typeof(RepositorioReserva));
@@ -87,7 +90,19 @@ namespace WebApi
                     ValidAudience = "https://servidor_protegido",
                     ClockSkew = TimeSpan.Zero
                 };
-                
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        // Extraer token desde la cookie
+                        if (context.Request.Cookies.ContainsKey("jwt"))
+                        {
+                            context.Token = context.Request.Cookies["jwt"];
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
             // Configurar la autorización
@@ -132,12 +147,6 @@ namespace WebApi
     });
             });
 
-
-
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

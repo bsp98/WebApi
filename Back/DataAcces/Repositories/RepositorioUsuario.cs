@@ -1,5 +1,6 @@
 ﻿using DataAcces.Interfaces;
 using DataAccess.Interfaces;
+using Domain.Dto;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,7 +24,15 @@ namespace DataAcces.Repositories
         {
             return Contexto.Set<Usuario>().Any(u => u.Email == email);
         }
+        public Usuario ObtenerPorEmail(string email)
+        {
+            return Contexto.Set<Usuario>().FirstOrDefault(u => u.Email == email);
+        }
+        //public async Task<Usuario> ObtenerPorEmailAsync(string email)
+        //{
+        //    return await Contexto.Set<Usuario>().FirstOrDefaultAsync(c => c.Email == email);
 
+        //}
         public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha)
         {
             return Contexto.Set<Usuario>() .OfType<Cliente>().AsNoTracking().Where(c => c.FechaDeNacimiento.Date == fecha.Date).ToList();
