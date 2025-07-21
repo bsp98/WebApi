@@ -16,13 +16,15 @@ namespace Domain.Dto
         public DateTime Fecha { get; set; }
         public CategoriaEgreso CategoriaEgreso { get; set; }
         public Double Monto { get; set; }
+        public string Lugar { get; set; }
         public string Descripcion { get; set; }
 
-        public EgresoDto(DateTime fecha, CategoriaEgreso categoriaEgreso, double monto, string descripcion)
+        public EgresoDto(DateTime fecha, CategoriaEgreso categoriaEgreso, double monto,string lugar, string descripcion)
         {
             Fecha=fecha;
             CategoriaEgreso=categoriaEgreso;
             Monto=monto;
+            Lugar=lugar;
             Descripcion=descripcion;
         }
 
