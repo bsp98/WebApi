@@ -40,6 +40,9 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioAgenda), typeof(RepositorioAgenda));
             builder.Services.AddScoped(typeof(IRepositorioBloqueHorario), typeof(RepositorioBloqueHorario));
             builder.Services.AddScoped(typeof(IServicioAutenticacion), typeof(ServicioAutenticacion));
+            builder.Services.AddScoped(typeof(IRepositorioEgreso), typeof(RepositorioEgreso));
+            builder.Services.AddScoped(typeof(IServicioEgreso), typeof(ServicioEgreso));
+
 
 
             //Aca agregamos la configuración CORS
@@ -60,6 +63,7 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioDiaNoLaborable), typeof(ServicioDiaNoLaborable));
 
             builder.Services.AddScoped(typeof(IServicioEmail), typeof(ServicioEmail));
+            builder.Services.AddSingleton<IServicioCodigo, ServicioCodigo>();
 
             // Add services to the container.
 
@@ -113,7 +117,7 @@ namespace WebApi
                     .Build();
             });
 
-
+            builder.Services.AddHttpContextAccessor();
 
             //conf de autorizacion
             builder.Services.AddSwaggerGen(c =>

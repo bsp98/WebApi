@@ -21,6 +21,10 @@ namespace Services.Interfaces
 
         public UsuarioDto ObtenerPorEmail(string email);
 
+        void CambiarPassword(string email, string nuevaPassword);
+        Task EnviarCodigoRecuperacionAsync(string email);
+        void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword);
+
 
     }
 }

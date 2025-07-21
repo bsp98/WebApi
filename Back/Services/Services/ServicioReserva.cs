@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Services.Services
 {
@@ -26,9 +27,10 @@ namespace Services.Services
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IRepositorioServicio _repositorioServicio;
         private readonly IServicioEmail _servicioEmail;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
 
-        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda, IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario, IRepositorioServicio repositorioServicio, IServicioEmail servicioEmail, IMapper mapper)
+        public ServicioReserva(IRepositorioReserva repositorioReserva, IRepositorioAgenda repositorioAgenda, IRepositorioBloqueHorario repositorioBloqueHorario, IRepositorioDiaNoLaborable repositorioDiaNoLaborable, IRepositorioUsuario repositorioUsuario, IRepositorioServicio repositorioServicio, IServicioEmail servicioEmail, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _repositorioReserva = repositorioReserva;
             _repositorioAgenda = repositorioAgenda;
@@ -37,6 +39,7 @@ namespace Services.Services
             _repositorioUsuario = repositorioUsuario;
             _repositorioServicio = repositorioServicio;
             _servicioEmail=servicioEmail;
+            _httpContextAccessor = httpContextAccessor;
             _mapper = mapper;
         }
 
@@ -271,7 +274,46 @@ namespace Services.Services
             return reserva;
         }
 
-       
+
+
+        //public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
+        //{
+        //    if (_repositorioDiaNoLaborable.Existe(fecha))
+        //        throw new ExisteException("No se puede reservar en esta fecha");
+
+        //    if (fecha.DayOfWeek == DayOfWeek.Sunday)
+        //        throw new NoExisteException("El domingo no se trabaja");
+
+        //    if (duracionMinutos <= 0)
+        //        throw new DatoIncorrectoException("La duración debe ser mayor a 0.");
+
+        //    Agenda agenda = _repositorioAgenda.BuscarPorFecha(fecha);
+        //    List<BloqueHorario> bloquesTotales;
+        //    List<BloqueHorario> bloquesDisponibles = null;
+
+        //    if (agenda != null)
+        //    {
+        //        bloquesTotales = agenda.Bloques;
+        //        bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
+        //    }
+        //    else
+        //    {
+        //        bloquesTotales = Agenda.GenerarBloquesPorDia();
+        //        bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
+        //    }
+
+        //    //List<BloqueHorario> disponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
+        //    //bool esAdmin = _httpContextAccessor.HttpContext.User.IsInRole("Administrador");
+
+
+        //    List<BloqueHorario> filtrados = FiltrarBloquesSinBaches(bloquesTotales, duracionMinutos);
+
+        //    return filtrados.Select(b => new BloqueHorarioDto
+        //    {
+        //        HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
+        //        HoraFin = b.HoraInicio.Add(TimeSpan.FromMinutes(duracionMinutos)).ToString(@"hh\:mm")
+        //    }).ToList();
+        //}
 
         public List<BloqueHorarioDto> ObtenerBloquesInicioDisponibles(DateTime fecha, int duracionMinutos)
         {
@@ -286,26 +328,29 @@ namespace Services.Services
 
             Agenda agenda = _repositorioAgenda.BuscarPorFecha(fecha);
             List<BloqueHorario> bloquesTotales;
-            List<BloqueHorario> bloquesDisponibles = null;
+            List<BloqueHorario> bloquesDisponibles;
 
             if (agenda != null)
             {
                 bloquesTotales = agenda.Bloques;
-                bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
             }
             else
             {
                 bloquesTotales = Agenda.GenerarBloquesPorDia();
-                bloquesDisponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
             }
 
-            //List<BloqueHorario> disponibles = Agenda.ObtenerBloquesInicioDisponibles(duracionMinutos, bloquesTotales);
+            bool esAdmin = _httpContextAccessor.HttpContext?.User?.IsInRole("Administrador") ?? false;
 
-            
+            if (esAdmin)
+            {
+                bloquesDisponibles = bloquesTotales;
+            }
+            else
+            {
+                bloquesDisponibles = FiltrarBloquesSinBaches(bloquesTotales, duracionMinutos);
+            }
 
-            List<BloqueHorario> filtrados = FiltrarBloquesSinBaches(bloquesTotales, duracionMinutos);
-
-            return filtrados.Select(b => new BloqueHorarioDto
+            return bloquesDisponibles.Select(b => new BloqueHorarioDto
             {
                 HoraInicio = b.HoraInicio.ToString(@"hh\:mm"),
                 HoraFin = b.HoraInicio.Add(TimeSpan.FromMinutes(duracionMinutos)).ToString(@"hh\:mm")
@@ -313,7 +358,7 @@ namespace Services.Services
         }
 
 
-        
+
         private List<BloqueHorario> FiltrarBloquesSinBaches(List<BloqueHorario> todos, int duracionMinutos)
         {
             int bloquesNecesarios = duracionMinutos / 10;
@@ -426,6 +471,10 @@ namespace Services.Services
                     _repositorioUsuario.Update(cliente);
                 }
             }
+            string asunto = "Cancelación de Reserva";
+            string mensaje = $"La persona {usu.Nombre} {usu.Apellido} ha cancelado su reserva";
+            string emailAdmin = "maigiordano28@gmail.com";
+            await _servicioEmail.EnviarEmailAsync(emailAdmin, asunto, mensaje);
 
         }
 
@@ -438,10 +487,7 @@ namespace Services.Services
             r.EstadoDePago = estado;
             _repositorioReserva.Update(r);
 
-             string asunto = "Cancelación de Reserva";
-             string mensaje = $"La persona {usu.Nombre} {usu.Apellido} ha cancelado su reserva";
-             string emailAdmin = "maigiordano28@gmail.com";
-             await _servicioEmail.EnviarEmailAsync(emailAdmin, asunto, mensaje);
+            
 
         }
 
