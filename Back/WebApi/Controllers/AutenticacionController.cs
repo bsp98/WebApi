@@ -55,9 +55,15 @@ namespace WebApi.Controllers
                     Expires = DateTimeOffset.UtcNow.AddHours(1)
                 });
 
+                DatosUserDto datosUser = new DatosUserDto()
+                {
+                    IdUsuario = usuario.Id,
+                    EmailUsuario = usuario.Email,
+                    NombreUsuario = usuario.Nombre,
+                    RolUsuario = rol
+                };
 
-
-                return Ok("Login exitoso");
+                return Ok(datosUser);
             }
 
             catch (NoExisteException eee)
