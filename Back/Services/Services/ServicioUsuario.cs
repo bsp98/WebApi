@@ -21,13 +21,18 @@ namespace Services.Services
     public class ServicioUsuario : IServicioUsuario
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
+        private readonly IServicioCodigo _servicioCodigo;
+        private readonly IServicioEmail _servicioEmail;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
+       
 
-        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration)
+        public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IMapper mapper, IServicioCodigo servicioCodigo, IServicioEmail servicioEmail, IConfiguration configuration)
         {
             _repositorioUsuario = repositorioUsuario;
             _mapper = mapper;
+            _servicioCodigo=servicioCodigo;
+            _servicioEmail=servicioEmail;
             _configuration = configuration;
         }
 
@@ -186,6 +191,38 @@ namespace Services.Services
             }
 
             throw new Exception("Tipo de usuario no reconocido");
+        }
+
+
+        public void CambiarPassword(string email, string nuevaPassword)
+        {
+            Usuario usuario = _repositorioUsuario.ObtenerPorEmail(email);
+            if (usuario == null)
+                throw new NoExisteException("No se encontró un usuario con ese email.");
+
+            usuario.Password = nuevaPassword;
+            _repositorioUsuario.Update(usuario); 
+        }
+        public void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword)
+        {
+            if (!_servicioCodigo.VerificarCodigo(email, codigo))
+                throw new NoExisteException("Código inválido o expirado.");
+
+            CambiarPassword(email, nuevaPassword);
+            _servicioCodigo.EliminarCodigo(email);
+        }
+
+        public async Task EnviarCodigoRecuperacionAsync(string email)
+        {
+            Usuario usuario = _repositorioUsuario.ObtenerPorEmail(email);
+            if (usuario == null)
+                throw new NoExisteException("No se encontró usuario con ese email.");
+
+            string codigo = new Random().Next(100000, 999999).ToString();
+            _servicioCodigo.GuardarCodigo(email, codigo);
+
+            string cuerpo = $"<p>Tu código de recuperación es: <strong>{codigo}</strong></p>";
+            await _servicioEmail.EnviarEmailAsync(email, "Código de recuperación", cuerpo);
         }
     }
 }

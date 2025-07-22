@@ -6,6 +6,8 @@ using Services.Exceptions;
 using Services.Interfaces;
 using Google.Apis.Auth;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 namespace WebApi.Controllers
@@ -64,6 +66,70 @@ namespace WebApi.Controllers
                 return Unauthorized(eee.Message);
             }
         }
+
+        //[AllowAnonymous]
+        //[HttpPost("Login")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        //{
+        //    try
+        //    {
+        //        // Validar credenciales y obtener usuario
+        //        UsuarioDto usuario = _servicioAutenticacion.Login(loginDto.Email, loginDto.Password);
+
+        //        // Generar la cookie de autenticación
+        //        await _servicioAutenticacion.GenerarCookieDeAutenticacion(usuario);
+
+        //        return Ok("Login exitoso");
+        //    }
+        //    catch (NoExisteException ex)
+        //    {
+        //        return Unauthorized(ex.Message);
+        //    }
+        //}
+
+        //[AllowAnonymous]
+        //[HttpPost("GoogleLogin")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDto dto)
+        //{
+        //    try
+        //    {
+        //        // Validar el token ID de Google
+        //        var payload = await GoogleJsonWebSignature.ValidateAsync(dto.IdToken);
+
+        //        // Buscar usuario por email
+        //        var usuario = _servicioUsuario.ObtenerPorEmail(payload.Email);
+
+        //        if (usuario == null)
+        //        {
+        //            // Crear nuevo usuario
+        //            usuario = new ClienteDto
+        //            {
+        //                Email = payload.Email,
+        //                Nombre = payload.Name,
+        //                Tipo = 0 // o el rol que corresponda
+        //            };
+        //            _servicioUsuario.Add(usuario);
+        //        }
+
+        //        // Generar la cookie de autenticación usando el servicio
+        //        await _servicioAutenticacion.GenerarCookieDeAutenticacion(usuario);
+
+        //        return Ok("Login exitoso");
+        //    }
+        //    catch (NoExisteException ex)
+        //    {
+        //        return Unauthorized(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Opcional: capturar otros errores y devolver mensaje genérico
+        //        return BadRequest("Error en autenticación con Google.");
+        //    }
+        //}
 
         [AllowAnonymous]
         [HttpPost("GoogleLogin")]
@@ -124,5 +190,13 @@ namespace WebApi.Controllers
             return Ok("Sesión cerrada correctamente.");
         }
 
+        //[Authorize]
+        //[HttpPost("Logout")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //public async Task<IActionResult> Logout()
+        //{
+        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        //    return Ok("Sesión cerrada correctamente.");
+        //}
     }
 }

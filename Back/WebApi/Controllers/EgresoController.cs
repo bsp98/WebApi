@@ -1,0 +1,136 @@
+﻿using Domain.Dto;
+using Domain.Enum;
+using Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
+using Services.Exceptions;
+using Services.Interfaces;
+using Services.Services;
+
+namespace WebApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class EgresoController : Controller
+    {
+
+        private readonly IServicioEgreso _servicioEgreso;
+
+        public EgresoController(IServicioEgreso servicioEgreso)
+        {
+            _servicioEgreso=servicioEgreso;
+        }
+
+        //[Authorize]
+        [HttpPost("Agregar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public IActionResult Post([FromBody] EgresoDto egresoDto)
+        {
+            try
+            {
+                EgresoDto EgresoIngresado = _servicioEgreso.Add(egresoDto);
+
+                return Ok(EgresoIngresado);
+
+            }
+            catch (ExisteException ee)
+            {
+
+                return Conflict(ee.Message);
+            }
+            catch (DatoIncorrectoException die)
+            {
+
+                return UnprocessableEntity(die.Message);
+            }
+
+        }
+
+        ////[Authorize]
+        //[HttpPut("{id}")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //public IActionResult Put(int id, [FromBody] EgresoDto egresoDto)
+        //{
+        //    try
+        //    {
+        //        _servicioEgreso.Update(id, egresoDto);
+
+        //        return Ok("Modificado con exito");
+        //    }
+        //    catch (DatoIncorrectoException die)
+        //    {
+        //        return UnprocessableEntity(die.Message);
+        //    }
+        //    catch (NoExisteException nee)
+        //    {
+        //        return NotFound(nee.Message);
+        //    }
+        //    catch (ExisteException ee)
+        //    {
+
+        //        return Conflict(ee.Message);
+        //    }
+
+        //}
+
+        //[Authorize]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _servicioEgreso.Remove(id);
+
+                return Ok("Eliminado con exito");
+            }
+            catch (NoExisteException nee)
+            {
+                return NotFound(nee.Message);
+            }
+            catch (EnUsoException tee)
+            {
+                return Conflict(tee.Message);
+            }
+
+        }
+
+
+        //[Authorize]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetById(int id)
+        {
+            try
+            {
+                EgresoDto egreso = _servicioEgreso.GetById(id);
+                return Ok(egreso);
+            }
+            catch (NoExisteException nee)
+            {
+                return NotFound(nee.Message);
+            }
+
+        }
+
+
+        //[Authorize]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetAll()
+        {
+            List<EgresoDto> egresosDto = _servicioEgreso.GetAll();
+            return Ok(egresosDto);
+        }
+
+
+
+      
+    }
+}

@@ -72,14 +72,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPatch("cancelar/{id}")]
-        public IActionResult Cancelar(int id)
+        public async Task<IActionResult> Cancelar(int id)
         {
             try
             {
-                _servicioReserva.CancelarReserva(id);
+                await _servicioReserva.CancelarReserva(id); 
 
-                return Ok("Cancelado con exito");
-
+                return Ok("Cancelado con éxito");
             }
             catch (NoExisteException ne)
             {
@@ -87,10 +86,8 @@ namespace WebApi.Controllers
             }
             catch (UsuarioNoCliente e)
             {
-
                 return UnprocessableEntity(e.Message);
             }
-
         }
 
         [AllowAnonymous]

@@ -40,6 +40,9 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioAgenda), typeof(RepositorioAgenda));
             builder.Services.AddScoped(typeof(IRepositorioBloqueHorario), typeof(RepositorioBloqueHorario));
             builder.Services.AddScoped(typeof(IServicioAutenticacion), typeof(ServicioAutenticacion));
+            builder.Services.AddScoped(typeof(IRepositorioEgreso), typeof(RepositorioEgreso));
+            builder.Services.AddScoped(typeof(IServicioEgreso), typeof(ServicioEgreso));
+
 
 
             //Aca agregamos la configuración CORS
@@ -59,7 +62,8 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IRepositorioDiaNoLaborable), typeof(RepositorioDiaNoLaborable));
             builder.Services.AddScoped(typeof(IServicioDiaNoLaborable), typeof(ServicioDiaNoLaborable));
 
-
+            builder.Services.AddScoped(typeof(IServicioEmail), typeof(ServicioEmail));
+            builder.Services.AddSingleton<IServicioCodigo, ServicioCodigo>();
 
             // Add services to the container.
 
@@ -113,7 +117,7 @@ namespace WebApi
                     .Build();
             });
 
-
+            builder.Services.AddHttpContextAccessor();
 
             //conf de autorizacion
             builder.Services.AddSwaggerGen(c =>
@@ -147,6 +151,14 @@ namespace WebApi
     });
             });
 
+
+            //email
+            builder.Services.AddScoped<IServicioEmail, ServicioEmail>();
+
+            builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

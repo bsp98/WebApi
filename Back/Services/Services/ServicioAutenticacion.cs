@@ -15,6 +15,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
+using Microsoft.AspNetCore.Http;
 
 namespace Services.Services
 {
@@ -23,12 +28,13 @@ namespace Services.Services
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
-
-        public ServicioAutenticacion(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ServicioAutenticacion(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _repositorioUsuario = repositorioUsuario;
             _mapper = mapper;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -50,7 +56,7 @@ namespace Services.Services
         }
 
 
-        public string GenerarTokenJwt(string emailUsuario, string nombreUsuario, string rol,int id)
+        public string GenerarTokenJwt(string emailUsuario, string nombreUsuario, string rol, int id)
 
         {
 
@@ -80,6 +86,34 @@ namespace Services.Services
             return tokenString;
         }
 
+        //    public async Task GenerarCookieDeAutenticacion(UsuarioDto usuario)
+        //    {
+        //        var claims = new List<Claim>
+        //{
+        //    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+        //    new Claim(ClaimTypes.Email, usuario.Email),
+        //    new Claim(ClaimTypes.Name, usuario.Nombre),
+        //    new Claim(ClaimTypes.Role, usuario.Tipo.ToString())
+        //};
+
+        //        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        //        var principal = new ClaimsPrincipal(identity);
+
+        //        var httpContext = _httpContextAccessor.HttpContext;
+        //        if (httpContext == null)
+        //        {
+        //            throw new InvalidOperationException("HttpContext no disponible");
+        //        }
+
+        //        await httpContext.SignInAsync(
+        //            CookieAuthenticationDefaults.AuthenticationScheme,
+        //            principal,
+        //            new AuthenticationProperties
+        //            {
+        //                IsPersistent = true,
+        //                ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+        //            });
+        //    }
 
     }
 }

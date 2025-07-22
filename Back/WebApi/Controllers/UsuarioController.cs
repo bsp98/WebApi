@@ -11,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Domain;
+using Services.Services;
 
 namespace WebApi.Controllers
 
@@ -20,16 +22,16 @@ namespace WebApi.Controllers
     public class UsuarioController : Controller
     {
         private readonly IServicioUsuario _servicioUsuario;
-        
+        private readonly IServicioEmail _servicioEmail;
 
-        public UsuarioController(IServicioUsuario servicioUsuario)
+        public UsuarioController(IServicioUsuario servicioUsuario, IServicioEmail servicioEmail)
         {
             _servicioUsuario = servicioUsuario;
-            
+            _servicioEmail=servicioEmail;
         }
 
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -52,6 +54,41 @@ namespace WebApi.Controllers
             }
             catch (NoExisteException eee) {
                 return Unauthorized(eee.Message);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpPatch("olvido-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public IActionResult OlvidoPassword([FromBody] OlvidoPasswordDto dto)
+        {
+            try
+            {
+                _servicioUsuario.ConfirmarRecuperacionContrasenia(dto.Email, dto.Codigo, dto.NuevaPassword);
+                return Ok("Contraseña cambiada correctamente.");
+            }
+            catch (NoExisteException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("solicitar-codigo")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> EnviarCodigo([FromBody] SolicitudRecuperacionDto dto)
+        {
+            try
+            {
+                await _servicioUsuario.EnviarCodigoRecuperacionAsync(dto.Email);
+                return Ok("Código enviado por email.");
+            }
+            catch (NoExisteException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
 
