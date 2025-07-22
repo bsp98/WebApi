@@ -48,8 +48,9 @@ export const ModificarReserva = () => {
 
     e.preventDefault();
     const form = e.target;
-    const estadoDePago = form.estadoDePago.value; //devuelve un numero.
-    modificarEstadoDePago(estadoDePago);
+    const idReserva = form.id.value;
+    const estadoDePago = parseInt(form.estadoDePago.value); //devuelve un numero.
+    modificarEstadoDePago(idReserva,estadoDePago);
   }
 
   const estadoDePagoModificadoConExito = () => {

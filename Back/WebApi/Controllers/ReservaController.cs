@@ -154,7 +154,7 @@ namespace WebApi.Controllers
         
 
         [AllowAnonymous]
-        [HttpPatch("fechahora/{id}")]
+        [HttpPatch("{id}/fechahora")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -3,7 +3,7 @@ import './table.css'
 
 import { ButtonAction } from './ButtonAction';
 
-export const Table = ({ columns, datos, textBtn1, textBtn2, actionBtn1, actionBtn2,table_width, class_margin }) => {
+export const Table = ({ columns, datos, textBtn1, textBtn2, actionBtn1, actionBtn2,table_width, class_margin,deshabilitarBtn1 }) => {
 
     if(!datos){return}
     
@@ -30,7 +30,7 @@ export const Table = ({ columns, datos, textBtn1, textBtn2, actionBtn1, actionBt
 
                             {(textBtn1 || textBtn2) && (
                                 <td className='cell_action'>
-                                    {textBtn1 && <ButtonAction text={textBtn1} variant="btn_primary" dato={dato} action={actionBtn1} />}
+                                    {textBtn1 && <ButtonAction text={textBtn1} variant="btn_primary" dato={dato} action={actionBtn1} disabled={deshabilitarBtn1?.(dato)} />}
                                     {textBtn2 && <ButtonAction text={textBtn2} variant="btn_secondary" dato={dato} action={actionBtn2} />}
                                 </td>
                             )}

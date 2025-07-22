@@ -78,6 +78,10 @@ html {
   --color-primary: #76C8D6;
   --color-secondary: #ED80AD;
   --color-tertiary: #fffae8;
+
+  --primary-color-100: rgba(118, 200, 214, 1);
+  --primary-color-80: rgba(118, 200, 214, 0.8);
+  --primary-color-60: rgba(118, 200, 214, 0.6);
 }
 
 body {
