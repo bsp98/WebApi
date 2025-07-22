@@ -1,55 +1,55 @@
 /*Estilos de los input(tambien lo utiliza el select)*/
 .form_group {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
 }
 
 .form_group label {
-    width: 100%;
-    font-family: 'Inter Regular';
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--color-titulo);
-    text-align: left;
+  width: 100%;
+  font-family: 'Inter Regular';
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-titulo);
+  text-align: left;
 }
 
 .input_form {
-    width: 100%;
-    padding: 1.4rem 0.8rem;
-    margin-bottom: 1.5rem;
-    background-color: white;
-    border: 2px solid var(--color-primary);
-    border-radius: 0.8rem;
-    color: var(--color-texto);
-    font-family: 'Inter Regular';
-    font-size: 1.3rem;
+  width: 100%;
+  padding: 1.4rem 0.8rem;
+  margin-bottom: 1.5rem;
+  background-color: white;
+  border: 2px solid var(--color-primary);
+  border-radius: 0.8rem;
+  color: var(--color-texto);
+  font-family: 'Inter Regular';
+  font-size: 1.3rem;
 }
 
 /*Estilos Text Area*/
 .text_area {
-    min-height: 15rem;
-    width: 100%;
-    margin-bottom: 2rem;
-    resize: none;
-    padding: 1rem;
-    font-size: 1rem;
-    box-sizing: border-box;
-    color: var(--color-texto);
-    font-family: 'Inter Regular';
-    font-size: 1.3rem;
+  min-height: 15rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  resize: none;
+  padding: 1rem;
+  font-size: 1rem;
+  box-sizing: border-box;
+  color: var(--color-texto);
+  font-family: 'Inter Regular';
+  font-size: 1.3rem;
 }
 
 
 /*Estilos del Switch*/
 .container_switch_servicio {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 4rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 4rem;
 }
 
 .container_switch_reserva {
@@ -64,55 +64,55 @@
 
 
 .label_switch {
-    font-family: 'Inter Regular';
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--color-titulo);
+  font-family: 'Inter Regular';
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-titulo);
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
 }
 
 .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    background-color: #ccc;
-    border-radius: 24px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: .4s;
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  border-radius: 24px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: .4s;
 }
 
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    border-radius: 50%;
-    transition: .4s;
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: .4s;
 }
 
 input:checked+.slider {
-    background-color: #4caf50;
+  background-color: #4caf50;
 }
 
 input:checked+.slider:before {
-    transform: translateX(26px);
+  transform: translateX(26px);
 }
 
 /*estilos input fecha*/
@@ -127,8 +127,8 @@ input:checked+.slider:before {
 /* Barra superior que contiene mes, año y flechas de navegación */
 .flatpickr-months {
   background-color: var(--color-primary);
-  color: white; 
-  border-top-left-radius: 6px;            
+  color: white;
+  border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
 
@@ -137,29 +137,29 @@ input:checked+.slider:before {
 /* Texto que muestra el mes actual y el input del año (editable) */
 .flatpickr-current-month,
 .flatpickr-current-month input.cur-year {
-  color: white; 
-  background: transparent; 
-  border: none;           
+  color: white;
+  background: transparent;
+  border: none;
 }
 
 /* Fila con abreviaturas de los días de la semana (Lun, Mar, Mié...) */
 .flatpickr-weekdays {
   background-color: var(--color-primary);
-  color: white;                           
+  color: white;
 }
 
 /* Día que está seleccionado */
 .flatpickr-day.selected {
   background-color: var(--color-secondary) !important;
-  border-radius: 50%;          
-  color: white;        
-  border: none;                 
+  border-radius: 50%;
+  color: white;
+  border: none;
 }
 
 /* Día que tiene el cursor encima (hover) */
 .flatpickr-day:hover {
   background-color: rgba(237, 128, 173, 0.2);
-  border-radius: 50%;  
+  border-radius: 50%;
 }
 
 /* Flechas de navegación mes anterior y siguiente */
@@ -167,7 +167,15 @@ input:checked+.slider:before {
 .flatpickr-next-month {
   color: white;
 }
+
 /*
 .flatpickr-current-month{
     color: white !important;
 }*/
+
+
+input:focus,
+textarea:focus{
+  outline: none;
+box-shadow: 0 0 0 1px rgba(100, 100, 100, 0.3);
+}

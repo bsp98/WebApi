@@ -4,8 +4,11 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { ModalConfigPago } from '../../components/admin/modalConfigPago/ModalConfigPago';
 import { useConfiguracionDePago } from '../../hooks/useConfiguracionDePago';
+import { useAuth } from '../../hooks/useAuth';
 
 export const AdminLayout = () => {
+    const {cerrarSesion}= useAuth();
+
   const {modificarFormaDePago,formaDePago} = useConfiguracionDePago();
 
   const [modalPagoVisible, setModalPagoVisible] = useState(false);
@@ -17,11 +20,6 @@ export const AdminLayout = () => {
   const abrirModalConfigPago = () => {
     setModalPagoVisible(true);
   }
-
-  const cerrarSesion = () => {
-    alert("se cerro la sesion del usuario");
-  };
-
 
   return (
     <>

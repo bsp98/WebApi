@@ -62,7 +62,7 @@ export async function deleteReserva(id) {
 
 export async function reagendarReserva({ idReserva, fecha, horaInicio }) {
 
-  const response = await fetch(`http://localhost:5164/api/Reserva/fechahora/${idReserva}`, {
+  const response = await fetch(`http://localhost:5164/api/Reserva/${idReserva}/fechahora`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ export async function getAllReserva() {
 }
 
 export async function getByIdReserva(id) {
-  console.log("El id de la reserva a buscar es", id)
+  
   const response = await fetch(`http://localhost:5164/api/Reserva/${id}`);
 
   if (!response.ok) {
@@ -308,9 +308,9 @@ export async function getReservasByDate(fecha) {
 
 
 
-export async function ModifyPaymentStatus(estadoDePago) {
-  /*
-    const response = await fetch(`http://localhost:5164/api/Reservas/${idReserva}`, {
+export async function ModifyPaymentStatus({idReserva,estadoDePago}) {
+  
+    const response = await fetch(`http://localhost:5164/api/Reserva/${idReserva}/EstadoDePago`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -319,16 +319,11 @@ export async function ModifyPaymentStatus(estadoDePago) {
     });
   
     if (!response.ok) {
+
       let customMessage = "Servidor fuera de servicio";
   
       switch (response.status) {
         case 404:
-          customMessage = await response.text();
-          break;
-        case 422:
-          customMessage = await response.text();
-          break;
-        case 409:
           customMessage = await response.text();
           break;
       }
@@ -338,7 +333,5 @@ export async function ModifyPaymentStatus(estadoDePago) {
         message: customMessage,
       };
     }
-  
-    return await response.text();*/
-  return "estado de pago modificado con exito";
+    return await response.text();
 }

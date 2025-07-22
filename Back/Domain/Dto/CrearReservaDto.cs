@@ -79,7 +79,7 @@ namespace Domain.Dto
             {
 
                 if (!Regex.IsMatch(CelularCliente, @"^09\d{7}$"))
-                    throw new DatoIncorrectoException("El número de celular debe comenzar con 09 y tener 9 dígitos.");
+                    throw new DatoIncorrectoException("El celular debe comenzar con 09 y tener 9 dígitos.");
             }
 
         }

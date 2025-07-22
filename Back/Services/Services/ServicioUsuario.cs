@@ -118,12 +118,12 @@ namespace Services.Services
 
         public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
         {
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
+            /*if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
             {
                 var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
 
                 return _mapper.Map<List<ClienteDto>>(clientes);
-            }
+            }*/
 
             if (filtros.Fecha.HasValue)
             {
