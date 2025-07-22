@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\HOLA\\source\\repos\\WebApi\\",
+  "WorkspaceRootPath": "C:\\Users\\bsout\\OneDrive\\Documentos\\GitHub\\CTVWAPA\\WebApi\\",
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -31,8 +31,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 970,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 11,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -42,9 +58,9 @@
               "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-06-05T01:54:28.377Z"
@@ -54,9 +70,9 @@
               "DocumentIndex": 2,
               "Title": "ServicioProfile.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\AutoMapper\\ServicioProfile.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-05T01:29:05.832Z"
@@ -66,9 +82,9 @@
               "DocumentIndex": 3,
               "Title": "Servicio.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Models\\Servicio.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T23:42:18.542Z"
@@ -78,9 +94,9 @@
               "DocumentIndex": 4,
               "Title": "ServicioServicio.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Services\\Services\\ServicioServicio.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAAAE4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T23:12:33.799Z"
@@ -90,9 +106,9 @@
               "DocumentIndex": 5,
               "Title": "CategoriaServicio.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Enum\\CategoriaServicio.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T22:57:47.244Z"
@@ -102,9 +118,9 @@
               "DocumentIndex": 6,
               "Title": "ServiciosController.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\WebApi\\Controllers\\ServiciosController.cs",
               "ViewState": "AgIAAGEAAAAAAAAAAAAAAGgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-04T00:29:23.021Z"
@@ -114,9 +130,9 @@
               "DocumentIndex": 0,
               "Title": "ServicioDto.cs",
               "DocumentMoniker": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
               "ToolTip": "C:\\Users\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
-              "RelativeToolTip": "..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\rodri\\Desktop\\Tesis_Back\\Domain\\Dto\\ServicioDto.cs",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-03T23:20:49.049Z"
             }
@@ -129,10 +145,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Bookmark",

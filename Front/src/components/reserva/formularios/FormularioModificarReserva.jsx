@@ -1,5 +1,5 @@
 import React from 'react'
-import './FormularioModificarReserva.css'
+import './formularioModificarReserva.css'
 import moment from 'moment';
 import { InputForm } from '../../iu/inputs/InputForm';
 import { SelectForm } from '../../iu/inputs/SelectForm';
