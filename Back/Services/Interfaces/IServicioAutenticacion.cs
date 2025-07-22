@@ -11,5 +11,7 @@ namespace Services.Interfaces
     {
         public UsuarioDto? Login(string email, string password);
         public string GenerarTokenJwt(string emailUsuario, string nombreUsuario, string rol, int id);
+       // Task GenerarCookieDeAutenticacion(UsuarioDto usuario);
+
     }
 }
