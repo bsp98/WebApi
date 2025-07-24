@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using DataAcces.Interfaces;
 using DataAcces.Repositories;
+using DataAccess.Interfaces;
 using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Domain.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Services.Exceptions;
 using Services.Interfaces;
 using System;
@@ -64,6 +67,27 @@ namespace Services.Services
         {
             throw new NotImplementedException();
         }
+
+
+        public List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros)
+        {
+            if (filtros.Fecha.HasValue)
+            {
+                var egresos = _repositorioEgreso.BuscarPorFecha(filtros.Fecha.Value).ToList();
+
+                return _mapper.Map<List<EgresoDto>>(egresos);
+            }
+
+            if (filtros.CategoriaEgreso!=null)
+            {
+                var egresos = _repositorioEgreso.BuscarPorCategoriaEgreso(filtros.CategoriaEgreso).ToList();
+
+                return _mapper.Map<List<EgresoDto>>(egresos);
+            }
+
+            return new List<EgresoDto>();
+        }
+
 
 
     }

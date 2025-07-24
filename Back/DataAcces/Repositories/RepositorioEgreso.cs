@@ -1,4 +1,5 @@
 ﻿using DataAcces.Interfaces;
+using Domain.Enum;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +17,15 @@ namespace DataAcces.Repositories
             Contexto = contexto;
         }
 
+        public IEnumerable<Egreso> BuscarPorFecha(DateTime fecha)
+        {
+            return Contexto.Set<Egreso>().AsNoTracking().Where(c => c.Fecha.Date == fecha.Date).ToList();
+        }
 
+        public IEnumerable<Egreso> BuscarPorCategoriaEgreso(CategoriaEgreso categoria)
+        {
+            return Contexto.Set<Egreso>().AsNoTracking().Where(s => s.CategoriaEgreso == categoria);
+        }
 
     }
 

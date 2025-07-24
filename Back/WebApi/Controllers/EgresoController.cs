@@ -1,4 +1,5 @@
 ﻿using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Domain.Enum;
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -75,6 +76,21 @@ namespace WebApi.Controllers
         //    }
 
         //}
+
+
+
+        //[Authorize]
+        [HttpGet("Filtrar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetEgresosPorFiltro([FromQuery] EgresoFiltrosDto filtros)
+        {
+
+
+            List<EgresoDto> egresoDto = _servicioEgreso.FiltrarEgresos(filtros);
+
+            return Ok(egresoDto);
+
+        }
 
         //[Authorize]
         [HttpDelete("{id}")]
