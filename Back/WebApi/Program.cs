@@ -42,7 +42,7 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioAutenticacion), typeof(ServicioAutenticacion));
             builder.Services.AddScoped(typeof(IRepositorioEgreso), typeof(RepositorioEgreso));
             builder.Services.AddScoped(typeof(IServicioEgreso), typeof(ServicioEgreso));
-
+            builder.Services.AddScoped(typeof(IServicioEstadistica), typeof(ServicioEstadstica));
 
 
             //Aca agregamos la configuración CORS

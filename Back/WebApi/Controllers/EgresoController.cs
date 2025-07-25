@@ -145,8 +145,26 @@ namespace WebApi.Controllers
             return Ok(egresosDto);
         }
 
+        [HttpGet("Paginado")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetEgresosPaginados([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var (egresos, total) = _servicioEgreso.ObtenerEgresosPaginados(page, pageSize);
+
+                return Ok(new
+                {
+                    data = egresos,
+                    totalItems = total
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
 
 
-      
     }
 }

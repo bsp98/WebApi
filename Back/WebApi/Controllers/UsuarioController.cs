@@ -61,17 +61,23 @@ namespace WebApi.Controllers
         [AllowAnonymous]
         [HttpPatch("olvido-password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public IActionResult OlvidoPassword([FromBody] OlvidoPasswordDto dto)
         {
             try
             {
+                dto.Validar();
                 _servicioUsuario.ConfirmarRecuperacionContrasenia(dto.Email, dto.Codigo, dto.NuevaPassword);
                 return Ok("Contraseña cambiada correctamente.");
             }
             catch (NoExisteException ex)
             {
                 return Unauthorized(ex.Message);
+            }
+            catch (DatoIncorrectoException e)
+            {
+                return UnprocessableEntity(e.Message);
             }
         }
 

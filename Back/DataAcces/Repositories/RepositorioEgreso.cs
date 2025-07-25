@@ -27,6 +27,17 @@ namespace DataAcces.Repositories
             return Contexto.Set<Egreso>().AsNoTracking().Where(s => s.CategoriaEgreso == categoria);
         }
 
+
+        public IEnumerable<Egreso> ObtenerEgresosPaginados(int page, int pageSize)
+        {
+            return Contexto.Set<Egreso>().AsNoTracking().OrderBy(c => c.Fecha).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int ContarEgresos()
+        {
+            return Contexto.Set<Egreso>().Count();
+        }
+
     }
 
 

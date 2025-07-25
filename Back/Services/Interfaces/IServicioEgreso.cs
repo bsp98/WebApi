@@ -13,6 +13,7 @@ namespace Services.Interfaces
     {
 
         List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros);
+        public (List<EgresoDto> egresos, int total) ObtenerEgresosPaginados(int page, int pageSize);
 
     }
 }

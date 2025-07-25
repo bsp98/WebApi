@@ -88,6 +88,13 @@ namespace Services.Services
             return new List<EgresoDto>();
         }
 
+        public (List<EgresoDto> egresos, int total) ObtenerEgresosPaginados(int page, int pageSize)
+        {
+            var egresos = _repositorioEgreso.ObtenerEgresosPaginados(page, pageSize);
+            var total = _repositorioEgreso.ContarEgresos();
+
+            return (_mapper.Map<List<EgresoDto>>(egresos), total);
+        }
 
 
     }

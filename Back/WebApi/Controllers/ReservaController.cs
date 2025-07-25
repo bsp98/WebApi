@@ -160,7 +160,8 @@ namespace WebApi.Controllers
         {
             try
             {
-                _servicioReserva.Reagendar(id, dto.Fecha, dto.HoraInicio);
+                bool esCliente = User.IsInRole("Cliente");
+                _servicioReserva.Reagendar(id, dto.Fecha, dto.HoraInicio,esCliente);
                 return Ok("Fecha y hora modificadas con éxito");
             }
             catch (DatoIncorrectoException die)
