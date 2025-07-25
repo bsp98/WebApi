@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByFilterThunk } from '../thunks/egresosThunks';
+import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByCategoryThunk, getByFilterThunk } from '../thunks/egresosThunks';
 
 const initialState = {
     egresos: [],
@@ -54,6 +54,23 @@ const egresosSlice = createSlice({
                 state.currentPage = action.meta.arg.page;
             })
             .addCase(getEgresosPaginadosThunk.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+
+        //Cases de obtener egresos por categoria
+
+        builder
+            .addCase(getByCategoryThunk.pending, (state) => {
+                state.loading = true;  // Empieza la carga
+                state.error = null;    // Limpio error previo
+            })
+            .addCase(getByCategoryThunk.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                state.egresos = action.payload; // Se actualiza el estado con los egresos obtenidos
+            })
+            .addCase(getByCategoryThunk.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });

@@ -137,7 +137,7 @@ export const useReservas = () => {
         else if (rol === "admin") {
             navigate(`/admin/form-reserva/${idServicio}`);
         }
-        else {
+        else{
             navigate(`/form-reserva/${idServicio}`);
         }
     };

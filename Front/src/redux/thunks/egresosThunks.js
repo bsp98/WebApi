@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createEgreso,deleteEgreso,getEgresosPaginados,getByFilter } from '../../services/egresosService';
+import { createEgreso,deleteEgreso,getEgresosPaginados,getByCategory } from '../../services/egresosService';
 
 export const createEgresoThunk = createAsyncThunk(
   'egresos/crearEgreso',
