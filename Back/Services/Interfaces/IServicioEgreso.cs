@@ -1,4 +1,5 @@
 ﻿using Domain.Dto;
+using Domain.Dto.FiltrosDto;
 using Services.Interfaces.CRUD;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,9 @@ namespace Services.Interfaces
 {
     public interface IServicioEgreso : IServicioAdd<EgresoDto>, IServicioRemove<EgresoDto>, IServicioUpdate<EgresoDto>, IServicioGetAll<EgresoDto>, IServicioGetById<EgresoDto>
     {
+
+        List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros);
+        public (List<EgresoDto> egresos, int total) ObtenerEgresosPaginados(int page, int pageSize);
+
     }
 }

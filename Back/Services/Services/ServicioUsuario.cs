@@ -203,6 +203,7 @@ namespace Services.Services
             usuario.Password = nuevaPassword;
             _repositorioUsuario.Update(usuario); 
         }
+
         public void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword)
         {
             if (!_servicioCodigo.VerificarCodigo(email, codigo))

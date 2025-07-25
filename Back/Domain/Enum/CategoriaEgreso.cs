@@ -8,5 +8,8 @@ namespace Domain.Enum
 {
     public enum CategoriaEgreso
     {
+        lala=0,
+        lallaa=1
+
     }
 }
