@@ -42,6 +42,7 @@ export const useClientes = () => {
     };
 
     const obtenerClientePorId = (id) => {
+              console.log("entro en obtener cliente por id",id);
         dispatch(getByIdClienteThunk(id));
     };
 

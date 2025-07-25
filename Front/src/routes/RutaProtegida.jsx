@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 
 export const RutaProtegida = ({ rolPermitido }) => {
     const { token, usuario,authLoaded } = useSelector((state) => state.auth);
+     const rol = usuario?.rolUsuario || null;
 
-    //condicion para evitar parpadeo al no haberse cargado lso datos del storage
+   //condicion para evitar parpadeo al no haberse cargado lso datos del storage
     if (!authLoaded) {
 
         return <div>Cargando...</div>;
@@ -13,14 +14,17 @@ export const RutaProtegida = ({ rolPermitido }) => {
 
     if (!token) return <Navigate to="/login" />;
 
-    if (usuario.rolUsuario === rolPermitido) {
+    console.log("va realizar la validacion del rol",{rol,rolPermitido})
+
+    if (rol === rolPermitido) {
+        console.log("entro al if para renderizar el outlet",{rol,rolPermitido})
         return <Outlet />
     }
     else {
-        if (usuario.rolUsuario === "admin") {
+        if (rol === "admin") {
             return <Navigate to="/admin/unauthorized" />
         }
-        else if (usuario.rolUsuario === "cliente") {
+        else if (rol === "cliente") {
             return <Navigate to="/cliente/unauthorized" />
         }
         else {

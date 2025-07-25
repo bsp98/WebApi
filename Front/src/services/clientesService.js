@@ -76,6 +76,7 @@ export async function getAllCliente() {
 
 export async function getByIdCliente(id) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
+  console.log("entro al getByIdCliente",id);
 
   const response = await fetch(`http://localhost:5164/api/Usuario/${id}`);
 
@@ -124,9 +125,6 @@ export async function getByFilter(filtros) {
     let customMessage = "Servidor fuera de servicio";
 
 
-    console.log("Entro al if de getByFilter")
-    const errorText = await response.text();
-    console.error("Error de la API:", errorText);
     throw {
       status: response.status,
       message: customMessage,
@@ -155,9 +153,7 @@ export async function getClientesPaginados(page, pageSize) {
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
-    console.log("El erro entro en el if del fetch paginado");
-    console.log(response);
-    console.log(response.text());
+
 
     throw {
       status: response.status,
@@ -166,8 +162,7 @@ export async function getClientesPaginados(page, pageSize) {
   }
 
   const datos = await response.json()
-  console.log("La peticion fue realizada con exito")
-  console.log(datos)
+
 
   return datos;
 }

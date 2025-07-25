@@ -178,7 +178,7 @@ namespace WebApi.Controllers
             }
         }
         
-        [Authorize(Roles = "Cliente")]
+       // [Authorize(Roles = "Cliente")]
         //[AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

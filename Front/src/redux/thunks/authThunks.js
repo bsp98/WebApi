@@ -6,13 +6,11 @@ export const loginUserThunk = createAsyncThunk(
   async (datosAuth, thunkAPI) => {
     try {
       if (datosAuth.tokenGoogle) {
-        console.log("entro a login google",datosAuth)
         // Llamar a login de Google
         const response = await loginConGoogle(datosAuth.tokenGoogle);
         return response;
       } else {
         // Login normal
-        console.log("entro a login normal",datosAuth)
         const response = await loginUser(datosAuth);
         return response;
       }
