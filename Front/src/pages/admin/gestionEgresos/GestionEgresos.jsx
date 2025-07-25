@@ -5,7 +5,7 @@ import { Title } from '../../../components/iu/texts/Title'
 import { Table } from '../../../components/iu/table/Table'
 import { ButtonRedirect } from '../../../components/iu/buttons/ButtonRedirect'
 import { useNavigate } from 'react-router-dom'
-import { useEgresos} from '../../../hooks/useEgresos';
+import { useEgresos } from '../../../hooks/useEgresos';
 import { useEffect } from 'react'
 import { MessageError } from '../../../components/iu/messages/MessageError'
 import { Spinner } from '../../../components/iu/spinner/Spinner'
@@ -45,7 +45,7 @@ export const GestionEgresos = () => {
       <Title text={"Panel de egresos"} />
 
       <div className='container_filter_egresos'>
-        <FilterBusqueda actionOnSubmit={filtrarEgresos} tipoInput1={"text"} label1={"Categoría:"}  placeHolder1={"Ingrese la categoría"} name1={"nombre"} label2={"Fecha de egreso:"} name2={"fecha"}/>
+        <FilterBusqueda actionOnSubmit={filtrarEgresos} tipoInput1={"text"} label1={"Categoría:"} placeHolder1={"Ingrese la categoría"} name1={"nombre"} label2={"Fecha de egreso:"} name2={"fecha"} />
       </div>
 
       <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerEgresosPaginados} />
@@ -61,6 +61,8 @@ export const GestionEgresos = () => {
       )}
 
       <ButtonRedirect btn_variant={"btn_primary"} width_btn={"btn_small"} textBtn={"AGREGAR EGRESO"} actionRedirect={agregarEgreso} />
+
+      {/*{modalEgresoAbierto && <ModalInfoReserva reserva={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}*/}
 
     </div>
   )

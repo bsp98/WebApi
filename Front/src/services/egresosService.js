@@ -89,28 +89,6 @@ export async function getEgresosPaginados(page, pageSize) {
   return datos;
 }
 
-export async function getByCategory(categoria) {
-  //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
-return{};
- /* const response = await fetch(`http://localhost:5164/api/Egreso/Categoria/${categoria}`);
-
-  if (!response.ok) {
-    let customMessage = "Servidor fuera de servicio";
-
-    switch (response.status) {
-      case 422:
-        customMessage = await response.text();
-        break;
-    }
-
-    throw {
-      status: response.status,
-      message: customMessage,
-    };
-  }
-
-  return await response.json();*/
-}
 
 export async function getByFilter(filtros) {
   const params = new URLSearchParams();

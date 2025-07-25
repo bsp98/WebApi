@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByCategoryThunk, getByFilterThunk } from '../redux/thunks/egresosThunks';
+import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByFilterThunk } from '../redux/thunks/egresosThunks';
 import { clearSuccessMessage } from '../redux/slices/egresosSlice';
 import moment from 'moment';
 
@@ -46,14 +46,14 @@ export const useEgresos = () => {
     const onbtenerEgresosPaginados = (nuevaPagina = 1) => {
         dispatch(getEgresosPaginadosThunk({ page: nuevaPagina, pageSize: 10 }));
     }
-    ///////////////
-    const egresosPorCategoria = (categoria) => {
-        dispatch(getByCategoryThunk(categoria))
-    };
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
     };
+    //////////////////////////////
+    const abrirModalInfoEgreso = (egreso) => {
+        dispatch(abrirModalEgreso(reserva));
+    }
 
 
 
@@ -65,7 +65,6 @@ export const useEgresos = () => {
         successMessage,
         crearEgreso,
         eliminarEgreso,
-        egresosPorCategoria,
         limpiarMensajeExito,
         filtrarEgresos,
         onbtenerEgresosPaginados,
