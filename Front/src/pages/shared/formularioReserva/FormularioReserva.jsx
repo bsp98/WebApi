@@ -12,6 +12,7 @@ import { FormularioAltaReserva } from '../../../components/reserva/formularios/F
 import { InfoServicio } from '../../../components/reserva/infoServicio/InfoServicio';
 import { InfoBox } from '../../../components/iu/shared/InfoBox';
 import { Modal } from '../../../components/iu/messages/Modal';
+import { useAuth } from '../../../hooks/useAuth'
 
 export const FormularioReserva = () => {
   const [clientaRegistrada, setClientaRegistrada] = useState(false);
@@ -19,31 +20,32 @@ export const FormularioReserva = () => {
   const formRef = useRef(null);
   // const { formaDePago } = useConfiguracionDePago();
   const { obtenerServicioPorId, servicioSeleccionado } = useServicios();
-  const { error, horarioOcupadoError, crearReserva, successMessage, limpiarHorarioOcupadoError,limpiarMensajeExito } = useReservas();
-  const { clientes, clienteSeleccionado, filtrarClientes, obtenerClientePorId,limpiarClientes } = useClientes();
+  const { error, horarioOcupadoError, crearReserva, successMessage, limpiarHorarioOcupadoError, limpiarMensajeExito } = useReservas();
+  const { clientes, clienteSeleccionado, filtrarClientes, obtenerClientePorId, limpiarClientes } = useClientes();
+  const { usuario } = useAuth();
   const navigate = useNavigate();
-  const rol = "admin";
-  const usuarioId = 3;
-  const estado = "pago";
+  const rol = usuario?.rolUsuario || null;
+  const idUsuarioAut = usuario?.idUsuario || null;
+  const estado = "noPago";
   const cliente = rol === "admin" ? (clientes[0] || null) : clienteSeleccionado;
 
   //limpia los datos del cliente Cuando el componente se desmonta
   useEffect(() => {
-  return () => {
-    limpiarClientes(); 
-  };
-}, []);
+    return () => {
+      limpiarClientes();
+    };
+  }, []);
 
   useEffect(() => {
     obtenerServicioPorId(id);
   }, [id]);
 
-   /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
+  /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
   useEffect(() => {
-    if (rol === "cliente" && usuarioId) {
-      obtenerClientePorId(usuarioId)
+    if (rol === "cliente" && idUsuarioAut) {
+      obtenerClientePorId(idUsuarioAut)
     }
-  }, [rol,usuarioId]);
+  }, [rol, idUsuarioAut]);
 
   useEffect(() => {
     if (successMessage) {
@@ -67,7 +69,7 @@ export const FormularioReserva = () => {
       }
     }
     else {
-      crearReserva(datosCliente,id);//se pasan los datos del cliente y el id del servicio
+      crearReserva(datosCliente, id);//se pasan los datos del cliente y el id del servicio
     }
   }
 

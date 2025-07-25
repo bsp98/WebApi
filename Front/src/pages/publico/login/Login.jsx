@@ -9,8 +9,12 @@ import { useAuth } from '../../../hooks/useAuth'
 
 export const Login = () => {
   const formRef = useRef(null);
-  const { error, login, loginGoogle, setErrorGoogle, token, usuario, loaded } = useAuth();
+  const { error, login, loginGoogle, setErrorGoogle, token, usuario,limpiarMensajeError} = useAuth();
   const navigate = useNavigate();
+
+    useEffect(() => {
+    limpiarMensajeError();
+  }, []);
 
   const limpiarFormulario = () => {
     if (formRef) {

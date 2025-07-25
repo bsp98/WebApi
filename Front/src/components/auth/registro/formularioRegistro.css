@@ -1,0 +1,111 @@
+.container_content_form_registro {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--color-primary);
+  border-radius: 3rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container_grup_input {
+  width: 80%;
+  display: flex;
+  gap: 2rem;
+}
+
+.container_politicas {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.grupo-link-politicas {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.grupo_buttons {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+}
+
+.container_form_controls {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+
+/*estililos enlaces*/
+
+.grupo-link-politicas p,
+.link_politica {
+  font-size: 11px;
+  color: #2C2C2C;
+  font-weight: 400;
+  margin: 0;
+}
+
+
+.link_politica:hover {
+  text-decoration: underline;
+  color: #2fc5e0;
+  /* o el mismo color si no tenés una variante */
+  cursor: pointer;
+}
+
+
+/*estilos boton de google*/
+.button_google {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* o space-between, o stretch */
+}
+
+.button_google>div {
+  width: 100% !important;
+  /* Este es el div interno que Google genera */
+}
+
+
+
+/*Estilos check box*/
+
+.check_box_politicas {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #555;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+.check_box_politicas:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.check_box_politicas:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  left: 4px;
+}

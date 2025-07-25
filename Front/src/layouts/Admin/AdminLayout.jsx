@@ -7,9 +7,11 @@ import { useConfiguracionDePago } from '../../hooks/useConfiguracionDePago';
 import { useAuth } from '../../hooks/useAuth';
 
 export const AdminLayout = () => {
-    const {cerrarSesion}= useAuth();
+  const { cerrarSesion, usuario } = useAuth();
+  const rol = usuario?.rolUsuario || null;
+  const idUsuarioAut = usuario?.idUsuario || null;
 
-  const {modificarFormaDePago,formaDePago} = useConfiguracionDePago();
+  const { modificarFormaDePago, formaDePago } = useConfiguracionDePago();
 
   const [modalPagoVisible, setModalPagoVisible] = useState(false);
 
@@ -23,12 +25,12 @@ export const AdminLayout = () => {
 
   return (
     <>
-      <HeaderAdmin idUsuario={"2"} cerrarSesion={cerrarSesion} abrirModal={abrirModalConfigPago} />
+      <HeaderAdmin idUsuario={idUsuarioAut} cerrarSesion={cerrarSesion} abrirModal={abrirModalConfigPago} />
       <main className="container">
         <Outlet />
         {modalPagoVisible && <ModalConfigPago cerrarModal={cerrarModalConfigPago} modificarFormaDePago={modificarFormaDePago} formaDePago={formaDePago} />}
       </main>
-      <Footer tipoUsuario={"admin"} />
+      <Footer tipoUsuario={rol} />
     </>
   );
 };

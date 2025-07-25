@@ -8,7 +8,6 @@ export const useConfiguracionDePago = () => {
 
     const modificarFormaDePago = (e) => {
         e.preventDefault();
-console.log("el evento de modifcar entro al modifcar forma de pago en useConfiguracion")
         const form = e.target;
 
         const formaDePago = +form.formaDePago.value

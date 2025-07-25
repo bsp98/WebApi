@@ -73,7 +73,8 @@ export async function loginConGoogle(tokenGoogle) {
 }
 
 export async function registroUser(datosUsuario) {
-    return { accesoToken: "este es el token recibido", rolUsuario: "Cliente", idUsuario: 2 }
+    console.log("entro a la peticion de registro", datosUsuario);
+    return { accesoToken: "este es el token recibido", rolUsuario: "cliente", idUsuario: 2 }
 
     /* throw {
          status: 200,

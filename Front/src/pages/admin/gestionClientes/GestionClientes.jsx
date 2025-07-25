@@ -19,7 +19,6 @@ export const GestionClientes = () => {
   const navigate = useNavigate();
 
 
-  const verInformacionCliente = () => { };
 
   useEffect(() => {
     onbtenerClientesPaginados(1);
@@ -51,7 +50,7 @@ export const GestionClientes = () => {
 
       <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerClientesPaginados} />
 
-      <Table columns={columns} datos={clientes} textBtn1={"Ver mas"} textBtn2={"Eliminar"} actionBtn1={verInformacionCliente} actionBtn2={eliminarCliente} table_width={"table_medium"} class_margin={"table_margin_default"} />
+      <Table columns={columns} datos={clientes} textBtn2={"Eliminar"} actionBtn2={eliminarCliente} table_width={"table_medium"} class_margin={"table_margin_default"} />
 
       {loading && <Spinner />}
 

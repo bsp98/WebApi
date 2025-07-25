@@ -7,7 +7,7 @@ const manejarAutenticacion = (state, payload) => {
     state.usuario = { idUsuario, rolUsuario };
     state.token = accesoToken;
     state.authLoaded = true;
-
+    
     guardarUsuario({ idUsuario, rolUsuario });
     guardarToken(accesoToken);
 };

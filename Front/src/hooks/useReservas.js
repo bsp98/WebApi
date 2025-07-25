@@ -4,9 +4,11 @@ import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllRe
 import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError, setError } from '../redux/slices/reservasSlice';
 import moment from 'moment';
 import { guardarReservaEnStorage, obtenerReservaDeStorage, limpiarReservaEnStorage } from '../utils/storage/reservaStorage';
+import { useAuth } from './useAuth';
 
 export const useReservas = () => {
-    const rol = 'admin';
+    const { usuario } = useAuth();
+    const rol = usuario?.rolUsuario || null;
     const dispatch = useDispatch();
     const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto, horarioOcupadoError } = useSelector((state) => state.reservas);
     const navigate = useNavigate();
@@ -132,16 +134,13 @@ export const useReservas = () => {
         if (rol === "cliente") {
             navigate(`/cliente/form-reserva/${idServicio}`);
         }
-
-        if (rol === "admin") {
+        else if (rol === "admin") {
             navigate(`/admin/form-reserva/${idServicio}`);
         }
-
-        if (rol === "publico") {
+        else{
             navigate(`/form-reserva/${idServicio}`);
         }
-
-    }
+    };
 
 
     const modificarEstadoDePago = (idReserva, estadoDePago) => {

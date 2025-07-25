@@ -13,6 +13,7 @@ import { ModalInfoReserva } from '../../../components/reserva/modalInfoReserva/M
 import { Spinner } from '../../../components/iu/spinner/Spinner';
 import { Modal } from '../../../components/iu/messages/Modal';
 import { MessageError } from '../../../components/iu/messages/MessageError'
+import { useAuth } from '../../../hooks/useAuth';
 
 export const SeleccionarFechaHora = () => {
   const {
@@ -21,6 +22,7 @@ export const SeleccionarFechaHora = () => {
     obtenerReservaPorId, reservarHorario, abrirModalInfoReserva, cerrarModalInfoReserva, limpiarMensajeExito, limpiarMensajeError } = useReservas();
 
   const { obtenerServicioPorId, servicioSeleccionado } = useServicios();
+  const {usuario} = useAuth();
   const [loadingTableReservas, setLoadingTableReservas] = useState(false);
   const [errorTableReservas, setErrorTableReservas] = useState(null);
   const [loadingHorarios, setLoadingHorarios] = useState(false);
@@ -29,7 +31,7 @@ export const SeleccionarFechaHora = () => {
 
   const { accion, id } = useParams();
   const navigate = useNavigate();
-  const rol = "cliente";
+  const rol = usuario?.rolUsuario || null;
 
 
   //metodo que ejecuta el onchange del calendario ()
@@ -169,7 +171,7 @@ export const SeleccionarFechaHora = () => {
       </div>
 
 
-      {rol === "admin" &&
+      {usuario.rolUsuario === "admin" &&
         <div className="area-tabla">
           <p>Reservas de la fecha seleccionada</p>
           <Table columns={columns} datos={reservas} textBtn1={"Ver más"} actionBtn1={abrirModalInfoReserva} table_width={"table_big"} class_margin={"table_margin_none"} />

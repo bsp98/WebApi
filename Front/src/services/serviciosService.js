@@ -1,5 +1,5 @@
 export async function createServicio(servicio) {
-  console.log(servicio);
+
   const response = await fetch('http://localhost:5164/api/Servicio/Agregar', {
     method: 'POST',
     headers: {

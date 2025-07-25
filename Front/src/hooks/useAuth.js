@@ -37,11 +37,14 @@ export const useAuth = () => {
         e.preventDefault();
 
         const form = e.target;
+        const password = form.password.value;
+        const passwordRepeat = form.passwordRepeat.value;
 
-        const passwordValidate = form.password === form.passwordRepeat;
+        const passwordValidate = password === passwordRepeat;
         const aceptoTerminosYCondiciones = form.politicas.checked;
 
         if (!passwordValidate) {
+            console.log("entro al if de error validacion contraseña",{form,password ,passwordRepeat})
             dispatch(setError("La contraseña y su confirmación deben ser iguales."));
         }
 
@@ -54,14 +57,14 @@ export const useAuth = () => {
                 nombre: form.nombre.value,
                 apellido: form.apellido.value,
                 email: form.email.value,
-                fechaDeNacimiento: form.fechaNacimiento.value,
+                fechaDeNacimiento: moment(form.fechaDeNacimiento.value, "DD/MM/YYYY").format('YYYY-MM-DD'),
                 celular: form.celular.value,
                 password: form.password.value,
                 politicasAceptadas: true,
                 fechaAceptacion: moment().format("YYYY-MM-DD HH:mm:ss"),
             }
 
-            dispatch(registroUserThunk(datosRegistro));
+           dispatch(registroUserThunk(datosRegistro));
         }
     }
 
@@ -72,6 +75,10 @@ export const useAuth = () => {
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
+    };
+
+    const limpiarMensajeError = () => {
+        dispatch(setError(null));
     };
 
     const setErrorGoogle = () => {
@@ -102,5 +109,6 @@ export const useAuth = () => {
         setDatosAuthDelStorage,
         authLoaded,
         setLoadDeCargaDeDatos,
+        limpiarMensajeError,
     }
 }

@@ -10,12 +10,14 @@ import { Modal } from '../../../components/iu/messages/Modal';
 import { MessageError } from '../../../components/iu/messages/MessageError';
 import { Spinner } from '../../../components/iu/spinner/Spinner';
 import { ButtonRedirect } from '../../../components/iu/buttons/ButtonRedirect'
+import { useAuth } from '../../../hooks/useAuth';
 
 export const InicioCliente = () => {
   const { reservas, error, successMessage, loading, eliminarReserva, limpiarMensajeExito, setReservaParaCancelar, obtenerReservasPorIdCliente } = useReservas();
   const [menssageConfirmation, setMessageConfirmation] = useState(null);
+    const {usuario} = useAuth();
   const navigate = useNavigate();
-  const idClienteAut = 2;
+  const idClienteAut = usuario?.idUsuario || null;
 
   useEffect(() => {
     obtenerReservasPorIdCliente(idClienteAut)
