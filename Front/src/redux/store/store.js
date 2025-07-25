@@ -3,6 +3,8 @@ import serviciosReducer from '../slices/serviciosSlice';
 import configDePagoReducer from '../slices/configDePagoSlice'
 import clientesReducer from '../slices/clientesSlice'
 import reservasReducer from '../slices/reservasSlice'
+import authReducer from '../slices/authSlice'
+import egresosReducer from '../slices/egresosSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +12,8 @@ export const store = configureStore({
     configDePago: configDePagoReducer,
     clientes: clientesReducer,
     reservas: reservasReducer,
+    auth: authReducer,
+    egresos: egresosReducer,
 
   },
 });

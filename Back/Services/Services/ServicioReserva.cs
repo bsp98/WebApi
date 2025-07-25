@@ -191,7 +191,7 @@ namespace Services.Services
         }
 
 
-        public void Reagendar(int id, DateTime nuevaFecha, TimeSpan nuevaHoraInicio)
+        public void Reagendar(int id, DateTime nuevaFecha, TimeSpan nuevaHoraInicio,bool esCliente)
         {
             Reserva reserva = _repositorioReserva.GetById(id);
             if (reserva == null)
@@ -201,7 +201,8 @@ namespace Services.Services
                 throw new DatoIncorrectoException("Hora de inicio no válida");
 
             DateTime fechaHoraReservaActual = reserva.Fecha.Date + reserva.HoraInicio;
-            if (fechaHoraReservaActual <= DateTime.Now.AddHours(12))
+
+            if (esCliente && fechaHoraReservaActual <= DateTime.Now.AddHours(12))
                 throw new DatoIncorrectoException("No se puede reagendar una reserva con menos de 12 horas de anticipación");
 
             TimeSpan duracion = TimeSpan.FromMinutes(reserva.Servicio.TiempoDeDuracionMin);

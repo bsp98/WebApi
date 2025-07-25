@@ -49,7 +49,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
 
                         <div className='group_info_modal_reserva'>
                             <i className='icon_modal_reserva fa-solid fa-credit-card'></i>
-                            <p className='info_modal_reserva'>{`$${reserva.servicio.precioTotal}`}</p>
+                            <p className='info_modal_reserva'>{`$${reserva.precioTotal}`}</p>
                         </div>
 
                         <div className='group_info_modal_reserva'>

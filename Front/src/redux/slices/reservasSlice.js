@@ -60,6 +60,10 @@ const reservasSlice = createSlice({
             state.error = null;
         },
 
+        setError: (state,action) => {
+            state.error = action.payload;
+        },
+
         setFecha: (state, action) => {
             state.fechaSeleccionada = action.payload;
         },
@@ -245,5 +249,5 @@ const reservasSlice = createSlice({
     },
 });
 
-export const { clearSuccessMessage, clearErrorMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, setReservaEnEdicion,clearHorarioOcupadoError } = reservasSlice.actions;
+export const { clearSuccessMessage, clearErrorMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, setReservaEnEdicion,clearHorarioOcupadoError,setError } = reservasSlice.actions;
 export default reservasSlice.reducer;

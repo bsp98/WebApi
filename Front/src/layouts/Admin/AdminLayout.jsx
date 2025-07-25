@@ -4,9 +4,14 @@ import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
 import { ModalConfigPago } from '../../components/admin/modalConfigPago/ModalConfigPago';
 import { useConfiguracionDePago } from '../../hooks/useConfiguracionDePago';
+import { useAuth } from '../../hooks/useAuth';
 
 export const AdminLayout = () => {
-  const {modificarFormaDePago,formaDePago} = useConfiguracionDePago();
+  const { cerrarSesion, usuario } = useAuth();
+  const rol = usuario?.rolUsuario || null;
+  const idUsuarioAut = usuario?.idUsuario || null;
+
+  const { modificarFormaDePago, formaDePago } = useConfiguracionDePago();
 
   const [modalPagoVisible, setModalPagoVisible] = useState(false);
 
@@ -18,19 +23,14 @@ export const AdminLayout = () => {
     setModalPagoVisible(true);
   }
 
-  const cerrarSesion = () => {
-    alert("se cerro la sesion del usuario");
-  };
-
-
   return (
     <>
-      <HeaderAdmin idUsuario={"2"} cerrarSesion={cerrarSesion} abrirModal={abrirModalConfigPago} />
+      <HeaderAdmin idUsuario={idUsuarioAut} cerrarSesion={cerrarSesion} abrirModal={abrirModalConfigPago} />
       <main className="container">
         <Outlet />
         {modalPagoVisible && <ModalConfigPago cerrarModal={cerrarModalConfigPago} modificarFormaDePago={modificarFormaDePago} formaDePago={formaDePago} />}
       </main>
-      <Footer tipoUsuario={"admin"} />
+      <Footer tipoUsuario={rol} />
     </>
   );
 };

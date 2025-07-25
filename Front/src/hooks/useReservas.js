@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk, getByIdReservaThunk, ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
-import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError } from '../redux/slices/reservasSlice';
+import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError, setError } from '../redux/slices/reservasSlice';
 import moment from 'moment';
-import { guardarReservaEnStorage, obtenerReservaDeStorage,limpiarReservaEnStorage } from '../utils/storage/reservaStorage';
+import { guardarReservaEnStorage, obtenerReservaDeStorage, limpiarReservaEnStorage } from '../utils/storage/reservaStorage';
+import { useAuth } from './useAuth';
 
 export const useReservas = () => {
-    const rol = 'admin';
+    const { usuario } = useAuth();
+    const rol = usuario?.rolUsuario || null;
     const dispatch = useDispatch();
     const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto, horarioOcupadoError } = useSelector((state) => state.reservas);
     const navigate = useNavigate();
@@ -34,7 +36,7 @@ export const useReservas = () => {
             celularCliente: (!datosCliente.id && datosCliente.celular) ? datosCliente.celular : null,
         };
 
-       const resultado = await dispatch(createReservaThunk(nuevaReserva));
+        const resultado = await dispatch(createReservaThunk(nuevaReserva));
 
         //limpio el storage una ves la reserva se halla creado con exito.
         if (createReservaThunk.fulfilled.match(resultado)) {
@@ -57,7 +59,7 @@ export const useReservas = () => {
             horaInicio: horario,
         }
 
-console.log("nueva fecha hora que se envia de la reserva:",nuevaFechaYHora)
+        console.log("nueva fecha hora que se envia de la reserva:", nuevaFechaYHora)
         return await dispatch(reagendarReservaThunk(nuevaFechaYHora)).unwrap();
     };
 
@@ -122,7 +124,7 @@ console.log("nueva fecha hora que se envia de la reserva:",nuevaFechaYHora)
         }
 
         if (modoReserva === "modificar") {
-            return await modificarReserva(horario); 
+            return await modificarReserva(horario);
         }
 
     }
@@ -132,20 +134,23 @@ console.log("nueva fecha hora que se envia de la reserva:",nuevaFechaYHora)
         if (rol === "cliente") {
             navigate(`/cliente/form-reserva/${idServicio}`);
         }
-
-        if (rol === "admin") {
+        else if (rol === "admin") {
             navigate(`/admin/form-reserva/${idServicio}`);
         }
-
-        if (rol === "publico") {
+        else{
             navigate(`/form-reserva/${idServicio}`);
         }
+    };
 
-    }
 
+    const modificarEstadoDePago = (idReserva, estadoDePago) => {
 
-    const modificarEstadoDePago = (estadoDePago) => {
-        dispatch(ModifyPaymentStatusThunk(estadoDePago));
+        if (isNaN(estadoDePago)) {
+            dispatch(setError("Debe seleccionar un estado de pago"));
+        }
+        else {
+            dispatch(ModifyPaymentStatusThunk({ idReserva, estadoDePago }));
+        }
     }
 
     const limpiarMensajeExito = () => {
