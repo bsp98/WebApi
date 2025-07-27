@@ -35,7 +35,7 @@ namespace DataAcces.Repositories
         //}
         public IEnumerable<Usuario> BuscarPorFecha(DateTime fecha)
         {
-            return Contexto.Set<Usuario>() .OfType<Cliente>().AsNoTracking().Where(c => c.FechaDeNacimiento.Date == fecha.Date).ToList();
+            return Contexto.Set<Usuario>() .OfType<Cliente>().AsNoTracking().Where(c => c.FechaDeNacimiento.HasValue && c.FechaDeNacimiento.Value.Date == fecha.Date).ToList();
         }
 
         public IEnumerable<Usuario> BuscarPorNombre(string nombre)

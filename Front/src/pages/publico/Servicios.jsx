@@ -26,9 +26,9 @@ export const Servicios = () => {
 
   const realizarReserva = (servicio) => {
 
-    if (rol === "cliente") {
+    if (rol === "Cliente") {
       navigate(`/cliente/fecha-hora/crear/${servicio.id}`);
-    } else if (rol === "admin") {
+    } else if (rol === "Administrador") {
       navigate(`/admin/fecha-hora/crear/${servicio.id}`);
     } else {
       navigate(`/fecha-hora/crear/${servicio.id}`);

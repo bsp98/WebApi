@@ -1,25 +1,26 @@
 ﻿using AutoMapper;
+using DataAcces.Repositories;
 using DataAccess.Interfaces;
 using Domain.Dto;
-using Domain.Models;
-using Services.Interfaces;
-using Services.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Dto.FiltrosDto;
-using Services.Interfaces.CRUD;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Http;
+using Domain.Models;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Services.Exceptions;
+using Services.Interfaces;
+using Services.Interfaces.CRUD;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Services.Services
 {
@@ -29,12 +30,14 @@ namespace Services.Services
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public ServicioAutenticacion(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        private readonly IServicioUsuario _servicioUsuario;
+        public ServicioAutenticacion(IRepositorioUsuario repositorioUsuario, IMapper mapper, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IServicioUsuario servicioUsuario)
         {
             _repositorioUsuario = repositorioUsuario;
             _mapper = mapper;
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
+            _servicioUsuario = servicioUsuario;
         }
 
 
@@ -86,34 +89,32 @@ namespace Services.Services
             return tokenString;
         }
 
-        //    public async Task GenerarCookieDeAutenticacion(UsuarioDto usuario)
-        //    {
-        //        var claims = new List<Claim>
-        //{
-        //    new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-        //    new Claim(ClaimTypes.Email, usuario.Email),
-        //    new Claim(ClaimTypes.Name, usuario.Nombre),
-        //    new Claim(ClaimTypes.Role, usuario.Tipo.ToString())
-        //};
 
-        //        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        //        var principal = new ClaimsPrincipal(identity);
 
-        //        var httpContext = _httpContextAccessor.HttpContext;
-        //        if (httpContext == null)
-        //        {
-        //            throw new InvalidOperationException("HttpContext no disponible");
-        //        }
+        public async Task<(UsuarioDto usuario, string tokenJwt)> GoogleLoginAsync(string idToken)
+        {
+            // Validar el token ID de Google recibido desde el frontend
+            var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+            string email = payload.Email;
 
-        //        await httpContext.SignInAsync(
-        //            CookieAuthenticationDefaults.AuthenticationScheme,
-        //            principal,
-        //            new AuthenticationProperties
-        //            {
-        //                IsPersistent = true,
-        //                ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
-        //            });
-        //    }
+            var usuario = _servicioUsuario.ObtenerPorEmail(email);
+
+            string nombreApellido = payload.Name;
+            string[] partes = nombreApellido.Split(' '); // Divide el texto por espacio
+
+            string nombre = partes[0];
+            string apellido = partes.Length > 1 ? partes[1] : "";
+
+            if (usuario == null)
+            {
+                usuario = new ClienteGoogleDto(email, nombre, apellido);
+                _servicioUsuario.Add(usuario);
+            }
+
+            string tokenJwt = GenerarTokenJwt(usuario.Email, usuario.Nombre, usuario.TipoUsuario.ToString(), usuario.Id);
+
+            return (usuario, tokenJwt);
+        }
 
     }
 }

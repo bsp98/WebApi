@@ -1,20 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUserThunk, registroUserThunk, logoutThunk } from '../thunks/authThunks';
-import { guardarToken, guardarUsuario, limpiarAuthStorage} from '../../utils/storage/authStorage';
+import {guardarUsuario, limpiarAuthStorage} from '../../utils/storage/authStorage';
 
-const manejarAutenticacion = (state, payload) => {
-    const { accesoToken, idUsuario, rolUsuario } = payload;
+const manejarAutenticacion = (state, payload = null) => {
+   const {idUsuario, rolUsuario } = payload;
+   console.log("datos del usuaruio slice",{idUsuario,rolUsuario});
     state.usuario = { idUsuario, rolUsuario };
-    state.token = accesoToken;
     state.authLoaded = true;
     
     guardarUsuario({ idUsuario, rolUsuario });
-    guardarToken(accesoToken);
 };
 
 const initialState = {
     usuario: null,
-    token: null,
     error: null,
     successMessage: null,
     authLoaded: false,
@@ -33,7 +31,6 @@ const authSlice = createSlice({
         },
         setAuthDesdeStorage: (state, action) => {
             state.usuario = action.payload.usuario;
-            state.token = action.payload.token;
             state.authLoaded = true;
 
         },
@@ -56,9 +53,11 @@ const authSlice = createSlice({
         builder
             .addCase(registroUserThunk.fulfilled, (state, action) => {
                 state.error = null;
-                manejarAutenticacion(state, action.payload);
+                //state.clientes.push(action.payload); // Se agrega directamente al estado
+                state.successMessage = action.payload;
             })
             .addCase(registroUserThunk.rejected, (state, action) => {
+                console.log("entro al reject",action.payload);
                 state.error = action.payload;
             });
 

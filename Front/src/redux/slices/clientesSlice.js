@@ -34,8 +34,8 @@ const clientesSlice = createSlice({
         builder
             .addCase(createClienteThunk.fulfilled, (state, action) => {
                 state.error = null;
-                state.clientes.push(action.payload); // Se agrega directamente al estado
-                state.successMessage = 'Cliente creado exitosamente';
+                //state.clientes.push(action.payload); // Se agrega directamente al estado
+                state.successMessage = action.payload;
             })
             .addCase(createClienteThunk.rejected, (state, action) => {
                 state.error = action.payload;

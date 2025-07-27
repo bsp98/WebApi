@@ -6,7 +6,7 @@ export const Footer = ({ tipoUsuario }) => {
   return (
     <footer className="footer">
 
-      {tipoUsuario != "admin" && (
+      {tipoUsuario != "Administrador" && (
         <div className='footer-content '>
 
           <div className='info_container'>
@@ -27,8 +27,8 @@ export const Footer = ({ tipoUsuario }) => {
             </div>
 
             <div className='gruop_policy'>
-              <Link className='text_footer text_policy' to={tipoUsuario === 'cliente' ? '/cliente/politica-de-privacidad' : '/politica-de-privacidad'}>Política de privacidad</Link>
-              <Link className='text_footer text_policy' to={tipoUsuario === 'cliente' ? '/cliente/aviso-legal' : '/aviso-legal'}>Aviso legal</Link>
+              <Link className='text_footer text_policy' to={tipoUsuario === 'Cliente' ? '/cliente/politica-de-privacidad' : '/politica-de-privacidad'}>Política de privacidad</Link>
+              <Link className='text_footer text_policy' to={tipoUsuario === 'Cliente' ? '/cliente/aviso-legal' : '/aviso-legal'}>Aviso legal</Link>
             </div>
 
           </div>

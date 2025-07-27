@@ -50,6 +50,11 @@ namespace Services.Services
                 return AgregarAdministrador(adminDto);
             }
 
+            if (dto is ClienteGoogleDto clienteGoogleDto)
+            {
+                AgregarClienteGoogle(clienteGoogleDto);
+            }
+
             throw new NoExisteException("Tipo de usuario no reconocido.");
 
         }
@@ -70,6 +75,15 @@ namespace Services.Services
             Cliente cli = _mapper.Map<Cliente>(dto);
             Usuario guardado = _repositorioUsuario.Add(cli);
             return _mapper.Map<ClienteDto>(guardado);
+        }
+
+
+        public ClienteGoogleDto AgregarClienteGoogle(ClienteGoogleDto dto)
+        {
+            dto.Validar();
+            Cliente clienteGoogle = _mapper.Map<Cliente>(dto);
+            Usuario guardado = _repositorioUsuario.Add(clienteGoogle);
+            return _mapper.Map<ClienteGoogleDto>(guardado);
         }
 
         public void Remove(int id)

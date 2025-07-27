@@ -13,14 +13,14 @@ namespace Domain.Dto
 
         public AdministradorDto() { }
 
-        public AdministradorDto(string email, string password, string nombre, string apellido, string origenCreacion, TipoUsuario tipo) : base(email, password, nombre, apellido, origenCreacion, tipo)
+        public AdministradorDto(string email, string password, string nombre, string apellido, string origenCreacion, TipoUsuario tipoUsuario) : base(email, password, nombre, apellido, origenCreacion)
         {
             Email=email;
             Password=password;
             Nombre=nombre;
-            Tipo=tipo;
             Apellido=apellido;
             OrigenCreacion=origenCreacion;
+            TipoUsuario = TipoUsuario.Administrador;
         }
 
         public override void Validar()

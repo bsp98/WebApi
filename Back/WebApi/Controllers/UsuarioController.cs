@@ -32,7 +32,7 @@ namespace WebApi.Controllers
 
 
         [AllowAnonymous]
-        [HttpPost("cliente")]
+        [HttpPost("Registro")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -42,7 +42,7 @@ namespace WebApi.Controllers
             try
             {
                 var nuevo = _servicioUsuario.Add(dto); // método específico
-                return Ok(nuevo);
+                return Ok("Registro realizado con exito");
             }
             catch (ExisteException e)
             {
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
                 return UnprocessableEntity(e.Message);
             }
             catch (NoExisteException eee) {
-                return Unauthorized(eee.Message);
+                return NotFound(eee.Message);
             }
         }
 

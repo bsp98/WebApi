@@ -59,7 +59,6 @@ export const useReservas = () => {
             horaInicio: horario,
         }
 
-        console.log("nueva fecha hora que se envia de la reserva:", nuevaFechaYHora)
         return await dispatch(reagendarReservaThunk(nuevaFechaYHora)).unwrap();
     };
 
@@ -131,10 +130,10 @@ export const useReservas = () => {
 
 
     const redirectPantallaFormularioReserva = (idServicio) => {
-        if (rol === "cliente") {
+        if (rol === "Cliente") {
             navigate(`/cliente/form-reserva/${idServicio}`);
         }
-        else if (rol === "admin") {
+        else if (rol === "Administrador") {
             navigate(`/admin/form-reserva/${idServicio}`);
         }
         else{

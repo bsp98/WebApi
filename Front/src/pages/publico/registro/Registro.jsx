@@ -5,16 +5,16 @@ import { FormularioRegistro } from '../../../components/auth/registro/Formulario
 import logo from '../../../assets/logo/Logo.png'
 import { useRef, useEffect } from 'react';
 import { useAuth } from '../../../hooks/useAuth'
+import { Modal } from '../../../components/iu/messages/Modal';
 
 export const Registro = () => {
   const formRef = useRef(null);
-  const { error, registrarUsuario, loginGoogle, setErrorGoogle, token, usuario,limpiarMensajeError } = useAuth();
-  //hay que cambiar login por registro google
+  const { error, registrarUsuario, loginGoogle, setErrorGoogle,limpiarMensajeError,successMessage,limpiarMensajeExito} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-  limpiarMensajeError();
-}, []);
+    limpiarMensajeError();
+  }, []);
 
   const limpiarFormulario = () => {
     if (formRef) {
@@ -27,18 +27,12 @@ export const Registro = () => {
     return limpiarFormulario();
   }, []);
 
-  useEffect(() => {
 
-    if (!token || !usuario) return;
+  const registroExistoso = () =>{
+    limpiarMensajeExito(); 
+    navigate("/login");
+  }
 
-    if (usuario.rolUsuario === "admin") {
-      navigate("/admin/inicio");
-    } else {
-      console.log("entro al useeffect de registro el redirect cliente", { token, usuario })
-      navigate("/cliente/inicio");
-    }
-
-  }, [token, usuario]);
   return (
     <div className='container_page_registro'>
 
@@ -53,6 +47,10 @@ export const Registro = () => {
         </div>
 
       </div>
+
+      {successMessage && (
+        <Modal mensaje={successMessage} alCerrar={registroExistoso} />
+      )}
 
     </div>
   )

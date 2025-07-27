@@ -61,7 +61,7 @@ export const AppRoutes = () => {
 
             {/*RUTAS CLIENTE*/}
 
-            <Route element={<RutaProtegida rolPermitido="cliente" />}>
+            <Route element={<RutaProtegida rolPermitido="Cliente" />}>
                 <Route path="/cliente/*" element={<ClienteLayout />}>
                     <Route index element={<InicioCliente />} />
                     <Route path="inicio" element={<InicioCliente />} />
@@ -83,7 +83,7 @@ export const AppRoutes = () => {
 
 
             {/*RUTAS ADMIN*/}
-            <Route element={<RutaProtegida rolPermitido="admin" />}>
+            <Route element={<RutaProtegida rolPermitido="Administrador" />}>
                 <Route path="/admin/*" element={<AdminLayout></AdminLayout>}>
                     <Route index element={<InicioAdmin></InicioAdmin>} />
                     <Route path="inicio" element={<InicioAdmin></InicioAdmin>} />
