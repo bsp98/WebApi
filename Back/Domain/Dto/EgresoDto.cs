@@ -15,6 +15,8 @@ namespace Domain.Dto
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public CategoriaEgreso CategoriaEgreso { get; set; }
+
+        public string NombreCategoria = string.Empty;
         public Double Monto { get; set; }
         public string Lugar { get; set; }
         public string Descripcion { get; set; }

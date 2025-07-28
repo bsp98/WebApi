@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createEgreso,deleteEgreso,getEgresosPaginados,getByCategory } from '../../services/egresosService';
+import { createEgreso,deleteEgreso,getEgresosPaginados,getByFilter} from '../../services/egresosService';
 
 export const createEgresoThunk = createAsyncThunk(
   'egresos/crearEgreso',
@@ -50,23 +50,6 @@ export const deleteEgresoThunk = createAsyncThunk(
     }
   }
 );
-
-export const getByCategoryThunk = createAsyncThunk(
-  'egresos/getByCategory',
-  async (categoria,thunkAPI) => {
-    try {
-
-      const response = await getByCategory(categoria);
-      return response;
-
-    } catch (error) {
-
-      return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
-
-    }
-  }
-);
-
 
 export const getByFilterThunk = createAsyncThunk(
   'egresos/getByFilter',

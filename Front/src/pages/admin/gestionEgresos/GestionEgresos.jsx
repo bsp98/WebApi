@@ -15,11 +15,10 @@ import { Paginacion } from '../../../components/iu/paginacion/Paginacion'
 import moment from 'moment'
 
 export const GestionEgresos = () => {
-  const { error, egresos, total, currentPage, loading, eliminarEgreso, successMessage, limpiarMensajeExito, filtrarEgresos, onbtenerEgresosPaginados } = useEgresos();
+  const { error, egresos,egresoSeleccionado, total, currentPage, loading,modalEgresoAbierto, eliminarEgreso, successMessage, limpiarMensajeExito, filtrarEgresos, onbtenerEgresosPaginados,cerrarModalInfoEgreso,abrirModalInfoEgreso } = useEgresos();
   const navigate = useNavigate();
 
 
-  const verInformacionEgreso = () => { };
 
   useEffect(() => {
     onbtenerEgresosPaginados(1);
@@ -50,7 +49,7 @@ export const GestionEgresos = () => {
 
       <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerEgresosPaginados} />
 
-      <Table columns={columns} datos={egresos} textBtn1={"Ver mas"} textBtn2={"Eliminar"} actionBtn1={verInformacionEgreso} actionBtn2={eliminarEgreso} table_width={"table_medium"} class_margin={"table_margin_default"} />
+      <Table columns={columns} datos={egresos} textBtn1={"Ver mas"} textBtn2={"Eliminar"} actionBtn1={abrirModalInfoEgreso} actionBtn2={eliminarEgreso} table_width={"table_medium"} class_margin={"table_margin_default"} />
 
       {loading && <Spinner />}
 
@@ -61,6 +60,8 @@ export const GestionEgresos = () => {
       )}
 
       <ButtonRedirect btn_variant={"btn_primary"} width_btn={"btn_small"} textBtn={"AGREGAR EGRESO"} actionRedirect={agregarEgreso} />
+
+      {modalEgresoAbierto && <ModalInfoReserva reserva={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}
 
     </div>
   )

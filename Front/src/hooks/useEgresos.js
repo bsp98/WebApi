@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByCategoryThunk, getByFilterThunk } from '../redux/thunks/egresosThunks';
-import { clearSuccessMessage } from '../redux/slices/egresosSlice';
+import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByFilterThunk } from '../redux/thunks/egresosThunks';
+import { clearSuccessMessage,abrirModalEgreso,cerrarModalEgreso } from '../redux/slices/egresosSlice';
 import moment from 'moment';
 
 export const useEgresos = () => {
     const dispatch = useDispatch();
-    const { egresos, error, loading, successMessage } = useSelector((state) => state.egresos);
+    const { egresoSeleccionado,egresos, error, loading, successMessage,modalEgresoAbierto } = useSelector((state) => state.egresos);
 
 
     const crearEgreso = (e) => {
@@ -14,10 +14,10 @@ export const useEgresos = () => {
         const form = e.target;
 
         const nuevoEgreso = {
-            fechaDeCompra: moment(form.fechaDeCompra.value, "DD/MM/YYYY").format('YYYY-MM-DD'),
+            fecha: moment(form.fechaDeCompra.value, "DD/MM/YYYY").format('YYYY-MM-DD'),
             categoria: +form.categoria.value,
+            monto: +form.costo.value,
             lugar: form.lugar.value,
-            costo: +form.costo.value,
             descripcion: form.descripcion.value,
         };
 
@@ -46,28 +46,36 @@ export const useEgresos = () => {
     const onbtenerEgresosPaginados = (nuevaPagina = 1) => {
         dispatch(getEgresosPaginadosThunk({ page: nuevaPagina, pageSize: 10 }));
     }
-    ///////////////
-    const egresosPorCategoria = (categoria) => {
-        dispatch(getByCategoryThunk(categoria))
-    };
+
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
     };
+
+    const abrirModalInfoEgreso = (reserva) => {
+        dispatch(abrirModalEgreso(reserva));
+    }
+
+    const cerrarModalInfoEgreso = () => {
+        dispatch(cerrarModalEgreso());
+    }
 
 
 
 
     return {
         egresos,
+        egresoSeleccionado,
         loading,
         error,
         successMessage,
+        modalEgresoAbierto,
         crearEgreso,
         eliminarEgreso,
-        egresosPorCategoria,
         limpiarMensajeExito,
         filtrarEgresos,
         onbtenerEgresosPaginados,
+        abrirModalInfoEgreso,
+        cerrarModalInfoEgreso,
     };
 };
