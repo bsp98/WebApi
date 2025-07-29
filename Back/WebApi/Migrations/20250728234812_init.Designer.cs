@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250727182545_tipoUsuarioCambios")]
-    partial class tipoUsuarioCambios
+    [Migration("20250728234812_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,11 +215,6 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -239,9 +234,16 @@ namespace WebApi.Migrations
 
                     b.ToTable("Usuarios");
 
-                    b.HasDiscriminator().HasValue("Usuario");
+                    b.HasDiscriminator<int>("TipoUsuario");
 
                     b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Models.Administrador", b =>
+                {
+                    b.HasBaseType("Domain.Models.Usuario");
+
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>
@@ -264,7 +266,7 @@ namespace WebApi.Migrations
                     b.Property<bool>("PoliticasAceptadas")
                         .HasColumnType("bit");
 
-                    b.HasDiscriminator().HasValue("Cliente");
+                    b.HasDiscriminator().HasValue(0);
                 });
 
             modelBuilder.Entity("Domain.Models.BloqueHorario", b =>

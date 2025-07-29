@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByCategoryThunk, getByFilterThunk } from '../thunks/egresosThunks';
+import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByFilterThunk } from '../thunks/egresosThunks';
 
 const initialState = {
     egresos: [],
+    egresoSeleccionado,
     total: 0,
     currentPage: 1,
     loading: false,
     error: null,
     successMessage: null,
+    modalEgresoAbierto: false,
 };
 
 const egresosSlice = createSlice({
@@ -16,7 +18,15 @@ const egresosSlice = createSlice({
     reducers: {
         clearSuccessMessage: (state) => {
             state.successMessage = null;
-        }
+        },
+        abrirModalEgreso(state, action) {
+            state.egresoSeleccionado = action.payload;
+            state.modalEgresoAbierto = true;
+        },
+        cerrarModalEgreso(state) {
+            state.modalEgresoAbierto = false;
+            state.egresoSeleccionado = null;
+        },
     },
     extraReducers: (builder) => {
         //Cases de crear egreso
@@ -24,7 +34,7 @@ const egresosSlice = createSlice({
             .addCase(createEgresoThunk.fulfilled, (state, action) => {
                 state.error = null;
                 state.egresos.push(action.payload); // Se agrega directamente al estado
-                state.successMessage = 'Egreso creado exitosamente';
+                state.successMessage = action.payload;
             })
             .addCase(createEgresoThunk.rejected, (state, action) => {
                 state.error = action.payload;
@@ -58,23 +68,6 @@ const egresosSlice = createSlice({
                 state.error = action.payload;
             });
 
-        //Cases de obtener egresos por categoria
-
-        builder
-            .addCase(getByCategoryThunk.pending, (state) => {
-                state.loading = true;  // Empieza la carga
-                state.error = null;    // Limpio error previo
-            })
-            .addCase(getByCategoryThunk.fulfilled, (state, action) => {
-                state.loading = false;
-                state.error = null;
-                state.egresos = action.payload; // Se actualiza el estado con los egresos obtenidos
-            })
-            .addCase(getByCategoryThunk.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            });
-
         //Cases de obtener egresos por categoria o fecha
 
         builder
@@ -96,5 +89,5 @@ const egresosSlice = createSlice({
 
 });
 
-export const { clearSuccessMessage } = egresosSlice.actions;
+export const { clearSuccessMessage, abrirModalEgreso,cerrarModalEgreso} = egresosSlice.actions;
 export default egresosSlice.reducer;
