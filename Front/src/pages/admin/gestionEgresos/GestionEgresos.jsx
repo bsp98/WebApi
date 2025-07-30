@@ -5,17 +5,18 @@ import { Title } from '../../../components/iu/texts/Title'
 import { Table } from '../../../components/iu/table/Table'
 import { ButtonRedirect } from '../../../components/iu/buttons/ButtonRedirect'
 import { useNavigate } from 'react-router-dom'
-import { useEgresos} from '../../../hooks/useEgresos';
+import { useEgresos } from '../../../hooks/useEgresos';
 import { useEffect } from 'react'
 import { MessageError } from '../../../components/iu/messages/MessageError'
 import { Spinner } from '../../../components/iu/spinner/Spinner'
 import { Modal } from '../../../components/iu/messages/Modal'
-import { FilterBusqueda } from '../../../components/iu/filter/FilterBusqueda'
 import { Paginacion } from '../../../components/iu/paginacion/Paginacion'
+import { ModalInfoEgreso } from '../../../components/egresos/modal/ModalInfoEgreso'
+import { FilterBusquedaSelect } from '../../../components/iu/filter/FilterBusquedaSelect'
 import moment from 'moment'
 
 export const GestionEgresos = () => {
-  const { error, egresos,egresoSeleccionado, total, currentPage, loading,modalEgresoAbierto, eliminarEgreso, successMessage, limpiarMensajeExito, filtrarEgresos, onbtenerEgresosPaginados,cerrarModalInfoEgreso,abrirModalInfoEgreso } = useEgresos();
+  const { error, egresos, egresoSeleccionado, total, currentPage, loading, modalEgresoAbierto, eliminarEgreso, successMessage, limpiarMensajeExito, filtrarEgresos, onbtenerEgresosPaginados, cerrarModalInfoEgreso, abrirModalInfoEgreso } = useEgresos();
   const navigate = useNavigate();
 
 
@@ -31,10 +32,18 @@ export const GestionEgresos = () => {
 
 
   const columns = [
-    { header: 'Fecha', render: (dato) => moment(dato.fechaDeNacimiento).format('DD/MM/YYYY') },
-    { header: 'Categoría', render: (dato) => dato.categoriaNombre },
+    { header: 'Fecha', render: (dato) => moment(dato.fecha).format('DD/MM/YYYY') },
+    { header: 'Categoría', render: (dato) => dato.nombreCategoria },
     { header: 'Lugar', render: (dato) => dato.lugar },
-    { header: 'Costo', render: (dato) => dato.costo },
+    { header: 'Costo', render: (dato) => dato.monto },
+  ];
+
+  const optionsSelect = [
+    { name: "Esmaltes", value: 0 },
+    { name: "Insumos", value: 1 },
+    { name: "Herramientas", value: 2 },
+    { name: "Decoracion", value: 3 },
+    { name: "Gastos comunes", value: 4 }
   ];
 
   return (
@@ -44,7 +53,7 @@ export const GestionEgresos = () => {
       <Title text={"Panel de egresos"} />
 
       <div className='container_filter_egresos'>
-        <FilterBusqueda actionOnSubmit={filtrarEgresos} tipoInput1={"text"} label1={"Categoría:"}  placeHolder1={"Ingrese la categoría"} name1={"nombre"} label2={"Fecha de egreso:"} name2={"fecha"}/>
+        <FilterBusquedaSelect actionOnSubmit={filtrarEgresos} label1={"Categoría:"} label2={"Fecha de egreso:"} name1={"categoria"} name2={"fecha"} options={optionsSelect} defaultValueSelect={"Seleccione una categoría"} />
       </div>
 
       <Paginacion currentPage={currentPage} totalPages={Math.ceil(total / 10)} onPageChange={onbtenerEgresosPaginados} />
@@ -61,7 +70,7 @@ export const GestionEgresos = () => {
 
       <ButtonRedirect btn_variant={"btn_primary"} width_btn={"btn_small"} textBtn={"AGREGAR EGRESO"} actionRedirect={agregarEgreso} />
 
-      {modalEgresoAbierto && <ModalInfoReserva reserva={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}
+      {modalEgresoAbierto && <ModalInfoEgreso reserva={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}
 
     </div>
   )

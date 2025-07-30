@@ -52,7 +52,7 @@ namespace Services.Services
 
             if (dto is ClienteGoogleDto clienteGoogleDto)
             {
-                AgregarClienteGoogle(clienteGoogleDto);
+                return AgregarClienteGoogle(clienteGoogleDto);
             }
 
             throw new NoExisteException("Tipo de usuario no reconocido.");

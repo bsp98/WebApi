@@ -15,22 +15,21 @@ export const useEgresos = () => {
 
         const nuevoEgreso = {
             fecha: moment(form.fechaDeCompra.value, "DD/MM/YYYY").format('YYYY-MM-DD'),
-            categoria: +form.categoria.value,
+            categoriaEgreso: form.categoria.value ? +form.categoria.value : null,
             monto: +form.costo.value,
             lugar: form.lugar.value,
             descripcion: form.descripcion.value,
         };
-
         dispatch(createEgresoThunk(nuevoEgreso));
     };
 
-    ///////////////////
+
     const filtrarEgresos = (e) => {
         e.preventDefault();
         const form = e.target;
 
         const filtros = {
-            categoria: form.categoria?.value || null,
+            categoria: form.categoria.value ? +form.categoria.value : null,
             fecha: form.fecha?.value
                 ? moment(form.fecha.value, "DD/MM/YYYY").format("YYYY-MM-DD")
                 : null,

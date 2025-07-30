@@ -6,7 +6,7 @@ export const createEgresoThunk = createAsyncThunk(
   async (nuevoEgreso, thunkAPI) => {
     try {
 
-      const response = await createEgreso(nuevoEgreso);
+      const response  = await createEgreso(nuevoEgreso);
       return response;
 
     } catch (error) {
@@ -24,7 +24,7 @@ export const deleteEgresoThunk = createAsyncThunk(
     try {
 
       const response = await deleteEgreso(idEgreso);
-      await thunkAPI.dispatch(getAllEgresosThunk());
+      await thunkAPI.dispatch(getEgresosPaginadosThunk({ page: 1 , pageSize: 10 }));
       return response;
 
     } catch (error) {

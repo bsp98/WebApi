@@ -14,9 +14,9 @@ namespace Domain.Dto
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public CategoriaEgreso CategoriaEgreso { get; set; }
+        public CategoriaEgreso? CategoriaEgreso { get; set; }
 
-        public string NombreCategoria = string.Empty;
+        public string NombreCategoria  { get; set; } = string.Empty;
         public Double Monto { get; set; }
         public string Lugar { get; set; }
         public string Descripcion { get; set; }
@@ -36,6 +36,7 @@ namespace Domain.Dto
         {
             ValidarFecha();
             ValidarMonto();
+            ValidarCategoria();
         }
 
         private void ValidarMonto()
@@ -48,6 +49,12 @@ namespace Domain.Dto
         {
             if (Fecha == null)
                 throw new DatoIncorrectoException("La fecha no puede ser nula.");
+        }
+
+        private void ValidarCategoria()
+        {
+            if (CategoriaEgreso == null)
+                throw new DatoIncorrectoException("Debe seleccionar una categoría.");
         }
 
 

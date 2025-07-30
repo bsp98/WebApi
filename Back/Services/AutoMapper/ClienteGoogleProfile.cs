@@ -11,7 +11,7 @@ namespace Services.AutoMapper
         {
             CreateMap<Usuario, ClienteGoogleDto>().ForMember(dest => dest.NombreTipoUsuario,
                opt => opt.MapFrom(src => src.TipoUsuario.ToString())); ;
-            CreateMap<ClienteGoogleDto, Usuario>()
+            CreateMap<ClienteGoogleDto, Cliente>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id));
 
         }
