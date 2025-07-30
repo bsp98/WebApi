@@ -50,7 +50,7 @@ namespace WebApi
             {
                 options.AddPolicy("PermitirFrontendLocalhost", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173")
+                    policy.WithOrigins("http://localhost:5173", "https://delightful-bush-03f20bd10.1.azurestaticapps.net")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials();
