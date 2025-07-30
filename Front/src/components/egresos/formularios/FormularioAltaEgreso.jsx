@@ -1,11 +1,11 @@
 import React from 'react'
 import './formularioAltaEgreso.css'
-import { SelectForm } from '../iu/inputs/SelectForm';
-import { InputForm } from '../iu/inputs/InputForm';
-import { TextAreaForm } from '../iu/inputs/TextAreaForm';
-import { MessageError } from '../iu/messages/MessageError';
-import { ButtonSubmit } from '../iu/buttons/ButtonSubmit';
-import { InputDateFinal } from '../iu/inputs/InputDateFinal';
+import { SelectForm } from '../../iu/inputs/SelectForm';
+import { InputForm } from '../../iu/inputs/InputForm';
+import { TextAreaForm } from '../../iu/inputs/TextAreaForm';
+import { MessageError } from '../../iu/messages/MessageError';
+import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit';
+import { InputDateFinal } from '../../iu/inputs/InputDateFinal';
 
 
 export const FormularioAltaEgreso = ({ crearEgreso, formRef, error }) => {

@@ -3,7 +3,7 @@ import { createEgresoThunk, deleteEgresoThunk, getEgresosPaginadosThunk, getByFi
 
 const initialState = {
     egresos: [],
-    egresoSeleccionado,
+    egresoSeleccionado:null,
     total: 0,
     currentPage: 1,
     loading: false,
@@ -62,6 +62,7 @@ const egresosSlice = createSlice({
                 state.egresos = action.payload.data;
                 state.total = action.payload.totalItems;
                 state.currentPage = action.meta.arg.page;
+                console.log("egresos retornados paginado",state.egresos)
             })
             .addCase(getEgresosPaginadosThunk.rejected, (state, action) => {
                 state.loading = false;

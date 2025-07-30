@@ -97,7 +97,7 @@ namespace Services.Services
             var payload = await GoogleJsonWebSignature.ValidateAsync(idToken);
             string email = payload.Email;
 
-            var usuario = _servicioUsuario.ObtenerPorEmail(email);
+            var usuarioEncontrado = _servicioUsuario.ObtenerPorEmail(email);
 
             string nombreApellido = payload.Name;
             string[] partes = nombreApellido.Split(' '); // Divide el texto por espacio
@@ -105,15 +105,15 @@ namespace Services.Services
             string nombre = partes[0];
             string apellido = partes.Length > 1 ? partes[1] : "";
 
-            if (usuario == null)
+            if (usuarioEncontrado == null)
             {
-                usuario = new ClienteGoogleDto(email, nombre, apellido);
-                _servicioUsuario.Add(usuario);
+                ClienteGoogleDto nuevoCliente = new ClienteGoogleDto(email, nombre, apellido);
+                usuarioEncontrado = _servicioUsuario.Add(nuevoCliente);
             }
 
-            string tokenJwt = GenerarTokenJwt(usuario.Email, usuario.Nombre, usuario.TipoUsuario.ToString(), usuario.Id);
+            string tokenJwt = GenerarTokenJwt(usuarioEncontrado.Email, usuarioEncontrado.Nombre, usuarioEncontrado.TipoUsuario.ToString(), usuarioEncontrado.Id);
 
-            return (usuario, tokenJwt);
+            return (usuarioEncontrado, tokenJwt);
         }
 
     }
