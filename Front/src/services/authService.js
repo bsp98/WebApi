@@ -3,7 +3,8 @@
 export async function loginUser({ email, password }) {
     console.log("datos para la peticion", { email, password })
 
-    const response = await fetch('http://localhost:5164/api/Autenticacion/Login', {
+    const response = await fetch('https://webapictvwapa.azurewebsites.net/api/Autenticacion/Login', { /*  login azure 'https://webapictvwapa.azurewebsites.net/api/Autenticacion/Login'
+                                                                                                        login local 'http://localhost:5164/api/Autenticacion/Login'*/
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -32,7 +33,8 @@ export async function loginUser({ email, password }) {
 
 //Login gooogle
 export async function loginConGoogle(IdToken) {
-    const response = await fetch('http://localhost:5164/api/Autenticacion/GoogleLogin', {
+    const response = await fetch('https://webapictvwapa.azurewebsites/api/Autenticacion/GoogleLogin', { /*  login azure 'https://webapictvwapa.azurewebsites/api/Autenticacion/GoogleLogin'
+                                                                                                        login local http://localhost:5164/api/Autenticacion/GoogleLogin*/
         method: 'POST',
         credentials: 'include',
         headers: {
