@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAcces.Interfaces.CRUD;
+using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace DataAcces.Interfaces
 {
-    internal interface IRepositorioPublicacion
+    public interface IRepositorioPublicacion: IRepositoryAdd<Publicacion>, IRepositoryRemove<Publicacion>,IRepositoryGetAll<Publicacion>
     {
+
     }
 }
