@@ -1,0 +1,70 @@
+/*Estilos modal info egreso*/
+.fondo_modal_egreso {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.contenido_modal_egreso {
+    width: 50%;
+    max-width: 630px;
+    height: 50%;
+    max-height: 600px;
+    padding: 4rem;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+    font-family: 'Inter SemiBold', sans-serif;
+    font-weight: 600;
+    font-size: 2.4rem;
+    color: var(--color-texto);
+}
+
+.container_info_modal_egreso{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.infoegreso_modal{
+    width: 100%;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    gap:0.4rem;
+}
+
+.group_info_modal_egreso{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.titel_modal_egreso{
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+.icon_modal_egreso{
+    font-size: 2rem;
+}
+
+.info_modal_egreso{
+    text-align: left;
+}

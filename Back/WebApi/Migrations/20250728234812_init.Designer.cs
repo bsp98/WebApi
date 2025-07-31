@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20250721234427_CTVWAPA")]
-    partial class CTVWAPA
+    [Migration("20250728234812_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,16 +227,14 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoUsuario")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                    b.Property<int>("TipoUsuario")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
 
-                    b.HasDiscriminator<string>("TipoUsuario").HasValue("Usuario");
+                    b.HasDiscriminator<int>("TipoUsuario");
 
                     b.UseTphMappingStrategy();
                 });
@@ -245,7 +243,7 @@ namespace WebApi.Migrations
                 {
                     b.HasBaseType("Domain.Models.Usuario");
 
-                    b.HasDiscriminator().HasValue("Administrador");
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>
@@ -259,10 +257,16 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaDeNacimiento")
+                    b.Property<DateTime?>("FechaAceptacion")
                         .HasColumnType("datetime2");
 
-                    b.HasDiscriminator().HasValue("Cliente");
+                    b.Property<DateTime?>("FechaDeNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("PoliticasAceptadas")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue(0);
                 });
 
             modelBuilder.Entity("Domain.Models.BloqueHorario", b =>

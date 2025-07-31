@@ -14,7 +14,7 @@ namespace Services.AutoMapper
         public ReservaProfile()
         {
             CreateMap<Reserva, ReservaDto>().ForMember(dest => dest.NombreEstadoDePago,
-               opt => opt.MapFrom(src => src.EstadoDePago.ToString())); ;
+               opt => opt.MapFrom(src => src.EstadoDePago.ToString()));
             CreateMap<ReservaDto, Reserva>();
             //    .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id))
             //.ForMember(dest => dest.EstadoDePago, opt => opt.MapFrom(src => src.EstadoDePago.ToString()));

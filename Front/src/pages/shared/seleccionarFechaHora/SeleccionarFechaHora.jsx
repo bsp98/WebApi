@@ -59,7 +59,7 @@ export const SeleccionarFechaHora = () => {
       }
     }
 
-    if (rol === "admin") {
+    if (rol === "Administrador") {
       setLoadingTableReservas(true);
       try {
         await obtenerReservasPorFecha(fecha).unwrap();
@@ -101,7 +101,7 @@ export const SeleccionarFechaHora = () => {
   const redirectInicioUsuario = () => {
     limpiarMensajeExito();
 
-    if (rol === "admin") {
+    if (rol === "Administrador") {
       navigate('/admin/inicio');
     }
     else {
@@ -171,7 +171,7 @@ export const SeleccionarFechaHora = () => {
       </div>
 
 
-      {usuario.rolUsuario === "admin" &&
+      {usuario.rolUsuario === "Administrador" &&
         <div className="area-tabla">
           <p>Reservas de la fecha seleccionada</p>
           <Table columns={columns} datos={reservas} textBtn1={"Ver más"} actionBtn1={abrirModalInfoReserva} table_width={"table_big"} class_margin={"table_margin_none"} />

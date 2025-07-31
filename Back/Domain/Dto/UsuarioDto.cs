@@ -19,19 +19,26 @@ namespace Domain.Dto
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
 
+        public TipoUsuario TipoUsuario { get; set; }
+        public string NombreTipoUsuario { get; set; } = string.Empty;
+
         public string OrigenCreacion { get; set; }
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public TipoUsuario Tipo { get; set; }
-
-        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion, TipoUsuario tipo)
+        // [JsonConverter(typeof(JsonStringEnumConverter))]
+        public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
             OrigenCreacion = origenCreacion;
-            Tipo= tipo;
+        }
+        //constructor para usario de google
+        public UsuarioDto(string email, string nombre, string apellido)
+        {
+            Email = email;
+            Nombre = nombre;
+            Apellido = apellido;
         }
         public UsuarioDto() { }
 

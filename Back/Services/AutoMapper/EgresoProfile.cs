@@ -13,7 +13,8 @@ namespace Services.AutoMapper
     {
         public EgresoProfile()
         {
-            CreateMap<Egreso, EgresoDto>();
+            CreateMap<Egreso, EgresoDto>().ForMember(dest => dest.NombreCategoria,
+               opt => opt.MapFrom(src => src.CategoriaEgreso.ToString()));
             CreateMap<EgresoDto, Egreso>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id));
 

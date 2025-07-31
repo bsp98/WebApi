@@ -27,7 +27,7 @@ export const FormularioReserva = () => {
   const rol = usuario?.rolUsuario || null;
   const idUsuarioAut = usuario?.idUsuario || null;
   const estado = "noPago";
-  const cliente = rol === "admin" ? (clientes[0] || null) : clienteSeleccionado;
+  const cliente = rol === "Administrador" ? (clientes[0] || null) : clienteSeleccionado;
 
   //limpia los datos del cliente Cuando el componente se desmonta
   useEffect(() => {
@@ -42,7 +42,7 @@ export const FormularioReserva = () => {
 
   /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
   useEffect(() => {
-    if (rol === "cliente" && idUsuarioAut) {
+    if (rol === "Cliente" && idUsuarioAut) {
       obtenerClientePorId(idUsuarioAut)
     }
   }, [rol, idUsuarioAut]);
@@ -60,8 +60,8 @@ export const FormularioReserva = () => {
 
   const handleAgendarReserva = (datosCliente) => {
 
-    if (estado === "pago" && rol === "cliente" || rol === "publico") {
-      if (rol === "cliente") {
+    if (estado === "pago" && rol === "Ciente" || rol === "Publico") {
+      if (rol === "Cliente") {
         navigate("/cliente/confirmar-reserva");
       }
       else {
@@ -92,15 +92,15 @@ export const FormularioReserva = () => {
 
   const handleHorarioOcupado = () => {
     limpiarHorarioOcupadoError();
-    if (rol === "admin") {
+    if (rol === "Administrador") {
       navigate(`/admin/fecha-hora/crear/${id}`);
     }
 
-    if (rol === "cliente") {
+    if (rol === "Cliente") {
       navigate(`/cliente/fecha-hora/crear/${id}`);
     }
 
-    if (rol === "publico") {
+    if (rol === "Publico") {
       navigate(`/fecha-hora/crear/${id}`);
     }
   }
@@ -109,15 +109,15 @@ export const FormularioReserva = () => {
 
     limpiarMensajeExito();
 
-    if (rol === "admin") {
+    if (rol === "Administrador") {
       navigate(`/admin/inicio`);
     }
 
-    if (rol === "cliente") {
+    if (rol === "Cliente") {
       navigate(`/cliente/inicio`);
     }
 
-    if (rol === "publico") {
+    if (rol === "Publico") {
       navigate(`/inicio`);
     }
   }
@@ -126,8 +126,8 @@ export const FormularioReserva = () => {
     <div className="container_page">
 
       <div className="formulario_reserva__filtros">
-        {rol === "admin" && <Switch label={"Cliente registrado"} name={"clienteRegistrado"} switch_style={"container_switch_reserva"} onChange={activarBusquedaClienta} />}
-        {rol === "admin" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Celular cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el celular del cliente"} name1={"nombre"} name2={"celular"} />}
+        {rol === "Administrador" && <Switch label={"Cliente registrado"} name={"clienteRegistrado"} switch_style={"container_switch_reserva"} onChange={activarBusquedaClienta} />}
+        {rol === "Administrador" && clientaRegistrada && <FilterBusqueda actionOnSubmit={filtrarClientes} tipoInput1={"text"} tipoInput2={"text"} label1={"Nombre cliente:"} label2={"Celular cliente:"} placeHolder1={"Ingrese el nombre del cliente"} placeHolder2={"Ingrese el celular del cliente"} name1={"nombre"} name2={"celular"} />}
       </div>
 
       <div className="formulario_reserva__contenido">

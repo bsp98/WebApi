@@ -12,12 +12,13 @@ namespace Domain.Models
         {
         }
 
-        public Administrador(string email, string password, string nombre, string apellido) : base(email, password, nombre, apellido)
+        public Administrador(string email, string password, string nombre, string apellido, TipoUsuario tipoUsuario) : base(email, password, nombre, apellido,tipoUsuario)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
+            TipoUsuario = tipoUsuario;
 
         }
     }

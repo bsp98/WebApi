@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAcces.Repositories
 {
-    public class Contexto:DbContext
+    public class Contexto : DbContext
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
@@ -22,11 +22,16 @@ namespace DataAcces.Repositories
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Usuario>()
+                .HasDiscriminator<TipoUsuario>("TipoUsuario") // <- tu propiedad actual
+                .HasValue<Cliente>(TipoUsuario.Cliente)
+                .HasValue<Administrador>(TipoUsuario.Administrador);
+
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Entity<Usuario>().HasDiscriminator<string>("TipoUsuario").HasValue<Cliente>("Cliente").HasValue<Administrador>("Administrador");
 
 
-            modelBuilder.Entity<Usuario>().HasDiscriminator<string>("TipoUsuario").HasValue<Cliente>("Cliente").HasValue<Administrador>("Administrador");
-
-           
             //modelBuilder.Entity<Usuario>().HasDiscriminator<TipoUsuario>("Tipo").HasValue<Cliente>(TipoUsuario.Cliente).HasValue<Administrador>(TipoUsuario.Administrador);
 
 

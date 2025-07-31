@@ -17,18 +17,27 @@ namespace Domain.Models
         public string Nombre { get; set; } = string.Empty;
         public string Apellido { get; set; } = string.Empty;
 
+        public TipoUsuario TipoUsuario { get; set; }
 
 
-        public Usuario(string email, string password, string nombre, string apellido)
+        public Usuario(string email, string password, string nombre, string apellido,TipoUsuario tipoUsuario)
         {
             Email = email;
             Password = password;
             Nombre = nombre;
             Apellido = apellido;
-           
-           
+            TipoUsuario = tipoUsuario;
 
         }
+
+        public Usuario(string email, string nombre, string apellido, TipoUsuario tipoUsuario)
+        {
+            Email = email;
+            Nombre = nombre;
+            Apellido = apellido;
+            TipoUsuario = tipoUsuario;
+        }
+
         public Usuario()
         {
         }

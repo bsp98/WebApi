@@ -34,7 +34,7 @@ namespace WebApi.Controllers
             {
                 EgresoDto EgresoIngresado = _servicioEgreso.Add(egresoDto);
 
-                return Ok(EgresoIngresado);
+                return Ok("Egreso creado con exito");
 
             }
             catch (ExisteException ee)
