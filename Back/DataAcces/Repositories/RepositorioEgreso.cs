@@ -38,6 +38,15 @@ namespace DataAcces.Repositories
             return Contexto.Set<Egreso>().Count();
         }
 
+
+        public IEnumerable<Egreso> GetPorMesYAnio(int mes, int anio)
+        {
+            return Contexto.Set<Egreso>().Where(e => e.Fecha.Month == mes && e.Fecha.Year == anio).ToList();
+        }
+        public IEnumerable<Egreso> GetPorAnio(int anio)
+        {
+            return Contexto.Set<Egreso>().Where(e => e.Fecha.Year == anio).ToList();
+        }
     }
 
 

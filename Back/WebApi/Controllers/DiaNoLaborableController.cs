@@ -1,6 +1,7 @@
 ﻿using Domain.Dto;
 using Domain.Exceptions;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -20,7 +21,8 @@ namespace WebApi.Controllers
             _servicioDiaNoLaborable = servicioDiaNoLaborable;
         }
 
-        ///[Authorize]
+        
+        [Authorize(Roles = "Administrador")]
         [HttpPost("Agregar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -50,6 +52,7 @@ namespace WebApi.Controllers
 
        
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -69,7 +72,8 @@ namespace WebApi.Controllers
         }
 
 
-        ///[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()

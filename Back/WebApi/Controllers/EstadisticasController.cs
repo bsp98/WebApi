@@ -1,4 +1,5 @@
 ﻿using Domain.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -15,11 +16,17 @@ namespace WebApi.Controllers
             _servicioEstadistica = servicioEstadistica;
         }
 
+
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet("resumen")]
-        public ActionResult<GeneralEstadisticaDto> GetResumenGeneral()
+        public IActionResult ObtenerResumen([FromQuery] int? anio)
         {
-            GeneralEstadisticaDto resumen = _servicioEstadistica.ObtenerResumenGeneral();
-            return Ok(resumen);
+            var resultado = _servicioEstadistica.ObtenerResumenGeneral(anio);
+            return Ok(resultado);
         }
+
+
+
     }
 }
