@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace DataAcces.Interfaces
 {
-    public interface IRepositorioPublicacion: IRepositoryAdd<Publicacion>, IRepositoryRemove<Publicacion>,IRepositoryGetAll<Publicacion>
+    public interface IRepositorioPublicacion: IRepositoryAdd<Publicacion>, IRepositoryRemove<Publicacion>,IRepositoryGetAll<Publicacion>, IRepositoryGetById<Publicacion>
     {
-
+        Task<Publicacion> ObtenerPorIdAsync(int id);
+        Task EliminarAsync(Publicacion publicacion);
+        Task<List<Publicacion>> ObtenerTodasAsync();
+        Task AgregarAsync(Publicacion publicacion);
     }
 }

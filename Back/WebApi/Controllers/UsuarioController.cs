@@ -66,7 +66,8 @@ namespace WebApi.Controllers
             try
             {
                 dto.Validar();
-                string email = User.Identity.Name;
+                string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+               // Console.WriteLine("EMAIL DEL USUARIO AUTENTICADO: " + email);
                 _servicioUsuario.CambiarPasswordPerfil(email, dto.PasswordActual, dto.NuevaPassword);
                 return Ok("Contraseña actualizada correctamente.");
             }

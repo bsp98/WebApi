@@ -15,7 +15,27 @@ namespace DataAcces.Repositories
         {
             Contexto = contexto;
         }
+        public async Task<Publicacion> ObtenerPorIdAsync(int id)
+        {
+            return await Contexto.Set<Publicacion>().FindAsync(id);
+        }
 
+        public async Task EliminarAsync(Publicacion publicacion)
+        {
+            Contexto.Set<Publicacion>().Remove(publicacion);
+            await Contexto.SaveChangesAsync();
+        }
+
+        public async Task<List<Publicacion>> ObtenerTodasAsync()
+        {
+            return await Contexto.Set<Publicacion>().OrderByDescending(p => p.FechaPublicacion).ToListAsync();
+        }
+
+        public async Task AgregarAsync(Publicacion publicacion)
+        {
+            Contexto.Set<Publicacion>().Add(publicacion);
+            await Contexto.SaveChangesAsync();
+        }
 
     }
 }
