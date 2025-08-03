@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using Domain.Exceptions;
 
 namespace Services.Services
 {
@@ -239,5 +240,20 @@ namespace Services.Services
             string cuerpo = $"<p>Tu código de recuperación es: <strong>{codigo}</strong></p>";
             await _servicioEmail.EnviarEmailAsync(email, "Código de recuperación", cuerpo);
         }
+
+
+        public void CambiarPasswordPerfil(string email, string passwordActual, string nuevaPassword)
+        {
+            Usuario usuario = _repositorioUsuario.ObtenerPorEmail(email);
+            if (usuario == null)
+                throw new NoExisteException("Usuario no encontrado.");
+
+            if (usuario.Password != passwordActual) 
+                throw new DatoIncorrectoException("La contraseña actual no es correcta.");
+
+            usuario.Password = nuevaPassword;
+            _repositorioUsuario.Update(usuario);
+        }
     }
 }
+

@@ -57,6 +57,30 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize] 
+        [HttpPatch("cambiar-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CambiarPasswordPerfil([FromBody] CambiarPasswordDto dto)
+        {
+            try
+            {
+                dto.Validar();
+                string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+               // Console.WriteLine("EMAIL DEL USUARIO AUTENTICADO: " + email);
+                _servicioUsuario.CambiarPasswordPerfil(email, dto.PasswordActual, dto.NuevaPassword);
+                return Ok("Contraseña actualizada correctamente.");
+            }
+            catch (DatoIncorrectoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NoExisteException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
 
         [AllowAnonymous]
         [HttpPatch("olvido-password")]
@@ -81,6 +105,10 @@ namespace WebApi.Controllers
             }
         }
 
+
+
+
+
         [AllowAnonymous]
         [HttpPost("solicitar-codigo")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -99,8 +127,9 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+        
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -129,7 +158,7 @@ namespace WebApi.Controllers
 
 
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpPatch("desactivar/{id}")]
         public IActionResult Desactivar(int id)
         {
@@ -152,7 +181,7 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPorFiltro([FromQuery] ClienteFiltrosDto filtros)
@@ -166,7 +195,6 @@ namespace WebApi.Controllers
         }
 
         [Authorize(Roles="Administrador")]
-        //[AllowAnonymous]
         [HttpGet("GetTodos")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -183,9 +211,8 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
-        
-       // [Authorize(Roles = "Cliente")]
-        //[AllowAnonymous]
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -230,6 +257,8 @@ namespace WebApi.Controllers
         }
 
        
+
+
 
     }
 

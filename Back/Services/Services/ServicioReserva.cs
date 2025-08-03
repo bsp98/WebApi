@@ -83,7 +83,7 @@ namespace Services.Services
                 
                 if (usu == null) throw new NoExisteException("Cliente no encontrado");
                 if (usu is not Cliente cliente)
-                    throw new Exception("El usuario no es un cliente");
+                    throw new DatoIncorrectoException("El usuario no es un cliente");
                 //Creo la reserva con el constructor con clienteId
                 
 

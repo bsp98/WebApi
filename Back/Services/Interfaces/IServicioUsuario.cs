@@ -24,6 +24,8 @@ namespace Services.Interfaces
         void CambiarPassword(string email, string nuevaPassword);
         Task EnviarCodigoRecuperacionAsync(string email);
         void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword);
+        public void CambiarPasswordPerfil(string email, string passwordActual, string nuevaPassword);
+        
 
 
     }

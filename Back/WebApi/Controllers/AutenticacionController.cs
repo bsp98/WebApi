@@ -87,7 +87,7 @@ namespace WebApi.Controllers
                 Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
                 {
                     HttpOnly = true,
-                    Secure = false,
+                    Secure = true,
                     SameSite = SameSiteMode.Strict,
                     Expires = DateTimeOffset.UtcNow.AddHours(1)
                 });

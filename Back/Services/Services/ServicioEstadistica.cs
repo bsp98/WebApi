@@ -21,120 +21,100 @@ namespace Services.Services
             _repositorioEgreso=repositorioEgreso;
         }
 
-        public GeneralEstadisticaDto ObtenerResumenGeneral()
+        public GeneralEstadisticaDto ObtenerResumenGeneral(int? anioFiltro = null)
         {
-            IEnumerable<Reserva> reservas = _repositorioReserva.GetAll(); // incluye servicios, fecha y precio?
+            int mesActual = DateTime.Now.Month;
+            int anioActual = DateTime.Now.Year;
+            int anioConsulta = anioFiltro ?? anioActual;
 
-            IEnumerable<Egreso> egresos = _repositorioEgreso.GetAll();
+            double ingresosTotales = CalcularIngresosDelMes(mesActual, anioActual);
+            double egresosTotales = CalcularEgresosDelMes(mesActual, anioActual);
 
-            double ingresosTotales = 0;
-            foreach (Reserva r in reservas)
+            List<BalanceMensualDto> balances = CalcularBalancesMensuales(anioConsulta);
+            List<EstadisticaServicioDto> estadisticasServicios = CalcularEstadisticasServicios(anioConsulta);
+
+            return new GeneralEstadisticaDto
             {
-                ingresosTotales += r.Servicio.Precio;
-            }
+                TotalIngresos = ingresosTotales,
+                TotalEgresos = egresosTotales,
+                BalancesMensuales = balances,
+                EstadisticasServicios = estadisticasServicios
+            };
+        }
+
+        private double CalcularIngresosDelMes(int mes, int anio)
+        {
+            IEnumerable<Reserva> reservas = _repositorioReserva.GetPorMesYAnio(mes, anio);
+            return reservas.Sum(r => r.Servicio.Precio);
+        }
+
+        private double CalcularEgresosDelMes(int mes, int anio)
+        {
+            IEnumerable<Egreso> egresos = _repositorioEgreso.GetPorMesYAnio(mes, anio);
+            return egresos.Sum(e => e.Monto);
+        }
+
+        private List<BalanceMensualDto> CalcularBalancesMensuales( int anio)
+        {
+            List<Reserva> reservasFiltradas = _repositorioReserva.GetPorAnio(anio).ToList();
+            List<Egreso> egresosFiltrados = _repositorioEgreso.GetPorAnio(anio).ToList();
 
 
-            double egresosTotales = 0;
-            foreach (Egreso e in egresos)
-            {
-                egresosTotales += e.Monto;
-            }
+            var reservasAgrupadas = reservasFiltradas.GroupBy(r => r.Fecha.Month);
 
             List<BalanceMensualDto> balances = new List<BalanceMensualDto>();
 
-            Dictionary<(int anio, int mes), List<Reserva>> reservasAgrupadas = new Dictionary<(int, int), List<Reserva>>();
-
-            foreach (Reserva r in reservas)
+            foreach (var grupo in reservasAgrupadas)
             {
-                int anio = r.Fecha.Year;
-                int mes = r.Fecha.Month;
-                (int, int) clave = (anio, mes);
+                int mes = grupo.Key;
+                double ingresos = grupo.Sum(r => r.Servicio.Precio);
+                double egresosMes = egresosFiltrados.Where(e => e.Fecha.Month == mes).Sum(e => e.Monto);
 
-                if (!reservasAgrupadas.ContainsKey(clave))
+                BalanceMensualDto balance = new BalanceMensualDto
                 {
-                    reservasAgrupadas[clave] = new List<Reserva>();
-                }
-
-                reservasAgrupadas[clave].Add(r);
-            }
-
-            foreach (KeyValuePair<(int anio, int mes), List<Reserva>> grupo in reservasAgrupadas)
-            {
-                int anio = grupo.Key.anio;
-                int mes = grupo.Key.mes;
-                List<Reserva> reservasMes = grupo.Value;
-
-                double ingresosMes = 0;
-                foreach (Reserva r in reservasMes)
-                {
-                    ingresosMes += r.Servicio.Precio;
-                }
-
-                double egresosMes = 0;
-                foreach (Egreso e in egresos)
-                {
-                    if (e.Fecha.Year == anio && e.Fecha.Month == mes)
-                    {
-                        egresosMes += e.Monto;
-                    }
-                }
-
-                BalanceMensualDto balance = new BalanceMensualDto();
-                balance.Anio = anio;
-                balance.Mes = mes;
-                balance.Ingresos = ingresosMes;
-                balance.Egresos = egresosMes;
+                    Anio = anio,
+                    Mes = mes,
+                    Ingresos = ingresos,
+                    Egresos = egresosMes,
+                    Balance = ingresos - egresosMes
+                };
 
                 balances.Add(balance);
             }
 
-            int totalReservas = reservas.Count();
+            return balances;
+        }
 
-            Dictionary<string, List<Reserva>> reservasPorServicio = new Dictionary<string, List<Reserva>>();
-            foreach (Reserva r in reservas)
+        private List<EstadisticaServicioDto> CalcularEstadisticasServicios(int anio)
+        {
+            List<Reserva> reservasFiltradas = _repositorioReserva.GetPorAnio(anio).ToList();
+            int total = reservasFiltradas.Count;
+
+            var agrupadas = reservasFiltradas.GroupBy(r => r.Servicio.Nombre);
+
+            List<EstadisticaServicioDto> estadisticas = new List<EstadisticaServicioDto>();
+
+            foreach (var grupo in agrupadas)
             {
-                string nombreServicio = r.Servicio.Nombre;
+                var primera = grupo.First();
+                double porcentaje = total > 0 ? Math.Round((double)grupo.Count() / total * 100, 2) : 0;
+                double ganancia = grupo.Sum(r => r.Servicio.Precio);
 
-                if (!reservasPorServicio.ContainsKey(nombreServicio))
+                EstadisticaServicioDto dto = new EstadisticaServicioDto
                 {
-                    reservasPorServicio[nombreServicio] = new List<Reserva>();
-                }
+                    Nombre = grupo.Key,
+                    Categoria = primera.Servicio.Categoria,
+                    Precio = primera.Servicio.Precio,
+                    Porcentaje = porcentaje,
+                    Ganancia = ganancia
+                };
 
-                reservasPorServicio[nombreServicio].Add(r);
+                estadisticas.Add(dto);
             }
 
-            List<EstadisticaServicioDto> estadisticasServicios = new List<EstadisticaServicioDto>();
-
-            foreach (KeyValuePair<string, List<Reserva>> grupo in reservasPorServicio)
-            {
-                string nombre = grupo.Key;
-                List<Reserva> reservasServicio = grupo.Value;
-                Reserva primeraReserva = reservasServicio.First();
-
-                EstadisticaServicioDto estadistica = new EstadisticaServicioDto();
-                estadistica.Nombre = nombre;
-                estadistica.Categoria = primeraReserva.Servicio.Categoria;
-                estadistica.Precio = primeraReserva.Servicio.Precio;
-                estadistica.Porcentaje = Math.Round((double)reservasServicio.Count / totalReservas * 100, 2);
-                estadistica.Ganancia = 0;
-
-                foreach (Reserva r in reservasServicio)
-                {
-                    estadistica.Ganancia += r.Servicio.Precio;
-                }
-
-                estadisticasServicios.Add(estadistica);
-            }
-
-            GeneralEstadisticaDto resultado = new GeneralEstadisticaDto();
-            resultado.TotalIngresos = ingresosTotales;
-            resultado.TotalEgresos = egresosTotales;
-            resultado.BalancesMensuales = balances;
-            resultado.EstadisticasServicios = estadisticasServicios;
-
-            return resultado;
+            return estadisticas;
         }
     }
-    
-    
+
+
 }
