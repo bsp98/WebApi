@@ -70,3 +70,13 @@
   margin-right: 2rem;
 }
 
+/*estilos filtro estadisticas*/
+.form_busqueda_numeric{
+    width: 100%;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    gap:5rem;
+
+}
