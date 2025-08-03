@@ -12,13 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(Contexto))]
-<<<<<<<< HEAD:Back/WebApi/Migrations/20250722003040_CTVWAPA.Designer.cs
-    [Migration("20250722003040_CTVWAPA")]
-    partial class CTVWAPA
-========
+
+
     [Migration("20250728234812_init")]
     partial class init
->>>>>>>> Dev:Back/WebApi/Migrations/20250728234812_init.Designer.cs
+ 
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -311,3 +309,4 @@ namespace WebApi.Migrations
         }
     }
 }
+
