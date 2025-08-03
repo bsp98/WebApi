@@ -9,7 +9,7 @@ import { useAuth } from '../../../hooks/useAuth'
 
 export const Login = () => {
   const formRef = useRef(null);
-  const { error, login, loginGoogle, setErrorGoogle, token, usuario,limpiarMensajeError} = useAuth();
+  const { error, login, loginGoogle, setErrorGoogle, usuario,limpiarMensajeError} = useAuth();
   const navigate = useNavigate();
 
     useEffect(() => {
@@ -28,16 +28,17 @@ export const Login = () => {
   }, []);
 
   useEffect(() => {
+    console.log("entro al usseffect de login redirect")
 
-    if (!token || !usuario) return;
+    if (!usuario) return;
 
-    if (usuario.rolUsuario === "admin") {
+    if (usuario.rolUsuario === "Administrador") {
       navigate("/admin/inicio");
-    } else if (usuario.rolUsuario === "cliente") {
+    } else if (usuario.rolUsuario === "Cliente") {
       navigate("/cliente/inicio");
     }
 
-  }, [token, usuario]);
+  }, [usuario]);
 
 
   return (

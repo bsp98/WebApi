@@ -1,16 +1,4 @@
 
-export const guardarToken = (token) => {
-  localStorage.setItem("token", token);
-}
-
-export const obtenerToken = () => {
-  return localStorage.getItem("token");
-}
-
-export const eliminarToken = () => {
-  localStorage.removeItem("token");
-}
-
 export const guardarUsuario = (usuario) => {
   localStorage.setItem("usuario", JSON.stringify(usuario));
 }
@@ -25,6 +13,5 @@ export const eliminarUsuario = () => {
 }
 
 export const limpiarAuthStorage = () => {
-  eliminarToken();
   eliminarUsuario();
 }

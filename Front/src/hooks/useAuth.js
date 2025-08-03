@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-    const { usuario, token, error, successMessage, authLoaded } = useSelector((state) => state.auth);
+    const { usuario,error, successMessage, authLoaded } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -27,9 +27,8 @@ export const useAuth = () => {
 
 
     const loginGoogle = (credentialResponse) => {
-        console.log("Credencial inyectada por google", credentialResponse)
         const token = credentialResponse.credential;
-        dispatch(loginUserThunk({ tokenGoogle: token }));
+       dispatch(loginUserThunk({ tokenGoogle: token }));
 
     }
 
@@ -60,8 +59,10 @@ export const useAuth = () => {
                 fechaDeNacimiento: moment(form.fechaDeNacimiento.value, "DD/MM/YYYY").format('YYYY-MM-DD'),
                 celular: form.celular.value,
                 password: form.password.value,
+                origenCreacion: "cliente",
+                activo: true,
                 politicasAceptadas: true,
-                fechaAceptacion: moment().format("YYYY-MM-DD HH:mm:ss"),
+                fechaAceptacion: moment().format("YYYY-MM-DD"), //HH:mm:ss
             }
 
            dispatch(registroUserThunk(datosRegistro));
@@ -85,8 +86,8 @@ export const useAuth = () => {
         dispatch(setError("Error en el login de google"));
     }
 
-    const setDatosAuthDelStorage = (usuario, token) => {
-        dispatch(setAuthDesdeStorage({ usuario, token }));
+    const setDatosAuthDelStorage = (usuario) => {
+        dispatch(setAuthDesdeStorage({usuario}));
     }
 
     const setLoadDeCargaDeDatos = (seCargaronDatos) => {
@@ -97,7 +98,6 @@ export const useAuth = () => {
 
     return {
         usuario,
-        token,
         error,
         successMessage,
         login,

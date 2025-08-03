@@ -20,7 +20,12 @@ namespace Domain.Dto
         public List<Reserva>? Reservas { get; set; }
         public bool Activo { get; set; }
 
-        public ClienteDto(string email, string password, string nombre, string apellido, string origenCreacion,TipoUsuario tipo, DateTime fechaDeNacimiento,string celular,bool activo) : base(email, password, nombre, apellido,origenCreacion, tipo)
+        public bool PoliticasAceptadas { get; set; }
+
+        public DateTime FechaAceptacion { get; set; }
+
+
+        public ClienteDto(string email, string password, string nombre, string apellido, string origenCreacion, DateTime fechaDeNacimiento,string celular,bool activo, bool politicasAceptadas, DateTime fechaAceptacion) : base(email, password, nombre, apellido,origenCreacion)
         {
             Email= email;
             Password= password;
@@ -30,8 +35,9 @@ namespace Domain.Dto
             FechaDeNacimiento =fechaDeNacimiento;
             Celular=celular;
             Activo= activo;
-            Tipo= tipo;
-
+            PoliticasAceptadas = politicasAceptadas;
+            FechaAceptacion = fechaAceptacion;
+            TipoUsuario = TipoUsuario.Cliente;
         }
 
         public ClienteDto() { }
@@ -42,6 +48,7 @@ namespace Domain.Dto
             base.Validar();
             ValidarFechaDeNacimiento();
             ValidarCelular();
+            ValidarPoliticasPrivacidad();
         }
 
         public void ValidarCelular()
@@ -63,6 +70,19 @@ namespace Domain.Dto
                 throw new DatoIncorrectoException("La fecha de nacimiento debe ser anterior al día de hoy."
 
 );
+        }
+
+
+        public void ValidarPoliticasPrivacidad(){
+            if (!PoliticasAceptadas) {
+                throw new DatoIncorrectoException("Debés aceptar nuestras políticas para continuar.");
+            }
+
+            if (FechaAceptacion == null)
+            {
+                throw new DatoIncorrectoException("Error en la fecha de la aceptacion de políticas.");
+            }
+
         }
 
 

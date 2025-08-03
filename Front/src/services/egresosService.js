@@ -1,6 +1,6 @@
 export async function createEgreso(egreso) {
-return "Egreso creado con exito"
- /* const response = await fetch('http://localhost:5164/api/Egreso/Agregar', {
+
+  const response = await fetch('http://localhost:5164/api/Egreso/Agregar', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,13 +26,12 @@ return "Egreso creado con exito"
     };
   }
 
-  return await response.json();*/
+  return await response.text();
 }
 
 
 export async function deleteEgreso(id) {
-    return "egreso eliminado con exito";
- /* const response = await fetch(`http://localhost:5164/api/Egreso/${id}`, {
+  const response = await fetch(`http://localhost:5164/api/Egreso/${id}`, {
     method: 'DELETE',
   });
 
@@ -54,7 +53,7 @@ export async function deleteEgreso(id) {
     };
   }
 
-  return await response.text(); // se retorna el mensaje devuelto*/
+  return await response.text();
 }
 
 
@@ -89,35 +88,13 @@ export async function getEgresosPaginados(page, pageSize) {
   return datos;
 }
 
-export async function getByCategory(categoria) {
-  //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
-return{};
- /* const response = await fetch(`http://localhost:5164/api/Egreso/Categoria/${categoria}`);
-
-  if (!response.ok) {
-    let customMessage = "Servidor fuera de servicio";
-
-    switch (response.status) {
-      case 422:
-        customMessage = await response.text();
-        break;
-    }
-
-    throw {
-      status: response.status,
-      message: customMessage,
-    };
-  }
-
-  return await response.json();*/
-}
 
 export async function getByFilter(filtros) {
   const params = new URLSearchParams();
 
   // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
   if (filtros.categoria) {
-    params.append("categoria", filtros.categoria);
+    params.append("categoriaEgreso", filtros.categoria);
   }
 
   // Agregamos 'fecha' solo si tiene valor válido

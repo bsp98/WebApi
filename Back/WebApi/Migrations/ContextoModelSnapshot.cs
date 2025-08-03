@@ -111,6 +111,34 @@ namespace WebApi.Migrations
                     b.ToTable("Egresos");
                 });
 
+            modelBuilder.Entity("Domain.Models.Publicacion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaPublicacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagenUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Publicaciones");
+                });
+
             modelBuilder.Entity("Domain.Models.Reserva", b =>
                 {
                     b.Property<int>("Id")
@@ -224,16 +252,14 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TipoUsuario")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                    b.Property<int>("TipoUsuario")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
 
-                    b.HasDiscriminator<string>("TipoUsuario").HasValue("Usuario");
+                    b.HasDiscriminator<int>("TipoUsuario");
 
                     b.UseTphMappingStrategy();
                 });
@@ -242,7 +268,7 @@ namespace WebApi.Migrations
                 {
                     b.HasBaseType("Domain.Models.Usuario");
 
-                    b.HasDiscriminator().HasValue("Administrador");
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Domain.Models.Cliente", b =>
@@ -256,10 +282,16 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaDeNacimiento")
+                    b.Property<DateTime?>("FechaAceptacion")
                         .HasColumnType("datetime2");
 
-                    b.HasDiscriminator().HasValue("Cliente");
+                    b.Property<DateTime?>("FechaDeNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("PoliticasAceptadas")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue(0);
                 });
 
             modelBuilder.Entity("Domain.Models.BloqueHorario", b =>

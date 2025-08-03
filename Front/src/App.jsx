@@ -1,6 +1,6 @@
 
 import { AppRoutes } from './routes/AppRoutes'
-import { obtenerUsuario, obtenerToken } from '../src/utils/storage/authStorage';
+import { obtenerUsuario} from '../src/utils/storage/authStorage';
 import { useAuth } from './hooks/useAuth';
 import { useEffect } from 'react';
 
@@ -10,10 +10,8 @@ function App() {
 
   useEffect(() => {
     const usuario = obtenerUsuario();
-    const token = obtenerToken();
-
-    if (usuario && token) {
-      setDatosAuthDelStorage(usuario, token);
+    if (usuario) {
+      setDatosAuthDelStorage(usuario);
     }
 
   }, []);

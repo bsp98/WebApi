@@ -25,8 +25,8 @@ namespace WebApi.Controllers
 
 
 
-        
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpPost("Agregar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -53,7 +53,7 @@ namespace WebApi.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -107,7 +107,7 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -126,7 +126,7 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -136,6 +136,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("categoria/{categoria}")]
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult ObtenerPorCategoria(CategoriaServicio categoria)
@@ -152,7 +153,7 @@ namespace WebApi.Controllers
 
         }
 
-        //[Authorize]
+        [Authorize(Roles = "Administrador")]
         [HttpPatch("{id} Deshabilitar/Habilitar servicio")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]

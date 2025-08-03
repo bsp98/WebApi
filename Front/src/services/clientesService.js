@@ -1,6 +1,6 @@
 export async function createCliente(cliente) {
   console.log(cliente);
-  const response = await fetch('http://localhost:5164/api/Usuario/cliente', {
+  const response = await fetch('http://localhost:5164/api/Usuario/Registro', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

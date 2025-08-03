@@ -8,5 +8,21 @@ namespace Domain.Models
 {
     public class Publicacion
     {
+        public int Id { get; set; }
+        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
+        public string ImagenUrl { get; set; }
+        public DateTime FechaPublicacion { get; set; }
+
+        public Publicacion(int id, string titulo, string descripcion, string imagenUrl)
+        {
+            Id=id;
+            Titulo=titulo;
+            Descripcion=descripcion;
+            ImagenUrl=imagenUrl;
+            FechaPublicacion=DateTime.Now;
+        }
+
+        public Publicacion() { }
     }
 }

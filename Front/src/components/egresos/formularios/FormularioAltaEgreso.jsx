@@ -1,20 +1,20 @@
 import React from 'react'
 import './formularioAltaEgreso.css'
-import { SelectForm } from '../iu/inputs/SelectForm';
-import { InputForm } from '../iu/inputs/InputForm';
-import { TextAreaForm } from '../iu/inputs/TextAreaForm';
-import { MessageError } from '../iu/messages/MessageError';
-import { ButtonSubmit } from '../iu/buttons/ButtonSubmit';
-import { InputDateFinal } from '../iu/inputs/InputDateFinal';
+import { SelectForm } from '../../iu/inputs/SelectForm';
+import { InputForm } from '../../iu/inputs/InputForm';
+import { TextAreaForm } from '../../iu/inputs/TextAreaForm';
+import { MessageError } from '../../iu/messages/MessageError';
+import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit';
+import { InputDateFinal } from '../../iu/inputs/InputDateFinal';
 
 
 export const FormularioAltaEgreso = ({ crearEgreso, formRef, error }) => {
     const categorias = [
-        { name: "ESMALTES", value: 1 },
-        { name: "INSUMOS", value: 2 },
-        { name: "HERRAMIENTAS", value: 3 },
-        { name: "DECORACION", value: 4 },
-        { name: "GASTOS COMUNES", value: 5 }
+        { name: "Esmaltes", value: 0 },
+        { name: "Insumos", value: 1 },
+        { name: "Herramientas", value: 2 },
+        { name: "Decoracion", value: 3 },
+        { name: "Gastos comunes", value: 4 }
     ];
     return (
         <div className='container_form'>

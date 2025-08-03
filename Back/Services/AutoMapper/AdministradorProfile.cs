@@ -13,8 +13,8 @@ namespace Services.AutoMapper
     {
         public AdministradorProfile()
         {
-            CreateMap<Administrador, AdministradorDto>()
-                 .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoUsuario.Administrador)); ;
+            CreateMap<Administrador, AdministradorDto>().ForMember(dest => dest.NombreTipoUsuario,
+               opt => opt.MapFrom(src => src.TipoUsuario.ToString()));
             CreateMap<AdministradorDto, Administrador>()
                 .ForMember(dest => dest.Id, act => act.MapFrom(src => src.Id));
 

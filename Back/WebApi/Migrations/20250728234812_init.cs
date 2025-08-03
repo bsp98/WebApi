@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class CTVWAPA : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -83,10 +83,12 @@ namespace WebApi.Migrations
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoUsuario = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    TipoUsuario = table.Column<int>(type: "int", nullable: false),
                     FechaDeNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Celular = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: true)
+                    Activo = table.Column<bool>(type: "bit", nullable: true),
+                    PoliticasAceptadas = table.Column<bool>(type: "bit", nullable: true),
+                    FechaAceptacion = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {

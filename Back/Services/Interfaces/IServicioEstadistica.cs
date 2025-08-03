@@ -9,6 +9,7 @@ namespace Services.Interfaces
 {
     public interface IServicioEstadistica
     {
-        GeneralEstadisticaDto ObtenerResumenGeneral();
+        GeneralEstadisticaDto ObtenerResumenGeneral(int? anioFiltro = null);
+
     }
 }

@@ -44,13 +44,16 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioEgreso), typeof(ServicioEgreso));
             builder.Services.AddScoped(typeof(IServicioEstadistica), typeof(ServicioEstadstica));
 
+            builder.Services.AddScoped(typeof(IServicioPublicacion), typeof(ServicioPublicacion));
+            builder.Services.AddScoped(typeof(IRepositorioPublicacion), typeof(RepositorioPublicacion));
+
 
             //Aca agregamos la configuración CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("PermitirFrontendLocalhost", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173")
+                    policy.WithOrigins("http://localhost:5173", "https://delightful-bush-03f20bd10.1.azurestaticapps.net")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials();
@@ -118,7 +121,7 @@ namespace WebApi
             });
 
             builder.Services.AddHttpContextAccessor();
-
+          
             //conf de autorizacion
             builder.Services.AddSwaggerGen(c =>
             {
@@ -185,6 +188,9 @@ namespace WebApi
 
 
             app.MapControllers();
+            //PULBI
+            app.UseStaticFiles();
+            app.UseStaticFiles();
 
             app.Run();
 

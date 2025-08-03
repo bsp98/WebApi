@@ -3,12 +3,12 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
 export const RutaPublica = () => {
-    const { token, usuario } = useAuth();
+    const {usuario} = useAuth();
 
-    if (token && usuario) {
-        if (usuario.rolUsuario === "cliente") {
+    if (usuario) {
+        if (usuario.rolUsuario === "Cliente") {
             return <Navigate to="/cliente/inicio" />;
-        } else if (usuario.rolUsuario === "admin") {
+        } else if (usuario.rolUsuario === "Administrador") {
             return <Navigate to="/admin/inicio" />;
         }
     }

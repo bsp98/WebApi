@@ -31,7 +31,7 @@ export const registroUserThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-
+console.log("entro al catch de registro thunk",error)
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
     }
@@ -41,10 +41,9 @@ export const registroUserThunk = createAsyncThunk(
 
 export const logoutThunk = createAsyncThunk(
   'auth/logout',
-  async (datosUsuario, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-
-      const response = await logout(datosUsuario);
+      const response = await logout();
       return response;
 
     } catch (error) {

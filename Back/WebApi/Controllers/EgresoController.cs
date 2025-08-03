@@ -2,6 +2,7 @@
 using Domain.Dto.FiltrosDto;
 using Domain.Enum;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
@@ -21,7 +22,8 @@ namespace WebApi.Controllers
             _servicioEgreso=servicioEgreso;
         }
 
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpPost("Agregar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -32,7 +34,7 @@ namespace WebApi.Controllers
             {
                 EgresoDto EgresoIngresado = _servicioEgreso.Add(egresoDto);
 
-                return Ok(EgresoIngresado);
+                return Ok("Egreso creado con exito");
 
             }
             catch (ExisteException ee)
@@ -79,7 +81,8 @@ namespace WebApi.Controllers
 
 
 
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetEgresosPorFiltro([FromQuery] EgresoFiltrosDto filtros)
@@ -92,7 +95,8 @@ namespace WebApi.Controllers
 
         }
 
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -117,7 +121,8 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -136,7 +141,8 @@ namespace WebApi.Controllers
         }
 
 
-        //[Authorize]
+
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()

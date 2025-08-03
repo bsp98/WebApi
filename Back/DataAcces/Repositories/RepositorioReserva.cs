@@ -55,5 +55,15 @@ namespace DataAcces.Repositories
             return Contexto.Set<Reserva>().Include(r => r.Cliente).Include(r => r.Servicio).AsNoTracking().ToList();
         }
 
+        public IEnumerable<Reserva> GetPorMesYAnio(int mes, int anio)
+        {
+            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha.Month == mes && r.Fecha.Year == anio).ToList();
+        }
+
+        public IEnumerable<Reserva> GetPorAnio(int anio)
+        {
+            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha.Year == anio).ToList();
+        }
+
     }
 }

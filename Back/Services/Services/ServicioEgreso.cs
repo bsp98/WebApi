@@ -71,16 +71,16 @@ namespace Services.Services
 
         public List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros)
         {
-            if (filtros.Fecha.HasValue)
+            if (filtros.CategoriaEgreso != null)
             {
-                var egresos = _repositorioEgreso.BuscarPorFecha(filtros.Fecha.Value).ToList();
+                var egresos = _repositorioEgreso.BuscarPorCategoriaEgreso(filtros.CategoriaEgreso.Value).ToList();
 
                 return _mapper.Map<List<EgresoDto>>(egresos);
             }
 
-            if (filtros.CategoriaEgreso!=null)
+            if (filtros.Fecha.HasValue)
             {
-                var egresos = _repositorioEgreso.BuscarPorCategoriaEgreso(filtros.CategoriaEgreso).ToList();
+                var egresos = _repositorioEgreso.BuscarPorFecha(filtros.Fecha.Value).ToList();
 
                 return _mapper.Map<List<EgresoDto>>(egresos);
             }

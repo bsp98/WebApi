@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRef, useEffect } from 'react';
-import { FormularioAltaEgreso } from '../../components/egresos/FormularioAltaEgreso';
+import { FormularioAltaEgreso } from '../../components/egresos/formularios/FormularioAltaEgreso';
 import { Title } from '../../components/iu/texts/Title';
 import { Modal } from '../../components/iu/messages/Modal';
 import {useEgresos} from '../../hooks/useEgresos'

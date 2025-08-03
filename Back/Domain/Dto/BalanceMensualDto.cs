@@ -12,6 +12,6 @@ namespace Domain.Dto
         public int Mes { get; set; }
         public double Ingresos { get; set; }
         public double Egresos { get; set; }
-        public double Balance => Ingresos - Egresos;
+        public double Balance { get; set; }
     }
 }
