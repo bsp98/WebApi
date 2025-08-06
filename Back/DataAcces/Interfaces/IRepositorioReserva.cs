@@ -16,8 +16,9 @@ namespace DataAcces.Interfaces
         public IEnumerable<Reserva> BuscarPorClienteId(int clienteId);
         IEnumerable<Reserva> GetPorMesYAnio(int mes, int anio);
         IEnumerable<Reserva> GetPorAnio(int anio);
+        IEnumerable<Reserva> ObtenerReservasConfirmadasEntre(DateTime desde, DateTime hasta);
 
-        public Reserva GetById(int id);
+        Reserva GetById(int id);
         public IEnumerable<Reserva> GetAll();
     }
 }

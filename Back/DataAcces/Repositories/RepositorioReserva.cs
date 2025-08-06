@@ -57,13 +57,29 @@ namespace DataAcces.Repositories
 
         public IEnumerable<Reserva> GetPorMesYAnio(int mes, int anio)
         {
-            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha.Month == mes && r.Fecha.Year == anio).ToList();
+            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha != null && r.Fecha.Month == mes && r.Fecha.Year == anio).ToList();
         }
 
         public IEnumerable<Reserva> GetPorAnio(int anio)
         {
-            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha.Year == anio).ToList();
+            return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r => r.Fecha != null && r.Fecha.Year == anio).ToList();
         }
 
+        //public IEnumerable<Reserva> ObtenerReservasConfirmadasEntre(DateTime desde, DateTime hasta)
+        //{
+        //    return Contexto.Set<Reserva>().Include(r => r.Servicio).Where(r =>r.Fecha.Add(r.HoraInicio) >= desde &&r.Fecha.Add(r.HoraInicio) <= hasta/* &&r.EstadoDePago == 1*/).ToList();
+        //}//cuando tengamos hehco lo de pagos agregale que busque los que tengan el pago ya onfirmado?
+
+        public IEnumerable<Reserva> ObtenerReservasConfirmadasEntre(DateTime desde, DateTime hasta)
+        {
+            return Contexto.Set<Reserva>()
+                .Include(r => r.Servicio)
+                .ToList() // traer los datos a memoria antes de usar DateTime.Add
+                .Where(r =>
+                    r.Fecha != null &&
+                    r.Fecha.Add(r.HoraInicio) >= desde &&
+                    r.Fecha.Add(r.HoraInicio) <= hasta
+                );
+        }
     }
 }
