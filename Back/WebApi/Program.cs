@@ -121,7 +121,8 @@ namespace WebApi
             });
 
             builder.Services.AddHttpContextAccessor();
-          
+           
+
             //conf de autorizacion
             builder.Services.AddSwaggerGen(c =>
             {

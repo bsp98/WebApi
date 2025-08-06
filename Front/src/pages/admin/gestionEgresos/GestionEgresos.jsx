@@ -70,7 +70,7 @@ export const GestionEgresos = () => {
 
       <ButtonRedirect btn_variant={"btn_primary"} width_btn={"btn_small"} textBtn={"AGREGAR EGRESO"} actionRedirect={agregarEgreso} />
 
-      {modalEgresoAbierto && <ModalInfoEgreso reserva={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}
+      {modalEgresoAbierto && <ModalInfoEgreso egreso={egresoSeleccionado} alCerrar={cerrarModalInfoEgreso} />}
 
     </div>
   )
