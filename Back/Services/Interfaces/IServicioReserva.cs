@@ -18,7 +18,8 @@ namespace Services.Interfaces
         List<ReservaDto> FiltrarReservas(ReservaFiltroDto filtros);
         Task CancelarReserva(int id);
         void Reagendar(int id, DateTime fecha, TimeSpan horaInicio,bool esCliente);
-
+        Task EnviarRecordatoriosAsync();
+        
         void ModificarEstadoDePago(int id,TiposDeEstado estado);
 
 
