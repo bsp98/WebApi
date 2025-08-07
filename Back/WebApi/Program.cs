@@ -12,6 +12,7 @@ using Services.Services;
 using Services.Interfaces;
 using Domain.Models;
 using Microsoft.OpenApi.Models;
+using Hangfire;
 
 
 
@@ -111,6 +112,13 @@ namespace WebApi
                     }
                 };
             });
+            // hangfire
+            builder.Services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(builder.Configuration.GetConnectionString("StringConection"));
+            });
+
+            builder.Services.AddHangfireServer(); // <- Muy importante, este corre los workers
 
             // Configurar la autorización
             builder.Services.AddAuthorization(options =>
@@ -179,7 +187,8 @@ namespace WebApi
           //  }
 
             app.UseHttpsRedirection();
-
+            //hangfire
+            app.UseHangfireDashboard();
             // Aca aplicamos el middleware CORS
             app.UseCors("PermitirFrontendLocalhost");
 

@@ -3,6 +3,7 @@ using Domain.Dto.FiltrosDto;
 using Domain.Enum;
 using Domain.Exceptions;
 using Domain.Models;
+using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
@@ -16,10 +17,12 @@ namespace WebApi.Controllers
     public class ReservaController : Controller
     {
         private readonly IServicioReserva _servicioReserva;
+        private readonly IServicioEmail _servicioEmail;
 
-        public ReservaController(IServicioReserva servicioReserva)
+        public ReservaController(IServicioReserva servicioReserva, IServicioEmail servicioEmail)
         {
             _servicioReserva = servicioReserva;
+            _servicioEmail = servicioEmail;
         }
 
 
@@ -90,8 +93,15 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpGet("probar-email")]
+        public IActionResult ProbarEmail()
+        {
+            BackgroundJob.Enqueue(() =>
+                _servicioEmail.EnviarRecordatorioReserva("maigiordano28@gmail.com", DateTime.Now.AddMinutes(1), "Prueba"));
 
-       
+            return Ok("Job programado para dentro de 1 minuto.");
+        }
+
 
         [AllowAnonymous]
         [HttpPost()]

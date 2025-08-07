@@ -9,5 +9,6 @@ namespace Services.Interfaces
     public interface IServicioEmail
     {
         Task EnviarEmailAsync(string destinatario, string asunto, string mensajeHtml);
+        Task EnviarRecordatorioReserva(string emailDestino, DateTime fechaReserva, string nombreCliente);
     }
 }

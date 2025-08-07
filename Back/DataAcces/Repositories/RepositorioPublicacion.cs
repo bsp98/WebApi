@@ -37,5 +37,19 @@ namespace DataAcces.Repositories
             await Contexto.SaveChangesAsync();
         }
 
+        public IEnumerable<Publicacion> ObtenerPublicacionesPaginados(int page, int pageSize)
+        {
+            return Contexto.Set<Publicacion>().AsNoTracking().OrderBy(c => c.FechaPublicacion).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+        }
+
+        public int ContarPublicaciones()
+        {
+            return Contexto.Set<Publicacion>().Count();
+        }
+
+        public async Task<List<Publicacion>> ObtenerPorAnioAsync(int? anio)
+        {
+            return await Contexto.Set<Publicacion>().Where(p => p.FechaPublicacion.Year == anio).OrderByDescending(p => p.FechaPublicacion).ToListAsync();
+        }
     }
 }

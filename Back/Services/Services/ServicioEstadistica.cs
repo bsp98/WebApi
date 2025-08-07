@@ -45,7 +45,7 @@ namespace Services.Services
         private double CalcularIngresosDelMes(int mes, int anio)
         {
             IEnumerable<Reserva> reservas = _repositorioReserva.GetPorMesYAnio(mes, anio);
-            return reservas.Sum(r => r.Servicio.Precio);
+            return reservas.Sum(r => r.PrecioTotal);
         }
 
         private double CalcularEgresosDelMes(int mes, int anio)
@@ -67,7 +67,7 @@ namespace Services.Services
             foreach (var grupo in reservasAgrupadas)
             {
                 int mes = grupo.Key;
-                double ingresos = grupo.Sum(r => r.Servicio.Precio);
+                double ingresos = grupo.Sum(r => r.PrecioTotal);
                 double egresosMes = egresosFiltrados.Where(e => e.Fecha.Month == mes).Sum(e => e.Monto);
 
                 BalanceMensualDto balance = new BalanceMensualDto
@@ -98,7 +98,7 @@ namespace Services.Services
             {
                 var primera = grupo.First();
                 double porcentaje = total > 0 ? Math.Round((double)grupo.Count() / total * 100, 2) : 0;
-                double ganancia = grupo.Sum(r => r.Servicio.Precio);
+                double ganancia = grupo.Sum(r => r.PrecioTotal);
 
                 EstadisticaServicioDto dto = new EstadisticaServicioDto
                 {

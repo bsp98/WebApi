@@ -41,6 +41,19 @@ namespace Services.Services
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
         }
+
+
+        public async Task EnviarRecordatorioReserva(string emailDestino, DateTime fechaReserva, string nombreCliente)
+        {
+            if (string.IsNullOrWhiteSpace(emailDestino))
+                return;
+
+            string asunto = "Recordatorio de tu cita";
+            string cuerpo = $"Hola {nombreCliente}, te recordamos que tenés una reserva el {fechaReserva:dd/MM/yyyy} a las {fechaReserva:HH:mm}.";
+
+            await EnviarEmailAsync(emailDestino, asunto, cuerpo);
+        }
+
     }
 }
 

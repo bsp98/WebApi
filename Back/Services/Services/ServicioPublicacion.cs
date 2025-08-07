@@ -23,9 +23,9 @@ namespace Services.Services
 
         public ServicioPublicacion(IRepositorioPublicacion repositorioPublicacion, IMapper mapper, IConfiguration configuration)
         {
-            _repositorioPublicacion=repositorioPublicacion;
-            _mapper=mapper;
-            _configuration=configuration;
+            _repositorioPublicacion = repositorioPublicacion;
+            _mapper = mapper;
+            _configuration = configuration;
         }
 
         public async Task<PublicacionDto> CrearPublicacionAsync(CrearPublicacionDto dto, string rutaBaseWeb, string rutaFisicaAbsoluta)
@@ -77,5 +77,22 @@ namespace Services.Services
 
             await _repositorioPublicacion.EliminarAsync(publicacion);
         }
+
+
+        public (List<PublicacionDto> publicaciones, int total) ObtenerPublicacionesPaginados(int page, int pageSize)
+        {
+            var publicaciones = _repositorioPublicacion.ObtenerPublicacionesPaginados(page, pageSize);
+            var total = _repositorioPublicacion.ContarPublicaciones();
+
+            return (_mapper.Map<List<PublicacionDto>>(publicaciones), total);
+        }
+
+        public async Task<List<PublicacionDto>> ObtenerPorAnioAsync(int? anio)
+        {
+            List<Publicacion> publicaciones = await _repositorioPublicacion.ObtenerPorAnioAsync(anio);
+            return _mapper.Map<List<PublicacionDto>>(publicaciones);
+        }
+
+
     }
 }

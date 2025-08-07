@@ -24,6 +24,7 @@ namespace WebApi.Controllers
 
 
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost]
         public async Task<IActionResult> Crear([FromForm] CrearPublicacionDto dto)
         {
@@ -42,33 +43,66 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            try
-            {
                 List<PublicacionDto> publicaciones = await _servicioPublicacion.ObtenerTodasAsync();
                 return Ok(publicaciones);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { error = ex.Message });
-            }
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Eliminar(int id)
         {
             try
             {
                 await _servicioPublicacion.EliminarAsync(id, _env.WebRootPath);
-                return NoContent();
+                return Ok();
             }
             catch (NoExisteException nee)
             {
                 return NotFound(nee.Message);
             }
         }
+
+        [HttpGet("Paginado")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetPublicacionesPaginados([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        {
+            try
+            {
+                var (pubicaciones, total) = _servicioPublicacion.ObtenerPublicacionesPaginados(page, pageSize);
+
+                return Ok(new
+                {
+                    data = pubicaciones,
+                    totalItems = total
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+        [HttpGet("FiltroAnio")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> FiltroPorAnio([FromQuery] int? anio)
+        {
+            try
+            {
+                List<PublicacionDto> publicaciones = await _servicioPublicacion.ObtenerPorAnioAsync(anio);
+                return Ok(publicaciones);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+
     }
 }
     

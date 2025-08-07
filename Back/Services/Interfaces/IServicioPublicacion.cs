@@ -13,5 +13,7 @@ namespace Services.Interfaces
         Task<PublicacionDto> CrearPublicacionAsync(CrearPublicacionDto dto, string rutaBaseWeb, string rutaFisicaAbsoluta);
         Task<List<PublicacionDto>> ObtenerTodasAsync();
         Task EliminarAsync(int id, string rutaWebRoot);
+        Task<List<PublicacionDto>> ObtenerPorAnioAsync(int? anio);
+        (List<PublicacionDto> publicaciones, int total) ObtenerPublicacionesPaginados(int page, int pageSize);
     }
 }

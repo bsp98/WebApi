@@ -14,5 +14,8 @@ namespace DataAcces.Interfaces
         Task EliminarAsync(Publicacion publicacion);
         Task<List<Publicacion>> ObtenerTodasAsync();
         Task AgregarAsync(Publicacion publicacion);
+        Task<List<Publicacion>> ObtenerPorAnioAsync(int? anio);
+        IEnumerable<Publicacion> ObtenerPublicacionesPaginados(int page, int pageSize);
+        int ContarPublicaciones(); // para saber cuántas páginas hay en total
     }
 }

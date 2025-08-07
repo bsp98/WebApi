@@ -9,11 +9,7 @@ using Domain.Exceptions;
 using Domain.Models;
 using Services.Exceptions;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Hangfire;
 using Microsoft.AspNetCore.Http;
 
 namespace Services.Services
@@ -118,6 +114,25 @@ namespace Services.Services
             }
 
             var reservaCompleta = _repositorioReserva.GetById(reserva.Id);
+
+            //Programar el schedule de hangfire
+
+            DateTime fechaReservaCompleta = reservaCompleta.Fecha + reservaCompleta.HoraInicio;
+            DateTime fechaRecordatorio = fechaReservaCompleta.AddHours(-9);
+
+                if (dto.ClienteId.HasValue)
+                {
+                    BackgroundJob.Schedule(() =>
+                    _servicioEmail.EnviarRecordatorioReserva(usu.Email, fechaReservaCompleta,usu.Nombre),
+                    fechaRecordatorio);
+                }
+                else
+                {
+                    BackgroundJob.Schedule(() =>
+                    _servicioEmail.EnviarRecordatorioReserva(dto.EmailCliente, fechaReservaCompleta, dto.NombreCliente),
+                    fechaRecordatorio);
+                }
+            
             return _mapper.Map<ReservaDto>(reservaCompleta);
         }
 
@@ -494,35 +509,7 @@ namespace Services.Services
 
 
 
-        public async Task EnviarRecordatoriosAsync()
-        {
-            DateTime ahora = DateTime.Now;
-            DateTime desde = ahora.AddHours(23);
-            DateTime hasta = ahora.AddHours(25);
-
-
-            IEnumerable<Reserva> reservas = _repositorioReserva.ObtenerReservasConfirmadasEntre(desde, hasta);//hacer metodo
-
-            foreach (Reserva reserva in reservas)
-            {
-                if (string.IsNullOrEmpty(reserva.EmailCliente)) continue;
-
-                string asunto = $"Recordatorio: Turno de {reserva.Servicio.Nombre}";
-                string mensaje = $@"
-                     <h3>¡Hola {reserva.NombreCliente}!</h3>
-                     <p>Este es un recordatorio de tu turno.</p>
-                 <ul>
-                        <li><strong>Servicio:</strong> {reserva.Servicio.Nombre}</li>
-                        <li><strong>Fecha:</strong> {reserva.Fecha.ToShortDateString()}</li>
-                     <li><strong>Hora:</strong> {reserva.HoraInicio}</li>
-                 </ul>
-                 <p>¡Te esperamos!</p>";
-
-                await _servicioEmail.EnviarEmailAsync(reserva.EmailCliente, asunto, mensaje);
-
-              
-            }
-        }
+        
 
 
 
