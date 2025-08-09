@@ -4,7 +4,7 @@ import { ClienteLayout } from '../layouts/Cliente/ClienteLayout'
 import { AdminLayout } from '../layouts/Admin/AdminLayout'
 import { InicioPublico } from '../pages/publico/inicioPublico/InicioPublico'
 import { Servicios } from '../pages/publico/Servicios'
-import { Galeria } from '../pages/publico/Galeria'
+import { Galeria } from '../pages/publico/galeria/Galeria'
 import { GiftCard } from '../pages/publico/GiftCard'
 import { Contacto } from '../pages/publico/Contacto'
 import { Error404 } from '../pages/shared/Error404'
@@ -21,7 +21,7 @@ import { AltaEgreso } from '../pages/admin/AltaEgreso'
 import { AltaServicio } from '../pages/admin/AltaServicio'
 import { ModificarReserva } from '../pages/admin/ModificarReserva'
 import { ModificarServicio } from '../pages/admin/ModificarServicio'
-import { CambiarPassword } from '../pages/shared/CambiarPassword'
+import { CambiarPassword } from '../pages/shared/cambiarPassword/CambiarPassword'
 import { ConfigDatosPersonales } from '../pages/shared/ConfigDatosPersonales'
 import { FormularioReserva } from '../pages/shared/formularioReserva/FormularioReserva'
 import { SeleccionarFechaHora } from '../pages/shared/seleccionarFechaHora/SeleccionarFechaHora'
@@ -32,6 +32,7 @@ import { AvisoLegal } from '../pages/publico/AvisoLegal'
 import { Unauthorized } from '../pages/shared/Unauthorized'
 import { RutaProtegida } from './RutaProtegida'
 import { RutaPublica } from './RutaPublica'
+import { OlvidoPassword } from '../pages/shared/olvidoPassword/OlvidoPassword'
 
 
 export const AppRoutes = () => {
@@ -51,6 +52,7 @@ export const AppRoutes = () => {
                     <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="politica-de-privacidad" element={<PoliticaPrivacidad></PoliticaPrivacidad>} />
+                    <Route path="recuperar-contrasena" element={<OlvidoPassword/>} />
                     <Route path="aviso-legal" element={<AvisoLegal></AvisoLegal>} />
                     <Route path="*" element={<Error404></Error404>} />
                     <Route path="unauthorized" element={<Unauthorized />} />

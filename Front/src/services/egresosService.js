@@ -2,6 +2,7 @@ export async function createEgreso(egreso) {
 
   const response = await fetch('http://localhost:5164/api/Egreso/Agregar', {
     method: 'POST',
+    credentials: 'include',
     headers: {
       'Content-Type': 'application/json',
     },

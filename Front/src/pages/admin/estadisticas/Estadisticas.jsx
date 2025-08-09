@@ -18,9 +18,9 @@ export const Estadisticas = () => {
   const columnsBalances = [
     { header: 'Año', render: (dato) => dato.anio },
     { header: 'Mes', render: (dato) => dato.mes },
-    { header: 'Hora', render: (dato) => dato.ingresos },
-    { header: 'Fecha', render: (dato) => dato.egresos },
-    { header: 'Estado de pago', render: (dato) => dato.balance }
+    { header: 'Ingresos', render: (dato) => dato.ingresos },
+    { header: 'Egresos', render: (dato) => dato.egresos },
+    { header: 'Balance', render: (dato) => dato.balance }
   ];
 
   const columnsServicios = [

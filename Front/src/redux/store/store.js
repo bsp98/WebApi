@@ -6,6 +6,7 @@ import reservasReducer from '../slices/reservasSlice'
 import authReducer from '../slices/authSlice'
 import egresosReducer from '../slices/egresosSlice';
 import estadisticasReducer from '../slices/estadisticasSlice'
+import usuariosReducer from '../slices/usuariosSlice'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     auth: authReducer,
     egresos: egresosReducer,
     estadisticas: estadisticasReducer,
+    usuarios: usuariosReducer,
 
   },
 });
