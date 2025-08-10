@@ -12,6 +12,7 @@ using Services.Services;
 using Services.Interfaces;
 using Domain.Models;
 using Microsoft.OpenApi.Models;
+using MercadoPago.Config;
 
 
 
@@ -46,6 +47,9 @@ namespace WebApi
 
             builder.Services.AddScoped(typeof(IServicioPublicacion), typeof(ServicioPublicacion));
             builder.Services.AddScoped(typeof(IRepositorioPublicacion), typeof(RepositorioPublicacion));
+
+            builder.Services.AddScoped(typeof(IServicioPago), typeof(ServicioPago));
+            builder.Services.AddScoped(typeof(IRepositorioPago), typeof(RepositorioPago));
 
 
             //Aca agregamos la configuración CORS
@@ -154,8 +158,8 @@ namespace WebApi
         }
     });
             });
-
-
+            //mercado pago
+            MercadoPagoConfig.AccessToken = builder.Configuration["MercadoPago:AccessToken"];
             //email
             builder.Services.AddScoped<IServicioEmail, ServicioEmail>();
 
