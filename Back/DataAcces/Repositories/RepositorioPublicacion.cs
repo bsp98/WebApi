@@ -1,4 +1,5 @@
 ﻿using DataAcces.Interfaces;
+using Domain.Enum;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -50,6 +51,11 @@ namespace DataAcces.Repositories
         public async Task<List<Publicacion>> ObtenerPorAnioAsync(int? anio)
         {
             return await Contexto.Set<Publicacion>().Where(p => p.FechaPublicacion.Year == anio).OrderByDescending(p => p.FechaPublicacion).ToListAsync();
+        }
+
+        public IEnumerable<Publicacion> ObtenerPorCategoria(CategoriaServicio categoria)
+        {
+            return Contexto.Set<Publicacion>().AsNoTracking().Where(s => s.Categoria == categoria);
         }
     }
 }

@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Services.Exceptions;
+using DataAcces.Repositories;
+using Domain.Enum;
+using Domain.Exceptions;
 
 namespace Services.Services
 {
@@ -93,6 +96,28 @@ namespace Services.Services
             return _mapper.Map<List<PublicacionDto>>(publicaciones);
         }
 
+        public List<PublicacionDto> ObtenerPorCategoria(CategoriaServicio categoria)
+        {
+            IEnumerable<Publicacion> publicaciones = new List<Publicacion>();
 
+            if (!System.Enum.IsDefined(typeof(CategoriaServicio), categoria))
+            {
+                throw new DatoIncorrectoException("La categoría es incorrecta");
+            }
+
+            if (categoria == CategoriaServicio.Invalido)
+            {
+
+                publicaciones = _repositorioPublicacion.GetAll();
+            }
+            else
+            {
+                publicaciones = _repositorioPublicacion.ObtenerPorCategoria(categoria);
+            }
+
+            return _mapper.Map<List<PublicacionDto>>(publicaciones);
+        }
+
+       
     }
 }

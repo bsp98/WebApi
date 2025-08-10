@@ -117,22 +117,24 @@ namespace Services.Services
 
             //Programar el schedule de hangfire
 
-            DateTime fechaReservaCompleta = reservaCompleta.Fecha + reservaCompleta.HoraInicio;
-            DateTime fechaRecordatorio = fechaReservaCompleta.AddHours(-9);
+            DateTime fechaReservaCompletaLocal = DateTime.SpecifyKind(reservaCompleta.Fecha + reservaCompleta.HoraInicio, DateTimeKind.Unspecified);
 
-                if (dto.ClienteId.HasValue)
-                {
-                    BackgroundJob.Schedule(() =>
-                    _servicioEmail.EnviarRecordatorioReserva(usu.Email, fechaReservaCompleta,usu.Nombre),
-                    fechaRecordatorio);
-                }
-                else
-                {
-                    BackgroundJob.Schedule(() =>
-                    _servicioEmail.EnviarRecordatorioReserva(dto.EmailCliente, fechaReservaCompleta, dto.NombreCliente),
-                    fechaRecordatorio);
-                }
-            
+            DateTime fechaRecordatorioLocal = DateTime.SpecifyKind(fechaReservaCompletaLocal.AddHours(-48), DateTimeKind.Unspecified);
+
+
+            if (dto.ClienteId.HasValue)
+            {
+                BackgroundJob.Schedule(() =>
+                    _servicioEmail.EnviarRecordatorioReserva(usu.Email, fechaReservaCompletaLocal, usu.Nombre),
+                    fechaRecordatorioLocal);
+            }
+            else
+            {
+                BackgroundJob.Schedule(() =>
+                    _servicioEmail.EnviarRecordatorioReserva(dto.EmailCliente, fechaReservaCompletaLocal, dto.NombreCliente),
+                    fechaRecordatorioLocal);
+            }
+
             return _mapper.Map<ReservaDto>(reservaCompleta);
         }
 

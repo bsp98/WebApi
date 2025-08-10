@@ -13,5 +13,6 @@ namespace Domain.Dto
         public string Descripcion { get; set; }
         public string ImagenUrl { get; set; }
         public DateTime FechaPublicacion { get; set; } = DateTime.Now;
+        public string CategoriaNombre { get; set; } = string.Empty;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,14 +14,17 @@ namespace Domain.Models
         public string Descripcion { get; set; }
         public string ImagenUrl { get; set; }
         public DateTime FechaPublicacion { get; set; }
+        public CategoriaServicio Categoria { get; set; }
 
-        public Publicacion(int id, string titulo, string descripcion, string imagenUrl)
+
+        public Publicacion(int id, string titulo, string descripcion, string imagenUrl, CategoriaServicio categoria)
         {
             Id=id;
             Titulo=titulo;
             Descripcion=descripcion;
             ImagenUrl=imagenUrl;
             FechaPublicacion=DateTime.Now;
+            Categoria = categoria;
         }
 
         public Publicacion() { }

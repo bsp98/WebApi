@@ -1,9 +1,12 @@
 ﻿using Domain.Dto;
+using Domain.Enum;
 using Domain.Exceptions;
 using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Exceptions;
 using Services.Interfaces;
+using Services.Services;
 
 namespace WebApi.Controllers
 
@@ -101,6 +104,24 @@ namespace WebApi.Controllers
             }
         }
 
+
+        [HttpGet("categoria/{categoria}")]
+        //[Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public IActionResult ObtenerPorCategoria(CategoriaServicio categoria)
+        {
+            try
+            {
+                List<PublicacionDto> publicacionDto = _servicioPublicacion.ObtenerPorCategoria(categoria);
+                return Ok(publicacionDto);
+            }
+            catch (DatoIncorrectoException die)
+            {
+                return UnprocessableEntity(die.Message);
+            }
+
+        }
 
 
     }

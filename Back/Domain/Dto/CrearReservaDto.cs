@@ -54,7 +54,7 @@ namespace Domain.Dto
         {
             if (Fecha == null)
                 throw new FechaInvalidaException("La fecha no puede ser nula.");
-
+            
 
         }
 

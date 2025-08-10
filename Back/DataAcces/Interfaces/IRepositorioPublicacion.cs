@@ -1,4 +1,5 @@
 ﻿using DataAcces.Interfaces.CRUD;
+using Domain.Enum;
 using Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,7 @@ namespace DataAcces.Interfaces
         Task<List<Publicacion>> ObtenerPorAnioAsync(int? anio);
         IEnumerable<Publicacion> ObtenerPublicacionesPaginados(int page, int pageSize);
         int ContarPublicaciones(); // para saber cuántas páginas hay en total
+        IEnumerable<Publicacion> ObtenerPorCategoria(CategoriaServicio categoria);
+
     }
 }

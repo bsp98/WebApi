@@ -1,4 +1,6 @@
 ﻿using Domain.Dto;
+using Domain.Enum;
+using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces.CRUD;
 using System;
 using System.Collections.Generic;
@@ -15,5 +17,7 @@ namespace Services.Interfaces
         Task EliminarAsync(int id, string rutaWebRoot);
         Task<List<PublicacionDto>> ObtenerPorAnioAsync(int? anio);
         (List<PublicacionDto> publicaciones, int total) ObtenerPublicacionesPaginados(int page, int pageSize);
+        List<PublicacionDto> ObtenerPorCategoria(CategoriaServicio categoria);
+
     }
 }

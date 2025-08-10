@@ -71,6 +71,8 @@ namespace Domain.Dto
             if (Fecha == null)
                 throw new DatoIncorrectoException("La fecha no puede ser nula.");
 
+            Fecha = Fecha.Date;
+
             if (Fecha <= DateTime.Now)
                 throw new DatoIncorrectoException("La fecha debe ser una fecha en el futuro");
         }

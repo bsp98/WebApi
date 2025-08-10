@@ -17,7 +17,12 @@ namespace Services.AutoMapper
            .ForMember(dest => dest.ImagenUrl, opt => opt.Ignore()) // porque lo seteamos manualmente
            .ForMember(dest => dest.FechaPublicacion, opt => opt.Ignore()); // lo mismo
 
-            CreateMap<Publicacion, PublicacionDto>();
+            CreateMap<Publicacion, PublicacionDto>()
+            .ForMember(dest => dest.CategoriaNombre, opt => opt.MapFrom(src => src.Categoria.ToString().Replace("ni", "ñ")));
+
+           // CreateMap<Publicacion, CrearPublicacionDto>()
+           //.ForMember(dest => dest.CategoriaNombre, opt => opt.MapFrom(src => src.Categoria.ToString().Replace("ni", "ñ")));
+
 
         }
     }
