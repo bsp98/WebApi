@@ -2,6 +2,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-top: 50px;
+    margin-bottom: 40px;
+}
+
+.container_image_galeria {
+    position: relative;
+    width: 400px;
+    height: 400px;
 }
 
 .imagen_galeria {
@@ -9,4 +17,84 @@
     height: 400px;
     object-fit: cover;
     cursor: pointer;
+}
+
+/*Estilos footer de la imagen*/
+
+.footer_image_galeria {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background-color: rgba(255, 250, 202, 0.8);
+    color: #404040;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    box-sizing: border-box;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    /* para que no interfiera cuando está oculto */
+}
+
+.icon_delete_img {
+    font-size: 1.6rem;
+    color: black;
+    transition: color 0.2s ease-in-out;
+}
+
+.btn_footer_img {
+    width: 75px;
+    height: 36px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn_footer_img:hover {
+    background-color: #76C8D6;
+    border-color: #76C8D6;
+}
+
+.title_img{
+    font-size: 1.6rem;
+}
+
+.descripcion_img{
+    font-size: 1.2rem;
+}
+
+.btn_footer_img:hover .icon_delete_img {
+    color: white;
+}
+
+
+.container_image_galeria:hover .footer_image_galeria {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/*Estilos Carrusel*/
+
+.yarl__container {
+    background-color: #fffae8 !important;
+}
+
+/* Cambiar color y tamaño de las flechas */
+.yarl__button {
+    color: #7a7878;
+    width: 600px;
+    height: 150px;
+}
+
+.yarl__slide_captions_container{
+    background-color:  #76C8D6 !important;
 }

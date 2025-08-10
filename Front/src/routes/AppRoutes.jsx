@@ -33,6 +33,7 @@ import { Unauthorized } from '../pages/shared/Unauthorized'
 import { RutaProtegida } from './RutaProtegida'
 import { RutaPublica } from './RutaPublica'
 import { OlvidoPassword } from '../pages/shared/olvidoPassword/OlvidoPassword'
+import { AltaPublicacion } from '../pages/admin/AltaPublicacion'
 
 
 export const AppRoutes = () => {
@@ -52,7 +53,7 @@ export const AppRoutes = () => {
                     <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="politica-de-privacidad" element={<PoliticaPrivacidad></PoliticaPrivacidad>} />
-                    <Route path="recuperar-contrasena" element={<OlvidoPassword/>} />
+                    <Route path="recuperar-contrasena" element={<OlvidoPassword />} />
                     <Route path="aviso-legal" element={<AvisoLegal></AvisoLegal>} />
                     <Route path="*" element={<Error404></Error404>} />
                     <Route path="unauthorized" element={<Unauthorized />} />
@@ -99,6 +100,7 @@ export const AppRoutes = () => {
                     <Route path="alta-cliente" element={<AltaCliente></AltaCliente>} />
                     <Route path="alta-egreso" element={<AltaEgreso></AltaEgreso>} />
                     <Route path="alta-servicio" element={<AltaServicio></AltaServicio>} />
+                    <Route path="alta-publicacion" element={<AltaPublicacion></AltaPublicacion>} />
                     <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
                     <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
                     <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
