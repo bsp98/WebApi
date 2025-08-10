@@ -97,7 +97,7 @@ namespace WebApi.Controllers
             }
             catch (NoExisteException ex)
             {
-                return Unauthorized(ex.Message);
+                return NotFound(ex.Message);
             }
             catch (DatoIncorrectoException e)
             {

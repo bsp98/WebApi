@@ -25,7 +25,7 @@ export const FormularioLogin = ({ onSubmit, formRef, error, onLoginGoogle, onErr
                         </div>
 
                         <div className="grupo-olvidar-contrasena">
-                            <Link className="link-olvidar" to="/recuperar">¿Olvidaste tu contraseña?</Link>
+                            <Link className="link-olvidar" to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>
                         </div>
                     </div>
 

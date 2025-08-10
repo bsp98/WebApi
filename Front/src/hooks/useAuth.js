@@ -43,7 +43,6 @@ export const useAuth = () => {
         const aceptoTerminosYCondiciones = form.politicas.checked;
 
         if (!passwordValidate) {
-            console.log("entro al if de error validacion contraseña",{form,password ,passwordRepeat})
             dispatch(setError("La contraseña y su confirmación deben ser iguales."));
         }
 

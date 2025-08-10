@@ -5,7 +5,7 @@ import { InputDateFinal } from '../inputs/InputDateFinal'
 import { ButtonSubmit } from '../buttons/ButtonSubmit'
 
 
-export const FilterBusquedaSelect = () => {
+export const FilterBusquedaSelect = ({actionOnSubmit,label1,label2,name1,name2,options,defaultValueSelect}) => {
     return (
         <div className='container_filter_busqueda'>
 

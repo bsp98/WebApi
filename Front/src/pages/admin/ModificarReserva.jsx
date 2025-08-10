@@ -66,7 +66,7 @@ export const ModificarReserva = () => {
       <FormularioModificarReserva modificarEstadoDePago={configurarEstadoDepago} reagendarReserva={redirectSeleccionarFechaHora} cancelarReserva={cancelarReserva} alCerrar={redirectInicioAdmin} formRef={formRef} error={error} reserva={reservaEnEdicion} />
 
       {successMessage && (
-        <Modal va mensaje={successMessage} alCerrar={alCerrarModal} />
+        <Modal mensaje={successMessage} alCerrar={alCerrarModal} />
       )}
     </div>
   )

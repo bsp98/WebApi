@@ -1,6 +1,5 @@
 import React from 'react'
 import '../page.css'
-import '../../components/iu/hero/Hero'
 import { Hero } from '../../components/iu/hero/Hero'
 import { Filter } from '../../components/iu/filter/Filter'
 import { Spinner } from '../../components/iu/spinner/Spinner'

@@ -34,7 +34,7 @@ export const ModificarServicio = () => {
       <FormularioModificarServicio modificarServicio={modificarServicio} formRef={formRef} error={error} servicio={servicioSeleccionado} />
 
       {successMessage && (
-        <Modal va mensaje={successMessage} alCerrar={limpiarMensajeExito} />
+        <Modal mensaje={successMessage} alCerrar={limpiarMensajeExito} />
       )}
     </div>
   )
