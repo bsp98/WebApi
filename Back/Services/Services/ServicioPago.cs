@@ -80,41 +80,35 @@ namespace Services.Services
 
         public async Task ProcesarWebhookAsync(string? type, long? dataId, long? idV1, string? topic)
         {
-            // 1) Notificación de pago
+
             if ((type == "payment" && dataId.HasValue) || (topic == "payment" && idV1.HasValue))
             {
                 var paymentId = dataId ?? idV1;
+
                 var payClient = new PaymentClient();
                 var payment = await payClient.GetAsync(paymentId!.Value);
 
-                var preferenceId = payment.Order?.Id?.ToString();
-                var externalRef = payment.ExternalReference;
+                string? preferenceId = null;
+                string? externalRef = payment.ExternalReference; 
+
+                if (payment.Order?.Id is long merchantOrderId)
+                {
+                    var moClient = new MerchantOrderClient();
+                    var mo = await moClient.GetAsync(merchantOrderId);
+
+                    preferenceId = mo.PreferenceId;               
+                    if (string.IsNullOrWhiteSpace(externalRef))
+                        externalRef = mo.ExternalReference;        
+                }
+
                 await ActualizarPagoAsync(preferenceId, externalRef, payment);
                 return;
             }
-
-            // 2) Notificación de orden
-            if (topic == "merchant_order" && idV1.HasValue)
-            {
-                var moClient = new MerchantOrderClient();
-                var mo = await moClient.GetAsync(idV1.Value);
-
-                string? preferenceId = mo.PreferenceId;
-
-                Payment? payment = null;
-                var last = mo.Payments?
-                    .OrderByDescending(p => p.DateCreated)
-                    .FirstOrDefault();
-
-                if (last?.Id is long pid)              // pattern matching: asegura que no sea null
-                {
-                    var payClient = new PaymentClient();
-                    payment = await payClient.GetAsync(pid);  // aquí va long, no long?
-                }
-
-                await ActualizarPagoAsync(preferenceId, mo.ExternalReference, payment);
-            }
         }
+
+
+
+
 
         private async Task ActualizarPagoAsync(string? preferenceId, string? externalRef, Payment? payment)
         {

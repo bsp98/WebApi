@@ -27,12 +27,18 @@ namespace WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            MercadoPago.Config.MercadoPagoConfig.AccessToken =
+                builder.Configuration["MercadoPago:AccessToken"];
+
+
             //inyecta el Contexto
             builder.Services.AddDbContext<DbContext, Contexto>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("StringConection"),
                 b => b.MigrationsAssembly("WebApi"));
             });
+            
 
             //inyecta los repositorios
             builder.Services.AddScoped(typeof(IRepositorioServicio), typeof(RepositorioServicio));
