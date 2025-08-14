@@ -75,6 +75,8 @@ namespace WebApi
 
             builder.Services.AddScoped(typeof(IServicioEmail), typeof(ServicioEmail));
             builder.Services.AddSingleton<IServicioCodigo, ServicioCodigo>();
+            builder.Services.AddScoped(typeof(IServicioContacto), typeof(ServicioContacto));
+
 
             // Add services to the container.
 
