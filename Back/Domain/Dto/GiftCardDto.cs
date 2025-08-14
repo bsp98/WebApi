@@ -52,12 +52,20 @@ namespace Domain.Dto
         {
             if (string.IsNullOrEmpty(EmailSolicitante))
                 throw new DatoIncorrectoException("El EmailSolicitante no puede estar vacío.");
+            if (!EsEmailValido(EmailSolicitante))
+            {
+                throw new DatoIncorrectoException("El Email Solicitante no cumple el formato (@gmail.com)");
+            }
         }
 
         private void ValidarEmailDestinatario()
         {
             if (string.IsNullOrEmpty(EmailDestinatario))
                 throw new DatoIncorrectoException("El EmailDestinatario no puede estar vacío.");
+            if (!EsEmailValido(EmailDestinatario))
+            {
+                throw new DatoIncorrectoException("El Email Destinatario no cumple el formato (@gmail.com)");
+            }
         }
 
         private void ValidarNombreSolicitante()
@@ -72,7 +80,14 @@ namespace Domain.Dto
                 throw new DatoIncorrectoException("El monto no puede ser nula.");
 
         }
+        
 
+        private bool EsEmailValido(string _email)
+        {
+            string patron = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+
+            return Regex.IsMatch(_email, patron);
+        }
 
 
 
