@@ -48,6 +48,9 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioPublicacion), typeof(ServicioPublicacion));
             builder.Services.AddScoped(typeof(IRepositorioPublicacion), typeof(RepositorioPublicacion));
 
+
+            builder.Services.AddScoped(typeof(IServicioGiftCard), typeof(ServicioGiftCard));
+
             builder.Services.AddScoped(typeof(IServicioPago), typeof(ServicioPago));
             builder.Services.AddScoped(typeof(IRepositorioPago), typeof(RepositorioPago));
 

@@ -34,15 +34,15 @@ namespace DataAcces.Repositories
         {
             var set = Contexto.Set<Pago>();
             await set.AddAsync(pago);
-            // No guardo acá: que guarde el servicio con GuardarCambiosAsync()
+           await GuardarCambiosAsync();
         }
 
-        public Task ActualizarAsync(Pago pago)
+        public async Task ActualizarAsync(Pago pago)
         {
             var set = Contexto.Set<Pago>();
             set.Update(pago);
-            // No guardo acá: que guarde el servicio con GuardarCambiosAsync()
-            return Task.CompletedTask;
+             await GuardarCambiosAsync();
+           // return Task.CompletedTask;
         }
 
         public Task GuardarCambiosAsync()

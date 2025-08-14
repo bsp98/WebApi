@@ -26,12 +26,29 @@ namespace WebApi.Controllers
             _servicioPago = servicioPago;
         }
 
+        //[HttpPost("preferencias")]
+        //public async Task<IActionResult> CrearPreferencia([FromBody] CrearPagoDto dto)
+        //{
+        //    var r = await _servicioPago.CrearPreferenciaAsync(dto);
+        //    return Ok(new { preferenceId = r.PreferenceId, externalReference = r.ExternalReference });
+        //}
+
+
+        //DEJA REL COMENTADO CUANDO ESTE E; FRONTEND
         [HttpPost("preferencias")]
         public async Task<IActionResult> CrearPreferencia([FromBody] CrearPagoDto dto)
         {
-            var r = await _servicioPago.CrearPreferenciaAsync(dto);
-            return Ok(new { preferenceId = r.PreferenceId, externalReference = r.ExternalReference });
+            try
+            {
+                var r = await _servicioPago.CrearPreferenciaAsync(dto);
+                return Ok(r);
+            }
+            catch (Exception ex)
+            {
+                return Problem("No se pudo crear la preferencia de pago.");
+            }
         }
+
 
         [HttpGet("{preferenceId}")]
         public async Task<IActionResult> ObtenerPorPref(string preferenceId)

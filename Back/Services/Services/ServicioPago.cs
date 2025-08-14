@@ -36,7 +36,7 @@ namespace Services.Services
                 {
                     Title = dto.Titulo,
                     Quantity = 1,
-                    UnitPrice = dto.Monto,
+                    UnitPrice = (decimal)dto.Monto,
                     CurrencyId = dto.CurrencyId ?? "UYU"
                 }
             },
@@ -67,8 +67,12 @@ namespace Services.Services
             return new CrearPreferenciaResultado
             {
                 PreferenceId = pref.Id,
-                ExternalReference = request.ExternalReference!
+                ExternalReference = request.ExternalReference!,
+                //SACAR LO DE ABJO CUENTO ESTE FORNTEND
+                InitPoint = pref.InitPoint,
+                SandboxInitPoint = pref.SandboxInitPoint
             };
+
         }
 
         public Task<Pago?> ObtenerPorPrefAsync(string preferenceId) =>

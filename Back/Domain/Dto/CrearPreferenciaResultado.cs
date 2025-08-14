@@ -10,5 +10,11 @@ namespace Domain.Dto
     {
         public string PreferenceId { get; set; } = default!;
         public string ExternalReference { get; set; } = default!;
+
+
+        //CUAND ESTE EL FRONEND SACAR LO DE ABAJO 
+        public string? InitPoint { get; set; }           // link “real”
+        public string? SandboxInitPoint { get; set; }     // link de pruebas
+
     }
 }
