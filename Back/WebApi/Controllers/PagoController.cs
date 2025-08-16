@@ -12,6 +12,7 @@ using MercadoPago.Resource.MerchantOrder;
 using Services.Interfaces;
 using Domain.Dto;
 using Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace WebApi.Controllers
 {
@@ -20,10 +21,12 @@ namespace WebApi.Controllers
     public class PagoController : Controller
     {
         private readonly IServicioPago _servicioPago;
+        private readonly ILogger<PagoController> _logger;
 
-        public PagoController(IServicioPago servicioPago)
+        public PagoController(IServicioPago servicioPago, ILogger<PagoController> logger)
         {
             _servicioPago = servicioPago;
+            _logger=logger;
         }
 
         //[HttpPost("preferencias")]
@@ -45,6 +48,7 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Error creando preferencia MP");
                 return Problem("No se pudo crear la preferencia de pago.");
             }
         }
@@ -64,10 +68,23 @@ namespace WebApi.Controllers
             [FromQuery(Name = "id")] long? idV1,
             [FromQuery(Name = "topic")] string? topic)
         {
-            try { await _servicioPago.ProcesarWebhookAsync(type, data_id, idV1, topic); }
-            catch { /* loggear si querés */ }
-            // devolver 200 siempre para evitar loops de reintentos
+
+
+            _logger.LogInformation(
+                "Webhook MP recibido. type={type}, dataId={dataId}, topic={topic}, idV1={idV1}",
+                type, data_id, topic, idV1);
+            try
+            {
+                await _servicioPago.ProcesarWebhookAsync(type, data_id, idV1, topic);
+              
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error procesando webhook MP");
+                // devolvé 200 igual para que MP no te bombardee con reintentos infinitos
+            }
             return Ok();
+
         }
     }
 }

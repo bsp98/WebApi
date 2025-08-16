@@ -92,7 +92,13 @@ namespace Services.Services
 
         public async Task<List<PublicacionDto>> ObtenerPorAnioAsync(int? anio)
         {
-            List<Publicacion> publicaciones = await _repositorioPublicacion.ObtenerPorAnioAsync(anio);
+            int anioPorDefecto = DateTime.Now.Year; 
+            if (anio.HasValue && anio.Value > 0)
+            {
+                anioPorDefecto = anio.Value;
+            }
+
+            List<Publicacion> publicaciones = await _repositorioPublicacion.ObtenerPorAnioAsync(anioPorDefecto);
             return _mapper.Map<List<PublicacionDto>>(publicaciones);
         }
 
