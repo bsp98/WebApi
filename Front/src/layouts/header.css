@@ -58,11 +58,17 @@
     font-size: 1.8rem;
     color: white;
     transition: all 300ms ease-out;
+    justify-content: center;
+    align-items: center;
 }
 
 .item:hover {
     background-color: rgb(116, 213, 230);
     border-radius: 0.6rem;
+}
+
+.logo_user_nav {
+    font-size: 3.5rem;
 }
 
 /*estilos subMenu*/

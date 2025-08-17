@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loginUser, registroUser, logout,loginConGoogle } from '../../services/authService';
+import { clearClienteSeleccionado } from '../../redux/slices/clientesSlice'; // ruta según tu proyecto
 
 export const loginUserThunk = createAsyncThunk(
   'auth/loginUser',
@@ -44,6 +45,7 @@ export const logoutThunk = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await logout();
+      thunkAPI.dispatch(clearClienteSeleccionado()); // limpia el cliente seleccionado
       return response;
 
     } catch (error) {

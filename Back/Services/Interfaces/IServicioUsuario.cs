@@ -25,7 +25,9 @@ namespace Services.Interfaces
         Task EnviarCodigoRecuperacionAsync(string email);
         void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword);
         public void CambiarPasswordPerfil(string email, string passwordActual, string nuevaPassword);
-        
+        UsuarioDto CambiarDatosPersonalesAsync(string email, CambiarDatosPersonalesDto dto);
+
+
 
 
     }

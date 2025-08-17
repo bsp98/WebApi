@@ -1,6 +1,9 @@
+import { urlBaseService } from "./urlBaseService";
+const { urlBase } = urlBaseService();
+
 export async function createReserva(reserva) {
 
-  const response = await fetch('http://localhost:5164/api/Reserva', {
+  const response = await fetch(`${urlBase}api/Reserva`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,7 +38,8 @@ export async function createReserva(reserva) {
 
 export async function deleteReserva(id) {
 
-  const response = await fetch(`http://localhost:5164/api/Reserva/${id}`, {
+  const response = await fetch(`${urlBase}api/Reserva/${id}`, {
+    credentials: "include",
     method: 'DELETE',
   });
 
@@ -62,7 +66,8 @@ export async function deleteReserva(id) {
 
 export async function reagendarReserva({ idReserva, fecha, horaInicio }) {
 
-  const response = await fetch(`http://localhost:5164/api/Reserva/${idReserva}/fechahora`, {
+  const response = await fetch(`${urlBase}api/Reserva/${idReserva}/fechahora`, {
+    credentials: "include",
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -99,7 +104,10 @@ export async function reagendarReserva({ idReserva, fecha, horaInicio }) {
 export async function getAllReserva() {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
-  const response = await fetch('http://localhost:5164/api/Usuario'); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Usuario`, {
+    method: 'GET',
+    credentials: 'include',
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -114,8 +122,11 @@ export async function getAllReserva() {
 }
 
 export async function getByIdReserva(id) {
-  
-  const response = await fetch(`http://localhost:5164/api/Reserva/${id}`);
+
+  const response = await fetch(`${urlBase}api/Reserva/${id}`,{
+        method: 'GET',
+        credentials: 'include',
+    });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -135,29 +146,13 @@ export async function getByIdReserva(id) {
   const datos = await response.json()
   return datos;
 }
-/*
-  const response = await fetch(`http://localhost:5164/api/Reserva/${id}`);
 
-  if (!response.ok) {
-    let customMessage = "Servidor fuera de servicio";
-
-    switch (response.status) {
-      case 404:
-        customMessage = await response.text();
-        break;
-    }
-
-    throw {
-      status: response.status,
-      message: customMessage,
-    };
-  }
-
-  return await response.json();
-}*/
 
 export async function getReservasByIdCliente(id) {
-  const response = await fetch(`http://localhost:5164/api/Reserva/Filtrar?clienteId=${id}`);
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?clienteId=${id}`,{
+        method: 'GET',
+        credentials: 'include',
+    });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -192,7 +187,10 @@ export async function getByFilter(filtros) {
       params.append("fecha", filtros.fecha);
     }
 
-    const response = await fetch(`http://localhost:5164/api/Reserva/Filtrar?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/ {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/ }
+    const response = await fetch(`${urlBase}api/Reserva/Filtrar?${params.toString()}`,{
+        method: 'GET',
+        credentials: 'include',
+    });
 
     if (!response.ok) {
       let customMessage = "Servidor fuera de servicio";
@@ -226,7 +224,7 @@ export async function getReservasPaginadas(page, pageSize) {
     params.append("pageSize", pageSize);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/Paginado?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Usuario/Paginado?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -256,7 +254,7 @@ export async function getAvailableTimes(fecha, duracion) {
     params.append("duracionMinutos", duracion);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Reserva/bloques-disponibles?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Reserva/bloques-disponibles?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -285,7 +283,7 @@ export async function getAvailableTimes(fecha, duracion) {
 }
 
 export async function getReservasByDate(fecha) {
-  const response = await fetch(`http://localhost:5164/api/Reserva/Filtrar?fecha=${fecha}`);
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`);
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -308,30 +306,30 @@ export async function getReservasByDate(fecha) {
 
 
 
-export async function ModifyPaymentStatus({idReserva,estadoDePago}) {
-  
-    const response = await fetch(`http://localhost:5164/api/Reserva/${idReserva}/EstadoDePago`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({estadoDePago}),
-    });
-  
-    if (!response.ok) {
+export async function ModifyPaymentStatus({ idReserva, estadoDePago }) {
 
-      let customMessage = "Servidor fuera de servicio";
-  
-      switch (response.status) {
-        case 404:
-          customMessage = await response.text();
-          break;
-      }
-  
-      throw {
-        status: response.status,
-        message: customMessage,
-      };
+  const response = await fetch(`${urlBase}api/Reserva/${idReserva}/EstadoDePago`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ estadoDePago }),
+  });
+
+  if (!response.ok) {
+
+    let customMessage = "Servidor fuera de servicio";
+
+    switch (response.status) {
+      case 404:
+        customMessage = await response.text();
+        break;
     }
-    return await response.text();
+
+    throw {
+      status: response.status,
+      message: customMessage,
+    };
+  }
+  return await response.text();
 }

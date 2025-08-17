@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import '../header.css'
 import './headerAdmin.css'
 
-export const HeaderAdmin = ({ idUsuario, cerrarSesion,abrirModal}) => {
+export const HeaderAdmin = ({ idUsuario, cerrarSesion, abrirModal }) => {
   return (
     <header className='header'>
 
@@ -48,7 +48,10 @@ export const HeaderAdmin = ({ idUsuario, cerrarSesion,abrirModal}) => {
             </li>
 
             <li className='item_container'>
-              <NavLink className='item' to="">LOGO</NavLink>
+              
+              <NavLink className='item' to="/admin/inicio">
+                <i className="logo_user_nav fa-regular fa-circle-user"></i>
+              </NavLink>
 
               <ul className='container_subMenu'>
 
@@ -62,6 +65,10 @@ export const HeaderAdmin = ({ idUsuario, cerrarSesion,abrirModal}) => {
 
                 <li className='item_subMenu'>
                   <button className='link_subMenu' onClick={abrirModal}>Configuración de pago</button>
+                </li>
+
+                <li className='item_subMenu'>
+                  <NavLink className='link_submenu' to={`/admin/dias-libres`}>Configurar días libres</NavLink>
                 </li>
 
                 <li className='item_subMenu'>

@@ -53,8 +53,8 @@ namespace WebApi.Controllers
                 Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
                 {
                     HttpOnly = true,
-                    Secure = false,
-                    SameSite = SameSiteMode.Strict,
+                    Secure = true,
+                    SameSite = SameSiteMode.None,
                     Expires = DateTimeOffset.UtcNow.AddHours(1)
                 });
 

@@ -50,36 +50,6 @@ namespace WebApi.Controllers
 
         }
 
-        ////[Authorize]
-        //[HttpPut("{id}")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-        //[ProducesResponseType(StatusCodes.Status404NotFound)]
-        //public IActionResult Put(int id, [FromBody] EgresoDto egresoDto)
-        //{
-        //    try
-        //    {
-        //        _servicioEgreso.Update(id, egresoDto);
-
-        //        return Ok("Modificado con exito");
-        //    }
-        //    catch (DatoIncorrectoException die)
-        //    {
-        //        return UnprocessableEntity(die.Message);
-        //    }
-        //    catch (NoExisteException nee)
-        //    {
-        //        return NotFound(nee.Message);
-        //    }
-        //    catch (ExisteException ee)
-        //    {
-
-        //        return Conflict(ee.Message);
-        //    }
-
-        //}
-
-
 
 
         [Authorize(Roles = "Administrador")]
@@ -151,6 +121,7 @@ namespace WebApi.Controllers
             return Ok(egresosDto);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Paginado")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetEgresosPaginados([FromQuery] int page = 1, [FromQuery] int pageSize = 10)

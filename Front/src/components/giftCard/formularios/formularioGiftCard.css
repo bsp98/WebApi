@@ -1,0 +1,22 @@
+.container_form_alta_reserva {
+    width: 100%;
+    min-height: 7rem;
+    height: auto;
+    margin: 0 auto;
+    background-color: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 3rem;
+}
+
+
+.container_gruop_datos {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+}
+
+.container_button_solicitar {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+}

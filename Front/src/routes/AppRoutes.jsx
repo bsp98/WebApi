@@ -5,11 +5,11 @@ import { AdminLayout } from '../layouts/Admin/AdminLayout'
 import { InicioPublico } from '../pages/publico/inicioPublico/InicioPublico'
 import { Servicios } from '../pages/publico/Servicios'
 import { Galeria } from '../pages/publico/galeria/Galeria'
-import { GiftCard } from '../pages/publico/GiftCard'
-import { Contacto } from '../pages/publico/Contacto'
-import { Error404 } from '../pages/shared/Error404'
+import { GiftCard } from '../pages/publico/giftCard/GiftCard'
+import { Contacto } from '../pages/publico/contacto/Contacto'
+import { Error404 } from '../pages/shared/error404/Error404'
 import { InicioCliente } from '../pages/cliente/inicioCliente/InicioCliente'
-import { ConfirmarReserva } from '../pages/cliente/ConfirmarReserva'
+import { ConfirmarReserva } from '../pages/cliente/confirmarReserva/ConfirmarReserva'
 import { InicioAdmin } from '../pages/admin/inicioAdmin/InicioAdmin'
 import { GestionReservas } from '../pages/admin/gestionReservas/GestionReservas'
 import { GestionClientes } from '../pages/admin/gestionClientes/GestionClientes'
@@ -22,18 +22,20 @@ import { AltaServicio } from '../pages/admin/AltaServicio'
 import { ModificarReserva } from '../pages/admin/ModificarReserva'
 import { ModificarServicio } from '../pages/admin/ModificarServicio'
 import { CambiarPassword } from '../pages/shared/cambiarPassword/CambiarPassword'
-import { ConfigDatosPersonales } from '../pages/shared/ConfigDatosPersonales'
+import { ConfigDatosPersonales } from '../pages/shared/configurarDatosPersonales/ConfigDatosPersonales'
 import { FormularioReserva } from '../pages/shared/formularioReserva/FormularioReserva'
 import { SeleccionarFechaHora } from '../pages/shared/seleccionarFechaHora/SeleccionarFechaHora'
 import { Login } from '../pages/publico/login/Login'
 import { Registro } from '../pages/publico/registro/Registro'
-import { PoliticaPrivacidad } from '../pages/publico/PoliticaPrivacidad'
-import { AvisoLegal } from '../pages/publico/AvisoLegal'
-import { Unauthorized } from '../pages/shared/Unauthorized'
+import { PoliticaPrivacidad } from '../pages/publico/politicaPrivacidad/PoliticaPrivacidad'
+import { AvisoLegal } from '../pages/publico/avisoLegal/AvisoLegal'
+import { Unauthorized } from '../pages/shared/unauthorized/Unauthorized'
 import { RutaProtegida } from './RutaProtegida'
 import { RutaPublica } from './RutaPublica'
 import { OlvidoPassword } from '../pages/shared/olvidoPassword/OlvidoPassword'
 import { AltaPublicacion } from '../pages/admin/AltaPublicacion'
+import { GestionDiasLibres } from '../pages/admin/gestionDiasLibres/GestionDiasLibres'
+import { AltaDiaLibre } from '../pages/admin/AltaDiaLibre'
 
 
 export const AppRoutes = () => {
@@ -49,7 +51,7 @@ export const AppRoutes = () => {
                     <Route path="galeria" element={<Galeria></Galeria>} />
                     <Route path="gift-card" element={<GiftCard></GiftCard>} />
                     <Route path="contacto" element={<Contacto></Contacto>} />
-                    <Route path="confirmar-reserva" element={<ConfirmarReserva></ConfirmarReserva>} />
+                    <Route path="confirmar-reserva/:idServicio" element={<ConfirmarReserva></ConfirmarReserva>} />
                     <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
                     <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                     <Route path="politica-de-privacidad" element={<PoliticaPrivacidad></PoliticaPrivacidad>} />
@@ -72,7 +74,7 @@ export const AppRoutes = () => {
                     <Route path="galeria" element={<Galeria />} />
                     <Route path="gift-card" element={<GiftCard />} />
                     <Route path="contacto" element={<Contacto />} />
-                    <Route path="confirmar-reserva" element={<ConfirmarReserva />} />
+                    <Route path="confirmar-reserva/:idServicio" element={<ConfirmarReserva />} />
                     <Route path="cambiar-password/:id" element={<CambiarPassword />} />
                     <Route path="datos-personales/:id" element={<ConfigDatosPersonales />} />
                     <Route path="form-reserva/:id" element={<FormularioReserva />} />
@@ -93,6 +95,7 @@ export const AppRoutes = () => {
                     <Route path="gestion-servicios" element={<GestionServicios></GestionServicios>} />
                     <Route path="gestion-reservas" element={<GestionReservas></GestionReservas>} />
                     <Route path="gestion-clientes" element={<GestionClientes></GestionClientes>} />
+                    <Route path="dias-libres" element={<GestionDiasLibres></GestionDiasLibres>} />
                     <Route path="galeria" element={<Galeria></Galeria>} />
                     <Route path="servicios/:categoria?" element={<Servicios></Servicios>} />
                     <Route path="gestion-egresos" element={<GestionEgresos></GestionEgresos>} />
@@ -101,6 +104,7 @@ export const AppRoutes = () => {
                     <Route path="alta-egreso" element={<AltaEgreso></AltaEgreso>} />
                     <Route path="alta-servicio" element={<AltaServicio></AltaServicio>} />
                     <Route path="alta-publicacion" element={<AltaPublicacion></AltaPublicacion>} />
+                    <Route path="alta-dias-libres" element={<AltaDiaLibre></AltaDiaLibre>} />
                     <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
                     <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
                     <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />

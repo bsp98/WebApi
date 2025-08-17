@@ -107,7 +107,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -136,7 +136,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("categoria/{categoria}")]
-        [Authorize(Roles = "Administrador")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult ObtenerPorCategoria(CategoriaServicio categoria)

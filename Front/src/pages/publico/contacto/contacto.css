@@ -1,0 +1,69 @@
+.container_content_contacto {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 40px;
+}
+
+.content_info_contacto {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 4rem;
+    margin-top: 45px;
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: 2rem;
+}
+
+.gruop_info_contacto {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.gruop_text_contacto {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.content_formulario_contacto {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: self-end;
+    gap: 10px;
+}
+
+.title_formulario_contacto{
+    width: 90%;
+    display: flex;
+    justify-content: start;
+}
+
+
+
+.icon_info_contacto{
+    font-size: 1.8rem;
+}
+
+.title_content_contacto{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.title_info_contacto{
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.text_info_contacto{
+    font-size: 1.4rem;
+}
+

@@ -28,7 +28,7 @@ export const ModalConfigPago = ({ cerrarModal, modificarFormaDePago, formaDePago
 
                     <div className='container_buttons_form'>
                         <ButtonSubmit value={"Modificar"} btn_variant={"btn_primary"} width_btn='btn_small' />
-                        <ButtonModal btn_variant={"btn_secondary"} width_btn={"btn_small"} alCerrar={cerrarModal} />
+                        <ButtonModal textButton={"Cerrar"} btn_variant={"btn_secondary"} width_btn={"btn_small"} alCerrar={cerrarModal} />
                     </div>
 
                 </form>

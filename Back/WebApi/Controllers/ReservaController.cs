@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrador")]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetAll()
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
         }
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
 
         }
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -163,7 +163,7 @@ namespace WebApi.Controllers
          }
         
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpPatch("{id}/fechahora")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
@@ -212,7 +212,7 @@ namespace WebApi.Controllers
 
 
 
-        [AllowAnonymous]
+        [Authorize]
         [HttpGet("Filtrar")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetReservasPorFiltro([FromQuery] ReservaFiltroDto filtros)

@@ -1,0 +1,43 @@
+.container_mensaje_confirmacion {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.container_info_servicio_confirmacion {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.container_form_confirmacion_monto {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.container_form_confirmacion_monto form{
+    padding: 0;
+}
+
+.container_opciones_pago {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    margin-bottom: 3rem;
+    gap: 4rem;
+
+}
+
+.group_opcion_pago {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}

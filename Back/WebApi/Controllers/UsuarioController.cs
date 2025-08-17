@@ -211,8 +211,9 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
+        
 
-        [Authorize(Roles = "Administrador")]
+        [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -235,7 +236,7 @@ namespace WebApi.Controllers
 
         }
 
-
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Paginado")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPaginados([FromQuery]int page = 1, [FromQuery]int pageSize = 10)
@@ -256,7 +257,29 @@ namespace WebApi.Controllers
             }
         }
 
-       
+        [Authorize]
+        [HttpPut("datos-personales")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult CambiarDatos([FromBody] CambiarDatosPersonalesDto dto)
+        {
+            try
+            {
+                string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+                UsuarioDto actualizado =  _servicioUsuario.CambiarDatosPersonalesAsync(email, dto);
+                return Ok(actualizado);
+            }
+            catch (DatoIncorrectoException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
+            }
+        }
 
 
 

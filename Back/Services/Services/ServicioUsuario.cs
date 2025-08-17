@@ -254,6 +254,28 @@ namespace Services.Services
             usuario.Password = nuevaPassword;
             _repositorioUsuario.Update(usuario);
         }
+
+
+        public UsuarioDto CambiarDatosPersonalesAsync(string email, CambiarDatosPersonalesDto dto)
+        {
+            if (string.IsNullOrWhiteSpace(email))throw new DatoIncorrectoException("Email inválido.");
+
+            Usuario usuario =  _repositorioUsuario.ObtenerPorEmail(email);
+
+            if(usuario==null) throw new NoExisteException("Usuario no encontrado");
+
+            usuario.Nombre = dto.Nombre;
+            usuario.Apellido = dto.Apellido;
+            if (usuario is Cliente cli)
+            {
+                cli.Celular = dto.Celular;
+            }
+
+            _repositorioUsuario.Update(usuario);
+
+            return _mapper.Map<ClienteDto>(usuario);
+        }
+
     }
 }
 

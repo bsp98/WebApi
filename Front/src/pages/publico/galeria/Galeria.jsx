@@ -58,6 +58,7 @@ export const Galeria = () => {
       <Filter optionFilter={optionsFilter} onFilter={publicacionPorCategoria} />
 
       <div className="container_galeria">
+        {console.log("publicaciones que se renderian",publicaciones)}
 
         {publicaciones.map((pub, index) => (
           <div className="container_image_galeria" key={pub.id || index}>

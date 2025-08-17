@@ -26,7 +26,7 @@ export const FormularioReserva = () => {
   const navigate = useNavigate();
   const rol = usuario?.rolUsuario || null;
   const idUsuarioAut = usuario?.idUsuario || null;
-  const estado = "noPago";
+  const estado = "pago";
   const cliente = rol === "Administrador" ? (clientes[0] || null) : clienteSeleccionado;
 
   //limpia los datos del cliente Cuando el componente se desmonta
@@ -43,6 +43,7 @@ export const FormularioReserva = () => {
   /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
   useEffect(() => {
     if (rol === "Cliente" && idUsuarioAut) {
+      console.log("entro a obtener cliente por id",idUsuarioAut)
       obtenerClientePorId(idUsuarioAut)
     }
   }, [rol, idUsuarioAut]);
@@ -59,16 +60,21 @@ export const FormularioReserva = () => {
   }
 
   const handleAgendarReserva = (datosCliente) => {
+    console.log("entro al handleAgendaReserva, los datos del cliente son",datosCliente)
 
-    if (estado === "pago" && rol === "Ciente" || rol === "Publico") {
+    if (estado === "pago" && rol === "Cliente" || rol === "Publico") {
+      console.log("entro al if de pago cliente publico, el rol es: ",rol)
       if (rol === "Cliente") {
-        navigate("/cliente/confirmar-reserva");
+        console.log("entro al if redirect confirmar-reserva cliente: ",rol)
+        navigate(`/cliente/confirmar-reserva/${id}`);
       }
       else {
-        navigate("/confirmar-reserva");
+        console.log("entro al else redirect confirmar-reserva publico: ",rol)
+        navigate(`/confirmar-reserva/${id}`);
       }
     }
     else {
+      console.log("entro al else no redirect, crea la reserva: ",rol)
       crearReserva(datosCliente, id);//se pasan los datos del cliente y el id del servicio
     }
   }
