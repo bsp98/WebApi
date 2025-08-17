@@ -256,7 +256,24 @@ namespace WebApi.Controllers
             }
         }
 
-       
+        [HttpPut("datos-personales")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        public IActionResult CambiarDatos([FromBody] CambiarDatosPersonalesDto dto)
+        {
+            try
+            {
+                string email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+                UsuarioDto actualizado =  _servicioUsuario.CambiarDatosPersonalesAsync(email, dto);
+                return Ok(actualizado);
+            }
+            catch (DatoIncorrectoException e)
+            {
+                return UnprocessableEntity(e.Message);
+            }
+        }
 
 
 
