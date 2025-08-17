@@ -1,7 +1,7 @@
 export async function solicitarPagoMercadoPago(datosPago) {
     console.log("solicitud de pago, datos: ",datosPago)
 /*
-  const response = await fetch('http://localhost:5164/api/Pago/Agregar', {
+  const response = await fetch(`${urlBase}api/Pago/Agregar`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

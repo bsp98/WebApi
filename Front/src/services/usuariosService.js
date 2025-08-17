@@ -1,6 +1,6 @@
 export async function updatePassword({ passwordActual, nuevaPassword }) {
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/cambiar-password`, {
+  const response = await fetch(`${urlBase}api/Usuario/cambiar-password`, {
     method: 'PATCH',
     credentials: 'include',
     headers: {
@@ -31,7 +31,7 @@ export async function updatePassword({ passwordActual, nuevaPassword }) {
 
 export async function solicitarCodigo(email) {
 
-  const response = await fetch('http://localhost:5164/api/Usuario/solicitar-codigo', {
+  const response = await fetch(`${urlBase}api/Usuario/solicitar-codigo`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export async function solicitarCodigo(email) {
 
 export async function recuperarPassword({ email, codigo, nuevaPassword }) {
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/olvido-password`, {
+  const response = await fetch(`${urlBase}api/Usuario/olvido-password`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -88,8 +88,8 @@ export async function recuperarPassword({ email, codigo, nuevaPassword }) {
 }
 
 export async function updateDatosPersonales(datosPersonales) {
-console.log("datos modificados",datosPersonales)
-  /*const response = await fetch(`http://localhost:5164/api/Usuario/datos-personales`, {
+
+  const response = await fetch(`${urlBase}api/Usuario/datos-personales`, {
     method: 'PUT',
     credentials: 'include',
     headers: {
@@ -118,6 +118,6 @@ console.log("datos modificados",datosPersonales)
       message: customMessage,
     };
   }
-  return await response.json();*/
-  return "los datos fueron cambiados con exito"
+  return await response.json();
+
 }

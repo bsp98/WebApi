@@ -1,6 +1,6 @@
 export async function createEgreso(egreso) {
 
-  const response = await fetch('http://localhost:5164/api/Egreso/Agregar', {
+  const response = await fetch(`${urlBase}api/Egreso/Agregar`, {
     method: 'POST',
     credentials: 'include',
     headers: {
@@ -32,7 +32,7 @@ export async function createEgreso(egreso) {
 
 
 export async function deleteEgreso(id) {
-  const response = await fetch(`http://localhost:5164/api/Egreso/${id}`, {
+  const response = await fetch(`${urlBase}api/Egreso/${id}`, {
     method: 'DELETE',
   });
 
@@ -73,7 +73,7 @@ export async function getEgresosPaginados(page, pageSize) {
     params.append("pageSize", pageSize);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Egreso/Paginado?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Egreso/Paginado?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
 
@@ -103,7 +103,7 @@ export async function getByFilter(filtros) {
     params.append("fecha", filtros.fecha);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Egreso/Filtrar?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Egreso/Filtrar?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";

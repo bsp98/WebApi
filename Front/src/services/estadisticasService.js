@@ -7,7 +7,7 @@ export async function getResumenEstadisticas(anio) {
     }
 
     const response = await fetch(
-        `http://localhost:5164/api/Estadisticas/resumen?${params.toString()}`,
+        `${urlBase}api/Estadisticas/resumen?${params.toString()}`,
         {
             method: 'GET',
             credentials: 'include',

@@ -1,6 +1,6 @@
 export async function createCliente(cliente) {
   console.log(cliente);
-  const response = await fetch('http://localhost:5164/api/Usuario/Registro', {
+  const response = await fetch(`${urlBase}api/Usuario/Registro`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export async function createCliente(cliente) {
 
 //FALTA VALIDAR EN EL THUNK QUE SE REFRESQUE LOS CLIENTE DEPSUES DE ELIMINAR
 export async function deleteCliente(id) {
-  const response = await fetch(`http://localhost:5164/api/Usuario/${id}`, {
+  const response = await fetch(`${urlBase}api/Usuario/${id}`, {
     method: 'DELETE',
   });
 
@@ -60,7 +60,7 @@ export async function deleteCliente(id) {
 export async function getAllCliente() {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
-  const response = await fetch('http://localhost:5164/api/Usuario'); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Usuario`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -76,7 +76,7 @@ export async function getAllCliente() {
 
 export async function getByIdCliente(id) {
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/${id}`,{
+  const response = await fetch(`${urlBase}api/Usuario/${id}`,{
     method: "GET",
     credentials: "include",
   });
@@ -120,7 +120,7 @@ export async function getByFilter(filtros) {
     params.append("fecha", filtros.fecha);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/Filtrar?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Usuario/Filtrar?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -150,7 +150,7 @@ export async function getClientesPaginados(page, pageSize) {
     params.append("pageSize", pageSize);
   }
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/Paginado?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Usuario/Paginado?${params.toString()}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";

@@ -1,7 +1,7 @@
 export async function solicitarGiftCard(datosGift) {
     console.log("solicitud de giftCard, datos: ",datosGift)
 
-  const response = await fetch('http://localhost:5164/api/GiftCard/solicitar', {
+  const response = await fetch(`${urlBase}api/GiftCard/solicitar`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

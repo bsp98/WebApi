@@ -1,6 +1,6 @@
 export async function createServicio(servicio) {
 
-  const response = await fetch('http://localhost:5164/api/Servicio/Agregar', {
+  const response = await fetch(`${urlBase}api/Servicio/Agregar`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export async function createServicio(servicio) {
 
 
 export async function deleteServicio(id) {
-  const response = await fetch(`http://localhost:5164/api/Servicio/${id}`, {
+  const response = await fetch(`${urlBase}api/Servicio/${id}`, {
     method: 'DELETE',
   });
 
@@ -59,7 +59,7 @@ export async function deleteServicio(id) {
 export async function updateServicio(servicioModificado) {
   console.log("entro al fetch update");
   console.log(servicioModificado);
-  const response = await fetch(`http://localhost:5164/api/Servicio/${servicioModificado.id}`, {
+  const response = await fetch(`${urlBase}api/Servicio/${servicioModificado.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export async function updateServicio(servicioModificado) {
 export async function getAllServicio() {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
-  const response = await fetch('http://localhost:5164/api/Servicio'); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Servicio`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -114,7 +114,7 @@ export async function getAllServicio() {
 export async function getByIdServicio(id) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
-  const response = await fetch(`http://localhost:5164/api/Servicio/${id}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Servicio/${id}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -137,7 +137,7 @@ export async function getByIdServicio(id) {
 export async function getByCategory(categoria) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
-  const response = await fetch(`http://localhost:5164/api/Servicio/Categoria/${categoria}`); //'http://localhost:5164/api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Servicio/Categoria/${categoria}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
