@@ -22,6 +22,7 @@ namespace Services.Services
         private readonly IRepositorioDiaNoLaborable _repositorioDiaNoLaborable;
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IRepositorioServicio _repositorioServicio;
+        private readonly IRepositorioModoDePago _repositorioModoDePago;
         private readonly IServicioEmail _servicioEmail;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IMapper _mapper;
@@ -57,6 +58,13 @@ namespace Services.Services
             Servicio servicio = _repositorioServicio.GetById(dto.ServicioId);
             if (servicio == null) throw new NoExisteException("Servicio no encontrado");
 
+            //Validar el modo de pago
+            IEnumerable<ModoDePago> listaModoDePago = _repositorioModoDePago.GetAll();
+            ModoDePago modoDePago = listaModoDePago.First();
+            if (modoDePago.TipoDePago.Equals(1) && usu is Cliente)
+            {
+
+            }
             //Busco si existe una agenda para ese dia, sino la busco.
             Agenda agenda = _repositorioAgenda.BuscarPorFecha(dto.Fecha);
 

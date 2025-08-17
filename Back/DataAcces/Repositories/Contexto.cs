@@ -15,6 +15,8 @@ namespace DataAcces.Repositories
         public DbSet<Agenda> Agenda { get; set; }
         public DbSet<BloqueHorario> BloqueHorario { get; set; }
         public DbSet<DiaNoLaborable> DiaNoLaborables { get; set; }
+        public DbSet<ModoDePago> ModoDePago { get; set; }
+
         public Contexto(DbContextOptions options) : base(options)
         {
 

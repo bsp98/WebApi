@@ -61,6 +61,9 @@ namespace WebApi
             builder.Services.AddScoped(typeof(IServicioPago), typeof(ServicioPago));
             builder.Services.AddScoped(typeof(IRepositorioPago), typeof(RepositorioPago));
 
+            builder.Services.AddScoped(typeof(IServicioModoDePago), typeof(ServicioModoDePago));
+            builder.Services.AddScoped(typeof(IRepositorioModoDePago), typeof(RepositorioModoDePago));
+
 
             //Aca agregamos la configuración CORS
             builder.Services.AddCors(options =>
