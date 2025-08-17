@@ -1,6 +1,6 @@
 export async function enviarMensajeContacto(mensaje) {
-  console.log("mensaje a enviar",mensaje);
-  /*const response = await fetch('http://localhost:5164/api/Notificacion/mensaje-contacto', {
+
+  const response = await fetch('http://localhost:5164/api/Contacto/Mensaje', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,6 +26,6 @@ export async function enviarMensajeContacto(mensaje) {
     };
   }
 
-  return await response.text();*/
-  return "el mensaje fue enviado correctamente"
+  return await response.text();
+
 }

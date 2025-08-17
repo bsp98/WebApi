@@ -1,6 +1,6 @@
 export async function createDiaLibre(diaLibre) {
-  console.log("dia libre que se agrega",diaLibre);
-/*
+
+
   const response = await fetch('http://localhost:5164/api/DiaNoLaborable/Agregar', {
     method: 'POST',
     headers: {
@@ -27,8 +27,8 @@ export async function createDiaLibre(diaLibre) {
     };
   }
 
-  return await response.json();*/
-  return []
+  return await response.json();
+
 }
 
 export async function deleteDiaLibre(id) {
@@ -51,11 +51,10 @@ export async function deleteDiaLibre(id) {
     };
   }
 
-  return await response.text(); // se retorna el mensaje devuelto
+  return await response.text(); 
 }
 
 export async function getAllDiaLibre() {
-  //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
   const response = await fetch('http://localhost:5164/api/DiaNoLaborable');
 
