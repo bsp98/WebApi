@@ -18,7 +18,7 @@ namespace WebApi.Controllers
 
 
 
-      //  [Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpGet("resumen")]
         public IActionResult ObtenerResumen([FromQuery] int? anio)
         {

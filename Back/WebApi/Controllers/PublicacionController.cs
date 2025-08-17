@@ -25,7 +25,7 @@ namespace WebApi.Controllers
         }
 
 
-
+        [Authorize(Roles = "Administrador")]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPost]
@@ -48,6 +48,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
@@ -62,6 +63,7 @@ namespace WebApi.Controllers
             return Ok(publicaciones);
         }
 
+        [Authorize(Roles = "Administrador")]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -126,7 +128,7 @@ namespace WebApi.Controllers
 
 
         [HttpGet("categoria/{categoria}")]
-        //[Authorize]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
         public IActionResult ObtenerPorCategoria(CategoriaServicio categoria)

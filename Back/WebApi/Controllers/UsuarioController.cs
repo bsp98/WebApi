@@ -211,8 +211,9 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
-        //////////////////////////////////////////
-        //[Authorize(Roles = "Administrador,Cliente")]
+        
+
+        [Authorize]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -235,7 +236,7 @@ namespace WebApi.Controllers
 
         }
 
-
+        [Authorize(Roles = "Administrador")]
         [HttpGet("Paginado")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult GetClientesPaginados([FromQuery]int page = 1, [FromQuery]int pageSize = 10)
@@ -256,6 +257,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("datos-personales")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
