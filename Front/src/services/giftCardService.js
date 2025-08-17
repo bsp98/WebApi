@@ -30,6 +30,6 @@ export async function solicitarGiftCard(datosGift) {
     };
   }
 
-  return await response.json();
+  return await response.text();
 
 }
