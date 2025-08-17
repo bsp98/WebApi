@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function enviarMensajeContacto(mensaje) {
 
   const response = await fetch(`${urlBase}api/Contacto/Mensaje`, {

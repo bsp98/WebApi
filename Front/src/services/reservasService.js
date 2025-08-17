@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function createReserva(reserva) {
 
   const response = await fetch(`${urlBase}api/Reserva`, {

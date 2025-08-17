@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function solicitarGiftCard(datosGift) {
     console.log("solicitud de giftCard, datos: ",datosGift)
 

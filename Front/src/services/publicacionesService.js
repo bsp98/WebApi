@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function createPublicacion(publicacion) {
 
   const response = await fetch(`${urlBase}api/Publicacion`, {
@@ -47,6 +50,7 @@ export async function getByCategory(id) {
   
     return await response.json();
 }
+
 
 export async function deletePublicacion(id) {
 

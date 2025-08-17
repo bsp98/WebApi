@@ -1,3 +1,7 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
+
 export async function solicitarPagoMercadoPago(datosPago) {
     console.log("solicitud de pago, datos: ",datosPago)
 /*

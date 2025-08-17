@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function createCliente(cliente) {
   console.log(cliente);
   const response = await fetch(`${urlBase}api/Usuario/Registro`, {

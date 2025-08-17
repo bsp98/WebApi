@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function updatePassword({ passwordActual, nuevaPassword }) {
 
   const response = await fetch(`${urlBase}api/Usuario/cambiar-password`, {

@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function getResumenEstadisticas(anio) {
     console.log("entro a la peticion de estadisticas");
     const params = new URLSearchParams();

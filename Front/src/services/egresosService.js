@@ -1,3 +1,6 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
 export async function createEgreso(egreso) {
 
   const response = await fetch(`${urlBase}api/Egreso/Agregar`, {

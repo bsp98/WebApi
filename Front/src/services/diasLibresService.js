@@ -1,3 +1,7 @@
+import { urlBaseService } from "./urlBaseService";
+const {urlBase} = urlBaseService();
+
+
 export async function createDiaLibre(diaLibre) {
 
 
