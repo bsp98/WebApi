@@ -14,15 +14,15 @@ namespace Domain.Dto
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Telefono { get; set; }
-        public string Descripcion {  get; set; }
+        public string Mensaje {  get; set; }
 
-        public MensajeDeContactoDto(string nombre, string apellido, string email,string telefono, string descripcion)
+        public MensajeDeContactoDto(string nombre, string apellido, string email,string telefono, string mensaje)
         {
             Nombre = nombre;
             Apellido = apellido;
             Email = email;
             Telefono = telefono;
-            Descripcion = descripcion;
+            Mensaje = mensaje;
         }
 
         public void Validar() 

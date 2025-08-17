@@ -27,7 +27,7 @@ namespace Services.Services
         {
             dto.Validar();
             string emailAdmin = _config["EmailSettings:Admin"] ?? _config["EmailSettings:Remitente"];
-            string cuerpo = $"<p>Hola mi nombre es {dto.Nombre} {dto.Apellido} <br> Email: {dto.Email} - Telefono: {dto.Telefono} <br><strong>Mensaje:</strong> {dto.Descripcion}</p>";
+            string cuerpo = $"<p>Hola mi nombre es {dto.Nombre} {dto.Apellido} <br> Email: {dto.Email} - Telefono: {dto.Telefono} <br><strong>Mensaje:</strong> {dto.Mensaje}</p>";
             await _servicioEmail.EnviarEmailAsync(emailAdmin, "Mensaje de contacto", cuerpo);
         }
 
