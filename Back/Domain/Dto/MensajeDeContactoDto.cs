@@ -45,9 +45,9 @@ namespace Domain.Dto
             {
                 throw new DatoIncorrectoException("El mensaje debe tener un telefono");
             }
-            if (string.IsNullOrEmpty(Descripcion))
+            if (string.IsNullOrEmpty(Mensaje))
             {
-                throw new DatoIncorrectoException("El mensaje debe tener una descripcion");
+                throw new DatoIncorrectoException("El mensaje debe tener un cuerpo");
             }
         }
 
