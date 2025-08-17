@@ -58,7 +58,6 @@ export async function solicitarCodigo(email) {
 }
 
 export async function recuperarPassword({ email, codigo, nuevaPassword }) {
-  console.log("entro a recuperar password", { email, codigo, nuevaPassword })
 
   const response = await fetch(`http://localhost:5164/api/Usuario/olvido-password`, {
     method: 'PATCH',
@@ -86,4 +85,39 @@ export async function recuperarPassword({ email, codigo, nuevaPassword }) {
     };
   }
   return await response.text();
+}
+
+export async function updateDatosPersonales(datosPersonales) {
+console.log("datos modificados",datosPersonales)
+  /*const response = await fetch(`http://localhost:5164/api/Usuario/datos-personales`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(datosPersonales),
+  });
+
+  if (!response.ok) {
+    let customMessage = "Servidor fuera de servicio";
+
+    switch (response.status) {
+      case 404:
+        customMessage = await response.text();
+        break;
+      case 422:
+        customMessage = await response.text();
+        break;
+      case 409:
+        customMessage = await response.text();
+        break;
+    }
+
+    throw {
+      status: response.status,
+      message: customMessage,
+    };
+  }
+  return await response.json();*/
+  return "los datos fueron cambiados con exito"
 }

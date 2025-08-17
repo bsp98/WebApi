@@ -16,7 +16,7 @@
 .container_politicas {
   width: 80%;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   gap: 1rem;
   margin-top: 1rem;

@@ -75,10 +75,11 @@ export async function getAllCliente() {
 }
 
 export async function getByIdCliente(id) {
-  //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
-  console.log("entro al getByIdCliente",id);
 
-  const response = await fetch(`http://localhost:5164/api/Usuario/${id}`);
+  const response = await fetch(`http://localhost:5164/api/Usuario/${id}`,{
+    method: "GET",
+    credentials: "include",
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";

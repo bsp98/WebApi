@@ -4,7 +4,6 @@ import {guardarUsuario, limpiarAuthStorage} from '../../utils/storage/authStorag
 
 const manejarAutenticacion = (state, payload = null) => {
    const {idUsuario, rolUsuario } = payload;
-   console.log("datos del usuaruio slice",{idUsuario,rolUsuario});
     state.usuario = { idUsuario, rolUsuario };
     state.authLoaded = true;
     

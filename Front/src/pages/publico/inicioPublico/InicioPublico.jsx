@@ -9,10 +9,10 @@ import { ContainerCards } from '../../../components/iu/cards/ContainerCards'
 import { useServicios } from '../../../hooks/useServicios'
 import { useEffect } from 'react'
 import { ServicioIconInicio } from '../../../components/servicio/iconServicio/ServicioIconInicio'
-import UñasImg from '../../../assets/imgServicios/Uñas.jpg';
-import PestañasImg from '../../../assets/imgServicios/Pestañas.jpg';
-import CejasImg from '../../../assets/imgServicios/Perfilado.jpg';
-import PiesImg from '../../../assets/imgServicios/Pies.jpg';
+import UñasImg from '../../../assets/imgServicios/Uñas.webp';
+import PestañasImg from '../../../assets/imgServicios/Pestañas.webp';
+import CejasImg from '../../../assets/imgServicios/Perfilado.webp';
+import PiesImg from '../../../assets/imgServicios/Pies.webp';
 import { ItemCaracteristica } from '../../../components/servicio/itemCaracteristica/ItemCaracteristica'
 
 export const InicioPublico = () => {

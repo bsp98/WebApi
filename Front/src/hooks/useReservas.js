@@ -136,7 +136,7 @@ export const useReservas = () => {
         else if (rol === "Administrador") {
             navigate(`/admin/form-reserva/${idServicio}`);
         }
-        else{
+        else {
             navigate(`/form-reserva/${idServicio}`);
         }
     };
@@ -151,6 +151,8 @@ export const useReservas = () => {
             dispatch(ModifyPaymentStatusThunk({ idReserva, estadoDePago }));
         }
     }
+
+
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());

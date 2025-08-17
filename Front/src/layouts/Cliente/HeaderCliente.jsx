@@ -40,7 +40,10 @@ export const HeaderCliente = ({ idUsuario, cerrarSesion }) => {
             </li>
 
             <li className='item_container'>
-              <NavLink className='item' to="">LOGO USUARIO</NavLink>
+              
+              <NavLink className='item' to="/cliente/inicio">
+                <i className="logo_user_nav fa-regular fa-circle-user"></i>
+              </NavLink>
 
               <ul className='container_subMenu'>
 

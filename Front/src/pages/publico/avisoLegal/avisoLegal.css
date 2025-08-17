@@ -1,0 +1,35 @@
+.legal_container {
+  max-width: 800px;
+  margin: 5rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.6;
+  color: var(--color-texto);
+}
+
+.legal_title {
+  font-family: 'Inter Medium', sans-serif;
+  font-weight: 500;
+  font-size: 3.2rem;
+  text-align: center;
+  color: var(--color-titulo);
+  margin-bottom: 3rem;
+}
+
+.legal_section {
+  margin-bottom: 2rem;
+}
+
+.legal_section h2 {
+  font-family: 'Inter SemiBold', sans-serif;
+  font-weight: 600;
+  font-size: 2.4rem;
+  margin-bottom: 0.8rem;
+  color: var(--color-titulo);
+}
+
+.legal_section p {
+  font-family: 'Inter Regular', sans-serif;
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--color-texto);
+}

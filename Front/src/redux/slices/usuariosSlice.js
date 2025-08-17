@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updatePasswordThunk, solicitarCodigoThunk, recuperarPasswordThunk } from '../thunks/usuariosThunks';
+import { updatePasswordThunk, solicitarCodigoThunk, recuperarPasswordThunk,updateDatosPersonalesThunk } from '../thunks/usuariosThunks';
 
 const initialState = {
     error: null,
@@ -79,8 +79,19 @@ const usuariosSlice = createSlice({
                 state.passwordResetSuccessMessage = null
                 state.error = action.payload;
             });
+
+        //Cases modificar datos personales
+        builder
+            .addCase(updateDatosPersonalesThunk.fulfilled, (state,action) => {
+                state.error = null;
+                state.successMessage = action.payload;
+            })
+            .addCase(updateDatosPersonalesThunk.rejected, (state, action) => {
+                state.successMessage = null
+                state.error = action.payload;
+            });
     },
 });
 
-export const { clearSuccessMessage, setError, clearCodeSentSuccessMessage, clearPasswordResetSuccessMessage, setEmailSeleccionado,resetOlvidoPasswordState } = usuariosSlice.actions;
+export const { clearSuccessMessage, setError, clearCodeSentSuccessMessage, clearPasswordResetSuccessMessage, setEmailSeleccionado, resetOlvidoPasswordState } = usuariosSlice.actions;
 export default usuariosSlice.reducer;

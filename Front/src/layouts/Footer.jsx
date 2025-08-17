@@ -18,7 +18,7 @@ export const Footer = ({ tipoUsuario }) => {
 
             <div className='gruop_info'>
               <i className='icon_info fa-solid fa-phone'></i>
-              <p className='text_footer'>+598 97 752 448</p>
+              <p className='text_footer'>+598 93 889 014</p>
             </div>
 
             <div className='gruop_info'>
@@ -34,8 +34,12 @@ export const Footer = ({ tipoUsuario }) => {
           </div>
 
           <div className='social_container'>
-            <i className="social_icon fa-brands fa-whatsapp"></i>
-            <i className="social_icon fa-brands fa-instagram"></i>
+            <a href="https://wa.me/59893889014" target="_blank" rel="noopener noreferrer">
+              <i className="social_icon fa-brands fa-whatsapp"></i>
+            </a>
+            <a href="https://www.instagram.com/ctvwapa/" target="_blank" rel="noopener noreferrer">
+              <i className="social_icon fa-brands fa-instagram"></i>
+            </a>
           </div>
 
           <div className='map_container'>

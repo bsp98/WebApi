@@ -6,7 +6,7 @@ import { MessageError } from '../../iu/messages/MessageError'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 import { Link } from 'react-router-dom';
 
-export const FormularioRegistro = ({ onSubmit, formRef, error}) => {
+export const FormularioRegistro = ({ onSubmit, formRef, error }) => {
     return (
         <div className='container_content_form_registro'>
 
@@ -33,16 +33,12 @@ export const FormularioRegistro = ({ onSubmit, formRef, error}) => {
                 </div>
 
                 <div className="container_politicas">
-                    <input className="check_box_politicas" type="checkbox" name={"politicas"} defaultChecked={false} />
+                    <input className="check_box_politicas" type="checkbox" name="politicas" defaultChecked={false} required />
                     <div className="grupo-link-politicas">
-                        Acepto los
-                        <Link to="/terminos" className="link_politica">Términos y Condiciones</Link>
-                        y la
-                        <Link to="/privacidad" className="link_politica">Política de Privacidad</Link>
+                        He leído y acepto la <Link to="/politica-de-privacidad" className="link_politica">Política de Privacidad</Link>
                     </div>
                 </div>
-
-
+                
                 {error && (<MessageError error={error} />)}
 
                 <div className='grupo_buttons'>

@@ -25,6 +25,9 @@ const clientesSlice = createSlice({
 
         setClientes: (state, action) => {
             state.clientes = action.payload;
+        },
+        clearClienteSeleccionado: (state) => {
+            state.clienteSeleccionado = null;
         }
 
 
@@ -72,10 +75,12 @@ const clientesSlice = createSlice({
         builder
             .addCase(getByIdClienteThunk.fulfilled, (state, action) => {
                 state.error = null;
+                console.log("entro al case fullfid, el cliente retornado es: ",action.payload);
                 state.clienteSeleccionado = action.payload; // guardo el servicio obtenido
             })
             .addCase(getByIdClienteThunk.rejected, (state, action) => {
                 state.error = action.payload;
+                console.log("entro al case rejected, el error es: ",action.payload);
             });
 
         //Cases de obtener clientes por nombre o fecha
@@ -115,5 +120,5 @@ const clientesSlice = createSlice({
     },
 });
 
-export const { clearSuccessMessage, setError, setClientes } = clientesSlice.actions;
+export const { clearSuccessMessage, setError, setClientes,clearClienteSeleccionado } = clientesSlice.actions;
 export default clientesSlice.reducer;

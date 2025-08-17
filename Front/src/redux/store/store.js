@@ -8,6 +8,10 @@ import egresosReducer from '../slices/egresosSlice';
 import estadisticasReducer from '../slices/estadisticasSlice'
 import usuariosReducer from '../slices/usuariosSlice'
 import publicacionesReducer from '../slices/publicacionesSlice'
+import notificacionReducer from '../slices/notificacionSlice'
+import pagoReducer from '../slices/pagoSlice'
+import giftCardReducer from '../slices/giftCardSlice'
+import diasLibresReducer from '../slices/diasLibresSlice'
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +24,10 @@ export const store = configureStore({
     estadisticas: estadisticasReducer,
     usuarios: usuariosReducer,
     publicaciones: publicacionesReducer,
+    notificacion: notificacionReducer,
+    pago: pagoReducer,
+    giftCard: giftCardReducer,
+    diasLibres: diasLibresReducer,
 
   },
 });

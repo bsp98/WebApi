@@ -211,8 +211,8 @@ namespace WebApi.Controllers
                 return NotFound(ne.Message);
             }
         }
-
-        [Authorize(Roles = "Administrador")]
+        //////////////////////////////////////////
+        //[Authorize(Roles = "Administrador,Cliente")]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

@@ -40,17 +40,17 @@ export const useAuth = () => {
         const passwordRepeat = form.passwordRepeat.value;
 
         const passwordValidate = password === passwordRepeat;
-        const aceptoTerminosYCondiciones = form.politicas.checked;
+        const aceptoPoliticasPrivacidad = form.politicas.checked;
 
         if (!passwordValidate) {
             dispatch(setError("La contraseña y su confirmación deben ser iguales."));
         }
 
-        if (!aceptoTerminosYCondiciones) {
+        if (!aceptoPoliticasPrivacidad ) {
             dispatch(setError("Debés aceptar nuestras políticas para continuar."));
         }
 
-        if (passwordValidate && aceptoTerminosYCondiciones) {
+        if (passwordValidate && aceptoPoliticasPrivacidad) {
             const datosRegistro = {
                 nombre: form.nombre.value,
                 apellido: form.apellido.value,

@@ -15,7 +15,7 @@ import { useAuth } from '../../../hooks/useAuth';
 export const InicioCliente = () => {
   const { reservas, error, successMessage, loading, eliminarReserva, limpiarMensajeExito, setReservaParaCancelar, obtenerReservasPorIdCliente } = useReservas();
   const [menssageConfirmation, setMessageConfirmation] = useState(null);
-    const {usuario} = useAuth();
+  const {usuario} = useAuth();
   const navigate = useNavigate();
   const idClienteAut = usuario?.idUsuario || null;
 

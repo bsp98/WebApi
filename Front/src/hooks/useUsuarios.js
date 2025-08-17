@@ -1,7 +1,7 @@
 import React from 'react'
-import { updatePasswordThunk, solicitarCodigoThunk, recuperarPasswordThunk } from '../redux/thunks/usuariosThunks';
+import { updatePasswordThunk, solicitarCodigoThunk, recuperarPasswordThunk,updateDatosPersonalesThunk } from '../redux/thunks/usuariosThunks';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearSuccessMessage, setError, clearCodeSentSuccessMessage, clearPasswordResetSuccessMessage, setEmailSeleccionado,resetOlvidoPasswordState } from '../redux/slices/usuariosSlice';
+import { clearSuccessMessage, setError, clearCodeSentSuccessMessage, clearPasswordResetSuccessMessage, setEmailSeleccionado, resetOlvidoPasswordState } from '../redux/slices/usuariosSlice';
 
 export const useUsuarios = () => {
     const { error, successMessage, email, codeSent, codeSentError, codeSentSuccessMessage, passwordResetError, passwordResetSuccessMessage, emailSeleccionado } = useSelector((state) => state.usuarios);
@@ -39,7 +39,7 @@ export const useUsuarios = () => {
         const form = e.target;
         const email = form.email.value;
 
-        if(email) {
+        if (email) {
             dispatch(setEmailSeleccionado(email));
         }
 
@@ -72,6 +72,22 @@ export const useUsuarios = () => {
         }
     }
 
+    const cambiarDatosPersonales = (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+
+        const nuevosDatosPersonales = {
+            nombre: form.nombre.value,
+            apellido: form.apellido.value,
+            email: form.email.value,
+            celular: form.celular.value,
+        }
+
+        dispatch(updateDatosPersonalesThunk(nuevosDatosPersonales));
+
+    }
+
 
 
     const limpiarMensajeExito = () => {
@@ -87,7 +103,7 @@ export const useUsuarios = () => {
         dispatch(clearPasswordResetSuccessMessage());
     };
 
-    const limpiarEstadosOlvideContrasena = () =>{
+    const limpiarEstadosOlvideContrasena = () => {
         dispatch(resetOlvidoPasswordState());
     }
 
@@ -107,6 +123,7 @@ export const useUsuarios = () => {
         passwordResetError,
         passwordResetSuccessMessage,
         limpiarEstadosOlvideContrasena,
+        cambiarDatosPersonales,
     }
 
 }
