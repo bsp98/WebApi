@@ -1,6 +1,6 @@
 export async function createPublicacion(publicacion) {
 
-  const response = await fetch('http://localhost:5164/api/Publicacion', {
+  const response = await fetch(`${urlBase}api/Publicacion`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export async function createPublicacion(publicacion) {
 
 export async function getByCategory(id) {
   
-  const response = await fetch(`http://localhost:5164/api/Publicacion/categoria/${id}`);
+  const response = await fetch(`${urlBase}api/Publicacion/categoria/${id}`);
 
     if (!response.ok) {
       let customMessage = "Servidor fuera de servicio";
@@ -50,7 +50,7 @@ export async function getByCategory(id) {
 
 export async function deletePublicacion(id) {
 
-    const response = await fetch(`http://localhost:5164/api/Publicacion/${id}`, {
+    const response = await fetch(`${urlBase}api/Publicacion/${id}`, {
       method: 'DELETE',
     });
   

@@ -1,6 +1,6 @@
 export async function enviarMensajeContacto(mensaje) {
 
-  const response = await fetch('http://localhost:5164/api/Contacto/Mensaje', {
+  const response = await fetch(`${urlBase}api/Contacto/Mensaje`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
