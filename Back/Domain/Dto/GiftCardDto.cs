@@ -13,21 +13,19 @@ namespace Domain.Dto
     public class GiftCardDto : IValidable
     {
         public double Monto { get; set; }
-        public string NombreSolicitante { get; set; }
-        public string EmailSolicitante { get; set; }
+        public string NombreComprador { get; set; }
+        public string EmailComprador { get; set; }
         public string NombreDestinatario { get; set; }
-        public string EmailDestinatario { get; set; }
-        public string TelefonoSolicitante { get; set; }
+        public string CelularComprador { get; set; }
         public string Mensaje { get; set; }
 
-        public GiftCardDto(double monto, string nombreSolicitante, string emailSolicitante, string nombreDestinatario, string emailDestinatario, string telefonoSolicitante, string mensaje)
+        public GiftCardDto(double monto, string nombreComprador, string emailComprador, string nombreDestinatario, string celularComprador, string mensaje)
         {
             Monto=monto;
-            NombreSolicitante=nombreSolicitante;
-            EmailSolicitante=emailSolicitante;
+            NombreComprador = nombreComprador;
+            EmailComprador = emailComprador;
             NombreDestinatario=nombreDestinatario;
-            EmailDestinatario=emailDestinatario;
-            TelefonoSolicitante=telefonoSolicitante;
+            CelularComprador = celularComprador;
             Mensaje=mensaje;
         }
         public GiftCardDto() { }
@@ -36,42 +34,41 @@ namespace Domain.Dto
         public void Validar()
         {
             ValidarMonto();
-            ValidarNombreSolicitante();
-            ValidarEmailSolicitante();
-            ValidarEmailDestinatario();
-            ValidarTelefonoSolicitante();
+            ValidarNombreComprador();
+            ValidarEmailComprador();
+            ValidarCelularComprador();
         }
 
-        private void ValidarTelefonoSolicitante()
+        private void ValidarCelularComprador()
         {
-            if (string.IsNullOrEmpty(TelefonoSolicitante))
-                throw new DatoIncorrectoException("El TelefonoSolicitante no puede estar vacío.");
+            if (string.IsNullOrEmpty(CelularComprador))
+                throw new DatoIncorrectoException("El Celular del comprador no puede estar vacío.");
         }
 
-        private void ValidarEmailSolicitante()
+        private void ValidarEmailComprador()
         {
-            if (string.IsNullOrEmpty(EmailSolicitante))
-                throw new DatoIncorrectoException("El EmailSolicitante no puede estar vacío.");
-            if (!EsEmailValido(EmailSolicitante))
+            if (string.IsNullOrEmpty(EmailComprador))
+                throw new DatoIncorrectoException("El Email del comprador no puede estar vacío.");
+            if (!EsEmailValido(EmailComprador))
             {
-                throw new DatoIncorrectoException("El Email Solicitante no cumple el formato (@gmail.com)");
+                throw new DatoIncorrectoException("El Email del comprador no cumple el formato (@gmail.com)");
             }
         }
 
-        private void ValidarEmailDestinatario()
-        {
-            if (string.IsNullOrEmpty(EmailDestinatario))
-                throw new DatoIncorrectoException("El EmailDestinatario no puede estar vacío.");
-            if (!EsEmailValido(EmailDestinatario))
-            {
-                throw new DatoIncorrectoException("El Email Destinatario no cumple el formato (@gmail.com)");
-            }
-        }
+        //private void ValidarEmailDestinatario()
+        //{
+        //    if (string.IsNullOrEmpty(EmailDestinatario))
+        //        throw new DatoIncorrectoException("El EmailDestinatario no puede estar vacío.");
+        //    if (!EsEmailValido(EmailDestinatario))
+        //    {
+        //        throw new DatoIncorrectoException("El Email Destinatario no cumple el formato (@gmail.com)");
+        //    }
+        //}
 
-        private void ValidarNombreSolicitante()
+        private void ValidarNombreComprador()
         {
-            if (string.IsNullOrEmpty(NombreSolicitante))
-                throw new DatoIncorrectoException("El NombreSolicitante no puede estar vacío.");
+            if (string.IsNullOrEmpty(NombreComprador))
+                throw new DatoIncorrectoException("El Nombre del comprador no puede estar vacío.");
         }
 
         public void ValidarMonto()
