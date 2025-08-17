@@ -37,6 +37,9 @@ namespace WebApi.Controllers
                 var rutaFisica = Path.Combine(_env.WebRootPath, "imagenes", "publicaciones");
 
                 PublicacionDto publicacion = await _servicioPublicacion.CrearPublicacionAsync(dto, rutaWeb, rutaFisica);
+
+                publicacion.ImagenUrl= Url(publicacion.ImagenUrl);
+
                 return Ok(publicacion);
             }
             catch (DatoIncorrectoException die)
@@ -49,8 +52,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-                List<PublicacionDto> publicaciones = await _servicioPublicacion.ObtenerTodasAsync();
-                return Ok(publicaciones);
+            List<PublicacionDto> publicaciones = await _servicioPublicacion.ObtenerTodasAsync();
+
+            foreach (PublicacionDto p in publicaciones)
+            {
+                p.ImagenUrl = Url(p.ImagenUrl);
+            }
+
+            return Ok(publicaciones);
         }
 
         [HttpDelete("{id}")]
@@ -77,6 +86,11 @@ namespace WebApi.Controllers
             {
                 var (pubicaciones, total) = _servicioPublicacion.ObtenerPublicacionesPaginados(page, pageSize);
 
+                foreach (PublicacionDto p in pubicaciones)
+                {
+                    p.ImagenUrl = Url(p.ImagenUrl);
+                }
+
                 return Ok(new
                 {
                     data = pubicaciones,
@@ -96,6 +110,12 @@ namespace WebApi.Controllers
             try
             {
                 List<PublicacionDto> publicaciones = await _servicioPublicacion.ObtenerPorAnioAsync(anio);
+
+                foreach (PublicacionDto p in publicaciones)
+                {
+                    p.ImagenUrl = Url(p.ImagenUrl);
+                }
+
                 return Ok(publicaciones);
             }
             catch (Exception ex)
@@ -114,6 +134,12 @@ namespace WebApi.Controllers
             try
             {
                 List<PublicacionDto> publicacionDto = _servicioPublicacion.ObtenerPorCategoria(categoria);
+
+                foreach (PublicacionDto p in publicacionDto)
+                {
+                    p.ImagenUrl = Url(p.ImagenUrl);
+                }
+                
                 return Ok(publicacionDto);
             }
             catch (DatoIncorrectoException die)
@@ -122,8 +148,15 @@ namespace WebApi.Controllers
             }
 
         }
+        private string Url(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return url;
 
+            if (Uri.TryCreate(url, UriKind.Absolute, out _)) return url;
 
+            var baseUri = new Uri($"{Request.Scheme}://{Request.Host}{Request.PathBase}");
+            return new Uri(baseUri, url.StartsWith("/") ? url : "/" + url).ToString();
+        }
     }
 }
     
