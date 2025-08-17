@@ -258,8 +258,8 @@ namespace WebApi.Controllers
 
         [HttpPut("datos-personales")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult CambiarDatos([FromBody] CambiarDatosPersonalesDto dto)
         {
             try
@@ -272,6 +272,10 @@ namespace WebApi.Controllers
             catch (DatoIncorrectoException e)
             {
                 return UnprocessableEntity(e.Message);
+            }
+            catch (NoExisteException ne)
+            {
+                return NotFound(ne.Message);
             }
         }
 
