@@ -36,6 +36,7 @@ export async function createEgreso(egreso) {
 
 export async function deleteEgreso(id) {
   const response = await fetch(`${urlBase}api/Egreso/${id}`, {
+    credentials: "include",
     method: 'DELETE',
   });
 
@@ -76,7 +77,10 @@ export async function getEgresosPaginados(page, pageSize) {
     params.append("pageSize", pageSize);
   }
 
-  const response = await fetch(`${urlBase}api/Egreso/Paginado?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Egreso/Paginado?${params.toString()}`,{
+    method: "GET",
+    credentials: "include",
+  });
 
   if (!response.ok) {
 
@@ -106,7 +110,10 @@ export async function getByFilter(filtros) {
     params.append("fecha", filtros.fecha);
   }
 
-  const response = await fetch(`${urlBase}api/Egreso/Filtrar?${params.toString()}`); //'${urlBase}api/Servicio'*/} {/*http://webapictvwapa.azurewebsites.net/api/Servicio*/}
+  const response = await fetch(`${urlBase}api/Egreso/Filtrar?${params.toString()}`,{
+    method: "GET",
+    credentials: "include",
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";

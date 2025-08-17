@@ -7,6 +7,7 @@ export async function createDiaLibre(diaLibre) {
 
   const response = await fetch(`${urlBase}api/DiaNoLaborable/Agregar`, {
     method: 'POST',
+    credentials: "include",
     headers: {
       'Content-Type': 'application/json',
     },
@@ -37,6 +38,7 @@ export async function createDiaLibre(diaLibre) {
 
 export async function deleteDiaLibre(id) {
   const response = await fetch(`${urlBase}api/DiaNoLaborable/${id}`, {
+    credentials: "include",
     method: 'DELETE',
   });
 
@@ -60,7 +62,10 @@ export async function deleteDiaLibre(id) {
 
 export async function getAllDiaLibre() {
 
-  const response = await fetch(`${urlBase}/DiaNoLaborable`);
+  const response = await fetch(`${urlBase}/DiaNoLaborable`,{
+    method: "GET",
+    credentials: "include",
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";

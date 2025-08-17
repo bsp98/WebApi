@@ -4,6 +4,7 @@ const {urlBase} = urlBaseService();
 export async function createServicio(servicio) {
 
   const response = await fetch(`${urlBase}api/Servicio/Agregar`, {
+    credentials: "include",
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -35,6 +36,7 @@ export async function createServicio(servicio) {
 
 export async function deleteServicio(id) {
   const response = await fetch(`${urlBase}api/Servicio/${id}`, {
+    credentials: "include",
     method: 'DELETE',
   });
 
@@ -63,6 +65,7 @@ export async function updateServicio(servicioModificado) {
   console.log("entro al fetch update");
   console.log(servicioModificado);
   const response = await fetch(`${urlBase}api/Servicio/${servicioModificado.id}`, {
+    credentials:"include",
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',

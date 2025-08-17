@@ -5,6 +5,7 @@ export async function createPublicacion(publicacion) {
 
   const response = await fetch(`${urlBase}api/Publicacion`, {
     method: 'POST',
+    credentials: "include",
     headers: {
       'Content-Type': 'application/json',
     },
@@ -55,6 +56,7 @@ export async function getByCategory(id) {
 export async function deletePublicacion(id) {
 
     const response = await fetch(`${urlBase}api/Publicacion/${id}`, {
+      credentials: "include",
       method: 'DELETE',
     });
   

@@ -24,7 +24,9 @@ const pagoSlice = createSlice({
         builder
             .addCase(solicitarPagoMercadoPagoThunk.fulfilled, (state, action) => {
                 state.error = null;
-                state.urlMercadoPago = action.payload;
+                const datosDevueltos = action.payload;
+                console.log("objeto de vuelto por mercado pago", datosDevueltos)
+                state.urlMercadoPago = datosDevueltos.initPoint;
                 console.log("se actualizo el estado de la url", state.urlMercadoPago)
             })
             .addCase(solicitarPagoMercadoPagoThunk.rejected, (state, action) => {

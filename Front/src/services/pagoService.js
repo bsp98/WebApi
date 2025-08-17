@@ -4,8 +4,8 @@ const {urlBase} = urlBaseService();
 
 export async function solicitarPagoMercadoPago(datosPago) {
     console.log("solicitud de pago, datos: ",datosPago)
-/*
-  const response = await fetch(`${urlBase}api/Pago/Agregar`, {
+
+  const response = await fetch(`${urlBase}api/Pago/preferencias`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,6 +31,5 @@ export async function solicitarPagoMercadoPago(datosPago) {
     };
   }
 
-  return await response.json();*/
-  return "https://www.elpais.com.uy/ovacion"
+  return await response.json();
 }
