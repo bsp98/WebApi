@@ -80,7 +80,6 @@ export const useUsuarios = () => {
         const nuevosDatosPersonales = {
             nombre: form.nombre.value,
             apellido: form.apellido.value,
-            email: form.email.value,
             celular: form.celular.value,
         }
 
