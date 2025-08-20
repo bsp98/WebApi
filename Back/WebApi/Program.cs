@@ -111,11 +111,11 @@ namespace WebApi
                 {
                     OnMessageReceived = context =>
                     {
-                        if (context.Request.Cookies.ContainsKey("jwt")) // el nombre de tu cookie
                         {
-                            context.Token = context.Request.Cookies["jwt"];
+                            if (context.Request.Cookies.TryGetValue("jwt", out var token))
+                                context.Token = token;     // ← toma el token de la cookie
+                            return Task.CompletedTask;
                         }
-                        return Task.CompletedTask;
                     }
                 };
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -123,6 +123,7 @@ namespace WebApi
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
                     ValidateIssuer = true,
+                    ValidateLifetime = true,
                     ValidIssuer = "https://servidor_seguridad",
                     ValidateAudience = true,
                     ValidAudience = "https://servidor_protegido",
