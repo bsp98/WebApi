@@ -206,6 +206,9 @@ namespace WebApi
             app.UseHttpsRedirection();
             //hangfire
             app.UseHangfireDashboard();
+
+
+            app.UseRouting();
             // Aca aplicamos el middleware CORS
             app.UseCors("PermitirFrontendLocalhost");
 
