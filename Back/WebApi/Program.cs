@@ -127,7 +127,7 @@ namespace WebApi
                     ValidIssuer = "https://servidor_seguridad",
                     ValidateAudience = true,
                     ValidAudience = "https://servidor_protegido",
-                    RoleClaimType = ClaimTypes.Role,
+                    RoleClaimType = "role",
                     ClockSkew = TimeSpan.Zero
                 };
 
