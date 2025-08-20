@@ -130,18 +130,7 @@ namespace WebApi
                     ClockSkew = TimeSpan.Zero
                 };
 
-                options.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        // Extraer token desde la cookie
-                        if (context.Request.Cookies.ContainsKey("jwt"))
-                        {
-                            context.Token = context.Request.Cookies["jwt"];
-                        }
-                        return Task.CompletedTask;
-                    }
-                };
+                
             });
             // hangfire
             builder.Services.AddHangfire(config =>
@@ -198,10 +187,6 @@ namespace WebApi
             //email
             builder.Services.AddScoped<IServicioEmail, ServicioEmail>();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
