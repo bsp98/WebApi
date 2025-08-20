@@ -14,6 +14,7 @@ using Domain.Models;
 using Microsoft.OpenApi.Models;
 using MercadoPago.Config;
 using Hangfire;
+using System.Security.Claims;
 
 
 
@@ -106,6 +107,17 @@ namespace WebApi
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Cookies.ContainsKey("jwt")) // el nombre de tu cookie
+                        {
+                            context.Token = context.Request.Cookies["jwt"];
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
@@ -114,6 +126,7 @@ namespace WebApi
                     ValidIssuer = "https://servidor_seguridad",
                     ValidateAudience = true,
                     ValidAudience = "https://servidor_protegido",
+                    RoleClaimType = ClaimTypes.Role,
                     ClockSkew = TimeSpan.Zero
                 };
 
