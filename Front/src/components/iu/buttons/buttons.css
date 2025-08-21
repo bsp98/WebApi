@@ -72,3 +72,21 @@
 .btn_hero:hover {
     background-color: #2fbfd8;
 }
+
+
+/*Tamaño button responsive*/
+/* Tablet */
+@media (max-width: 768px) {
+  .btn_base {
+    padding: 1rem 0.6rem; /* más compacto */
+    font-size: 1.6rem;    /* un poco más pequeño */
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .btn_base {
+    padding: 0.8rem 0.5rem; 
+    font-size: 1.4rem; 
+  }
+}

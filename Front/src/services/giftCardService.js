@@ -27,7 +27,7 @@ export async function solicitarGiftCard(datosGift) {
     throw {
       status: response.status,
       message: customMessage,
-    };
+  };
   }
 
   return await response.text();

@@ -56,3 +56,25 @@
         opacity: 1;
     }
 }
+
+/*Responsive inconos item caracteristicas*/
+
+/* Tablets (<=768px) */
+@media (max-width: 768px) {
+    .icon_item {
+        font-size: 8rem;
+    }
+
+    .container_itemCaracteristica {
+        width: 60%;
+        margin: 0 auto;
+    }
+}
+
+/* Móviles chicos (<=480px) */
+@media (max-width: 480px) {
+    .icon_item {
+        font-size: 6rem;
+
+    }
+}

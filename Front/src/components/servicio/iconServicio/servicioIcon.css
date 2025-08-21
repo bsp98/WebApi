@@ -14,8 +14,8 @@ align-items: center;
 }
 
 .imagen_mascara img{
-  width: 187px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
 }
 .text_icon{
     margin-top: 8px;
@@ -29,4 +29,32 @@ align-items: center;
 
 .img_servicio_icon:hover{
   transform: scale(1.1);
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+  .imagen_mascara {
+    width: 150px;
+    height: 150px;
+  }
+
+  .imagen_mascara img {
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+  .imagen_mascara {
+    width: 100px;
+    height: 100px;
+  }
+
+  .imagen_mascara img {
+    width: 100%;
+    height: 100%;
+  }
+
 }

@@ -33,7 +33,7 @@ namespace WebApi.Controllers
                await _servicioContacto.EnviarEmailContacto(mensajeDto);
 
 
-                return Ok();
+                return Ok("El mensaje fue enviado con exito");
             }
 
             catch (DatoIncorrectoException die)
