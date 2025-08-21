@@ -26,7 +26,7 @@
 
 }
 
-.container_text_servicio_favoritos{
+.container_text_servicio_favoritos {
     text-align: center;
 }
 
@@ -52,26 +52,27 @@
     justify-content: center;
     align-items: center;
     gap: 8rem;
+    flex-wrap: wrap;
 }
 
 
 /*Estilos seccion Items caracteristicas dle negocio*/
 
-.caracteristicas_container{
-    width:100%;
+.caracteristicas_container {
+    width: 100%;
     height: auto;
     display: flex;
-    gap:4rem;
+    gap: 4rem;
 }
 
 
 /*Animaciones*/
 
-.desde_izquierda_rapido{
+.desde_izquierda_rapido {
     animation: desdeLaIzquierda 1s ease-in-out 0.5s both;
 }
 
-.desde_izquierda_lento{
+.desde_izquierda_lento {
     animation: desdeLaIzquierda 1s ease-in-out 0.1s both;
 }
 
@@ -86,4 +87,39 @@
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+
+/*Responsive de card serviciosPreviwe*/
+/* Tablets */
+@media (max-width: 768px) {
+    .container_icons_serviciosPreviwe {
+        gap: 4rem;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .container_icons_serviciosPreviwe {
+        gap: 2rem;
+    }
+}
+
+
+/*Responsive caracteristicas*/
+
+/* Tablets */
+@media (max-width: 768px) {
+.caracteristicas_container {
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+.caracteristicas_container {
+    gap: 2rem;
+    flex-wrap: wrap;
+}
 }

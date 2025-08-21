@@ -72,3 +72,67 @@
         opacity: 1;
     }
 }
+
+
+/* --- Responsive Hero --- */
+
+/* Tablets */
+@media (max-width: 768px) {
+    .hero_container {
+        height: 400px;
+    }
+
+    .container_content {
+        width: 80%;
+        gap: 2rem;
+    }
+
+    .container_info_inicio {
+        align-items: center;
+    }
+
+    .container_content .title_hero {
+        font-size: 3.2rem;
+    }
+
+
+    .container_content .description_hero {
+        font-size: 2rem;
+    }
+
+    .container_button {
+        justify-content: center;
+    }
+}
+
+/* Móviles */
+@media (max-width: 480px) {
+    .hero_container {
+        height: 300px;
+        margin-bottom: 4rem;
+    }
+
+    .container_content {
+        width: 100%;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .container_info_inicio {
+        padding: 0 1.5rem;
+        align-items: center;
+    }
+
+    .container_content .title_hero {
+        font-size: 2.2rem;
+    }
+
+    .container_content .description_hero {
+        font-size: 1.6rem;
+    }
+
+    .container_button {
+        justify-content: center;
+        width: 100%;
+    }
+}

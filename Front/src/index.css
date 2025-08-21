@@ -165,3 +165,49 @@ p {
   padding-right: 2.4rem;
   width: 100%;
 }
+
+
+/*RESPONSIVE TIPOGRAFAIS*/
+
+/* Tablets (<=768px) */
+@media (max-width: 768px) {
+  h1 { font-size: 4rem; }
+  h2 { font-size: 3.2rem; }
+  h3 { font-size: 2.8rem; }
+  h4 { font-size: 2.4rem; }
+  .subtitle { font-size: 2rem; }
+  .lead { font-size: 2rem; }
+  p { font-size: 1.6rem; }
+}
+
+/* Móviles chicos (<=480px) */
+@media (max-width: 480px) {
+  h1 { font-size: 3.2rem; }
+  h2 { font-size: 2.8rem; }
+  h3 { font-size: 2.4rem; }
+  h4 { font-size: 2rem; }
+  .subtitle { font-size: 1.8rem; }
+  .lead { font-size: 1.8rem; }
+  p { font-size: 1.4rem; }
+}
+
+
+/*RESPONSIVE TAMAÑO PANTALLA*/
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding-left: 1.6rem; /* antes 2.4rem */
+    padding-right: 1.6rem;
+  }
+}
+
+/* Móviles chicos (480px) */
+@media (max-width: 480px) {
+  .container {
+    max-width: 100%;
+    padding-left: 1.2rem; /* más compacto */
+    padding-right: 1.2rem;
+  }
+}
