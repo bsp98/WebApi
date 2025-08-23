@@ -173,8 +173,9 @@ export async function getReservasByIdCliente(id) {
   return datos;
 }
 
-export async function getByFilter(filtros) {
+export async function getByFilter(filtros,token) {
   {
+    
     const params = new URLSearchParams();
 
     // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
@@ -189,7 +190,10 @@ export async function getByFilter(filtros) {
 
     const response = await fetch(`${urlBase}api/Reserva/Filtrar?${params.toString()}`,{
         method: 'GET',
-        credentials: 'include',
+        headers: {
+    "Authorization": Bearer(token),
+    "Content-Type": "application/json"
+  }
     });
 
     if (!response.ok) {
@@ -283,7 +287,10 @@ export async function getAvailableTimes(fecha, duracion) {
 }
 
 export async function getReservasByDate(fecha) {
-  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`);
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`,{
+    method: 'GET',
+    credentials: 'include',
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
