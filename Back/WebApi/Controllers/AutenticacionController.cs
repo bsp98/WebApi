@@ -140,12 +140,12 @@ namespace WebApi.Controllers
             }
         }
 
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("Logout")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Logout()
         {
-             Response.Cookies.Delete("jwt");
+             
           
             return Ok("Sesión cerrada correctamente.");
         }

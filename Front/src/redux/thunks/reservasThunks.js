@@ -1,5 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createReserva, deleteReserva, reagendarReserva, getAllReserva, getByIdReserva, getReservasByIdCliente, getByFilter, getReservasPaginadas, getAvailableTimes, getReservasByDate, ModifyPaymentStatus } from '../../services/reservasService';
+import { obtenerToken } from '../../utils/storage/authStorage';
+
+const token = obtenerToken();
 
 export const createReservaThunk = createAsyncThunk(
   'reservas/crearReserva',
@@ -115,8 +118,8 @@ export const getByFilterThunk = createAsyncThunk(
   'reservas/getByFilter',
   async (filtros, thunkAPI) => {
     try {
-
-      const response = await getByFilter(filtros);
+      
+      const response = await getByFilter(filtros,token);
       return response;
 
     } catch (error) {
