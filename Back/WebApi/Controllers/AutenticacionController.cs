@@ -113,7 +113,8 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("jwt");
+             Response.Cookies.Delete("jwt");
+          
             return Ok("Sesión cerrada correctamente.");
         }
 
