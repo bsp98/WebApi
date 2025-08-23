@@ -103,36 +103,66 @@ namespace WebApi
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.SaveToken = true;
-                options.Events = new JwtBearerEvents
-                {
-                    OnMessageReceived = context =>
-                    {
-                        {
-                            if (context.Request.Cookies.TryGetValue("jwt", out var token))
-                                context.Token = token;     // ← toma el token de la cookie
-                            return Task.CompletedTask;
-                        }
-                    }
-                };
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
-                    ValidateIssuer = true,
-                    ValidateLifetime = true,
-                    ValidIssuer = "https://servidor_seguridad",
-                    ValidateAudience = true,
-                    ValidAudience = "https://servidor_protegido",
-                    RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-                    ClockSkew = TimeSpan.Zero
-                };
+            })//.AddJwtBearer(options =>
+            //{
+            //    options.RequireHttpsMetadata = false;
+            //    options.SaveToken = true;
+            //    options.Events = new JwtBearerEvents
+            //    {
+            //        OnMessageReceived = context =>
+            //        {
+            //            {
+            //                if (context.Request.Cookies.TryGetValue("jwt", out var token))
+            //                    context.Token = token;     // ← toma el token de la cookie
+            //                return Task.CompletedTask;
+            //            }
+            //        }
+
+
+            //    };
+
+
+                .AddJwtBearer(options =>
+                 {
+                     options.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateIssuerSigningKey = true,
+                         IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
+                         ValidateIssuer = true,
+                         ValidateLifetime = true,
+                         ValidIssuer = "https://servidor_seguridad",
+                         ValidateAudience = true,
+                         ValidAudience = "https://servidor_protegido",
+                         RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+                         ClockSkew = TimeSpan.Zero
+                     };
+                     options.Events = new JwtBearerEvents
+                     {
+                         OnMessageReceived = ctx =>
+                         {
+                             if (ctx.Request.Cookies.TryGetValue("jwt", out var t))
+                                 ctx.Token = t;
+                             return Task.CompletedTask;
+                         }
+                     };
+                 });
+
+
+                //options.TokenValidationParameters = new TokenValidationParameters
+                //{
+                //    ValidateIssuerSigningKey = true,
+                //    IssuerSigningKey = new SymmetricSecurityKey(claveBytes),
+                //    ValidateIssuer = true,
+                //    ValidateLifetime = true,
+                //    ValidIssuer = "https://servidor_seguridad",
+                //    ValidateAudience = true,
+                //    ValidAudience = "https://servidor_protegido",
+                //    RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+                //    ClockSkew = TimeSpan.Zero
+                //};
 
                 
-            });
+            
             // hangfire
             builder.Services.AddHangfire(config =>
             {
