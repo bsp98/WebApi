@@ -56,8 +56,7 @@ namespace WebApi.Controllers
                     Secure = true,
                     SameSite = SameSiteMode.None,
                     Expires = DateTimeOffset.UtcNow.AddHours(1),
-                    Domain = "webapictvwapa.azurewebsites.net", // 👈 clave
-                    Path = "/"
+                    
                 });
 
               
