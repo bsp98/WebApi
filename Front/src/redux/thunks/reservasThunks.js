@@ -168,7 +168,7 @@ export const getReservasByDateThunk = createAsyncThunk(
   async (fecha, thunkAPI) => {
     try {
 
-      const response = await getReservasByDate(fecha);
+      const response = await getReservasByDate(fecha,token);
 
       return response;
 

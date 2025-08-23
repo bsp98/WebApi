@@ -191,7 +191,7 @@ export async function getByFilter(filtros,token) {
     const response = await fetch(`${urlBase}api/Reserva/Filtrar?${params.toString()}`,{
         method: 'GET',
         headers: {
-    "Authorization": Bearer(token),
+    "Authorization": `Bearer ${token}`,
     "Content-Type": "application/json"
   }
     });
@@ -286,8 +286,14 @@ export async function getAvailableTimes(fecha, duracion) {
   return datos;
 }
 
-export async function getReservasByDate(fecha) {
-  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`);
+export async function getReservasByDate(fecha,token) {
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`,{
+
+      headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+  }}
+  );
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
