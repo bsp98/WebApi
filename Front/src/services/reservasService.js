@@ -68,7 +68,7 @@ export async function deleteReserva(id,token) {
   return await response.text();
 }
 
-export async function reagendarReserva({ idReserva, fecha, horaInicio ,token}) {
+export async function reagendarReserva({ idReserva, fecha, horaInicio} ,token) {
 
   const response = await fetch(`${urlBase}api/Reserva/${idReserva}/fechahora`, {
     method: 'PATCH',

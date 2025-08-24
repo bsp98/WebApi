@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createEgreso,deleteEgreso,getEgresosPaginados,getByFilter} from '../../services/egresosService';
+import { obtenerToken } from '../../utils/storage/authStorage';
+
 
 export const createEgresoThunk = createAsyncThunk(
   'egresos/crearEgreso',
   async (nuevoEgreso, thunkAPI) => {
     try {
 
-      const response  = await createEgreso(nuevoEgreso);
+      const token = obtenerToken();
+      const response  = await createEgreso(nuevoEgreso,token);
       return response;
 
     } catch (error) {
@@ -22,8 +25,9 @@ export const deleteEgresoThunk = createAsyncThunk(
   'egresos/deleteEgreso',
   async (idEgreso, thunkAPI) => {
     try {
+                const token = obtenerToken();
 
-      const response = await deleteEgreso(idEgreso);
+      const response = await deleteEgreso(idEgreso,token);
       await thunkAPI.dispatch(getEgresosPaginadosThunk({ page: 1 , pageSize: 10 }));
       return response;
 
@@ -39,8 +43,9 @@ export const deleteEgresoThunk = createAsyncThunk(
   'egresos/getEgresosPaginados',
   async ({ page, pageSize },thunkAPI) => {
     try {
+          const token = obtenerToken();
 
-      const response = await getEgresosPaginados(page,pageSize);
+      const response = await getEgresosPaginados(page,pageSize,token);
       return response;
 
     } catch (error) {
@@ -55,8 +60,9 @@ export const getByFilterThunk = createAsyncThunk(
   'egresos/getByFilter',
   async (filtros,thunkAPI) => {
     try {
-
-      const response = await getByFilter(filtros);
+      
+      const token = obtenerToken();
+      const response = await getByFilter(filtros,token);
       return response;
 
     } catch (error) {

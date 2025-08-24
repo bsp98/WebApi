@@ -50,6 +50,7 @@ export const reagendarReservaThunk = createAsyncThunk(
   'reservas/reagendarReserva',
   async (datoDeReagenda, thunkAPI) => {
     try {
+     
           const token = obtenerToken();
       const response = await reagendarReserva(datoDeReagenda,token);
       return response;

@@ -16,6 +16,7 @@ namespace DataAcces.Interfaces
         IEnumerable<Egreso> GetPorMesYAnio(int mes, int anio);
         IEnumerable<Egreso> GetPorAnio(int anio);
         IEnumerable<Egreso> ObtenerEgresosPaginados(int page, int pageSize);
+        IEnumerable<Egreso> FiltrarEgresos(CategoriaEgreso? categoria, DateTime? fecha);
         int ContarEgresos(); // para saber cuántas páginas hay en total
     }
 }

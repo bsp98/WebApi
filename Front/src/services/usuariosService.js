@@ -1,14 +1,15 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function updatePassword({ passwordActual, nuevaPassword }) {
+export async function updatePassword({ passwordActual, nuevaPassword },token) {
 
   const response = await fetch(`${urlBase}api/Usuario/cambiar-password`, {
     method: 'PATCH',
     credentials: 'include',
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
-    },
+      },
     body: JSON.stringify({ passwordActual, nuevaPassword }),
   });
 
@@ -90,14 +91,16 @@ export async function recuperarPassword({ email, codigo, nuevaPassword }) {
   return await response.text();
 }
 
-export async function updateDatosPersonales(datosPersonales) {
+export async function updateDatosPersonales(datosPersonales,token) {
 
   const response = await fetch(`${urlBase}api/Usuario/datos-personales`, {
     method: 'PUT',
-    credentials: 'include',
+   
     headers: {
+     "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
+    
     body: JSON.stringify(datosPersonales),
   });
 

@@ -13,7 +13,6 @@ export async function getResumenEstadisticas(anio,token) {
         `${urlBase}api/Estadisticas/resumen?${params.toString()}`,
         {
             method: 'GET',
-            credentials: 'include',
             headers: {
                 "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json',

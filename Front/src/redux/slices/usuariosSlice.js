@@ -82,9 +82,9 @@ const usuariosSlice = createSlice({
 
         //Cases modificar datos personales
         builder
-            .addCase(updateDatosPersonalesThunk.fulfilled, (state,action) => {
+            .addCase(updateDatosPersonalesThunk.fulfilled, (state) => {
                 state.error = null;
-                state.successMessage = action.payload;
+                state.successMessage = "Datos modificados con exito"
             })
             .addCase(updateDatosPersonalesThunk.rejected, (state, action) => {
                 state.successMessage = null

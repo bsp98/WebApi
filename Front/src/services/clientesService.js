@@ -29,7 +29,7 @@ export async function createCliente(cliente,token) {
     };
   }
 
-  return await response.json();
+  return await response.text();
 }
 
 //FALTA VALIDAR EN EL THUNK QUE SE REFRESQUE LOS CLIENTE DEPSUES DE ELIMINAR

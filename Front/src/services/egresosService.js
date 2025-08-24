@@ -1,12 +1,13 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function createEgreso(egreso) {
+export async function createEgreso(egreso,token) {
 
   const response = await fetch(`${urlBase}api/Egreso/Agregar`, {
     method: 'POST',
-    credentials: 'include',
+
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(egreso),
@@ -34,10 +35,14 @@ export async function createEgreso(egreso) {
 }
 
 
-export async function deleteEgreso(id) {
+export async function deleteEgreso(id,token) {
   const response = await fetch(`${urlBase}api/Egreso/${id}`, {
-    credentials: "include",
+
     method: 'DELETE',
+     headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
@@ -62,7 +67,7 @@ export async function deleteEgreso(id) {
 }
 
 
-export async function getEgresosPaginados(page, pageSize) {
+export async function getEgresosPaginados(page, pageSize,token) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
   const params = new URLSearchParams();
@@ -79,7 +84,10 @@ export async function getEgresosPaginados(page, pageSize) {
 
   const response = await fetch(`${urlBase}api/Egreso/Paginado?${params.toString()}`,{
     method: "GET",
-    credentials: "include",
+     headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
@@ -97,7 +105,7 @@ export async function getEgresosPaginados(page, pageSize) {
 }
 
 
-export async function getByFilter(filtros) {
+export async function getByFilter(filtros,token) {
   const params = new URLSearchParams();
 
   // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
@@ -112,7 +120,10 @@ export async function getByFilter(filtros) {
 
   const response = await fetch(`${urlBase}api/Egreso/Filtrar?${params.toString()}`,{
     method: "GET",
-    credentials: "include",
+     headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
