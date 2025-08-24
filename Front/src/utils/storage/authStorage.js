@@ -15,3 +15,8 @@ export const eliminarUsuario = () => {
 export const limpiarAuthStorage = () => {
   eliminarUsuario();
 }
+
+export const obtenerToken = () => {
+  const data = localStorage.getItem("usuario");
+  return data ? JSON.parse(data).token : null;
+}

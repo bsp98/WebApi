@@ -3,11 +3,11 @@ import { loginUserThunk, registroUserThunk, logoutThunk } from '../thunks/authTh
 import {guardarUsuario, limpiarAuthStorage} from '../../utils/storage/authStorage';
 
 const manejarAutenticacion = (state, payload = null) => {
-   const {idUsuario, rolUsuario } = payload;
-    state.usuario = { idUsuario, rolUsuario };
+   const {idUsuario, rolUsuario ,token} = payload;
+    state.usuario = { idUsuario, rolUsuario ,token};
     state.authLoaded = true;
-    
-    guardarUsuario({ idUsuario, rolUsuario });
+    console.log(state.usuario.token)
+    guardarUsuario({ idUsuario, rolUsuario,token });
 };
 
 const initialState = {

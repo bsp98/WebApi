@@ -69,25 +69,34 @@ namespace Services.Services
         }
 
 
+        //public List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros)
+        //{
+        //    List<EgresoDto> egresoDto = null;
+        //    if (filtros.CategoriaEgreso != null)
+        //    {
+        //        var egresos = _repositorioEgreso.BuscarPorCategoriaEgreso(filtros.CategoriaEgreso.Value).ToList();
+
+        //        egresoDto= _mapper.Map<List<EgresoDto>>(egresos);
+        //    }
+
+        //    if (filtros.Fecha.HasValue)
+        //    {
+        //        var egresos = _repositorioEgreso.BuscarPorFecha(filtros.Fecha.Value).ToList();
+
+        //        egresoDto= _mapper.Map<List<EgresoDto>>(egresos);
+        //    }
+
+        //    return egresoDto;
+        //}
         public List<EgresoDto> FiltrarEgresos(EgresoFiltrosDto filtros)
         {
-            if (filtros.CategoriaEgreso != null)
-            {
-                var egresos = _repositorioEgreso.BuscarPorCategoriaEgreso(filtros.CategoriaEgreso.Value).ToList();
+            var egresos = _repositorioEgreso.FiltrarEgresos(
+                filtros.CategoriaEgreso,
+                filtros.Fecha
+            );
 
-                return _mapper.Map<List<EgresoDto>>(egresos);
-            }
-
-            if (filtros.Fecha.HasValue)
-            {
-                var egresos = _repositorioEgreso.BuscarPorFecha(filtros.Fecha.Value).ToList();
-
-                return _mapper.Map<List<EgresoDto>>(egresos);
-            }
-
-            return new List<EgresoDto>();
+            return _mapper.Map<List<EgresoDto>>(egresos);
         }
-
         public (List<EgresoDto> egresos, int total) ObtenerEgresosPaginados(int page, int pageSize)
         {
             var egresos = _repositorioEgreso.ObtenerEgresosPaginados(page, pageSize);

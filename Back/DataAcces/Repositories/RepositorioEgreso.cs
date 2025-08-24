@@ -26,7 +26,22 @@ namespace DataAcces.Repositories
         {
             return Contexto.Set<Egreso>().AsNoTracking().Where(s => s.CategoriaEgreso == categoria);
         }
+        public IEnumerable<Egreso> FiltrarEgresos(CategoriaEgreso? categoria, DateTime? fecha)
+        {
+            var query = Contexto.Set<Egreso>().AsNoTracking().AsQueryable();
 
+            if (categoria.HasValue)
+            {
+                query = query.Where(e => e.CategoriaEgreso == categoria.Value);
+            }
+
+            if (fecha.HasValue)
+            {
+                query = query.Where(e => e.Fecha.Date == fecha.Value.Date);
+            }
+
+            return query.ToList();
+        }
 
         public IEnumerable<Egreso> ObtenerEgresosPaginados(int page, int pageSize)
         {

@@ -30,6 +30,7 @@ export const ConfigDatosPersonales = () => {
       <FormularioDatosPersonales onSubmit={cambiarDatosPersonales} formRef={formRef} error={error} />
 
       {successMessage && (
+        
         <Modal mensaje={successMessage} alCerrar={limpiarMensajeExito} />
       )}
     </div>

@@ -3,11 +3,41 @@ const {urlBase} = urlBaseService();
 
 //Login convencional
 
-export async function loginUser({ email, password }) {
+//Login con Cookies
 
+// export async function loginUser({ email, password }) {
+
+//     const response = await fetch(`${urlBase}api/Autenticacion/Login`, {
+//         method: 'POST',
+//         credentials: 'include',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({ email, password }),
+//     });
+
+//     if (!response.ok) {
+//         let customMessage = "Servidor fuera de servicio";
+
+//         switch (response.status) {
+//             case 401:
+//                 customMessage = await response.text();
+//                 break;
+//         }
+
+//         throw {
+//             status: response.status,
+//             message: customMessage,
+//         };
+//     }
+
+//     return await response.json();
+// }
+
+//Login tradicional 
+export async function loginUser({ email, password }) {
     const response = await fetch(`${urlBase}api/Autenticacion/Login`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -16,27 +46,21 @@ export async function loginUser({ email, password }) {
 
     if (!response.ok) {
         let customMessage = "Servidor fuera de servicio";
-
-        switch (response.status) {
-            case 401:
-                customMessage = await response.text();
-                break;
+        if (response.status === 401) {
+            customMessage = await response.text();
         }
-
-        throw {
-            status: response.status,
-            message: customMessage,
-        };
+        throw { status: response.status, message: customMessage };
     }
 
+    // Solo devolvemos los datos
     return await response.json();
 }
+
 
 //Login gooogle
 export async function loginConGoogle(IdToken) {
     const response = await fetch(`${urlBase}api/Autenticacion/GoogleLogin`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },
@@ -101,8 +125,7 @@ export async function registroUser(datosUsuario) {
 export async function logout() {
 
     const response = await fetch(`${urlBase}api/Autenticacion/Logout`, {
-        method: 'POST',
-        credentials: 'include',
+        method: 'POST'
     });
 
     if (!response.ok) {

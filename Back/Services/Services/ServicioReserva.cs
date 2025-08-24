@@ -48,8 +48,13 @@ namespace Services.Services
         {
             //Valido el DTO
             dto.Validar();
+            Usuario usu = null;
+            if (dto.ClienteId.HasValue)
+            {
+             usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
 
-            Usuario usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
+            }
+           
             if (usu != null && usu is Cliente)
             {
                 if (dto.Fecha <= DateTime.Now) throw new DatoIncorrectoException("La fecha debe ser una fecha posterior a la actual");
@@ -58,13 +63,13 @@ namespace Services.Services
             Servicio servicio = _repositorioServicio.GetById(dto.ServicioId);
             if (servicio == null) throw new NoExisteException("Servicio no encontrado");
 
-            //Validar el modo de pago
-            IEnumerable<ModoDePago> listaModoDePago = _repositorioModoDePago.GetAll();
-            ModoDePago modoDePago = listaModoDePago.First();
-            if (modoDePago.TipoDePago.Equals(1) && usu is Cliente)
-            {
+            ////Validar el modo de pago
+            //IEnumerable<ModoDePago> listaModoDePago = _repositorioModoDePago.GetAll();
+            //ModoDePago modoDePago = listaModoDePago.First();
+            //if (modoDePago.TipoDePago.Equals(1) && usu is Cliente)
+            //{
 
-            }
+            //}
             //Busco si existe una agenda para ese dia, sino la busco.
             Agenda agenda = _repositorioAgenda.BuscarPorFecha(dto.Fecha);
 

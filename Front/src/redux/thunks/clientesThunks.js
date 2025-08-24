@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createCliente,deleteCliente,getAllCliente,getByIdCliente,getByFilter,getClientesPaginados} from '../../services/clientesService';
+import { obtenerToken } from '../../utils/storage/authStorage';
+
 
 export const createClienteThunk = createAsyncThunk(
   'clientes/crearCliente',
   async (nuevoCliente, thunkAPI) => {
-    try {
-
-      const response = await createCliente(nuevoCliente);
+     try {
+      const token = obtenerToken();
+      const response = await createCliente(nuevoCliente,token);
+      console.log(response);
       return response;
 
     } catch (error) {
@@ -22,8 +25,8 @@ export const deleteClienteThunk = createAsyncThunk(
   'clientes/deleteCliente',
   async (idCliente, thunkAPI) => {
     try {
-
-      const response = await deleteCliente(idCliente);
+      const token = obtenerToken();
+      const response = await deleteCliente(idCliente,token);
       await thunkAPI.dispatch(getAllClienteThunk());
       return response;
 
@@ -40,8 +43,9 @@ export const getAllClienteThunk = createAsyncThunk(
   'clientes/getAll',
   async (_,thunkAPI) => {
     try {
+      const token = obtenerToken();
 
-      const response = await getAllCliente();
+      const response = await getAllCliente(token);
       return response;
 
     } catch (error) {
@@ -56,8 +60,9 @@ export const getByIdClienteThunk = createAsyncThunk(
   'clientes/getById',
   async (id,thunkAPI) => {
     try {
-
-      const response = await getByIdCliente(id);
+      const token = obtenerToken();
+      
+      const response = await getByIdCliente(id,token);
 
       return response;
 
@@ -73,8 +78,8 @@ export const getByFilterThunk = createAsyncThunk(
   'clientes/getByFilter',
   async (filtros,thunkAPI) => {
     try {
-
-      const response = await getByFilter(filtros);
+      const token = obtenerToken();
+      const response = await getByFilter(filtros,token);
       return response;
 
     } catch (error) {
@@ -89,8 +94,8 @@ export const getByFilterThunk = createAsyncThunk(
   'clientes/getClientesPaginados',
   async ({ page, pageSize },thunkAPI) => {
     try {
-
-      const response = await getClientesPaginados(page,pageSize);
+      const token = obtenerToken();
+      const response = await getClientesPaginados(page,pageSize,token);
       return response;
 
     } catch (error) {

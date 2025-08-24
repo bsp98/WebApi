@@ -1,12 +1,13 @@
 import { urlBaseService } from "./urlBaseService";
 const { urlBase } = urlBaseService();
 
-export async function createReserva(reserva) {
+export async function createReserva(reserva, token) {
 
   const response = await fetch(`${urlBase}api/Reserva`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(reserva),
   });
@@ -36,11 +37,14 @@ export async function createReserva(reserva) {
 }
 
 
-export async function deleteReserva(id) {
+export async function deleteReserva(id,token) {
 
   const response = await fetch(`${urlBase}api/Reserva/${id}`, {
-    credentials: "include",
     method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
   });
 
   if (!response.ok) {
@@ -64,13 +68,15 @@ export async function deleteReserva(id) {
   return await response.text();
 }
 
-export async function reagendarReserva({ idReserva, fecha, horaInicio }) {
+export async function reagendarReserva({ idReserva, fecha, horaInicio} ,token) {
 
   const response = await fetch(`${urlBase}api/Reserva/${idReserva}/fechahora`, {
-    credentials: "include",
     method: 'PATCH',
     headers: {
-      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json'
+     
+    
     },
     body: JSON.stringify({ fecha, horaInicio }),
   });
@@ -121,12 +127,15 @@ export async function getAllReserva() {
   return await response.json();
 }
 
-export async function getByIdReserva(id) {
+export async function getByIdReserva(id,token) {
 
-  const response = await fetch(`${urlBase}api/Reserva/${id}`,{
-        method: 'GET',
-        credentials: 'include',
-    });
+  const response = await fetch(`${urlBase}api/Reserva/${id}`, {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -148,11 +157,14 @@ export async function getByIdReserva(id) {
 }
 
 
-export async function getReservasByIdCliente(id) {
-  const response = await fetch(`${urlBase}api/Reserva/Filtrar?clienteId=${id}`,{
-        method: 'GET',
-        credentials: 'include',
-    });
+export async function getReservasByIdCliente(id, token) {
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?clienteId=${id}`, {
+    method: 'GET',
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -173,9 +185,9 @@ export async function getReservasByIdCliente(id) {
   return datos;
 }
 
-export async function getByFilter(filtros,token) {
+export async function getByFilter(filtros, token) {
   {
-    
+
     const params = new URLSearchParams();
 
     // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
@@ -188,12 +200,12 @@ export async function getByFilter(filtros,token) {
       params.append("fecha", filtros.fecha);
     }
 
-    const response = await fetch(`${urlBase}api/Reserva/Filtrar?${params.toString()}`,{
-        method: 'GET',
-        headers: {
-    "Authorization": Bearer(token),
-    "Content-Type": "application/json"
-  }
+    const response = await fetch(`${urlBase}api/Reserva/Filtrar?${params.toString()}`, {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
     });
 
     if (!response.ok) {
@@ -286,11 +298,15 @@ export async function getAvailableTimes(fecha, duracion) {
   return datos;
 }
 
-export async function getReservasByDate(fecha) {
-  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`,{
-    method: 'GET',
-    credentials: 'include',
-  });
+export async function getReservasByDate(fecha, token) {
+  const response = await fetch(`${urlBase}api/Reserva/Filtrar?fecha=${fecha}`, {
+
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    }
+  }
+  );
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -313,11 +329,12 @@ export async function getReservasByDate(fecha) {
 
 
 
-export async function ModifyPaymentStatus({ idReserva, estadoDePago }) {
+export async function ModifyPaymentStatus({ idReserva, estadoDePago ,token}) {
 
   const response = await fetch(`${urlBase}api/Reserva/${idReserva}/EstadoDePago`, {
     method: 'PATCH',
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ estadoDePago }),

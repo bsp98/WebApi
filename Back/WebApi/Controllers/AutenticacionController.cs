@@ -31,6 +31,46 @@ namespace WebApi.Controllers
         }
 
 
+        //[AllowAnonymous]       CODIGO CON COOKIES
+        //[HttpPost("Login")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public IActionResult Login([FromBody] LoginDto loginDto)
+        //{
+        //    try
+        //    {
+
+
+        //        UsuarioDto usuario = _servicioAutenticacion.Login(loginDto.Email, loginDto.Password);
+
+
+        //        string tokenJwt = _servicioAutenticacion.GenerarTokenJwt(usuario.Email, usuario.Nombre, usuario.NombreTipoUsuario, usuario.Id);
+
+        //        Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            Secure = true,
+        //            SameSite = SameSiteMode.None,
+        //            Expires = DateTimeOffset.UtcNow.AddHours(1),
+        //           
+        //        });
+
+
+
+        //        return Ok(new
+        //        {
+        //            idUsuario = usuario.Id,
+        //            rolUsuario = usuario.NombreTipoUsuario
+        //        });
+        //    }
+
+        //    catch (NoExisteException eee)
+        //    {
+        //        //Codigo Status 401 no autorizado
+        //        return Unauthorized(eee.Message);
+        //    }
+        //}
+
         [AllowAnonymous]
         [HttpPost("Login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -39,42 +79,66 @@ namespace WebApi.Controllers
         {
             try
             {
-                /*
-                 -Ver el registro del login google
-                -probar con el diploy
-                 */
-
-
+                // Validar usuario
                 UsuarioDto usuario = _servicioAutenticacion.Login(loginDto.Email, loginDto.Password);
 
+                // Generar token JWT
+                string tokenJwt = _servicioAutenticacion.GenerarTokenJwt(
+                    usuario.Email,
+                    usuario.Nombre,
+                    usuario.NombreTipoUsuario,
+                    usuario.Id
+                );
 
-                string tokenJwt = _servicioAutenticacion.GenerarTokenJwt(usuario.Email, usuario.Nombre, usuario.NombreTipoUsuario, usuario.Id);
-
-                Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                    Expires = DateTimeOffset.UtcNow.AddHours(1),
-                    
-                });
-
-              
-
+                // Retornamos el JWT en el body, no en cookie
                 return Ok(new
                 {
+                    token = tokenJwt, // 👈 JWT para que el front lo guarde
                     idUsuario = usuario.Id,
                     rolUsuario = usuario.NombreTipoUsuario
                 });
             }
-
             catch (NoExisteException eee)
             {
-                //Codigo Status 401 no autorizado
                 return Unauthorized(eee.Message);
             }
         }
 
+        //LOGIN GOOGLE COOKIES
+
+        //[AllowAnonymous]
+        //[HttpPost("GoogleLogin")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDto dto)
+        //{
+        //    try
+        //    {
+        //        var (usuario, tokenJwt) = await _servicioAutenticacion.GoogleLoginAsync(dto.IdToken);
+
+        //        Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            Secure = true,
+        //            SameSite = SameSiteMode.None,
+        //            Expires = DateTimeOffset.UtcNow.AddHours(1)
+        //        });
+
+        //        return Ok(new
+        //        {
+        //            idUsuario = usuario.Id,
+        //            rolUsuario = usuario.NombreTipoUsuario,
+        //        });
+        //    }
+        //    catch (NoExisteException ex)
+        //    {
+        //        return Unauthorized(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Error interno: {ex.Message}");
+        //    }
+        //}
         [AllowAnonymous]
         [HttpPost("GoogleLogin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -85,18 +149,12 @@ namespace WebApi.Controllers
             {
                 var (usuario, tokenJwt) = await _servicioAutenticacion.GoogleLoginAsync(dto.IdToken);
 
-                Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                    Expires = DateTimeOffset.UtcNow.AddHours(1)
-                });
 
                 return Ok(new
                 {
                     idUsuario = usuario.Id,
                     rolUsuario = usuario.NombreTipoUsuario,
+                    token = tokenJwt
                 });
             }
             catch (NoExisteException ex)
@@ -108,13 +166,12 @@ namespace WebApi.Controllers
                 return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
-
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("Logout")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult Logout()
         {
-             Response.Cookies.Delete("jwt");
+             
           
             return Ok("Sesión cerrada correctamente.");
         }

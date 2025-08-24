@@ -1,17 +1,34 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function createPublicacion(publicacion) {
+// export async function createPublicacion(publicacion,token) {
+//  console.log(publicacion)
+//   const response = await fetch(`${urlBase}api/Publicacion`, {
+//     method: 'POST',
+//     headers: {
+//       "Authorization": `Bearer ${token}`,
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(publicacion),
+//   });
 
+  export async function createPublicacion(publicacion, token) {
+  const formData = new FormData();
+  formData.append("Titulo", publicacion.titulo);
+  formData.append("Descripcion", publicacion.descripcion);
+  formData.append("Imagen", publicacion.imagen); // archivo tipo File
+  formData.append("Categoria", publicacion.categoria); // ojo: si es enum int/string depende del backend
+console.log(formData)
   const response = await fetch(`${urlBase}api/Publicacion`, {
-    method: 'POST',
-    credentials: "include",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`,
+      // ❌ no pongas Content-Type acá, fetch lo setea solo al usar FormData
     },
-    body: JSON.stringify(publicacion),
+    body: formData,
   });
 
+  
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
 
@@ -53,11 +70,14 @@ export async function getByCategory(id) {
 }
 
 
-export async function deletePublicacion(id) {
+export async function deletePublicacion(id,token) {
 
     const response = await fetch(`${urlBase}api/Publicacion/${id}`, {
-      credentials: "include",
       method: 'DELETE',
+       headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
     });
   
     if (!response.ok) {

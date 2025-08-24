@@ -1,7 +1,7 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function getResumenEstadisticas(anio) {
+export async function getResumenEstadisticas(anio,token) {
     console.log("entro a la peticion de estadisticas");
     const params = new URLSearchParams();
 
@@ -13,8 +13,8 @@ export async function getResumenEstadisticas(anio) {
         `${urlBase}api/Estadisticas/resumen?${params.toString()}`,
         {
             method: 'GET',
-            credentials: 'include',
             headers: {
+                "Authorization": `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
         }

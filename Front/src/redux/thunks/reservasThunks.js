@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createReserva, deleteReserva, reagendarReserva, getAllReserva, getByIdReserva, getReservasByIdCliente, getByFilter, getReservasPaginadas, getAvailableTimes, getReservasByDate, ModifyPaymentStatus } from '../../services/reservasService';
+import { obtenerToken } from '../../utils/storage/authStorage';
+
+
 
 export const createReservaThunk = createAsyncThunk(
   'reservas/crearReserva',
   async (nuevaReserva, thunkAPI) => {
     try {
-
-      const response = await createReserva(nuevaReserva);
+      const token = obtenerToken();
+      const response = await createReserva(nuevaReserva,token);
       return response;
 
     } catch (error) {
@@ -26,8 +29,8 @@ export const deleteReservaThunk = createAsyncThunk(
   'reservas/deleteReserva',
   async (idReserva, thunkAPI) => {
     try {
-
-      const response = await deleteReserva(idReserva);
+      const token = obtenerToken();
+      const response = await deleteReserva(idReserva,token);
 
       if (rol === "cliente") {
         await thunkAPI.dispatch(getReservasByIdClienteThunk(1));
@@ -47,8 +50,9 @@ export const reagendarReservaThunk = createAsyncThunk(
   'reservas/reagendarReserva',
   async (datoDeReagenda, thunkAPI) => {
     try {
-
-      const response = await reagendarReserva(datoDeReagenda);
+     
+          const token = obtenerToken();
+      const response = await reagendarReserva(datoDeReagenda,token);
       return response;
 
     } catch (error) {
@@ -80,8 +84,8 @@ export const getByIdReservaThunk = createAsyncThunk(
   'reservas/getById',
   async (id, thunkAPI) => {
     try {
-
-      const response = await getByIdReserva(id);
+            const token = obtenerToken();
+      const response = await getByIdReserva(id,token);
 
       return response;
 
@@ -97,8 +101,8 @@ export const getReservasByIdClienteThunk = createAsyncThunk(
   'reservas/getReservasByIdCliente',
   async (id, thunkAPI) => {
     try {
-
-      const response = await getReservasByIdCliente(id);
+      const token = obtenerToken();
+      const response = await getReservasByIdCliente(id,token);
 
       return response;
 
@@ -115,8 +119,8 @@ export const getByFilterThunk = createAsyncThunk(
   'reservas/getByFilter',
   async (filtros, thunkAPI) => {
     try {
-
-      const response = await getByFilter(filtros);
+      const token = obtenerToken();
+      const response = await getByFilter(filtros,token);
       return response;
 
     } catch (error) {
@@ -164,8 +168,8 @@ export const getReservasByDateThunk = createAsyncThunk(
   'reservas/getReservasByDate',
   async (fecha, thunkAPI) => {
     try {
-
-      const response = await getReservasByDate(fecha);
+      const token = obtenerToken();
+      const response = await getReservasByDate(fecha,token);
 
       return response;
 
@@ -182,8 +186,9 @@ export const ModifyPaymentStatusThunk = createAsyncThunk(
   'reservas/ModifyPaymentStatus',
   async (PaymentStatus, thunkAPI) => {
     try {
+            const token = obtenerToken();
 
-      const response = await ModifyPaymentStatus(PaymentStatus);
+      const response = await ModifyPaymentStatus(PaymentStatus,token);
 
       return response;
 
