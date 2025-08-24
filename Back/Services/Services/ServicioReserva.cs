@@ -48,8 +48,13 @@ namespace Services.Services
         {
             //Valido el DTO
             dto.Validar();
+            Usuario usu = null;
+            if (dto.ClienteId.HasValue)
+            {
+             usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
 
-            Usuario usu = _repositorioUsuario.GetById(dto.ClienteId.Value);
+            }
+           
             if (usu != null && usu is Cliente)
             {
                 if (dto.Fecha <= DateTime.Now) throw new DatoIncorrectoException("La fecha debe ser una fecha posterior a la actual");

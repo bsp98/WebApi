@@ -1,11 +1,11 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function createCliente(cliente) {
-  console.log(cliente);
+export async function createCliente(cliente,token) {
   const response = await fetch(`${urlBase}api/Usuario/Registro`, {
     method: 'POST',
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(cliente),
@@ -33,10 +33,13 @@ export async function createCliente(cliente) {
 }
 
 //FALTA VALIDAR EN EL THUNK QUE SE REFRESQUE LOS CLIENTE DEPSUES DE ELIMINAR
-export async function deleteCliente(id) {
+export async function deleteCliente(id,token) {
   const response = await fetch(`${urlBase}api/Usuario/${id}`, {
-    credentials: "include",
     method: 'DELETE',
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
   });
 
   if (!response.ok) {
@@ -61,13 +64,16 @@ export async function deleteCliente(id) {
 }
 
 
-export async function getAllCliente() {
+export async function getAllCliente(token) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
   const response = await fetch(`${urlBase}api/Usuario`,{
     method: "GET",
-    credentials: "include",
-  });;
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
+  });
 
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
@@ -81,11 +87,14 @@ export async function getAllCliente() {
   return await response.json();
 }
 
-export async function getByIdCliente(id) {
+export async function getByIdCliente(id,token) {
 
   const response = await fetch(`${urlBase}api/Usuario/${id}`,{
     method: "GET",
-    credentials: "include",
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
   });
 
   if (!response.ok) {
@@ -110,9 +119,8 @@ export async function getByIdCliente(id) {
   return await response.json();
 }
 
-export async function getByFilter(filtros) {
+export async function getByFilter(filtros,token) {
   const params = new URLSearchParams();
-
   // Agregamos 'nombre' solo si tiene valor (no null ni vacío)
   if (filtros.nombre) {
     params.append("nombre", filtros.nombre);
@@ -129,9 +137,12 @@ export async function getByFilter(filtros) {
 
   const response = await fetch(`${urlBase}api/Usuario/Filtrar?${params.toString()}`,{
     method: "GET",
-    credentials: "include",
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
   });
-
+console.log("Entroooo")
   if (!response.ok) {
     let customMessage = "Servidor fuera de servicio";
 
@@ -145,7 +156,7 @@ export async function getByFilter(filtros) {
   return await response.json();
 }
 
-export async function getClientesPaginados(page, pageSize) {
+export async function getClientesPaginados(page, pageSize,token) {
   //await new Promise(resolve => setTimeout(resolve, 2000)); prueba del spinner
 
   const params = new URLSearchParams();
@@ -162,7 +173,10 @@ export async function getClientesPaginados(page, pageSize) {
 
   const response = await fetch(`${urlBase}api/Usuario/Paginado?${params.toString()}`,{
     method: "GET",
-    credentials: "include",
+     headers: {
+    "Authorization": `Bearer ${token}`,
+    "Content-Type": "application/json"
+     }
   });
 
   if (!response.ok) {

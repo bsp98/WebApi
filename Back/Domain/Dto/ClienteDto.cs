@@ -48,7 +48,11 @@ namespace Domain.Dto
             base.Validar();
             ValidarFechaDeNacimiento();
             ValidarCelular();
+            if (OrigenCreacion != "admin")
+            {
             ValidarPoliticasPrivacidad();
+
+            }
         }
 
         public void ValidarCelular()

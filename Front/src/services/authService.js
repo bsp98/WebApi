@@ -61,7 +61,6 @@ export async function loginUser({ email, password }) {
 export async function loginConGoogle(IdToken) {
     const response = await fetch(`${urlBase}api/Autenticacion/GoogleLogin`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json',
         },

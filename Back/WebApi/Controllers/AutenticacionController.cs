@@ -52,8 +52,7 @@ namespace WebApi.Controllers
         //            Secure = true,
         //            SameSite = SameSiteMode.None,
         //            Expires = DateTimeOffset.UtcNow.AddHours(1),
-        //            Domain = "webapictvwapa.azurewebsites.net", // 👈 clave
-        //            Path = "/"
+        //           
         //        });
 
 
@@ -105,7 +104,41 @@ namespace WebApi.Controllers
             }
         }
 
+        //LOGIN GOOGLE COOKIES
 
+        //[AllowAnonymous]
+        //[HttpPost("GoogleLogin")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        //public async Task<IActionResult> GoogleLogin([FromBody] GoogleLoginDto dto)
+        //{
+        //    try
+        //    {
+        //        var (usuario, tokenJwt) = await _servicioAutenticacion.GoogleLoginAsync(dto.IdToken);
+
+        //        Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
+        //        {
+        //            HttpOnly = true,
+        //            Secure = true,
+        //            SameSite = SameSiteMode.None,
+        //            Expires = DateTimeOffset.UtcNow.AddHours(1)
+        //        });
+
+        //        return Ok(new
+        //        {
+        //            idUsuario = usuario.Id,
+        //            rolUsuario = usuario.NombreTipoUsuario,
+        //        });
+        //    }
+        //    catch (NoExisteException ex)
+        //    {
+        //        return Unauthorized(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Error interno: {ex.Message}");
+        //    }
+        //}
         [AllowAnonymous]
         [HttpPost("GoogleLogin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -116,18 +149,12 @@ namespace WebApi.Controllers
             {
                 var (usuario, tokenJwt) = await _servicioAutenticacion.GoogleLoginAsync(dto.IdToken);
 
-                Response.Cookies.Append("jwt", tokenJwt, new CookieOptions
-                {
-                    HttpOnly = true,
-                    Secure = true,
-                    SameSite = SameSiteMode.None,
-                    Expires = DateTimeOffset.UtcNow.AddHours(1)
-                });
 
                 return Ok(new
                 {
                     idUsuario = usuario.Id,
                     rolUsuario = usuario.NombreTipoUsuario,
+                    token = tokenJwt
                 });
             }
             catch (NoExisteException ex)
@@ -139,7 +166,6 @@ namespace WebApi.Controllers
                 return StatusCode(500, $"Error interno: {ex.Message}");
             }
         }
-
         [AllowAnonymous]
         [HttpPost("Logout")]
         [ProducesResponseType(StatusCodes.Status200OK)]

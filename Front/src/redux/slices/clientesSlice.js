@@ -89,6 +89,7 @@ const clientesSlice = createSlice({
             .addCase(getByFilterThunk.pending, (state) => {
                 state.loading = true;  // Empieza la carga
                 state.error = null;    // Limpio error previo
+                
             })
             .addCase(getByFilterThunk.fulfilled, (state, action) => {
                 state.loading = false;

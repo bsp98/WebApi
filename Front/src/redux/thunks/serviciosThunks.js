@@ -1,12 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createServicio,deleteServicio,updateServicio,getAllServicio,getByIdServicio,getByCategory } from '../../services/serviciosService';
+import { obtenerToken } from '../../utils/storage/authStorage';
+
 
 export const createServicioThunk = createAsyncThunk(
   'servicios/crearServicio',
   async (nuevoServicio, thunkAPI) => {
     try {
-
-      const response = await createServicio(nuevoServicio);
+      const token = obtenerToken();
+      const response = await createServicio(nuevoServicio,token);
       return response;
 
     } catch (error) {
@@ -22,8 +24,8 @@ export const deleteServicioThunk = createAsyncThunk(
   'servicios/deleteServicio',
   async (idServicio, thunkAPI) => {
     try {
-
-      const response = await deleteServicio(idServicio);
+      const token = obtenerToken();
+      const response = await deleteServicio(idServicio,token);
       await thunkAPI.dispatch(getAllServicioThunk());
       return response;
 
@@ -39,8 +41,8 @@ export const updateServicioThunk = createAsyncThunk(
   'servicios/updateServicio',
   async (servicioModificado, thunkAPI) => {
     try {
-
-      const response = await updateServicio(servicioModificado);
+      const token = obtenerToken();
+      const response = await updateServicio(servicioModificado,token);
       await thunkAPI.dispatch(getAllServicioThunk());
       return response;
 

@@ -1,12 +1,13 @@
 import { urlBaseService } from "./urlBaseService";
 const {urlBase} = urlBaseService();
 
-export async function createServicio(servicio) {
+export async function createServicio(servicio,token) {
 
   const response = await fetch(`${urlBase}api/Servicio/Agregar`, {
     credentials: "include",
     method: 'POST',
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(servicio),
@@ -34,10 +35,14 @@ export async function createServicio(servicio) {
 }
 
 
-export async function deleteServicio(id) {
+export async function deleteServicio(id,token) {
   const response = await fetch(`${urlBase}api/Servicio/${id}`, {
-    credentials: "include",
     method: 'DELETE',
+    headers:{
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+
+    }
   });
 
   if (!response.ok) {
@@ -61,7 +66,7 @@ export async function deleteServicio(id) {
   return await response.text(); // se retorna el mensaje devuelto
 }
 
-export async function updateServicio(servicioModificado) {
+export async function updateServicio(servicioModificado,token) {
   console.log("entro al fetch update");
   console.log(servicioModificado);
   const response = await fetch(`${urlBase}api/Servicio/${servicioModificado.id}`, {
@@ -69,6 +74,7 @@ export async function updateServicio(servicioModificado) {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
+      "Authorization": `Bearer ${token}`
     },
     body: JSON.stringify(servicioModificado),
   });
