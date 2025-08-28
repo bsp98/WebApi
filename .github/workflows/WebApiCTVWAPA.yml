@@ -37,17 +37,17 @@ jobs:
       - name: Delete old artifacts named "webapp"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: pwsh
         run: |
-          echo "Listing artifacts..."
-          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts \
-            | jq -r '.artifacts[] | select(.name=="webapp") | .id')
+          $artifacts = (Invoke-RestMethod -Headers @{Authorization = "token $env:GITHUB_TOKEN"} `
+                        -Uri "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/artifacts").artifacts |
+                        Where-Object {$_.name -eq "webapp"} | Select-Object -ExpandProperty id
           
-          for artifact_id in $artifacts; do
-            echo "Deleting artifact $artifact_id"
-            curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
-              https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/$artifact_id
-          done
+          foreach ($artifact_id in $artifacts) {
+            Write-Host "Deleting artifact $artifact_id"
+            Invoke-RestMethod -Method Delete -Headers @{Authorization = "token $env:GITHUB_TOKEN"} `
+                              -Uri "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/artifacts/$artifact_id"
+          }
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
