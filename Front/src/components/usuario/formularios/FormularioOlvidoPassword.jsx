@@ -1,10 +1,12 @@
 import React from 'react'
 import './formularioCambiarPassword.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 import { MessageError } from '../../iu/messages/MessageError'
 import { InfoBox } from '../../../components/iu/shared/InfoBox';
+
 
 export const FormularioOlvidoPassword = ({ onSubmit, formRef, error }) => {
     return (

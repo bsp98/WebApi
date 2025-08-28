@@ -7,7 +7,7 @@
 
 
 .container_content_registro {
-    width: 1000px;
+    width: 100%;
     max-width: 1000px;
     height: 700px;
     max-height: 700px;
@@ -45,6 +45,94 @@
     transition: all 0.15s ease-in-out;
 }
 
-.container_logo_registro img:hover{
-  transform: scale(1.05);
+.container_logo_registro img:hover {
+    transform: scale(1.05);
+}
+
+
+/*RESPONSIVE*/
+/* Desktop */
+@media (max-width: 1024px) {
+    .logo_registro {
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+    .container_content_registro {
+        max-width: 900px;
+
+    }
+
+}
+
+
+@media (max-width: 920px) {
+
+    .container_content_registro {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 822px) {
+
+    .logo_registro {
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .container_content_registro {
+        max-width: 600px;
+        height: 550px;
+    }
+}
+
+
+@media (max-width: 615px) {
+
+    .container_form_registro {
+        width: 100%;
+    }
+
+    .logo_registro {
+        max-width: 250px;
+        max-height: 250px;
+    }
+
+    .container_content_registro {
+        max-width: 500px;
+        flex-direction: column;
+        height: auto;
+        max-height: 800px;
+        padding: 1rem;
+        /* height: 550px;*/
+
+    }
+}
+
+
+@media (max-width: 514px) {
+
+    .logo_registro {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .container_content_registro {
+        max-width: 450px;
+        max-height: 800px;
+    }
+}
+
+
+@media (max-width: 514px) {
+
+    .logo_registro {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .container_content_registro {
+        max-width: 350px;
+        max-height: 800px;
+    }
 }

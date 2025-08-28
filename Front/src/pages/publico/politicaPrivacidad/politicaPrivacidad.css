@@ -33,3 +33,38 @@
   font-size: 1.8rem;
   color: var(--color-texto);
 }
+
+
+/*RESPONSIVE TIPOGRAFAIS*/
+
+/* Tablets (<=768px) */
+@media (max-width: 768px) {
+  .legal_title {
+    font-size: 3rem;
+  }
+
+  /* no más grande que en desktop */
+  .legal_section h2 {
+    font-size: 2.2rem;
+  }
+
+  .legal_section p {
+    font-size: 1.6rem;
+  }
+}
+
+
+/* Móviles chicos (<=480px) */
+@media (max-width: 480px) {
+  .legal_title {
+    font-size: 2.4rem;
+  }
+
+  .legal_section h2 {
+    font-size: 2rem;
+  }
+
+  .legal_section p {
+    font-size: 1.4rem;
+  }
+}

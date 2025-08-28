@@ -24,7 +24,9 @@ export const FormularioRegistro = ({ onSubmit, formRef, error }) => {
                     <InputDateFinal id={"fechaDeNacimiento"} label={"Fecha de nacimiento"} name={"fechaDeNacimiento"} />
                 </div>
 
-                <InputForm tipo={"email"} id={"email"} labelDescription={"Email:"} name={"email"} placeholder={"Ingrese su email"} esRequerido={true} />
+                <div className='container_grup_input'>
+                    <InputForm tipo={"email"} id={"email"} labelDescription={"Email:"} name={"email"} placeholder={"Ingrese su email"} esRequerido={true} />
+                </div>
 
                 <div className='container_grup_input'>
                     <InputForm tipo={"password"} id={"password"} labelDescription={"Contraseña:"} name={"password"} placeholder={"Ingrese su contraseña"} esRequerido={true} />
@@ -38,7 +40,7 @@ export const FormularioRegistro = ({ onSubmit, formRef, error }) => {
                         He leído y acepto la <Link to="/politica-de-privacidad" className="link_politica">Política de Privacidad</Link>
                     </div>
                 </div>
-                
+
                 {error && (<MessageError error={error} />)}
 
                 <div className='grupo_buttons'>

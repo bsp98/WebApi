@@ -79,7 +79,7 @@
 @media (max-width: 768px) {
   .btn_base {
     padding: 1rem 0.6rem; /* más compacto */
-    font-size: 1.6rem;    /* un poco más pequeño */
+    font-size: 1.4rem;    /* un poco más pequeño */
   }
 }
 
@@ -87,6 +87,6 @@
 @media (max-width: 480px) {
   .btn_base {
     padding: 0.8rem 0.5rem; 
-    font-size: 1.4rem; 
+    font-size: 1.2rem; 
   }
 }

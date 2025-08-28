@@ -74,3 +74,17 @@
 .button_google > div {
   width: 100% !important; /* Este es el div interno que Google genera */
 }
+
+
+
+
+
+/*RESPONSIVE*/
+
+    @media (max-width: 920px) {
+    .container_enlaces_auth {
+        align-items: center;
+        gap: 1rem;
+        flex-direction: column;
+    }
+}

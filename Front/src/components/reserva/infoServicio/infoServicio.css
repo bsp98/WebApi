@@ -34,3 +34,28 @@
     font-weight: 600;
     font-size: 1.8rem;
 }
+
+
+
+
+/* RESPONSIVE TIPOGRAFÍA CONTACTO */
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+
+    .icon_info_servicio,
+    .title_info_servicio,
+    text_info_servicio {
+        font-size: 1.6rem;
+    }
+}
+
+/* Móviles (480px) */
+@media (max-width: 480px) {
+
+    .icon_info_servicio,
+    .title_info_servicio,
+    .text_info_servicio {
+        font-size: 1.4rem;
+    }
+}

@@ -1,4 +1,5 @@
 import './formularioModificarReserva.css'
+import '../../styles/formularios.css'
 import moment from 'moment';
 import { InputForm } from '../../iu/inputs/InputForm';
 import { SelectForm } from '../../iu/inputs/SelectForm';
