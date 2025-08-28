@@ -7,3 +7,21 @@
     border-radius: 3rem;
 
 }
+
+/*RESPONSIVE*/
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+.container_form_contacto {
+  width: 100%;
+  min-height: 50rem;
+}
+}
+
+
+/* Móviles */
+@media (max-width: 480px) {
+.container_form_contacto {
+  min-height: 46rem;
+}
+}

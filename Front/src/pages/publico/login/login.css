@@ -7,7 +7,7 @@
 
 
 .container_content_login {
-    width: 1000px;
+    width: 100%;
     max-width: 1000px;
     height: 550px;
     max-height: 550px;
@@ -45,6 +45,77 @@
     transition: all 0.15s ease-in-out;
 }
 
-.container_logo_login img:hover{
-  transform: scale(1.05);
+.container_logo_login img:hover {
+    transform: scale(1.05);
+}
+
+/*RESPONSIVE*/
+/* Desktop */
+@media (max-width: 1024px) {
+    .logo_login {
+        max-width: 350px;
+        max-height: 350px;
+    }
+
+    .container_content_login {
+        max-width: 900px;
+
+    }
+
+}
+
+
+@media (max-width: 920px) {
+
+    .container_content_login {
+        max-width: 700px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .logo_login {
+        max-width: 300px;
+        max-height: 300px;
+    }
+
+    .container_content_login {
+        max-width: 600px;
+    }
+}
+
+
+@media (max-width: 615px) {
+
+    .container_form_login {
+        width: 100%;
+    }
+
+    .logo_login {
+        max-width: 250px;
+        max-height: 250px;
+    }
+
+    .container_content_login {
+        max-width: 500px;
+        flex-direction: column;
+        height: auto;
+        max-height: 800px;
+        /* height: 550px;*/
+
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .logo_login {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .container_content_login {
+        max-width: 350px;
+        max-height: 700px;
+    }
 }

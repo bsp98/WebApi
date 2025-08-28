@@ -1,6 +1,7 @@
 import React from 'react'
 import './formularioSolicitudCodigoPassword.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 import { MessageError } from '../../iu/messages/MessageError'

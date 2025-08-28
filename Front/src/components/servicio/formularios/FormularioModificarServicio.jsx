@@ -1,6 +1,7 @@
 import React from 'react'
 import './formularioServicio.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { useNavigate } from 'react-router-dom'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { TextAreaForm } from '../../iu/inputs/TextAreaForm'

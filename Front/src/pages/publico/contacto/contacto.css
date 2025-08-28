@@ -41,7 +41,7 @@
     gap: 10px;
 }
 
-.title_formulario_contacto{
+.title_formulario_contacto {
     width: 90%;
     display: flex;
     justify-content: start;
@@ -49,21 +49,102 @@
 
 
 
-.icon_info_contacto{
+.icon_info_contacto {
     font-size: 1.8rem;
 }
 
-.title_content_contacto{
+.title_content_contacto {
     font-weight: bold;
     margin-bottom: 15px;
 }
 
-.title_info_contacto{
+.title_info_contacto {
     font-weight: bold;
     font-size: 1.6rem;
 }
 
-.text_info_contacto{
+.text_info_contacto {
     font-size: 1.4rem;
 }
 
+
+/* RESPONSIVE TIPOGRAFÍA CONTACTO */
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+    .icon_info_contacto {
+        font-size: 1.6rem;
+    }
+
+    .title_content_contacto {
+        font-size: 1.6rem;
+    }
+
+    .title_info_contacto {
+        font-size: 1.4rem;
+    }
+
+    .text_info_contacto {
+        font-size: 1.2rem;
+    }
+
+    .title_formulario_contacto {
+        font-size: 1.6rem;
+    }
+}
+
+/* Móviles (480px) */
+@media (max-width: 480px) {
+    .icon_info_contacto {
+        font-size: 1.4rem;
+    }
+
+    .title_content_contacto {
+        font-size: 1.4rem;
+    }
+
+    .title_info_contacto {
+        font-size: 1.2rem;
+    }
+
+    .text_info_contacto {
+        font-size: 1rem;
+    }
+
+    .title_formulario_contacto {
+        font-size: 1.4rem;
+    }
+}
+
+
+/* RESPONSIVE CONTENEDORES*/
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+    .container_content_contacto {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .content_info_contacto {
+        width: 100%;
+        gap: 13px;
+        padding: 3rem;
+        margin-top: 0px;
+
+    }
+
+    .container_form_contacto {
+        width: 100%;
+    }
+
+    .content_formulario_contacto {
+        width: 100%;
+        align-items: start;
+    }
+}

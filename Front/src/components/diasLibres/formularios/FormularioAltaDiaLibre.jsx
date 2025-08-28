@@ -1,6 +1,7 @@
 import React from 'react'
 import './formularioAltaDiaLibre.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { InputDateFinal } from '../../iu/inputs/InputDateFinal'
 import {ButtonSubmit} from '../../iu/buttons/ButtonSubmit'
 import { MessageError } from '../../iu/messages/MessageError'

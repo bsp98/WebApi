@@ -45,14 +45,14 @@
     align-items: center;
 }
 
-.container_filter_busqueda form{
+.container_filter_busqueda form {
     padding: 0;
 }
 
 .form_busqueda {
     width: 100%;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -63,20 +63,51 @@
 }
 
 .form_group_busqueda {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /*gap: 1rem;*/
-  margin-right: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /*gap: 1rem;*/
+    margin-right: 2rem;
 }
 
 /*estilos filtro estadisticas*/
-.form_busqueda_numeric{
+.form_busqueda_numeric {
     width: 100%;
     display: flex;
-    flex-direction:row;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap:5rem;
+    gap: 5rem;
 
+}
+
+
+
+/* RESPONSIVE BUTTON FILTER */
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+
+    .container_filter {
+        gap: 25px;
+    }
+
+
+    .button_filter {
+        width: 8rem;
+        font-size: 1.4rem;
+        padding: 0.9rem 0.8rem;
+    }
+}
+
+/* Móviles (480px) */
+@media (max-width: 480px) {
+    .container_filter {
+        gap: 20px;
+    }
+
+    .button_filter {
+        font-size: 1.2rem;
+        padding: 0.7rem 0.6rem;
+    }
 }

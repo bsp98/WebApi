@@ -1,5 +1,6 @@
 import React from 'react'
 import './formularioDatosPersonales.css'
+import '../../styles/formularios.css'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { MessageError } from '../../iu/messages/MessageError'

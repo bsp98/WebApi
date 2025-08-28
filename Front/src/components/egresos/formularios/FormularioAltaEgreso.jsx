@@ -1,5 +1,6 @@
 import React from 'react'
 import './formularioAltaEgreso.css'
+import '../../styles/formularios.css'
 import { SelectForm } from '../../iu/inputs/SelectForm';
 import { InputForm } from '../../iu/inputs/InputForm';
 import { TextAreaForm } from '../../iu/inputs/TextAreaForm';

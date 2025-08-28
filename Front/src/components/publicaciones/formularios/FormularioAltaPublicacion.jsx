@@ -1,6 +1,7 @@
 import React from 'react'
 import './formularioAltaPublicacion.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { SelectForm } from '../../iu/inputs/SelectForm'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'

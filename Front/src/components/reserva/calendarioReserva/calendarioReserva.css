@@ -29,3 +29,19 @@
 .calendario_fijo .flatpickr-prev-month.flatpickr-prev-month {
   margin-left: 80px;
 }
+
+
+
+/* RESPONSIVE*/
+
+/* Tablets (768px) */
+@media (max-width: 880px) {
+.calendario_fijo .flatpickr-next-month.flatpickr-next-month {
+  margin-right: 20px;
+}
+
+.calendario_fijo .flatpickr-prev-month.flatpickr-prev-month {
+  margin-left: 20px;
+}
+
+}

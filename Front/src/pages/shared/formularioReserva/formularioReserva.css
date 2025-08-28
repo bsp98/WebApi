@@ -46,3 +46,23 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+
+/* RESPONSIVE*/
+
+/* Tablets (768px) */
+@media (max-width: 768px) {
+.formulario_reserva__contenido {
+    flex-direction: column;
+}
+
+.formulario_reserva__info {
+  order: -1;
+}
+
+.formulario_reserva__formulario,
+.formulario_reserva__info {
+  width: 100%;
+}
+
+}

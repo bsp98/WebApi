@@ -1,6 +1,7 @@
 import React from 'react'
 import './formularioServicio.css'
 import '../../iu/buttons/buttons.css'
+import '../../styles/formularios.css'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { TextAreaForm } from '../../iu/inputs/TextAreaForm'
 import { SelectForm } from '../../iu/inputs/SelectForm'

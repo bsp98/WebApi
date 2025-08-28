@@ -1,5 +1,6 @@
 import React from 'react'
 import './formularioGiftCard.css'
+import '../../styles/formularios.css'
 import { InputForm } from '../../iu/inputs/InputForm'
 import { MessageError } from '../../iu/messages/MessageError'
 import { ButtonSubmit } from '../../iu/buttons/ButtonSubmit'
