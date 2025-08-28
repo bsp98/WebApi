@@ -34,10 +34,20 @@ jobs:
       - name: Publish
         run: dotnet publish Back/WebApi/WebApi.csproj --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
-      - name: Delete old artifacts
-        uses: andstor/delete-artifacts@v1
-        with:
-          name: webapp
+      - name: Delete old artifacts named "webapp"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Listing artifacts..."
+          artifacts=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts \
+            | jq -r '.artifacts[] | select(.name=="webapp") | .id')
+          
+          for artifact_id in $artifacts; do
+            echo "Deleting artifact $artifact_id"
+            curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
+              https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/$artifact_id
+          done
 
       - name: Publish Artifacts
         uses: actions/upload-artifact@v4
