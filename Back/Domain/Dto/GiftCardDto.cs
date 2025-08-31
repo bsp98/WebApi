@@ -42,7 +42,7 @@ namespace Domain.Dto
         private void ValidarCelularComprador()
         {
             if (string.IsNullOrEmpty(CelularComprador))
-                throw new DatoIncorrectoException("El Celular del comprador no puede estar vacío.");
+                throw new DatoIncorrectoException("El Celular del comprador no puede estar vacío, si no tiene uno actualicelo en la seccion de datos personales.");
         }
 
         private void ValidarEmailComprador()

@@ -283,7 +283,7 @@ namespace Services.Services
 
             _repositorioUsuario.Update(usuario);
 
-            return _mapper.Map<ClienteDto>(usuario);
+            return _mapper.Map<UsuarioDto>(usuario);
         }
 
     }

@@ -36,7 +36,7 @@ export async function createDiaLibre(diaLibre,token) {
 
 }
 
-export async function deleteDiaLibre(id) {
+export async function deleteDiaLibre(id,token) {
   const response = await fetch(`${urlBase}api/DiaNoLaborable/${id}`, {
     method: 'DELETE',
     headers: {
@@ -63,9 +63,9 @@ export async function deleteDiaLibre(id) {
   return await response.text();
 }
 
-export async function getAllDiaLibre() {
+export async function getAllDiaLibre(token) {
 
-  const response = await fetch(`${urlBase}/DiaNoLaborable`, {
+  const response = await fetch(`${urlBase}api/DiaNoLaborable`, {
     method: "GET",
     headers: {
       "Authorization": `Bearer ${token}`,

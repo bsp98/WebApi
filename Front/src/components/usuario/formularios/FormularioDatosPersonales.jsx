@@ -15,7 +15,7 @@ export const FormularioDatosPersonales = ({ onSubmit, formRef, error }) => {
 
                 <InputForm tipo={"text"} id={"apellido"} labelDescription={"Apellido:"} name={"apellido"} placeholder={"Ingrese su apellido"} esRequerido={true} />
 
-                <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} placeholder={"Ingrese su celular"} esRequerido={true} />
+                <InputForm tipo={"text"} id={"celular"} labelDescription={"Celular:"} name={"celular"} placeholder={"Ingrese su celular"} esRequerido={false} />
 
                 {error && (<MessageError error={error} />)}
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Dto
 {
-    public abstract class UsuarioDto:IValidable
+    public  class UsuarioDto:IValidable
     {
         public int Id { get; set; }
         public string Email { get; set; } = string.Empty;
