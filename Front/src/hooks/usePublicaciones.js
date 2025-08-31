@@ -65,6 +65,7 @@ export const usePublicaciones = () => {
     };
 
     const eliminarPublicacion = (datosPublicacion) => {
+        console.log(datosPublicacion)
         // const id = idPublicacion ? parseInt(idPublicacion) : null;
         dispatch(deletePublicacionThunk(datosPublicacion));
     };

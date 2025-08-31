@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,7 @@ namespace Domain.Dto
         public string ImagenUrl { get; set; }
         public DateTime FechaPublicacion { get; set; } = DateTime.Now;
         public string CategoriaNombre { get; set; } = string.Empty;
+        public int Categoria { get; set; }
+
     }
 }

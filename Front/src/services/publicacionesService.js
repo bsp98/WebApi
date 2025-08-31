@@ -65,12 +65,15 @@ export async function getByCategory(id) {
         message: customMessage,
       };
     }
-  
-    return await response.json();
+  const publicaciones = response.json()
+  console.log(publicaciones)
+    //return await response.json();
 }
 
 
 export async function deletePublicacion(id,token) {
+
+  console.log(id)
 
     const response = await fetch(`${urlBase}api/Publicacion/${id}`, {
       method: 'DELETE',

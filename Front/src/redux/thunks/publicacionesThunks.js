@@ -46,7 +46,7 @@ export const deletePublicacionThunk = createAsyncThunk(
   'publicaciones/deletePublicacion',
   async ({ id, categoria }, thunkAPI) => {
     try {
-
+console.log(categoria)
       const token = obtenerToken();
       const response = await deletePublicacion(id,token);
       await thunkAPI.dispatch(getByCategoryThunk(categoria, token));
