@@ -1,17 +1,17 @@
 import { urlBaseService } from "./urlBaseService";
-const {urlBase} = urlBaseService();
+const { urlBase } = urlBaseService();
 
 
-export async function createDiaLibre(diaLibre) {
+export async function createDiaLibre(diaLibre,token) {
 
 
   const response = await fetch(`${urlBase}api/DiaNoLaborable/Agregar`, {
     method: 'POST',
-    credentials: "include",
     headers: {
+      "Authorization": `Bearer ${token}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(servicio),
+    body: JSON.stringify(diaLibre),
   });
 
   if (!response.ok) {
@@ -38,8 +38,11 @@ export async function createDiaLibre(diaLibre) {
 
 export async function deleteDiaLibre(id) {
   const response = await fetch(`${urlBase}api/DiaNoLaborable/${id}`, {
-    credentials: "include",
     method: 'DELETE',
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {
@@ -57,14 +60,17 @@ export async function deleteDiaLibre(id) {
     };
   }
 
-  return await response.text(); 
+  return await response.text();
 }
 
 export async function getAllDiaLibre() {
 
-  const response = await fetch(`${urlBase}/DiaNoLaborable`,{
+  const response = await fetch(`${urlBase}/DiaNoLaborable`, {
     method: "GET",
-    credentials: "include",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
   });
 
   if (!response.ok) {

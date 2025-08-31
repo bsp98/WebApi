@@ -32,7 +32,6 @@ export const registroUserThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-console.log("entro al catch de registro thunk",error)
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
     }

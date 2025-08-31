@@ -75,7 +75,9 @@
   width: 100% !important; /* Este es el div interno que Google genera */
 }
 
-
+.container_form_controls .mensaje_error{
+  margin-bottom: 0px;
+}
 
 
 

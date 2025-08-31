@@ -1,27 +1,56 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { configurarModoDePagoThunk, getModoDePagoThunk } from '../thunks/pagoThunks';
+import { guardarModoDePago,obtenerModoDePago } from '../../utils/storage/pagoStorage';
 
 
 const initialState = {
-    formaDePago: 0,
+    formaDePago: obtenerModoDePago(),
+    error: null,
 };
-
 const configDePagoSlice = createSlice({
     name: 'configDePago',
     initialState,
     reducers: {
-        activarPagoAnticipado: (state) => {
-            state.formaDePago = 1;
-            alert("el estado de pago ahora es 1")
+        clearSuccessMessage: (state) => {
+            state.successMessage = null;
         },
+        abrirModalEgreso(state, action) {
+            state.egresoSeleccionado = action.payload;
+            state.modalEgresoAbierto = true;
+        },
+        cerrarModalEgreso(state) {
+            state.modalEgresoAbierto = false;
+            state.egresoSeleccionado = null;
+        },
+    },
+    extraReducers: (builder) => {
+        //Cases de configurar pago
+        builder
+            .addCase(configurarModoDePagoThunk.fulfilled, (state, action) => {
+                state.error = null;
+                const modo = action.payload.tipoDePago;
+                console.log("se modifica lo forma de pago", modo);
+                state.formaDePago = modo;
+                guardarModoDePago(modo);
+            })
+            .addCase(configurarModoDePagoThunk.rejected, (state, action) => {
+                state.error = action.payload;
+            });
 
-        activarPagoAlFinalizar: (state) => {
-            state.formaDePago = 0;
-            alert("el estado de pago ahora es 0")
-        }
+        //Cases obtener modo de pago
+        builder
+            .addCase(getModoDePagoThunk.fulfilled, (state, action) => {
+                state.error = null;
+                const modo = action.payload.tipoDePago;
+                state.formaDePago = modo;
+                guardarModoDePago(modo);
+            })
+            .addCase(getModoDePagoThunk.rejected, (state, action) => {
+                state.error = action.payload;
+            });
+    },
 
-    }
 });
 
-export const { activarPagoAnticipado,activarPagoAlFinalizar } = configDePagoSlice.actions;
 export default configDePagoSlice.reducer;
 

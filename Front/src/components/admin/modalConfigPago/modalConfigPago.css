@@ -14,7 +14,7 @@
 .contenido_modal_pago {
     width: 90%;
     max-width: 500px;
-    height:45%;
+    height: 40%;
     max-height: 500px;
     padding: 20px;
     background: white;
@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
     font-family: 'Inter SemiBold', sans-serif;
     font-weight: 600;
     font-size: 2.4rem;
@@ -41,15 +41,33 @@
     width: 78%;
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
+    align-items: flex-start;
     gap: 1rem;
     text-align: left;
 }
 
-.container_buttons_form{
+.container_buttons_form {
     margin-top: 1.5rem;
 }
 
-.titel_modal{
+.titel_modal {
     font-weight: bold;
+}
+
+
+.input_forma_pago {
+    width: 80%;
+}
+
+/*responsive Mensaje error*/
+/* Tablet */
+@media (max-width: 800px) {
+    .contenido_modal_pago {
+        height: 30%;
+        gap:1rem;
+    }
+
+    .container_buttons_form {
+        gap: 0rem;
+    }
 }

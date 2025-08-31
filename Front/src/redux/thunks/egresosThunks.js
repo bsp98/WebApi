@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createEgreso,deleteEgreso,getEgresosPaginados,getByFilter} from '../../services/egresosService';
+import { createEgreso, deleteEgreso, getEgresosPaginados, getByFilter } from '../../services/egresosService';
 import { obtenerToken } from '../../utils/storage/authStorage';
+import { logoutThunk } from '../thunks/authThunks';
 
 
 export const createEgresoThunk = createAsyncThunk(
@@ -9,10 +10,15 @@ export const createEgresoThunk = createAsyncThunk(
     try {
 
       const token = obtenerToken();
-      const response  = await createEgreso(nuevoEgreso,token);
+      const response = await createEgreso(nuevoEgreso, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -25,13 +31,18 @@ export const deleteEgresoThunk = createAsyncThunk(
   'egresos/deleteEgreso',
   async (idEgreso, thunkAPI) => {
     try {
-                const token = obtenerToken();
+      const token = obtenerToken();
 
-      const response = await deleteEgreso(idEgreso,token);
-      await thunkAPI.dispatch(getEgresosPaginadosThunk({ page: 1 , pageSize: 10 }));
+      const response = await deleteEgreso(idEgreso, token);
+      await thunkAPI.dispatch(getEgresosPaginadosThunk({ page: 1, pageSize: 10 }));
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -39,16 +50,21 @@ export const deleteEgresoThunk = createAsyncThunk(
   }
 );
 
-  export const getEgresosPaginadosThunk = createAsyncThunk(
+export const getEgresosPaginadosThunk = createAsyncThunk(
   'egresos/getEgresosPaginados',
-  async ({ page, pageSize },thunkAPI) => {
+  async ({ page, pageSize }, thunkAPI) => {
     try {
-          const token = obtenerToken();
+      const token = obtenerToken();
 
-      const response = await getEgresosPaginados(page,pageSize,token);
+      const response = await getEgresosPaginados(page, pageSize, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -58,14 +74,19 @@ export const deleteEgresoThunk = createAsyncThunk(
 
 export const getByFilterThunk = createAsyncThunk(
   'egresos/getByFilter',
-  async (filtros,thunkAPI) => {
+  async (filtros, thunkAPI) => {
     try {
-      
+
       const token = obtenerToken();
-      const response = await getByFilter(filtros,token);
+      const response = await getByFilter(filtros, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 

@@ -1,18 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createCliente,deleteCliente,getAllCliente,getByIdCliente,getByFilter,getClientesPaginados} from '../../services/clientesService';
+import { createCliente, deleteCliente, getAllCliente, getByIdCliente, getByFilter, getClientesPaginados } from '../../services/clientesService';
 import { obtenerToken } from '../../utils/storage/authStorage';
+import { logoutThunk } from '../thunks/authThunks';
 
 
 export const createClienteThunk = createAsyncThunk(
   'clientes/crearCliente',
   async (nuevoCliente, thunkAPI) => {
-     try {
+    try {
       const token = obtenerToken();
-      const response = await createCliente(nuevoCliente,token);
+      const response = await createCliente(nuevoCliente, token);
       console.log(response);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -26,11 +32,16 @@ export const deleteClienteThunk = createAsyncThunk(
   async (idCliente, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await deleteCliente(idCliente,token);
+      const response = await deleteCliente(idCliente, token);
       await thunkAPI.dispatch(getAllClienteThunk());
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -41,7 +52,7 @@ export const deleteClienteThunk = createAsyncThunk(
 
 export const getAllClienteThunk = createAsyncThunk(
   'clientes/getAll',
-  async (_,thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
       const token = obtenerToken();
 
@@ -49,6 +60,11 @@ export const getAllClienteThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -58,15 +74,20 @@ export const getAllClienteThunk = createAsyncThunk(
 
 export const getByIdClienteThunk = createAsyncThunk(
   'clientes/getById',
-  async (id,thunkAPI) => {
+  async (id, thunkAPI) => {
     try {
       const token = obtenerToken();
-      
-      const response = await getByIdCliente(id,token);
+
+      const response = await getByIdCliente(id, token);
 
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -76,13 +97,18 @@ export const getByIdClienteThunk = createAsyncThunk(
 
 export const getByFilterThunk = createAsyncThunk(
   'clientes/getByFilter',
-  async (filtros,thunkAPI) => {
+  async (filtros, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await getByFilter(filtros,token);
+      const response = await getByFilter(filtros, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -90,15 +116,20 @@ export const getByFilterThunk = createAsyncThunk(
   });
 
 
-  export const getClientesPaginadosThunk = createAsyncThunk(
+export const getClientesPaginadosThunk = createAsyncThunk(
   'clientes/getClientesPaginados',
-  async ({ page, pageSize },thunkAPI) => {
+  async ({ page, pageSize }, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await getClientesPaginados(page,pageSize,token);
+      const response = await getClientesPaginados(page, pageSize, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 

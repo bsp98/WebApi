@@ -41,3 +41,18 @@
     justify-content: center;
     gap: 1rem;
 }
+
+/*responsive MODAL*/
+/* Tablet */
+@media (max-width: 768px) {
+    .text_opcion_pago{
+       font-size: 1.4rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .text_opcion_pago{
+       font-size: 1.2rem;
+    }
+}

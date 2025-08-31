@@ -13,20 +13,21 @@ import { InfoServicio } from '../../../components/reserva/infoServicio/InfoServi
 import { InfoBox } from '../../../components/iu/shared/InfoBox';
 import { Modal } from '../../../components/iu/messages/Modal';
 import { useAuth } from '../../../hooks/useAuth'
+import { useConfiguracionDePago } from '../../../hooks/useConfiguracionDePago'
 
 export const FormularioReserva = () => {
   const [clientaRegistrada, setClientaRegistrada] = useState(false);
   const { id } = useParams();
   const formRef = useRef(null);
-  // const { formaDePago } = useConfiguracionDePago();
+  const { formaDePago } = useConfiguracionDePago();
   const { obtenerServicioPorId, servicioSeleccionado } = useServicios();
   const { error, horarioOcupadoError, crearReserva, successMessage, limpiarHorarioOcupadoError, limpiarMensajeExito } = useReservas();
   const { clientes, clienteSeleccionado, filtrarClientes, obtenerClientePorId, limpiarClientes } = useClientes();
   const { usuario } = useAuth();
   const navigate = useNavigate();
-  const rol = usuario?.rolUsuario || null;
+  const rol = usuario?.rolUsuario || "Publico";
   const idUsuarioAut = usuario?.idUsuario || null;
-  const estado = "pago";
+  const estado = formaDePago;
   const cliente = rol === "Administrador" ? (clientes[0] || null) : clienteSeleccionado;
 
   //limpia los datos del cliente Cuando el componente se desmonta
@@ -43,7 +44,6 @@ export const FormularioReserva = () => {
   /*EN EL CASO DE QUE LA RESERVA SEA DE ROL CLIENTE TRAR LOS DATOS Y SETEARLO A CLIENTE */
   useEffect(() => {
     if (rol === "Cliente" && idUsuarioAut) {
-      console.log("entro a obtener cliente por id",idUsuarioAut)
       obtenerClientePorId(idUsuarioAut)
     }
   }, [rol, idUsuarioAut]);
@@ -60,16 +60,16 @@ export const FormularioReserva = () => {
   }
 
   const handleAgendarReserva = (datosCliente) => {
-    console.log("entro al handleAgendaReserva, los datos del cliente son",datosCliente)
+    console.log("entro a handleAgendarReserva", estado)
 
-    if (estado === "pago" && rol === "Cliente" || rol === "Publico") {
-      console.log("entro al if de pago cliente publico, el rol es: ",rol)
+    if (estado === 1 && rol === "Cliente" || rol === "Publico") {
+
       if (rol === "Cliente") {
-        console.log("entro al if redirect confirmar-reserva cliente: ",rol)
+
         navigate(`/cliente/confirmar-reserva/${id}`);
       }
       else {
-        console.log("entro al else redirect confirmar-reserva publico: ",rol)
+
         navigate(`/confirmar-reserva/${id}`);
       }
     }
@@ -150,7 +150,7 @@ export const FormularioReserva = () => {
             <InfoServicio servicio={servicioSeleccionado} />
           </div>
 
-          {estado === "pago" && (
+          {estado === 1 && (
             <div className="formulario_reserva__mensaje_pago">
               <InfoBox>
                 <p>Para confirmar tu reserva es necesario abonar el 30%

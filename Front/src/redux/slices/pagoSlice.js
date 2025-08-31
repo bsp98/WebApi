@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { solicitarPagoMercadoPagoThunk } from '../thunks/pagoThunks';
 
+
 const initialState = {
     urlMercadoPago:null,
     error: null,

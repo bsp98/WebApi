@@ -5,7 +5,7 @@ import moment from 'moment';
 import { useNavigate } from "react-router-dom";
 
 export const useAuth = () => {
-    const { usuario,error, successMessage, authLoaded } = useSelector((state) => state.auth);
+    const { usuario, error, successMessage, authLoaded } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export const useAuth = () => {
 
     const loginGoogle = (credentialResponse) => {
         const token = credentialResponse.credential;
-       dispatch(loginUserThunk({ tokenGoogle: token }));
+        dispatch(loginUserThunk({ tokenGoogle: token }));
 
     }
 
@@ -46,7 +46,7 @@ export const useAuth = () => {
             dispatch(setError("La contraseña y su confirmación deben ser iguales."));
         }
 
-        if (!aceptoPoliticasPrivacidad ) {
+        if (!aceptoPoliticasPrivacidad) {
             dispatch(setError("Debés aceptar nuestras políticas para continuar."));
         }
 
@@ -64,14 +64,18 @@ export const useAuth = () => {
                 fechaAceptacion: moment().format("YYYY-MM-DD"), //HH:mm:ss
             }
 
-           dispatch(registroUserThunk(datosRegistro));
+            dispatch(registroUserThunk(datosRegistro));
         }
     }
 
-    const cerrarSesion = async () => {
+    /*const cerrarSesion = async () => {
         await dispatch(logoutThunk());
         navigate("/login");
-    }
+    }*/
+
+    const cerrarSesion = () => {
+        dispatch(logoutThunk());
+    };
 
     const limpiarMensajeExito = () => {
         dispatch(clearSuccessMessage());
@@ -86,7 +90,7 @@ export const useAuth = () => {
     }
 
     const setDatosAuthDelStorage = (usuario) => {
-        dispatch(setAuthDesdeStorage({usuario}));
+        dispatch(setAuthDesdeStorage({ usuario }));
     }
 
     const setLoadDeCargaDeDatos = (seCargaronDatos) => {

@@ -1,15 +1,14 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { createReserva, deleteReserva, reagendarReserva, getAllReserva, getByIdReserva, getReservasByIdCliente, getByFilter, getReservasPaginadas, getAvailableTimes, getReservasByDate, ModifyPaymentStatus } from '../../services/reservasService';
+import { createReserva, deleteReserva, reagendarReserva, getAllReserva, getByIdReserva, getReservasByIdCliente, getByFilter, getAvailableTimes, getReservasByDate, ModifyPaymentStatus } from '../../services/reservasService';
 import { obtenerToken } from '../../utils/storage/authStorage';
-
+import { logoutThunk } from '../thunks/authThunks';
 
 
 export const createReservaThunk = createAsyncThunk(
   'reservas/crearReserva',
   async (nuevaReserva, thunkAPI) => {
     try {
-      const token = obtenerToken();
-      const response = await createReserva(nuevaReserva,token);
+      const response = await createReserva(nuevaReserva);
       return response;
 
     } catch (error) {
@@ -30,7 +29,7 @@ export const deleteReservaThunk = createAsyncThunk(
   async (idReserva, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await deleteReserva(idReserva,token);
+      const response = await deleteReserva(idReserva, token);
 
       if (rol === "cliente") {
         await thunkAPI.dispatch(getReservasByIdClienteThunk(1));
@@ -39,6 +38,11 @@ export const deleteReservaThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -50,12 +54,17 @@ export const reagendarReservaThunk = createAsyncThunk(
   'reservas/reagendarReserva',
   async (datoDeReagenda, thunkAPI) => {
     try {
-     
-          const token = obtenerToken();
-      const response = await reagendarReserva(datoDeReagenda,token);
+
+      const token = obtenerToken();
+      const response = await reagendarReserva(datoDeReagenda, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);
 
@@ -84,12 +93,17 @@ export const getByIdReservaThunk = createAsyncThunk(
   'reservas/getById',
   async (id, thunkAPI) => {
     try {
-            const token = obtenerToken();
-      const response = await getByIdReserva(id,token);
+      const token = obtenerToken();
+      const response = await getByIdReserva(id, token);
 
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -102,11 +116,16 @@ export const getReservasByIdClienteThunk = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await getReservasByIdCliente(id,token);
+      const response = await getReservasByIdCliente(id, token);
 
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -120,10 +139,15 @@ export const getByFilterThunk = createAsyncThunk(
   async (filtros, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await getByFilter(filtros,token);
+      const response = await getByFilter(filtros, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -131,21 +155,6 @@ export const getByFilterThunk = createAsyncThunk(
   });
 
 
-export const getReservasPaginadasThunk = createAsyncThunk(
-  'reservas/getReservasPaginadas',
-  async ({ page, pageSize }, thunkAPI) => {
-    try {
-
-      const response = await getReservasPaginadas(page, pageSize);
-      return response;
-
-    } catch (error) {
-
-      return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
-
-    }
-  }
-);
 
 
 export const getAvailableTimesThunk = createAsyncThunk(
@@ -157,7 +166,7 @@ export const getAvailableTimesThunk = createAsyncThunk(
       return response;
 
     } catch (error) {
-        console.log("el error entro del el thunk getAvailable", error.message);
+      console.log("el error entro del el thunk getAvailable", error.message);
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
     }
@@ -169,11 +178,16 @@ export const getReservasByDateThunk = createAsyncThunk(
   async (fecha, thunkAPI) => {
     try {
       const token = obtenerToken();
-      const response = await getReservasByDate(fecha,token);
+      const response = await getReservasByDate(fecha, token);
 
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 
@@ -186,13 +200,18 @@ export const ModifyPaymentStatusThunk = createAsyncThunk(
   'reservas/ModifyPaymentStatus',
   async (PaymentStatus, thunkAPI) => {
     try {
-            const token = obtenerToken();
+      const token = obtenerToken();
 
-      const response = await ModifyPaymentStatus(PaymentStatus,token);
+      const response = await ModifyPaymentStatus(PaymentStatus, token);
 
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);//pasa el error al slice
 

@@ -16,7 +16,7 @@ export const InputFile = ({ name, label }) => {
 
             <button type="button" onClick={handleClick} className="input_form btn_input_file" style={{ cursor: "pointer" }}>
                 <span>Cargar imagen</span>
-                <i className="fa-solid fa-arrow-up-from-bracket" style={{ fontSize: "2.2rem" }}></i>
+                <i className="icon_file fa-solid fa-arrow-up-from-bracket" ></i>
             </button>
 
             <input type="file" name={name} accept="image/*" ref={inputFileRef} style={{ display: "none" }}/>

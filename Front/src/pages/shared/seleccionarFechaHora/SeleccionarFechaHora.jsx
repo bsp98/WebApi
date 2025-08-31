@@ -31,7 +31,7 @@ export const SeleccionarFechaHora = () => {
 
   const { accion, id } = useParams();
   const navigate = useNavigate();
-  const rol = usuario?.rolUsuario || null;
+  const rol = usuario?.rolUsuario || "Publico";
 
 
   //metodo que ejecuta el onchange del calendario ()
@@ -171,7 +171,7 @@ export const SeleccionarFechaHora = () => {
       </div>
 
 
-      {usuario.rolUsuario === "Administrador" &&
+      {rol === "Administrador" &&
         <div className="area-tabla">
           <p>Reservas de la fecha seleccionada</p>
           <Table columns={columns} datos={reservas} textBtn1={"Ver más"} actionBtn1={abrirModalInfoReserva} table_width={"table_big"} class_margin={"table_margin_none"} />
