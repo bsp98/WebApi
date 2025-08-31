@@ -52,7 +52,7 @@ namespace Services.Services
                 string asuntoCli = "Recibimos tu solicitud de Gift Card";
                 string msgCli = $@"
                 <h3>¡Gracias {r.NombreComprador}!</h3>
-                <p>Registramos tu solicitud por {r.Monto:0.##}. Te contactamos a la brevedad para coordinar pago y entrega.</p>";
+                <p>Registramos tu solicitud por ${r.Monto:0.##}. Te contactamos a la brevedad para coordinar pago y entrega.</p>";
                 await _servicioEmail.EnviarEmailAsync(r.EmailComprador, asuntoCli, msgCli);
             }
 
