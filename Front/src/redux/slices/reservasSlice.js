@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getByIdReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk, ModifyPaymentStatusThunk } from '../thunks/reservasThunks';
+import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getByIdReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getAvailableTimesThunk, getReservasByDateThunk, ModifyPaymentStatusThunk } from '../thunks/reservasThunks';
 
 const initialState = {
     reservas: [],
@@ -185,23 +185,6 @@ const reservasSlice = createSlice({
                 state.error = action.payload;
             });
 
-        //Cases de obtener reservas paginados
-        builder
-            .addCase(getReservasPaginadasThunk.pending, (state) => {
-                state.loading = true;  // Empieza la carga
-                state.error = null;    // Limpio error previo
-            })
-            .addCase(getReservasPaginadasThunk.fulfilled, (state, action) => {
-                state.loading = false;
-                state.error = null;
-                state.clientes = action.payload.data;
-                state.total = action.payload.totalItems;
-                state.currentPage = action.meta.arg.page;
-            })
-            .addCase(getReservasPaginadasThunk.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload;
-            });
 
         //Cases de obtener horarios optimos
 

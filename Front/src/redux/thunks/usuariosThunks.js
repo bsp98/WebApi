@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updatePassword,solicitarCodigo,recuperarPassword,updateDatosPersonales} from '../../services/usuariosService';
-import { createDraftSafeSelector } from '@reduxjs/toolkit';
+import { updatePassword, solicitarCodigo, recuperarPassword, updateDatosPersonales } from '../../services/usuariosService';
 import { obtenerToken } from '../../utils/storage/authStorage';
+import { logoutThunk } from '../thunks/authThunks';
 
 
 
@@ -9,11 +9,16 @@ export const updatePasswordThunk = createAsyncThunk(
   'usuarios/updatePassword',
   async (datosUpdate, thunkAPI) => {
     try {
-                const token = obtenerToken();
-      const response = await updatePassword(datosUpdate,token);
+      const token = obtenerToken();
+      const response = await updatePassword(datosUpdate, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);
 
@@ -58,11 +63,16 @@ export const updateDatosPersonalesThunk = createAsyncThunk(
   'usuarios/updateDatosPersonales',
   async (datosPersonales, thunkAPI) => {
     try {
-     const token = obtenerToken();
-      const response = await updateDatosPersonales(datosPersonales,token);
+      const token = obtenerToken();
+      const response = await updateDatosPersonales(datosPersonales, token);
       return response;
 
     } catch (error) {
+
+      if (error.status === 401) {
+        thunkAPI.dispatch(logoutThunk());
+        return;
+      }
 
       return thunkAPI.rejectWithValue(error.message);
 

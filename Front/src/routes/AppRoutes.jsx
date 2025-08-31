@@ -36,6 +36,7 @@ import { OlvidoPassword } from '../pages/shared/olvidoPassword/OlvidoPassword'
 import { AltaPublicacion } from '../pages/admin/AltaPublicacion'
 import { GestionDiasLibres } from '../pages/admin/gestionDiasLibres/GestionDiasLibres'
 import { AltaDiaLibre } from '../pages/admin/AltaDiaLibre'
+import { AuthRedirect } from './AuthRedirect'
 
 
 export const AppRoutes = () => {
@@ -65,56 +66,60 @@ export const AppRoutes = () => {
 
 
             {/*RUTAS CLIENTE*/}
-
-            <Route element={<RutaProtegida rolPermitido="Cliente" />}>
-                <Route path="/cliente/*" element={<ClienteLayout />}>
-                    <Route index element={<InicioCliente />} />
-                    <Route path="inicio" element={<InicioCliente />} />
-                    <Route path="servicios/:categoria?" element={<Servicios />} />
-                    <Route path="galeria" element={<Galeria />} />
-                    <Route path="gift-card" element={<GiftCard />} />
-                    <Route path="contacto" element={<Contacto />} />
-                    <Route path="confirmar-reserva/:idServicio" element={<ConfirmarReserva />} />
-                    <Route path="cambiar-password/:id" element={<CambiarPassword />} />
-                    <Route path="datos-personales/:id" element={<ConfigDatosPersonales />} />
-                    <Route path="form-reserva/:id" element={<FormularioReserva />} />
-                    <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora />} />
-                    <Route path="politica-de-privacidad" element={<PoliticaPrivacidad />} />
-                    <Route path="aviso-legal" element={<AvisoLegal />} />
-                    <Route path="*" element={<Error404 />} />
-                    <Route path="unauthorized" element={<Unauthorized />} />
+            <Route element={<AuthRedirect />}>
+                <Route element={<RutaProtegida rolPermitido="Cliente" />}>
+                    <Route path="/cliente/*" element={<ClienteLayout />}>
+                        <Route index element={<InicioCliente />} />
+                        <Route path="inicio" element={<InicioCliente />} />
+                        <Route path="servicios/:categoria?" element={<Servicios />} />
+                        <Route path="galeria" element={<Galeria />} />
+                        <Route path="gift-card" element={<GiftCard />} />
+                        <Route path="contacto" element={<Contacto />} />
+                        <Route path="confirmar-reserva/:idServicio" element={<ConfirmarReserva />} />
+                        <Route path="cambiar-password/:id" element={<CambiarPassword />} />
+                        <Route path="datos-personales/:id" element={<ConfigDatosPersonales />} />
+                        <Route path="form-reserva/:id" element={<FormularioReserva />} />
+                        <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora />} />
+                        <Route path="politica-de-privacidad" element={<PoliticaPrivacidad />} />
+                        <Route path="aviso-legal" element={<AvisoLegal />} />
+                        <Route path="*" element={<Error404 />} />
+                        <Route path="unauthorized" element={<Unauthorized />} />
+                    </Route>
                 </Route>
             </Route>
 
 
             {/*RUTAS ADMIN*/}
-            <Route element={<RutaProtegida rolPermitido="Administrador" />}>
-                <Route path="/admin/*" element={<AdminLayout></AdminLayout>}>
-                    <Route index element={<InicioAdmin></InicioAdmin>} />
-                    <Route path="inicio" element={<InicioAdmin></InicioAdmin>} />
-                    <Route path="gestion-servicios" element={<GestionServicios></GestionServicios>} />
-                    <Route path="gestion-reservas" element={<GestionReservas></GestionReservas>} />
-                    <Route path="gestion-clientes" element={<GestionClientes></GestionClientes>} />
-                    <Route path="dias-libres" element={<GestionDiasLibres></GestionDiasLibres>} />
-                    <Route path="galeria" element={<Galeria></Galeria>} />
-                    <Route path="servicios/:categoria?" element={<Servicios></Servicios>} />
-                    <Route path="gestion-egresos" element={<GestionEgresos></GestionEgresos>} />
-                    <Route path="estadisticas" element={<Estadisticas></Estadisticas>} />
-                    <Route path="alta-cliente" element={<AltaCliente></AltaCliente>} />
-                    <Route path="alta-egreso" element={<AltaEgreso></AltaEgreso>} />
-                    <Route path="alta-servicio" element={<AltaServicio></AltaServicio>} />
-                    <Route path="alta-publicacion" element={<AltaPublicacion></AltaPublicacion>} />
-                    <Route path="alta-dias-libres" element={<AltaDiaLibre></AltaDiaLibre>} />
-                    <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
-                    <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
-                    <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
-                    <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
-                    <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
-                    <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
-                    <Route path="*" element={<Error404></Error404>} />
-                    <Route path="unauthorized" element={<Unauthorized />} />
+            <Route element={<AuthRedirect />}>
+                <Route element={<RutaProtegida rolPermitido="Administrador" />}>
+                    <Route path="/admin/*" element={<AdminLayout></AdminLayout>}>
+                        <Route index element={<InicioAdmin></InicioAdmin>} />
+                        <Route path="inicio" element={<InicioAdmin></InicioAdmin>} />
+                        <Route path="gestion-servicios" element={<GestionServicios></GestionServicios>} />
+                        <Route path="gestion-reservas" element={<GestionReservas></GestionReservas>} />
+                        <Route path="gestion-clientes" element={<GestionClientes></GestionClientes>} />
+                        <Route path="dias-libres" element={<GestionDiasLibres></GestionDiasLibres>} />
+                        <Route path="galeria" element={<Galeria></Galeria>} />
+                        <Route path="servicios/:categoria?" element={<Servicios></Servicios>} />
+                        <Route path="gestion-egresos" element={<GestionEgresos></GestionEgresos>} />
+                        <Route path="estadisticas" element={<Estadisticas></Estadisticas>} />
+                        <Route path="alta-cliente" element={<AltaCliente></AltaCliente>} />
+                        <Route path="alta-egreso" element={<AltaEgreso></AltaEgreso>} />
+                        <Route path="alta-servicio" element={<AltaServicio></AltaServicio>} />
+                        <Route path="alta-publicacion" element={<AltaPublicacion></AltaPublicacion>} />
+                        <Route path="alta-dias-libres" element={<AltaDiaLibre></AltaDiaLibre>} />
+                        <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
+                        <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
+                        <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
+                        <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
+                        <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
+                        <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
+                        <Route path="*" element={<Error404></Error404>} />
+                        <Route path="unauthorized" element={<Unauthorized />} />
+                    </Route>
                 </Route>
             </Route>
+
 
             {/*RUTA LOGIN*/}
             <Route element={<RutaPublica />}>

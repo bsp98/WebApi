@@ -4,17 +4,9 @@ import { MessageError } from '../../iu/messages/MessageError';
 import { InputForm } from '../../iu/inputs/InputForm';
 import './formularioLogin.css'
 import { GoogleLogin } from '@react-oauth/google';
-import React, { useState, useEffect } from 'react';
 
 export const FormularioLogin = ({ onSubmit, formRef, error, onLoginGoogle, onError }) => {
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 768);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     return (
         <div className='container_content_form_login'>
@@ -42,33 +34,10 @@ export const FormularioLogin = ({ onSubmit, formRef, error, onLoginGoogle, onErr
 
                     <div className='grupo_buttons'>
                         <ButtonSubmit value={"INICIAR SESIÓN"} btn_variant={"btn_primary"} width_btn='btn_big' />
-                        {/* <div className='button_google'>
+                        <div className='button_google'>
                             <GoogleLogin onSuccess={(credentialResponse) => onLoginGoogle(credentialResponse)} onError={() => onError()} />
-                        </div>*/}
-                        <GoogleLogin
-                            onSuccess={(credentialResponse) => onLoginGoogle(credentialResponse)}
-                            onError={onError}
-                            render={(renderProps) => (
-                                <button
-                                    onClick={renderProps.onClick}
-                                    disabled={renderProps.disabled}
-                                    style={{
-                                        fontSize: isMobile ? "1.2rem" : "1.8rem",
-                                        padding: isMobile ? "8px 5px" : "12px 8px",
-                                        borderRadius: "0.8rem",
-                                        backgroundColor: "#4285F4",
-                                        color: "white",
-                                        border: "none",
-                                        cursor: renderProps.disabled ? "not-allowed" : "pointer",
-                                    }}
-                                >
-                                    Entrar con Google
-                                </button>
-                            )}
-                        />
+                        </div>
                     </div>
-
-
 
                 </div>
 

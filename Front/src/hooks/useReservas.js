@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getReservasPaginadasThunk, getAvailableTimesThunk, getReservasByDateThunk, getByIdReservaThunk, ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
+import { createReservaThunk, deleteReservaThunk, reagendarReservaThunk, getAllReservaThunk, getReservasByIdClienteThunk, getByFilterThunk, getAvailableTimesThunk, getReservasByDateThunk, getByIdReservaThunk, ModifyPaymentStatusThunk } from '../redux/thunks/reservasThunks';
 import { clearSuccessMessage, setFecha, setHorario, abrirModalReserva, cerrarModalReserva, clearErrorMessage, setReservaEnEdicion, clearHorarioOcupadoError, setError } from '../redux/slices/reservasSlice';
 import moment from 'moment';
 import { guardarReservaEnStorage, obtenerReservaDeStorage, limpiarReservaEnStorage } from '../utils/storage/reservaStorage';
@@ -8,7 +8,7 @@ import { useAuth } from './useAuth';
 
 export const useReservas = () => {
     const { usuario } = useAuth();
-    const rol = usuario?.rolUsuario || null;
+    const rol = usuario?.rolUsuario || "Publico";
     const dispatch = useDispatch();
     const { reservas, reservaSeleccionada, reservaEnEdicion, horarios, horarioSeleccionado, fechaSeleccionada, total, currentPage, loading, error, successMessage, modalReservaAbierto, horarioOcupadoError } = useSelector((state) => state.reservas);
     const navigate = useNavigate();
@@ -80,10 +80,6 @@ export const useReservas = () => {
         }
 
         dispatch(getByFilterThunk(filtros));
-    }
-
-    const onbtenerReservasPaginadas = (nuevaPagina = 1) => {
-        dispatch(getReservasPaginadasThunk({ page: nuevaPagina, pageSize: 10 }));
     }
 
     const obtenerHorariosDisponibles = (fecha, duracion) => {
@@ -198,7 +194,6 @@ export const useReservas = () => {
         obtenerTodasLasReservas,
         obtenerReservasPorIdCliente,
         filtrarReservas,
-        onbtenerReservasPaginadas,
         obtenerHorariosDisponibles,
         obtenerReservasPorFecha,
         obtenerReservaPorId,

@@ -1,12 +1,14 @@
 
 import { AppRoutes } from './routes/AppRoutes'
-import { obtenerUsuario} from '../src/utils/storage/authStorage';
+import { obtenerUsuario } from '../src/utils/storage/authStorage';
 import { useAuth } from './hooks/useAuth';
+import { useConfiguracionDePago } from './hooks/useConfiguracionDePago';
 import { useEffect } from 'react';
 
 function App() {
 
-  const { setDatosAuthDelStorage} = useAuth();
+  const { setDatosAuthDelStorage } = useAuth();
+  const { obtenerFormaDePago } = useConfiguracionDePago();
 
   useEffect(() => {
     const usuario = obtenerUsuario();
@@ -16,8 +18,12 @@ function App() {
 
   }, []);
 
+  useEffect(() => {
+    obtenerFormaDePago();
+  }, []);
+
   return (
-      <AppRoutes />
+    <AppRoutes />
   );
 };
 

@@ -24,7 +24,9 @@ export const ModalConfigPago = ({ cerrarModal, modificarFormaDePago, formaDePago
 
                 <form onSubmit={modificarFormaDePago}>
 
-                    <SelectForm id={"formaDePago"} labelDescription={"Forma de pago:"} name={"formaDePago"} options={opcionesConfig} defaultValue={"Seleccione la forma de pago"} />
+                    <div className='input_forma_pago'>
+                        <SelectForm id={"formaDePago"} labelDescription={"Forma de pago:"} name={"formaDePago"} options={opcionesConfig} defaultValue={"Seleccione la forma de pago"} />
+                    </div>
 
                     <div className='container_buttons_form'>
                         <ButtonSubmit value={"Modificar"} btn_variant={"btn_primary"} width_btn='btn_small' />

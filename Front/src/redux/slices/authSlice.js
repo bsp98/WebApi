@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginUserThunk, registroUserThunk, logoutThunk } from '../thunks/authThunks';
-import {guardarUsuario, limpiarAuthStorage} from '../../utils/storage/authStorage';
+import { guardarUsuario, limpiarAuthStorage } from '../../utils/storage/authStorage';
+import { limpiarPagoStorage } from '../../utils/storage/pagoStorage';
+import { limpiarReservaEnStorage } from '../../utils/storage/reservaStorage';
 
 const manejarAutenticacion = (state, payload = null) => {
-   const {idUsuario, rolUsuario ,token} = payload;
-    state.usuario = { idUsuario, rolUsuario ,token};
+    const { idUsuario, rolUsuario, token } = payload;
+    state.usuario = { idUsuario, rolUsuario, token };
     state.authLoaded = true;
     console.log(state.usuario.token)
-    guardarUsuario({ idUsuario, rolUsuario,token });
+    guardarUsuario({ idUsuario, rolUsuario, token });
 };
 
 const initialState = {
@@ -56,7 +58,7 @@ const authSlice = createSlice({
                 state.successMessage = action.payload;
             })
             .addCase(registroUserThunk.rejected, (state, action) => {
-                console.log("entro al reject",action.payload);
+                console.log("entro al reject", action.payload);
                 state.error = action.payload;
             });
 
@@ -65,6 +67,8 @@ const authSlice = createSlice({
         builder
             .addCase(logoutThunk.fulfilled, (state) => {
                 limpiarAuthStorage();
+                limpiarPagoStorage();
+                limpiarReservaEnStorage();
                 return initialState;
             })
             .addCase(logoutThunk.rejected, (state, action) => {
@@ -73,5 +77,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { clearSuccessMessage, setError, setAuthDesdeStorage,setAuthLoaded } = authSlice.actions;
+export const { clearSuccessMessage, setError, setAuthDesdeStorage, setAuthLoaded } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { activarPagoAnticipado, activarPagoAlFinalizar } from '../redux/slices/configDePagoSlice';
+import { configurarModoDePagoThunk, getModoDePagoThunk } from '../redux/thunks/pagoThunks';
 
 export const useConfiguracionDePago = () => {
     const dispatch = useDispatch();
@@ -10,18 +10,23 @@ export const useConfiguracionDePago = () => {
         e.preventDefault();
         const form = e.target;
 
-        const formaDePago = +form.formaDePago.value
+        const formaDePago = {
+            tipoDePago: +form.formaDePago.value
+        }
 
-        if (formaDePago === 1) {
-            dispatch(activarPagoAnticipado());
-        }
-        else {
-            dispatch(activarPagoAlFinalizar());
-        }
+        console.log("modo de pago que se envia",formaDePago)
+
+        dispatch(configurarModoDePagoThunk(formaDePago));
     };
+
+    const obtenerFormaDePago = () => {
+        dispatch(getModoDePagoThunk());
+    }
+
     return {
         modificarFormaDePago,
-        formaDePago
+        formaDePago,
+        obtenerFormaDePago,
     };
 
 }

@@ -82,6 +82,21 @@
 }
 
 
+/*estilos filtro busqueda select*/
+.container_content_form_filter {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+}
+
+.div_space {
+    width: 100%;
+    height: 16px;
+}
+
+
 
 /* RESPONSIVE BUTTON FILTER */
 
@@ -109,5 +124,33 @@
     .button_filter {
         font-size: 1.2rem;
         padding: 0.7rem 0.6rem;
+    }
+
+    .div_space{
+        height: 0px;
+    }
+}
+
+
+/* RESPONSIVE FILTER SELECT */
+
+@media (max-width: 820px) {
+
+    .container_content_form_filter {
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    .btn_base {
+        padding: 1rem 0.5rem;
+    }
+}
+
+
+
+@media (max-width: 760px) {
+
+    .btn_base  {
+        padding: 0.7rem 0rem;
     }
 }

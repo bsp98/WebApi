@@ -4,7 +4,7 @@ import "flatpickr/dist/flatpickr.min.css";
 import './inputs.css'
 import "flatpickr/dist/l10n/es.js"; // Para idioma español
 
-export const InputDateFinal = ({ id, label, name,style_from_Group ='',style_input ='' }) => {
+export const InputDateFinal = ({ id, label, name, style_from_Group = '', style_input = '' }) => {
     return (
         <div className={`form_group ${style_from_Group}`}>
             <label htmlFor={id}>{label}</label>
@@ -15,7 +15,8 @@ export const InputDateFinal = ({ id, label, name,style_from_Group ='',style_inpu
                     required
                     options={{
                         dateFormat: "d/m/Y",
-                        locale: "es"
+                        locale: "es",
+                        disableMobile: true
                     }}
                     className={`input_form ${style_input}`}
                     style={{ paddingRight: '2rem' }}
@@ -36,3 +37,4 @@ export const InputDateFinal = ({ id, label, name,style_from_Group ='',style_inpu
         </div>
     );
 }
+{/*className="fa-regular fa-calendar"*/ }
