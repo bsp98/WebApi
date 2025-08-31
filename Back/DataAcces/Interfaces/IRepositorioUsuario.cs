@@ -22,7 +22,8 @@ namespace DataAccess.Interfaces
 
         public Usuario? Login(string email, string password);
         public Usuario ObtenerPorEmail(string email);
-       // public Task<Usuario> ObtenerPorEmailAsync(string email);
+       
+        public IEnumerable<Cliente> FiltrarClientes(string? nombre, DateTime? fecha);
 
     }
 }

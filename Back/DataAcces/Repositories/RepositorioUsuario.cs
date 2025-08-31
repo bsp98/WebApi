@@ -1,8 +1,10 @@
 ﻿using DataAcces.Interfaces;
 using DataAccess.Interfaces;
 using Domain.Dto;
+using Domain.Enum;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +45,22 @@ namespace DataAcces.Repositories
             return Contexto.Set<Usuario>() .Where(c => c.Nombre == nombre).AsNoTracking().ToList();
         }
 
+        public IEnumerable<Cliente> FiltrarClientes(string? nombre, DateTime? fecha)
+        {
+            var query = Contexto.Set<Cliente>().AsNoTracking().AsQueryable();
 
+            if (!nombre.IsNullOrEmpty())
+            {
+                query = query.Where(e => e.Nombre == nombre);
+            }
+
+            if (fecha.HasValue)
+            {
+                query = query.Where(e => e.FechaDeNacimiento == fecha.Value.Date);
+            }
+
+            return query.ToList();
+        }
         public IEnumerable<Usuario> BuscarCelular(string celular)
         {
             return Contexto.Set<Usuario>().OfType<Cliente>().Where(c=>c.Celular == celular).AsNoTracking().ToList();

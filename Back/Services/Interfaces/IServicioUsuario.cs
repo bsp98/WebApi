@@ -15,7 +15,7 @@ namespace Services.Interfaces
 
         void DesactivarCliente(int id);
         
-        List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros);
+        //List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros);
 
         public (List<ClienteDto> clientes, int total) ObtenerClientesPaginados(int page, int pageSize);
 
@@ -26,6 +26,8 @@ namespace Services.Interfaces
         void ConfirmarRecuperacionContrasenia(string email, string codigo, string nuevaPassword);
         public void CambiarPasswordPerfil(string email, string passwordActual, string nuevaPassword);
         UsuarioDto CambiarDatosPersonalesAsync(string email, CambiarDatosPersonalesDto dto);
+
+        public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros);
 
 
 

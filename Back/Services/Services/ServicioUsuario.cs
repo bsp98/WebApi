@@ -131,31 +131,41 @@ namespace Services.Services
             }
         }
 
+        //public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
+        //{
+        //    if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
+        //    {
+        //        var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
+
+        //        return _mapper.Map<List<ClienteDto>>(clientes);
+        //    }
+
+        //    if (filtros.Fecha.HasValue)
+        //    {
+        //        var clientes = _repositorioUsuario.BuscarPorFecha(filtros.Fecha.Value).OfType<Cliente>().ToList();
+
+        //        return _mapper.Map<List<ClienteDto>>(clientes);
+        //    }
+
+        //    if ( !string.IsNullOrWhiteSpace(filtros.Celular))
+        //    {
+        //        var clientes = _repositorioUsuario.BuscarCelular( filtros.Celular).OfType<Cliente>().ToList();
+
+        //        return _mapper.Map<List<ClienteDto>>(clientes);
+        //    }
+
+        //    return new List<ClienteDto>(); 
+        //}
         public List<ClienteDto> FiltrarClientes(ClienteFiltrosDto filtros)
         {
-            if (!string.IsNullOrWhiteSpace(filtros.Nombre) && string.IsNullOrWhiteSpace(filtros.Celular))
-            {
-                var clientes = _repositorioUsuario.BuscarPorNombre(filtros.Nombre).OfType<Cliente>().ToList();
+            var clientes = _repositorioUsuario.FiltrarClientes(
+                filtros.Nombre,
+                filtros.Fecha
+            );
 
-                return _mapper.Map<List<ClienteDto>>(clientes);
-            }
-
-            if (filtros.Fecha.HasValue)
-            {
-                var clientes = _repositorioUsuario.BuscarPorFecha(filtros.Fecha.Value).OfType<Cliente>().ToList();
-
-                return _mapper.Map<List<ClienteDto>>(clientes);
-            }
-
-            if ( !string.IsNullOrWhiteSpace(filtros.Celular))
-            {
-                var clientes = _repositorioUsuario.BuscarCelular( filtros.Celular).OfType<Cliente>().ToList();
-
-                return _mapper.Map<List<ClienteDto>>(clientes);
-            }
-
-            return new List<ClienteDto>(); 
+            return _mapper.Map<List<ClienteDto>>(clientes);
         }
+
 
         public (List<ClienteDto> clientes, int total) ObtenerClientesPaginados(int page, int pageSize)
         {
