@@ -49,7 +49,7 @@ namespace DataAcces.Repositories
         {
             var query = Contexto.Set<Cliente>().AsNoTracking().AsQueryable();
 
-            if (!nombre.IsNullOrEmpty())
+            if (nombre!= null)
             {
                 query = query.Where(e => e.Nombre == nombre);
             }
