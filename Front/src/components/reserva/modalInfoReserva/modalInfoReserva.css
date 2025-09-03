@@ -34,37 +34,62 @@
     color: var(--color-texto);
 }
 
-.container_info_modal_reserva{
+.container_info_modal_reserva {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
 }
 
-.infoReserva_modal{
+.infoReserva_modal {
     width: 100%;
     margin-left: 50px;
     display: flex;
     flex-direction: column;
-    align-items:flex-start;
-    gap:0.4rem;
+    align-items: flex-start;
+    gap: 0.4rem;
 }
 
-.group_info_modal_reserva{
+.group_info_modal_reserva {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.5rem;
 }
 
-.titel_modal_reserva{
+.titel_modal_reserva {
     font-size: 2rem;
     margin-bottom: 0.5rem;
 }
-.icon_modal_reserva{
+
+.icon_modal_reserva {
     font-size: 2rem;
 }
 
-.info_modal_reserva{
+.info_modal_reserva {
     text-align: left;
 }
+
+/* RESPONSIVE TIPOGRAFÍA CONTACTO */
+
+/* Tablets (768px) */
+@media (max-width: 1060px) {
+
+    .container_info_modal_reserva {
+
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+    /* Móviles (480px) 
+    @media (max-width: 480px) {
+
+        .icon_info_servicio,
+        .title_info_servicio,
+        .text_info_servicio {
+            font-size: 1.4rem;
+        }
+    }*/

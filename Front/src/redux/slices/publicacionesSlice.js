@@ -43,7 +43,6 @@ const publicacionesSlice = createSlice({
                 state.loading = false;
                 state.error = null;
                 state.publicaciones = action.payload; // Se actualiza el estado con las publicaciones obtenidos
-                console.log("publicaciones encontradas",state.publicaciones)
             })
             .addCase(getByCategoryThunk.rejected, (state, action) => {
                 state.loading = false;

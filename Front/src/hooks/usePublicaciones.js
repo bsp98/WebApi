@@ -60,12 +60,11 @@ export const usePublicaciones = () => {
     };
 
     const publicacionPorCategoria = (categoria) => {
-        console.log("categoria selecionada publicacion", categoria);
+
         dispatch(getByCategoryThunk(categoria));
     };
 
     const eliminarPublicacion = (datosPublicacion) => {
-        console.log(datosPublicacion)
         // const id = idPublicacion ? parseInt(idPublicacion) : null;
         dispatch(deletePublicacionThunk(datosPublicacion));
     };

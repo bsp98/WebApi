@@ -24,7 +24,6 @@ export const Galeria = () => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const rol = usuario?.rolUsuario || null;
 
-  console.log("publicaciones:",publicaciones)
 
   useEffect(() => {
     publicacionPorCategoria(0);
@@ -59,8 +58,7 @@ export const Galeria = () => {
       <Filter optionFilter={optionsFilter} onFilter={publicacionPorCategoria} />
 
       <div className="container_galeria">
-        {console.log("publicaciones que se renderian",publicaciones)}
-        {publicaciones!=null&&publicaciones.map((pub, index) => (
+        {publicaciones.map((pub, index) => (
           <div className="container_image_galeria" key={pub.id || index}>
 
             <img

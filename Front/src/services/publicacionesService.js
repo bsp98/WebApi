@@ -65,9 +65,9 @@ export async function getByCategory(id) {
         message: customMessage,
       };
     }
-  const publicaciones = response.json()
-  console.log(publicaciones)
-    //return await response.json();
+  const publicaciones = await response.json()
+  console.log("publicaciones obtenidas servicio",publicaciones)
+    return publicaciones;
 }
 
 
