@@ -26,14 +26,15 @@ export const createClienteThunk = createAsyncThunk(
   }
 );
 
-//////////FIJARSE SI AL ELIMINAR EL CLIENTE FUNCIONA PORQUE TENDRIA QUE TRAER LOS PAGINADOS
+
 export const deleteClienteThunk = createAsyncThunk(
   'clientes/deleteCliente',
-  async (idCliente, thunkAPI) => {
+  async ({id,currentPage}, thunkAPI) => {
     try {
+      console.log("esta es la pagina actual en thunk delete", currentPage)
       const token = obtenerToken();
-      const response = await deleteCliente(idCliente, token);
-      await thunkAPI.dispatch(getAllClienteThunk());
+      const response = await deleteCliente(id, token);
+      await thunkAPI.dispatch(getClientesPaginadosThunk({ page: currentPage, pageSize: 10 }));
       return response;
 
     } catch (error) {

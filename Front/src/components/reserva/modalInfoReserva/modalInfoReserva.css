@@ -50,6 +50,13 @@
     gap: 0.4rem;
 }
 
+.content_info_modal_reserva {
+    width: auto;
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .group_info_modal_reserva {
     display: flex;
     justify-content: center;
@@ -75,21 +82,49 @@
 /* Tablets (768px) */
 @media (max-width: 1060px) {
 
-    .container_info_modal_reserva {
+    .contenido_modal_reserva {
+        height: auto;
+    }
 
-        justify-content: center;
-        align-items: center;
+    .container_info_modal_reserva {
+        padding-left: 5rem;
         flex-direction: column;
         gap: 2rem;
     }
+
+    .infoReserva_modal {
+        width: 14.5rem;
+        margin-left: 0px;
+    }
+
 }
 
-    /* Móviles (480px) 
-    @media (max-width: 480px) {
+@media (max-width: 800px) {
 
-        .icon_info_servicio,
-        .title_info_servicio,
-        .text_info_servicio {
-            font-size: 1.4rem;
-        }
-    }*/
+    .container_info_modal_reserva {
+        padding-left: 0px;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .infoReserva_modal {
+        width: 100%;
+    }
+
+    .titel_modal_reserva {
+        font-size: 1.6rem;
+    }
+}
+
+/* Tablet (480px) */
+@media (max-width: 768px) {
+
+    .contenido_modal_reserva {
+        height: 450px;
+        gap: 3rem;
+    }
+
+        .titel_modal_reserva {
+        font-size: 1.4rem;
+    }
+}

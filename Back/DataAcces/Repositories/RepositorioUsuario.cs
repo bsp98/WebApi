@@ -68,7 +68,7 @@ namespace DataAcces.Repositories
 
         public bool TieneReservas(int id)
         {
-            return Contexto.Set<Reserva>().Any(r => r.Id == id);
+            return Contexto.Set<Reserva>().Any(r => r.ClienteId == id);
         }
 
         public Usuario? Login(string email, string password)

@@ -104,6 +104,7 @@ const clientesSlice = createSlice({
         //Cases de obtener clientes paginados
         builder
             .addCase(getClientesPaginadosThunk.pending, (state) => {
+                console.log("entro al pending de buscar cliente paginados")
                 state.loading = true;  // Empieza la carga
                 state.error = null;    // Limpio error previo
             })
@@ -113,6 +114,7 @@ const clientesSlice = createSlice({
                 state.clientes = action.payload.data;
                 state.total = action.payload.totalItems;
                 state.currentPage = action.meta.arg.page;
+                console.log("se ejecuto el fulfielled de cliente paginados",state.clientes)
             })
             .addCase(getClientesPaginadosThunk.rejected, (state, action) => {
                 state.loading = false;

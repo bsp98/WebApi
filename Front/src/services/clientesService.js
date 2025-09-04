@@ -32,8 +32,8 @@ export async function createCliente(cliente,token) {
   return await response.text();
 }
 
-//FALTA VALIDAR EN EL THUNK QUE SE REFRESQUE LOS CLIENTE DEPSUES DE ELIMINAR
 export async function deleteCliente(id,token) {
+  console.log("id y token para eliminar",token);
   const response = await fetch(`${urlBase}api/Usuario/${id}`, {
     method: 'DELETE',
      headers: {
@@ -60,7 +60,7 @@ export async function deleteCliente(id,token) {
     };
   }
 
-  return await response.text(); // se retorna el mensaje devuelto
+  return await response.text(); // se retorna el mensaje devuelto*/
 }
 
 

@@ -8,6 +8,7 @@ import { Title } from '../../../components/iu/texts/Title'
 
 export const ConfigDatosPersonales = () => {
   const { error, successMessage, cambiarDatosPersonales, limpiarMensajeExito } = useUsuarios();
+
   const formRef = useRef(null);
 //FALTARIA PRECARGAR DATOS
   useEffect(() => {

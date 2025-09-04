@@ -9,7 +9,7 @@ import { Title } from '../../components/iu/texts/Title'
 
 
 export const ModificarServicio = () => {
-  const { modificarServicio, obtenerServicioPorId, successMessage, limpiarMensajeExito, error, servicioSeleccionado } = useServicios();
+  const { modificarServicio, obtenerServicioPorId, successMessage, limpiarMensajeExito, error, servicioSeleccionado} = useServicios();
   const { id } = useParams();
   const formRef = useRef(null);
 
@@ -31,7 +31,7 @@ export const ModificarServicio = () => {
 
       <Title text={"Modificar servicio"} />
 
-      <FormularioModificarServicio modificarServicio={modificarServicio} formRef={formRef} error={error} servicio={servicioSeleccionado} />
+      <FormularioModificarServicio modificarServicio={modificarServicio} formRef={formRef} error={error} servicio={servicioSeleccionado}  />
 
       {successMessage && (
         <Modal mensaje={successMessage} alCerrar={limpiarMensajeExito} />

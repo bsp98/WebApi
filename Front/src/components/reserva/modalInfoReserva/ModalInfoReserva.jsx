@@ -13,13 +13,13 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
             <div className="contenido_modal_reserva">
 
                 <div className='container_info_modal_reserva'>
-                    
+
                     <div className='infoReserva_modal'>
                         <span className='titel_modal_reserva'>Reserva</span>
 
                         <div className='group_info_modal_reserva'>
                             <i className='icon_modal_reserva fa-solid fa-user'></i>
-                            <p className='info_modal_reserva'>{reserva.clienteId ?`${reserva.cliente.nombre} ${reserva.cliente.apellido}`:`${reserva.nombreCliente} ${reserva.apellidoCliente}`}</p>
+                            <p className='info_modal_reserva'>{reserva.clienteId ? `${reserva.cliente.nombre} ${reserva.cliente.apellido}` : `${reserva.nombreCliente} ${reserva.apellidoCliente}`}</p>
                         </div>
 
                         <div className='group_info_modal_reserva'>
@@ -40,6 +40,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
                     </div>
 
                     <div className='infoReserva_modal'>
+
                         <span className='titel_modal_reserva'>Servicio</span>
 
                         <div className='group_info_modal_reserva'>
@@ -56,6 +57,7 @@ export const ModalInfoReserva = ({ reserva, alCerrar }) => {
                             <i className='icon_modal_reserva fa-solid fa-stopwatch'></i>
                             <p className='info_modal_reserva'>{`${reserva.servicio.tiempoDeDuracionMin} min`}</p>
                         </div>
+
 
                     </div>
 

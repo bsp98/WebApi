@@ -34,7 +34,11 @@ export const useClientes = () => {
     };
 
     const eliminarCliente = (cliente) => {
-        dispatch(deleteClienteThunk(cliente.id));
+        const datos = {
+            id:cliente.id,
+            currentPage:currentPage
+        }
+        dispatch(deleteClienteThunk(datos));
     };
 
     const obtenerTodosLosClientes = () => {
