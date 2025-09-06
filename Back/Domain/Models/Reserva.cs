@@ -21,7 +21,7 @@ namespace Domain.Models
         public string? CelularCliente { get; set; }
 
         public TiposDeEstado EstadoDePago { get; set; }
-        public Servicio? Servicio { get; set; }
+        public Servicio? Servicio { get; set; } = null!;
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
@@ -60,7 +60,7 @@ namespace Domain.Models
         }
         private double CalcularPrecio()
         {
-            return Servicio.ObtenerPrecio();
+            return Servicio?.ObtenerPrecio()??0;
         }
 
         public Reserva() { }
@@ -72,7 +72,7 @@ namespace Domain.Models
 
 
         public void CancelarReserva() { 
-            this.Cancelada = true;
+            Cancelada = true;
             EnviarNotificacion();
         }
 
@@ -82,7 +82,7 @@ namespace Domain.Models
         }
 
         public string ObtenerNombreServicio() {
-            return Servicio.Nombre;
+            return Servicio?.Nombre ?? string.Empty;
         }
     }
 }

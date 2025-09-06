@@ -26,7 +26,7 @@ namespace Domain.Dto
         public string? EmailCliente { get; set; }
         public string? CelularCliente { get; set; }
         public TiposDeEstado EstadoDePago { get; set; }
-        public string NombreEstadoDePago { get; set; }
+        public string NombreEstadoDePago { get; set; } = string.Empty;
         public ServicioDto? Servicio { get; set; }  
         public int ServicioId { get; set; }
 
@@ -68,8 +68,9 @@ namespace Domain.Dto
 
         private void ValidarFecha()
         {
-            if (Fecha == null)
-                throw new DatoIncorrectoException("La fecha no puede ser nula.");
+            if (Fecha <= DateTime.MinValue)
+                throw new DatoIncorrectoException("La fecha no puede estar vacía");
+
 
             Fecha = Fecha.Date;
 
