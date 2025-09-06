@@ -23,7 +23,7 @@ namespace Domain.Dto
             OrigenCreacion = string.Empty;
         }
 
-        public virtual void Validar()
+        public override void Validar()
         {
             ValidarApellido();
             ValidarNombre();

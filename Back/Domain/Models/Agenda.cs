@@ -23,8 +23,8 @@ namespace Domain.Models
         }
         public static List<BloqueHorario> GenerarBloquesPorDia()
         {
-            List<BloqueHorario> bloquesManana ;
-            List<BloqueHorario> bloquesTarde ;
+            var bloquesManana = new List<BloqueHorario>();
+            var bloquesTarde = new List<BloqueHorario>();
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {//cambiar el horario de los sabados
@@ -46,7 +46,7 @@ namespace Domain.Models
 
         private static List<BloqueHorario> GenerarBloques(TimeSpan desde, TimeSpan hasta, int duracionMinutos)
         {
-            List<BloqueHorario> bloques = new List<BloqueHorario>();
+            var bloques = new List<BloqueHorario>();
             TimeSpan actual = desde;
 
             while (actual < hasta)
@@ -66,16 +66,19 @@ namespace Domain.Models
         //Me devuelve una lista de bloques a reservar
         public List<BloqueHorario> ObtenerBloquesAReservar(Reserva reserva)
         {
-            List<BloqueHorario> bloques = new List<BloqueHorario>();
-            foreach (var bloque in Bloques)
-            {
-                bool bloq = reserva.HoraInicio < bloque.HoraFin && reserva.HoraFin > bloque.HoraInicio;
-                if (bloq)
-                {
-                    bloques.Add(bloque);
-                }
-            }
-            return bloques;
+            //List<BloqueHorario> bloques = new List<BloqueHorario>();
+            //foreach (var bloque in Bloques)
+            //{
+            //    bool bloq = reserva.HoraInicio < bloque.HoraFin && reserva.HoraFin > bloque.HoraInicio;
+            //    if (bloq)
+            //    {
+            //        bloques.Add(bloque);
+            //    }
+            //}
+            //return bloques;
+            return Bloques
+           .Where(b => reserva.HoraInicio < b.HoraFin && reserva.HoraFin > b.HoraInicio)
+           .ToList();
         }
 
         //Marca como disponible los bloques de la reserva
@@ -123,29 +126,32 @@ namespace Domain.Models
             return bloquesDisponibles;
         }
 
-        public BloqueHorario ObtenerBloqueHorario(TimeSpan horaInicio, TimeSpan horaFin)
+        public BloqueHorario? ObtenerBloqueHorario(TimeSpan horaInicio, TimeSpan horaFin)
         {
+            return Bloques.FirstOrDefault(b => b.HoraInicio == horaInicio && b.HoraFin == horaFin);
+            //for (int i = 0; i < Bloques.Count; i++)
+            //{
+            //    BloqueHorario bloque = Bloques[i];
+            //    if (bloque.HoraInicio == horaInicio && bloque.HoraFin == horaFin) { return bloque; }
 
-            for (int i = 0; i < Bloques.Count; i++)
-            {
-                BloqueHorario bloque = Bloques[i];
-                if (bloque.HoraInicio == horaInicio && bloque.HoraFin == horaFin) { return bloque; }
 
-
-            }
-            return null;
+            //}
+            //return null;
         }
         public List<BloqueHorario> ObtenerBloquesHorario(TimeSpan horaInicio, TimeSpan horaFin)
         {
-            List<BloqueHorario> bloques = new List<BloqueHorario>();
-            for (int i = 0; i < Bloques.Count; i++)
-            {
-                BloqueHorario bloque = Bloques[i];
-                if (bloque.HoraFin > horaInicio && bloque.HoraInicio < horaFin) { bloques.Add(bloque); }
+            return Bloques
+            .Where(b => b.HoraFin > horaInicio && b.HoraInicio < horaFin)
+            .ToList();
+            //List<BloqueHorario> bloques = new List<BloqueHorario>();
+            //for (int i = 0; i < Bloques.Count; i++)
+            //{
+            //    BloqueHorario bloque = Bloques[i];
+            //    if (bloque.HoraFin > horaInicio && bloque.HoraInicio < horaFin) { bloques.Add(bloque); }
 
 
-            }
-            return bloques;
+            //}
+            //return bloques;
         }
 
 

@@ -21,7 +21,7 @@ namespace Domain.Models
         public string? CelularCliente { get; set; }
 
         public TiposDeEstado EstadoDePago { get; set; }
-        public Servicio Servicio { get; set; }
+        public Servicio? Servicio { get; set; }
         public int ServicioId { get; set; }
         public TimeSpan HoraInicio { get; set; }
         public TimeSpan HoraFin { get; set; }
