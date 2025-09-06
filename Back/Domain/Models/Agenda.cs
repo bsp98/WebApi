@@ -10,7 +10,7 @@ namespace Domain.Models
     {
         public int AgendaId { get; set; }
         public DateTime Fecha { get; set; }
-        public List<BloqueHorario> Bloques { get; set; }
+        public List<BloqueHorario> Bloques { get; set; } = new List<BloqueHorario>();
 
         public Agenda(DateTime fecha)
         {
@@ -19,11 +19,12 @@ namespace Domain.Models
         }
         public Agenda()
         {
+            Bloques = new List<BloqueHorario>();
         }
         public static List<BloqueHorario> GenerarBloquesPorDia()
         {
-            List<BloqueHorario> bloquesManana = null;
-            List<BloqueHorario> bloquesTarde = null;
+            List<BloqueHorario> bloquesManana ;
+            List<BloqueHorario> bloquesTarde ;
 
             if (DateTime.Now.DayOfWeek == DayOfWeek.Saturday)
             {//cambiar el horario de los sabados
