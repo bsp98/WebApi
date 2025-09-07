@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "apis1": {
+    "identityapp1": {
       "ignored": "true",
-      "type": "apis.azure"
+      "type": "identityapp"
     }
   }
 }
