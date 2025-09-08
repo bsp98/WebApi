@@ -45,7 +45,7 @@ namespace DataAcces.Repositories
 
         public IEnumerable<Egreso> ObtenerEgresosPaginados(int page, int pageSize)
         {
-            return Contexto.Set<Egreso>().AsNoTracking().OrderBy(c => c.Fecha).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            return Contexto.Set<Egreso>().AsNoTracking().OrderByDescending(c => c.Fecha).Skip((page - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public int ContarEgresos()
