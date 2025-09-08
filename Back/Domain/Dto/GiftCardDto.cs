@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Domain.Dto
-{
+{ 
     public class GiftCardDto : IValidable
     {
         public double Monto { get; set; }

@@ -12,9 +12,9 @@ namespace Domain.Models
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
         public CategoriaEgreso CategoriaEgreso { get; set; }
-        public string Lugar { get; set; }
+        public string Lugar { get; set; } = string.Empty;
         public Double Monto  { get; set; }
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
 
         public Egreso(DateTime fecha, CategoriaEgreso categoriaEgreso, double monto,string lugar, string descripcion)
         {

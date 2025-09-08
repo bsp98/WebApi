@@ -8,7 +8,7 @@ namespace Domain.Dto
 {
     public class BloqueHorarioDto
     {
-        public string HoraInicio { get; set; }
-        public string HoraFin { get; set; }
+        public string HoraInicio { get; set; } = string.Empty;
+        public string HoraFin { get; set; } = string.Empty;
     }
 }

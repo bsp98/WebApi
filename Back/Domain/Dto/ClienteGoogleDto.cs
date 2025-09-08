@@ -13,14 +13,17 @@ namespace Domain.Dto
     {
         public ClienteGoogleDto(string email, string nombre, string apellido) : base(email,nombre, apellido)
         {
-            Email = email;
-            Nombre = nombre;
-            Apellido = apellido;
+            //Email = email;
+           // Nombre = nombre;
+            //Apellido = apellido;
             TipoUsuario = TipoUsuario.Cliente;
         }
-        public ClienteGoogleDto() { }
+        public ClienteGoogleDto() {
+            TipoUsuario = TipoUsuario.Cliente;
+            OrigenCreacion = string.Empty;
+        }
 
-        public virtual void Validar()
+        public override void Validar()
         {
             ValidarApellido();
             ValidarNombre();

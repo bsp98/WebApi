@@ -22,7 +22,7 @@ namespace Domain.Dto
         public TipoUsuario TipoUsuario { get; set; }
         public string NombreTipoUsuario { get; set; } = string.Empty;
 
-        public string OrigenCreacion { get; set; }
+        public string OrigenCreacion { get; set; } = string.Empty;
 
         // [JsonConverter(typeof(JsonStringEnumConverter))]
         public UsuarioDto(string email, string password, string nombre, string apellido, string origenCreacion)

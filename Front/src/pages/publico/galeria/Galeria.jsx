@@ -46,7 +46,6 @@ export const Galeria = () => {
     { name: "PESTAÑAS", value: 2 },
     { name: "CEJAS", value: 3 },
     { name: "PIES", value: 4 },
-    { name: "PROMOS", value: 5 }
   ]
 
 

@@ -15,7 +15,6 @@ export const FormularioAltaPublicacion = ({ onSubmit, formRef, error }) => {
         { name: "PESTAÑAS", value: 2 },
         { name: "CEJAS", value: 3 },
         { name: "PIES", value: 4 },
-        { name: "PROMO", value: 5 }
     ];
     return (
         <div className='container_form'>
