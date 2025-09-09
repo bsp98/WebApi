@@ -39,7 +39,6 @@ export const GestionEgresos = () => {
   ];
 
   const optionsSelect = [
-    { name: "Todos", value: 0 },
     { name: "Esmaltes", value: 1 },
     { name: "Insumos", value: 2 },
     { name: "Herramientas", value: 3 },
