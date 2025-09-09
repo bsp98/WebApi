@@ -39,11 +39,12 @@ export const GestionEgresos = () => {
   ];
 
   const optionsSelect = [
-    { name: "Esmaltes", value: 0 },
-    { name: "Insumos", value: 1 },
-    { name: "Herramientas", value: 2 },
-    { name: "Decoracion", value: 3 },
-    { name: "Gastos comunes", value: 4 }
+    { name: "Todos", value: 0 },
+    { name: "Esmaltes", value: 1 },
+    { name: "Insumos", value: 2 },
+    { name: "Herramientas", value: 3 },
+    { name: "Decoracion", value: 4 },
+    { name: "Gastos comunes", value: 5 }
   ];
 
   return (

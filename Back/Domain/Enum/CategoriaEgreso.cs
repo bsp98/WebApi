@@ -8,10 +8,11 @@ namespace Domain.Enum
 {
     public enum CategoriaEgreso
     {
-        Esmalte = 0,
-        Insumos = 1,
-        Herramientas = 2,
-        Decoracion = 3,
-        GastosComunes = 4,
+        Todos = 0,
+        Esmalte = 1,
+        Insumos = 2,
+        Herramientas = 3,
+        Decoracion = 4,
+        GastosComunes = 5,
     }
 }
