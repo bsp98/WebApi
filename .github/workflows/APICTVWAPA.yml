@@ -1,4 +1,4 @@
-name: Compilar e implementar la aplicación de .NET Core en la aplicación web APICTVWAPA
+name: Compilar e implementar la aplicación de .NET Core en la aplicación web APICTVWAPA 
 
 on:
   push:
