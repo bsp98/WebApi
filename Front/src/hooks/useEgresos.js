@@ -5,7 +5,7 @@ import moment from 'moment';
 
 export const useEgresos = () => {
     const dispatch = useDispatch();
-    const { egresoSeleccionado,egresos, error, loading, successMessage,modalEgresoAbierto } = useSelector((state) => state.egresos);
+    const { egresoSeleccionado,egresos, error, loading, successMessage,modalEgresoAbierto,currentPage,total} = useSelector((state) => state.egresos);
 
 
     const crearEgreso = (e) => {
@@ -76,5 +76,7 @@ export const useEgresos = () => {
         onbtenerEgresosPaginados,
         abrirModalInfoEgreso,
         cerrarModalInfoEgreso,
+        currentPage,
+        total
     };
 };
