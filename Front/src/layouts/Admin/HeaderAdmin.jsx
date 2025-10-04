@@ -97,9 +97,9 @@ export const HeaderAdmin = ({ idUsuario, cerrarSesion, abrirModal }) => {
 
               <ul className={`container_subMenu ${subMenuOpen ? "open-mobile" : ""}`}>
 
-                <li className='item_subMenu'>
+                {/* <li className='item_subMenu'>
                   <NavLink className='link_submenu' to={`/admin/datos-personales/${idUsuario}`} onClick={handleLinkClick}>Datos personales</NavLink>
-                </li>
+                </li> */}
 
                 <li className='item_subMenu'>
                   <NavLink className='link_submenu' to={`/admin/cambiar-password/${idUsuario}`} onClick={handleLinkClick}>Cambiar contraseña</NavLink>

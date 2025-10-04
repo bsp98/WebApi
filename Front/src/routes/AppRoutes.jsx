@@ -111,7 +111,7 @@ export const AppRoutes = () => {
                         <Route path="modificar-reserva/:id" element={<ModificarReserva></ModificarReserva>} />
                         <Route path="modificar-servicio/:id" element={<ModificarServicio></ModificarServicio>} />
                         <Route path="cambiar-password/:id" element={<CambiarPassword></CambiarPassword>} />
-                        <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} />
+                        {/* <Route path="datos-personales/:id" element={<ConfigDatosPersonales></ConfigDatosPersonales>} /> */}
                         <Route path="form-reserva/:id" element={<FormularioReserva></FormularioReserva>} />
                         <Route path="fecha-hora/:accion/:id" element={<SeleccionarFechaHora></SeleccionarFechaHora>} />
                         <Route path="*" element={<Error404></Error404>} />
